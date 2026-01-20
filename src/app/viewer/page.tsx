@@ -8,28 +8,18 @@ import { Network, Trash2, ArrowRight } from "lucide-react";
 
 export default function ViewerPage() {
     const [input, setInput] = useState('{\n  "demo": "Try pasting some JSON here!",\n  "features": ["Tree View", "Copy Path", "Expand/Collapse"]\n}');
-    const [parsedData, setParsedData] = useState<any>(null);
-    const [error, setError] = useState<string | null>(null);
 
-    // Auto-parse when input changes, with debounce could be better but OK for now
-    useMemo(() => {
+    // Derive parsed data and error from input
+    const { parsedData, error } = useMemo(() => {
         if (!input.trim()) {
-            setParsedData(null);
-            setError(null);
-            return;
+            return { parsedData: null, error: null };
         }
         try {
             const parsed = JSON.parse(input);
-            setParsedData(parsed);
-            setError(null);
-        } catch (e) {
-            // Don't show error immediately while typing valid JSON parts, 
-            // but for viewer we might want to show it only when it's fully broken?
-            // Let's just keep parsedData stale if invalid, or show error?
-            // Better UX: Show error indicator but keep old tree if possible?
-            // For simplicity: clear tree if invalid
-            setParsedData(null);
-            setError("Invalid JSON");
+            return { parsedData: parsed, error: null };
+        } catch {
+            // Keep previous data? No, simpler to just show error or nothing.
+            return { parsedData: null, error: "Invalid JSON" };
         }
     }, [input]);
 

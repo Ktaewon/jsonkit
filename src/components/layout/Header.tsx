@@ -32,6 +32,12 @@ export function Header() {
                         >
                             Viewer
                         </Link>
+                        <Link
+                            href="/compare"
+                            className="transition-colors hover:text-foreground/80 text-foreground/60"
+                        >
+                            Compare
+                        </Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">

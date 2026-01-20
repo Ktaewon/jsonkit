@@ -5,20 +5,20 @@ import { ChevronRight, ChevronDown, Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface JsonTreeViewProps {
-    data: any;
+    data: unknown;
     level?: number;
     path?: string;
 }
 
-const getType = (value: any) => {
+const getType = (value: unknown) => {
     if (value === null) return "null";
     if (Array.isArray(value)) return "array";
     return typeof value;
 };
 
-const ValueDisplay = ({ value, type }: { value: any; type: string }) => {
-    if (type === "string") return <span className="text-green-600 dark:text-green-400">"{value}"</span>;
-    if (type === "number") return <span className="text-blue-600 dark:text-blue-400">{value}</span>;
+const ValueDisplay = ({ value, type }: { value: unknown; type: string }) => {
+    if (type === "string") return <span className="text-green-600 dark:text-green-400">&quot;{value as string}&quot;</span>;
+    if (type === "number") return <span className="text-blue-600 dark:text-blue-400">{value as number}</span>;
     if (type === "boolean") return <span className="text-purple-600 dark:text-purple-400">{String(value)}</span>;
     if (type === "null") return <span className="text-gray-500">null</span>;
     return <span>{String(value)}</span>;
@@ -30,7 +30,7 @@ export function JsonTreeView({ data, level = 0, path = "$" }: JsonTreeViewProps)
 
     const type = getType(data);
     const isObject = type === "object" || type === "array";
-    const keys = isObject ? Object.keys(data) : [];
+    const keys = isObject ? Object.keys(data as object) : [];
     const isEmpty = isObject && keys.length === 0;
 
     const handleCopyPath = (e: React.MouseEvent) => {
@@ -95,7 +95,7 @@ export function JsonTreeView({ data, level = 0, path = "$" }: JsonTreeViewProps)
             {isExpanded && !isEmpty && (
                 <div className="pl-4 border-l border-muted/50 ml-2">
                     {keys.map((key, index) => {
-                        const value = data[key];
+                        const value = (data as Record<string, unknown>)[key];
                         /* For arrays, path is path[index], for objects path.key (simplified) */
                         const nextPath = type === 'array'
                             ? `${path}[${key}]`
@@ -105,7 +105,7 @@ export function JsonTreeView({ data, level = 0, path = "$" }: JsonTreeViewProps)
                             <div key={key} className="flex items-start">
                                 {type !== "array" && (
                                     <span className={cn("mr-1 text-sky-700 dark:text-sky-300", "shrink-0")}>
-                                        "{key}":
+                                        &quot;{key}&quot;:
                                     </span>
                                 )}
                                 <JsonTreeView data={value} level={level + 1} path={nextPath} />

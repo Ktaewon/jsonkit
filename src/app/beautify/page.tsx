@@ -4,8 +4,7 @@ import { useState } from "react";
 import { JsonEditor } from "@/components/editor/JsonEditor";
 import { Button } from "@/components/ui/button";
 import { formatJson, minifyJson } from "@/lib/json/beautify";
-import { Copy, Download, Trash2, FileJson } from "lucide-react";
-import { toast } from "sonner"; // Assuming sonner is installed as requested in dependencies but need to add Toaster
+import { Copy, Trash2, FileJson } from "lucide-react";
 
 export default function BeautifyPage() {
     const [input, setInput] = useState("");

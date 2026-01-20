@@ -19,7 +19,7 @@ export function validateJson(input: string): ValidationResult {
             isValid: true,
             formatted: JSON.stringify(parsed, null, 2),
         };
-    } catch (e: any) {
+    } catch (e: unknown) {
         // Determine line number from error message if possible
         // jsonlint-mod usually provides a message like "Parse error on line 1: ..."
         const message = e.message || "Unknown error";
