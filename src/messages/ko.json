@@ -40,31 +40,36 @@
         "error": "오류"
     },
     "Beautify": {
-        "title": "JSON 포맷터 & 미니파이어",
+        "title": "JSON Beautifier & Minifier",
+        "description": "JSON 데이터를 포맷팅(Pretty Print)하여 가독성을 높이거나, 공백을 제거(Minify)하여 파일 용량을 줄일 수 있습니다.",
         "format": "Beautify",
         "minify": "Minify",
         "invalidJson": "유효하지 않은 JSON"
     },
     "Validate": {
-        "title": "JSON 검증기",
+        "title": "JSON Validator",
+        "description": "JSON 데이터의 문법 오류를 검사하고 수정하세요. 정확한 라인 번호와 오류 메시지를 제공하여 문제를 쉽게 찾을 수 있습니다.",
         "validateBtn": "JSON 검증",
         "valid": "유효한 JSON",
         "invalid": "유효하지 않은 JSON",
         "errorFound": "오류 발견:"
     },
     "Viewer": {
-        "title": "JSON 트리 뷰어",
+        "title": "JSON Tree Viewer",
+        "description": "복잡한 JSON 데이터를 계층적인 트리 구조로 시각화합니다. 노드를 펼치거나 접어서 데이터를 쉽게 탐색할 수 있습니다.",
         "inputTitle": "JSON 입력",
         "treeTitle": "트리 뷰",
         "enterValid": "유효한 JSON을 입력하여 트리를 확인하세요"
     },
     "Compare": {
-        "title": "JSON 차이 비교",
+        "title": "JSON Diff & Compare",
+        "description": "두 개의 JSON 데이터를 나란히 비교하여 차이점을 확인하세요. 추가, 삭제, 변경된 부분이 색상으로 강조 표시됩니다.",
         "clearAll": "모두 지우기",
         "instruction": "왼쪽(원본)과 오른쪽(수정본) 패널에서 직접 편집하여 비교하세요."
     },
     "Convert": {
-        "title": "JSON 변환기",
+        "title": "JSON Converter",
+        "description": "JSON 데이터를 YAML, XML, CSV 등 다른 형식으로 변환하거나, 반대로 다른 형식을 JSON으로 변환할 수 있습니다.",
         "swap": "교체",
         "jsonInput": "JSON 입력",
         "jsonOutput": "JSON 출력",

@@ -64,6 +64,9 @@ export default function ConverterPage() {
                     <ArrowRightLeft className="h-6 w-6" /> {t("title")}
                 </h1>
             </div>
+            <p className="text-muted-foreground">
+                {t("description")}
+            </p>
 
             <div className="flex items-center justify-center gap-4 bg-muted/30 p-4 rounded-lg border">
                 <div className="flex items-center gap-2">

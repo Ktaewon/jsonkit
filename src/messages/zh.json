@@ -41,12 +41,14 @@
     },
     "Beautify": {
         "title": "JSON Beautifier & Minifier",
+        "description": "Format and pretty-print your JSON data to make it easier to read, or minify it to reduce file size without changing the data.",
         "format": "Beautify",
         "minify": "Minify",
         "invalidJson": "Invalid JSON"
     },
     "Validate": {
         "title": "JSON Validator",
+        "description": "Validate your JSON strings against the standard. Find syntax errors quickly with precise line numbers and error messages.",
         "validateBtn": "Validate JSON",
         "valid": "Valid JSON",
         "invalid": "Invalid JSON",
@@ -54,17 +56,20 @@
     },
     "Viewer": {
         "title": "JSON Tree Viewer",
+        "description": "Visualize your JSON data as an interactive tree. Expand, collapse, and explore complex nested structures effortlessly.",
         "inputTitle": "JSON Input",
         "treeTitle": "Tree View",
         "enterValid": "Enter valid JSON to view tree"
     },
     "Compare": {
         "title": "JSON Diff & Compare",
+        "description": "Compare two JSON objects side-by-side to see differences. Visual highlighting makes it easy to spot added, removed, or modified values.",
         "clearAll": "Clear All",
         "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare."
     },
     "Convert": {
         "title": "JSON Converter",
+        "description": "Convert JSON data to other popular formats like YAML, XML, and CSV. You can also convert these formats back to JSON.",
         "swap": "Swap",
         "jsonInput": "JSON Input",
         "jsonOutput": "JSON Output",

@@ -59,6 +59,9 @@ export default function BeautifyPage() {
                     {/* Actions */}
                 </div>
             </div>
+            <p className="text-muted-foreground">
+                {t("description")}
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
                 <div className="flex flex-col gap-2 min-h-0">
