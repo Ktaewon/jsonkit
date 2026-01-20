@@ -1,0 +1,39 @@
+{
+    "Metadata": {
+        "title": "JSONKit - 올인원 JSON 유틸리티",
+        "description": "무료 온라인 JSON 포맷터, 검증기, 뷰어, 비교 및 변환 도구입니다."
+    },
+    "Navigation": {
+        "beautify": "Beautify",
+        "validate": "Validate",
+        "viewer": "Viewer",
+        "compare": "Compare",
+        "convert": "Convert"
+    },
+    "Landing": {
+        "heroTitle": "모든 JSON 작업을 한 곳에서",
+        "heroSubtitle": "브라우저에서 직접 JSON 데이터를 포맷팅, 검증, 시각화, 비교 및 변환하세요. 빠르고 안전하며 무료입니다.",
+        "getStarted": "시작하기",
+        "features": {
+            "beautifyTitle": "Beautify & Minify",
+            "beautifyDesc": "JSON을 읽기 쉽게 포맷팅하거나 용량을 줄이세요.",
+            "validateTitle": "Validator",
+            "validateDesc": "정확한 오류 보고로 JSON 문법 오류를 확인하세요.",
+            "viewerTitle": "Tree Viewer",
+            "viewerDesc": "대화형 트리 뷰로 복잡한 JSON 구조를 탐색하세요.",
+            "compareTitle": "Diff & Compare",
+            "compareDesc": "두 JSON 파일을 나란히 비교하여 차이점을 찾으세요.",
+            "convertTitle": "Converter",
+            "convertDesc": "JSON을 YAML, XML, CSV 등으로 변환하거나 그 반대로 변환하세요."
+        }
+    },
+    "Common": {
+        "theme": "테마",
+        "light": "라이트",
+        "dark": "다크",
+        "system": "시스템",
+        "copy": "복사",
+        "clear": "지우기",
+        "download": "다운로드"
+    }
+}

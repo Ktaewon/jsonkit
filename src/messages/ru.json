@@ -1,0 +1,39 @@
+{
+    "Metadata": {
+        "title": "JSONKit - All-in-one JSON Utility",
+        "description": "Free online JSON beautifier, validator, viewer, diff, and converter."
+    },
+    "Navigation": {
+        "beautify": "Beautify",
+        "validate": "Validate",
+        "viewer": "Viewer",
+        "compare": "Compare",
+        "convert": "Convert"
+    },
+    "Landing": {
+        "heroTitle": "Your All-in-One JSON Toolkit",
+        "heroSubtitle": "Beautify, validate, visualize, compare, and convert JSON data directly in your browser. Fast, secure, and free.",
+        "getStarted": "Get Started",
+        "features": {
+            "beautifyTitle": "Beautify & Minify",
+            "beautifyDesc": "Format your JSON to be readable or compact it to save space.",
+            "validateTitle": "Validator",
+            "validateDesc": "Check your JSON for syntax errors with precise error reporting.",
+            "viewerTitle": "Tree Viewer",
+            "viewerDesc": "Explore complex JSON structures with an interactive tree view.",
+            "compareTitle": "Diff & Compare",
+            "compareDesc": "Compare two JSON files side-by-side to find differences.",
+            "convertTitle": "Converter",
+            "convertDesc": "Convert JSON to YAML, XML, CSV and vice versa."
+        }
+    },
+    "Common": {
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System",
+        "copy": "Copy",
+        "clear": "Clear",
+        "download": "Download"
+    }
+}
