@@ -6,8 +6,10 @@ import { Button } from "@/components/ui/button";
 import { formatJson, minifyJson } from "@/lib/json/beautify";
 import { Copy, Trash2, FileJson } from "lucide-react";
 
+import { useLocalStorage } from "@/hooks/use-local-storage";
+
 export default function BeautifyPage() {
-    const [input, setInput] = useState("");
+    const [input, setInput] = useLocalStorage<string>("jsonkit-beautify-input", "");
     const [output, setOutput] = useState("");
     const [error, setError] = useState<string | null>(null);
 

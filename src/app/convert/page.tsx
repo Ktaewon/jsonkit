@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { JsonEditor } from "@/components/editor/JsonEditor";
 import { Button } from "@/components/ui/button";
 import { convert, ConversionFormat, ConversionDirection } from "@/lib/json/converter";
 import { ArrowRightLeft, Copy, Trash2, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 // Simple Label component
 const Label = ({ children, className }: { children: React.ReactNode; className?: string }) => (
@@ -15,9 +17,9 @@ const Label = ({ children, className }: { children: React.ReactNode; className?:
 );
 
 export default function ConverterPage() {
-    const [input, setInput] = useState('{\n  "name": "JSONKit",\n  "version": "1.0.0",\n  "features": ["Beautify", "Validate", "Converter"]\n}');
-    const [format, setFormat] = useState<ConversionFormat>("yaml");
-    const [direction, setDirection] = useState<ConversionDirection>("json-to-format");
+    const [input, setInput] = useLocalStorage<string>("jsonkit-converter-input", '{\n  "name": "JSONKit",\n  "version": "1.0.0",\n  "features": ["Beautify", "Validate", "Converter"]\n}');
+    const [format, setFormat] = useLocalStorage<ConversionFormat>("jsonkit-converter-format", "yaml");
+    const [direction, setDirection] = useLocalStorage<ConversionDirection>("jsonkit-converter-direction", "json-to-format");
 
     // Derive output and error from input, format, and direction
     const { output, error } = useMemo(() => {
