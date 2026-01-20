@@ -22,7 +22,7 @@ export function validateJson(input: string): ValidationResult {
     } catch (e: unknown) {
         // Determine line number from error message if possible
         // jsonlint-mod usually provides a message like "Parse error on line 1: ..."
-        const message = e.message || "Unknown error";
+        const message = (e as Error).message || "Unknown error";
         const lineMatch = message.match(/line (\d+)/);
         const line = lineMatch ? parseInt(lineMatch[1], 10) : undefined;
 
