@@ -1,7 +1,7 @@
 {
     "Metadata": {
-        "title": "JSONKit - All-in-one JSON Utility",
-        "description": "Free online JSON beautifier, validator, viewer, diff, and converter."
+        "title": "JSONKit - 多合一 JSON 工具",
+        "description": "免费的在线 JSON 美化、验证、查看、比较和转换工具。"
     },
     "Navigation": {
         "beautify": "Beautify",
@@ -11,69 +11,69 @@
         "convert": "Convert"
     },
     "Landing": {
-        "heroTitle": "Your All-in-One JSON Toolkit",
-        "heroSubtitle": "Beautify, validate, visualize, compare, and convert JSON data directly in your browser. Fast, secure, and free.",
-        "getStarted": "Get Started",
+        "heroTitle": "您的全能 JSON 工具箱",
+        "heroSubtitle": "直接在浏览器中美化、验证、可视化、比较和转换 JSON 数据。快速、安全且免费。",
+        "getStarted": "开始使用",
         "features": {
-            "beautifyTitle": "Beautify & Minify",
-            "beautifyDesc": "Format your JSON to be readable or compact it to save space.",
-            "validateTitle": "Validator",
-            "validateDesc": "Check your JSON for syntax errors with precise error reporting.",
-            "viewerTitle": "Tree Viewer",
-            "viewerDesc": "Explore complex JSON structures with an interactive tree view.",
-            "compareTitle": "Diff & Compare",
-            "compareDesc": "Compare two JSON files side-by-side to find differences.",
-            "convertTitle": "Converter",
-            "convertDesc": "Convert JSON to YAML, XML, CSV and vice versa."
+            "beautifyTitle": "美化 & 压缩",
+            "beautifyDesc": "将您的 JSON 格式化为易读格式或压缩以节省空间。",
+            "validateTitle": "验证器",
+            "validateDesc": "通过精确的错误报告检查 JSON 语法错误。",
+            "viewerTitle": "树形查看器",
+            "viewerDesc": "使用交互式树形视图探索复杂的 JSON 结构。",
+            "compareTitle": "差异 & 比较",
+            "compareDesc": "并排比较两个 JSON 文件以查找差异。",
+            "convertTitle": "转换器",
+            "convertDesc": "将 JSON 转换为 YAML、XML、CSV，反之亦然。"
         }
     },
     "Common": {
-        "theme": "Theme",
-        "light": "Light",
-        "dark": "Dark",
-        "system": "System",
-        "copy": "Copy",
-        "clear": "Clear",
-        "download": "Download",
-        "input": "Input",
-        "output": "Output",
-        "error": "Error"
+        "theme": "主题",
+        "light": "亮色",
+        "dark": "暗色",
+        "system": "系统",
+        "copy": "复制",
+        "clear": "清除",
+        "download": "下载",
+        "input": "输入",
+        "output": "输出",
+        "error": "错误"
     },
     "Beautify": {
         "title": "JSON Beautifier & Minifier",
-        "description": "Format and pretty-print your JSON data to make it easier to read, or minify it to reduce file size without changing the data.",
-        "format": "Beautify",
-        "minify": "Minify",
-        "invalidJson": "Invalid JSON"
+        "description": "格式化（美化）您的 JSON 数据使其更易于阅读，或将其压缩（Minify）以减小文件大小而不更改数据。",
+        "format": "美化 (Beautify)",
+        "minify": "压缩 (Minify)",
+        "invalidJson": "无效的 JSON"
     },
     "Validate": {
         "title": "JSON Validator",
-        "description": "Validate your JSON strings against the standard. Find syntax errors quickly with precise line numbers and error messages.",
-        "validateBtn": "Validate JSON",
-        "valid": "Valid JSON",
-        "invalid": "Invalid JSON",
-        "errorFound": "Error found:"
+        "description": "根据标准验证您的 JSON 字符串。通过精确的行号和错误消息快速查找语法错误。",
+        "validateBtn": "验证 JSON",
+        "valid": "有效的 JSON",
+        "invalid": "无效的 JSON",
+        "errorFound": "发现错误："
     },
     "Viewer": {
         "title": "JSON Tree Viewer",
-        "description": "Visualize your JSON data as an interactive tree. Expand, collapse, and explore complex nested structures effortlessly.",
-        "inputTitle": "JSON Input",
-        "treeTitle": "Tree View",
-        "enterValid": "Enter valid JSON to view tree"
+        "description": "将您的 JSON 数据可视化为交互式树。轻松展开、折叠和探索复杂的嵌套结构。",
+        "inputTitle": "JSON 输入",
+        "treeTitle": "树形视图",
+        "enterValid": "输入有效的 JSON 以查看树"
     },
     "Compare": {
         "title": "JSON Diff & Compare",
-        "description": "Compare two JSON objects side-by-side to see differences. Visual highlighting makes it easy to spot added, removed, or modified values.",
-        "clearAll": "Clear All",
-        "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare."
+        "description": "并排比较两个 JSON 对象以查看差异。视觉高亮显示使您很容易发现添加、删除或修改的值。",
+        "clearAll": "全部清除",
+        "instruction": "直接在左侧（原始）和右侧（修改）面板中进行编辑以进行比较。"
     },
     "Convert": {
         "title": "JSON Converter",
-        "description": "Convert JSON data to other popular formats like YAML, XML, and CSV. You can also convert these formats back to JSON.",
-        "swap": "Swap",
-        "jsonInput": "JSON Input",
-        "jsonOutput": "JSON Output",
-        "formatInput": "{format} Input",
-        "formatOutput": "{format} Output"
+        "description": "将 JSON 数据转换为其他流行格式，如 YAML、XML 和 CSV。您也可以将这些格式转回 JSON。",
+        "swap": "交换",
+        "jsonInput": "JSON 输入",
+        "jsonOutput": "JSON 输出",
+        "formatInput": "{format} 输入",
+        "formatOutput": "{format} 输出"
     }
 }

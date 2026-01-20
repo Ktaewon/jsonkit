@@ -1,7 +1,7 @@
 {
     "Metadata": {
-        "title": "JSONKit - All-in-one JSON Utility",
-        "description": "Free online JSON beautifier, validator, viewer, diff, and converter."
+        "title": "JSONKit - Инструменты JSON",
+        "description": "Бесплатный онлайн-инструмент для форматирования, валидации, просмотра, сравнения и конвертации JSON."
     },
     "Navigation": {
         "beautify": "Beautify",
@@ -11,69 +11,69 @@
         "convert": "Convert"
     },
     "Landing": {
-        "heroTitle": "Your All-in-One JSON Toolkit",
-        "heroSubtitle": "Beautify, validate, visualize, compare, and convert JSON data directly in your browser. Fast, secure, and free.",
-        "getStarted": "Get Started",
+        "heroTitle": "Ваш универсальный набор инструментов JSON",
+        "heroSubtitle": "Форматируйте, проверяйте, визуализируйте, сравнивайте и конвертируйте JSON-данные прямо в браузере. Быстро, безопасно и бесплатно.",
+        "getStarted": "Начать",
         "features": {
-            "beautifyTitle": "Beautify & Minify",
-            "beautifyDesc": "Format your JSON to be readable or compact it to save space.",
-            "validateTitle": "Validator",
-            "validateDesc": "Check your JSON for syntax errors with precise error reporting.",
-            "viewerTitle": "Tree Viewer",
-            "viewerDesc": "Explore complex JSON structures with an interactive tree view.",
-            "compareTitle": "Diff & Compare",
-            "compareDesc": "Compare two JSON files side-by-side to find differences.",
-            "convertTitle": "Converter",
-            "convertDesc": "Convert JSON to YAML, XML, CSV and vice versa."
+            "beautifyTitle": "Форматирование и сжатие",
+            "beautifyDesc": "Отформатируйте JSON для удобства чтения или сожмите его для экономии места.",
+            "validateTitle": "Валидатор",
+            "validateDesc": "Проверьте JSON на синтаксические ошибки с точным отчетом.",
+            "viewerTitle": "Просмотр дерева",
+            "viewerDesc": "Исследуйте сложные структуры JSON с помощью интерактивного дерева.",
+            "compareTitle": "Сравнение",
+            "compareDesc": "Сравните два JSON-файла бок о бок, чтобы найти различия.",
+            "convertTitle": "Конвертер",
+            "convertDesc": "Конвертируйте JSON в YAML, XML, CSV и обратно."
         }
     },
     "Common": {
-        "theme": "Theme",
-        "light": "Light",
-        "dark": "Dark",
-        "system": "System",
-        "copy": "Copy",
-        "clear": "Clear",
-        "download": "Download",
-        "input": "Input",
-        "output": "Output",
-        "error": "Error"
+        "theme": "Тема",
+        "light": "Светлая",
+        "dark": "Темная",
+        "system": "Системная",
+        "copy": "Копировать",
+        "clear": "Очистить",
+        "download": "Скачать",
+        "input": "Ввод",
+        "output": "Вывод",
+        "error": "Ошибка"
     },
     "Beautify": {
         "title": "JSON Beautifier & Minifier",
-        "description": "Format and pretty-print your JSON data to make it easier to read, or minify it to reduce file size without changing the data.",
-        "format": "Beautify",
-        "minify": "Minify",
-        "invalidJson": "Invalid JSON"
+        "description": "Отформатируйте (раскрасьте) ваши данные JSON, чтобы их было легче читать, или сожмите (минифицируйте), чтобы уменьшить размер файла без изменения данных.",
+        "format": "Форматировать",
+        "minify": "Сжать",
+        "invalidJson": "Неверный JSON"
     },
     "Validate": {
         "title": "JSON Validator",
-        "description": "Validate your JSON strings against the standard. Find syntax errors quickly with precise line numbers and error messages.",
-        "validateBtn": "Validate JSON",
-        "valid": "Valid JSON",
-        "invalid": "Invalid JSON",
-        "errorFound": "Error found:"
+        "description": "Проверьте свои строки JSON на соответствие стандарту. Быстро находите синтаксические ошибки с точными номерами строк и сообщениями.",
+        "validateBtn": "Проверить JSON",
+        "valid": "Верный JSON",
+        "invalid": "Неверный JSON",
+        "errorFound": "Найдена ошибка:"
     },
     "Viewer": {
         "title": "JSON Tree Viewer",
-        "description": "Visualize your JSON data as an interactive tree. Expand, collapse, and explore complex nested structures effortlessly.",
-        "inputTitle": "JSON Input",
-        "treeTitle": "Tree View",
-        "enterValid": "Enter valid JSON to view tree"
+        "description": "Визуализируйте данные JSON в виде интерактивного дерева. Легко разворачивайте, сворачивайте и исследуйте сложные вложенные структуры.",
+        "inputTitle": "Ввод JSON",
+        "treeTitle": "Дерево",
+        "enterValid": "Введите верный JSON для просмотра дерева"
     },
     "Compare": {
         "title": "JSON Diff & Compare",
-        "description": "Compare two JSON objects side-by-side to see differences. Visual highlighting makes it easy to spot added, removed, or modified values.",
-        "clearAll": "Clear All",
-        "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare."
+        "description": "Сравните два объекта JSON бок о бок, чтобы увидеть различия. Визуальная подсветка позволяет легко заметить добавленные, удаленные или измененные значения.",
+        "clearAll": "Очистить все",
+        "instruction": "Редактируйте прямо в левой (Оригинал) и правой (Изменено) панелях для сравнения."
     },
     "Convert": {
         "title": "JSON Converter",
-        "description": "Convert JSON data to other popular formats like YAML, XML, and CSV. You can also convert these formats back to JSON.",
-        "swap": "Swap",
-        "jsonInput": "JSON Input",
-        "jsonOutput": "JSON Output",
-        "formatInput": "{format} Input",
-        "formatOutput": "{format} Output"
+        "description": "Конвертируйте данные JSON в другие популярные форматы, такие как YAML, XML и CSV. Вы также можете конвертировать эти форматы обратно в JSON.",
+        "swap": "Поменять",
+        "jsonInput": "Ввод JSON",
+        "jsonOutput": "Вывод JSON",
+        "formatInput": "Ввод {format}",
+        "formatOutput": "Вывод {format}"
     }
 }

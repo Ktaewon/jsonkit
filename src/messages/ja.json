@@ -1,7 +1,7 @@
 {
     "Metadata": {
-        "title": "JSONKit - All-in-one JSON Utility",
-        "description": "Free online JSON beautifier, validator, viewer, diff, and converter."
+        "title": "JSONKit - オールインワンJSONユーティリティ",
+        "description": "無料のオンラインJSON整形、バリデーション、ビューア、比較、変換ツール。"
     },
     "Navigation": {
         "beautify": "Beautify",
@@ -11,69 +11,69 @@
         "convert": "Convert"
     },
     "Landing": {
-        "heroTitle": "Your All-in-One JSON Toolkit",
-        "heroSubtitle": "Beautify, validate, visualize, compare, and convert JSON data directly in your browser. Fast, secure, and free.",
-        "getStarted": "Get Started",
+        "heroTitle": "究極のJSONツールキット",
+        "heroSubtitle": "ブラウザ上で直接JSONデータの整形、検証、可視化、比較、変換が可能です。高速、安全、そして無料。",
+        "getStarted": "始める",
         "features": {
-            "beautifyTitle": "Beautify & Minify",
-            "beautifyDesc": "Format your JSON to be readable or compact it to save space.",
-            "validateTitle": "Validator",
-            "validateDesc": "Check your JSON for syntax errors with precise error reporting.",
-            "viewerTitle": "Tree Viewer",
-            "viewerDesc": "Explore complex JSON structures with an interactive tree view.",
-            "compareTitle": "Diff & Compare",
-            "compareDesc": "Compare two JSON files side-by-side to find differences.",
-            "convertTitle": "Converter",
-            "convertDesc": "Convert JSON to YAML, XML, CSV and vice versa."
+            "beautifyTitle": "整形 & 圧縮",
+            "beautifyDesc": "JSONを読みやすく整形したり、スペースを節約するために圧縮します。",
+            "validateTitle": "バリデーター",
+            "validateDesc": "正確なエラーレポートでJSONの構文エラーをチェックします。",
+            "viewerTitle": "ツリービューア",
+            "viewerDesc": "インタラクティブなツリービューで複雑なJSON構造を探索します。",
+            "compareTitle": "差分 & 比較",
+            "compareDesc": "2つのJSONファイルを並べて比較し、違いを見つけます。",
+            "convertTitle": "コンバーター",
+            "convertDesc": "JSONをYAML、XML、CSVなどに変換し、その逆も可能です。"
         }
     },
     "Common": {
-        "theme": "Theme",
-        "light": "Light",
-        "dark": "Dark",
-        "system": "System",
-        "copy": "Copy",
-        "clear": "Clear",
-        "download": "Download",
-        "input": "Input",
-        "output": "Output",
-        "error": "Error"
+        "theme": "テーマ",
+        "light": "ライト",
+        "dark": "ダーク",
+        "system": "システム",
+        "copy": "コピー",
+        "clear": "クリア",
+        "download": "ダウンロード",
+        "input": "入力",
+        "output": "出力",
+        "error": "エラー"
     },
     "Beautify": {
         "title": "JSON Beautifier & Minifier",
-        "description": "Format and pretty-print your JSON data to make it easier to read, or minify it to reduce file size without changing the data.",
-        "format": "Beautify",
-        "minify": "Minify",
-        "invalidJson": "Invalid JSON"
+        "description": "JSONデータを整形（プリティプリント）して読みやすくしたり、データを変更せずにファイルサイズを縮小（ミニファイ）したりできます。",
+        "format": "整形 (Beautify)",
+        "minify": "圧縮 (Minify)",
+        "invalidJson": "無効なJSON"
     },
     "Validate": {
         "title": "JSON Validator",
-        "description": "Validate your JSON strings against the standard. Find syntax errors quickly with precise line numbers and error messages.",
-        "validateBtn": "Validate JSON",
-        "valid": "Valid JSON",
-        "invalid": "Invalid JSON",
-        "errorFound": "Error found:"
+        "description": "JSON文字列が標準に準拠しているか検証します。正確な行番号とエラーメッセージで構文エラーを素早く見つけられます。",
+        "validateBtn": "JSONを検証",
+        "valid": "有効なJSON",
+        "invalid": "無効なJSON",
+        "errorFound": "エラーが見つかりました:"
     },
     "Viewer": {
         "title": "JSON Tree Viewer",
-        "description": "Visualize your JSON data as an interactive tree. Expand, collapse, and explore complex nested structures effortlessly.",
-        "inputTitle": "JSON Input",
-        "treeTitle": "Tree View",
-        "enterValid": "Enter valid JSON to view tree"
+        "description": "JSONデータをインタラクティブなツリーとして可視化します。複雑なネスト構造を簡単に展開、折りたたみ、探索できます。",
+        "inputTitle": "JSON入力",
+        "treeTitle": "ツリービュー",
+        "enterValid": "ツリーを表示するには有効なJSONを入力してください"
     },
     "Compare": {
         "title": "JSON Diff & Compare",
-        "description": "Compare two JSON objects side-by-side to see differences. Visual highlighting makes it easy to spot added, removed, or modified values.",
-        "clearAll": "Clear All",
-        "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare."
+        "description": "2つのJSONオブジェクトを並べて比較し、違いを確認します。追加、削除、変更された値が視覚的にハイライトされます。",
+        "clearAll": "すべてクリア",
+        "instruction": "左（元のデータ）と右（変更後）のパネルで直接編集して比較してください。"
     },
     "Convert": {
         "title": "JSON Converter",
-        "description": "Convert JSON data to other popular formats like YAML, XML, and CSV. You can also convert these formats back to JSON.",
-        "swap": "Swap",
-        "jsonInput": "JSON Input",
-        "jsonOutput": "JSON Output",
-        "formatInput": "{format} Input",
-        "formatOutput": "{format} Output"
+        "description": "JSONデータをYAML、XML、CSVなどの一般的な形式に変換したり、逆に変換してJSONに戻すことができます。",
+        "swap": "入れ替え",
+        "jsonInput": "JSON入力",
+        "jsonOutput": "JSON出力",
+        "formatInput": "{format} 入力",
+        "formatOutput": "{format} 出力"
     }
 }
