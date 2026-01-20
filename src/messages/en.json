@@ -34,6 +34,41 @@
         "system": "System",
         "copy": "Copy",
         "clear": "Clear",
-        "download": "Download"
+        "download": "Download",
+        "input": "Input",
+        "output": "Output",
+        "error": "Error"
+    },
+    "Beautify": {
+        "title": "JSON Beautifier & Minifier",
+        "format": "Beautify",
+        "minify": "Minify",
+        "invalidJson": "Invalid JSON"
+    },
+    "Validate": {
+        "title": "JSON Validator",
+        "validateBtn": "Validate JSON",
+        "valid": "Valid JSON",
+        "invalid": "Invalid JSON",
+        "errorFound": "Error found:"
+    },
+    "Viewer": {
+        "title": "JSON Tree Viewer",
+        "inputTitle": "JSON Input",
+        "treeTitle": "Tree View",
+        "enterValid": "Enter valid JSON to view tree"
+    },
+    "Compare": {
+        "title": "JSON Diff & Compare",
+        "clearAll": "Clear All",
+        "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare."
+    },
+    "Convert": {
+        "title": "JSON Converter",
+        "swap": "Swap",
+        "jsonInput": "JSON Input",
+        "jsonOutput": "JSON Output",
+        "formatInput": "{format} Input",
+        "formatOutput": "{format} Output"
     }
 }

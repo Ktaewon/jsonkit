@@ -34,6 +34,41 @@
         "system": "시스템",
         "copy": "복사",
         "clear": "지우기",
-        "download": "다운로드"
+        "download": "다운로드",
+        "input": "입력",
+        "output": "출력",
+        "error": "오류"
+    },
+    "Beautify": {
+        "title": "JSON 포맷터 & 미니파이어",
+        "format": "Beautify",
+        "minify": "Minify",
+        "invalidJson": "유효하지 않은 JSON"
+    },
+    "Validate": {
+        "title": "JSON 검증기",
+        "validateBtn": "JSON 검증",
+        "valid": "유효한 JSON",
+        "invalid": "유효하지 않은 JSON",
+        "errorFound": "오류 발견:"
+    },
+    "Viewer": {
+        "title": "JSON 트리 뷰어",
+        "inputTitle": "JSON 입력",
+        "treeTitle": "트리 뷰",
+        "enterValid": "유효한 JSON을 입력하여 트리를 확인하세요"
+    },
+    "Compare": {
+        "title": "JSON 차이 비교",
+        "clearAll": "모두 지우기",
+        "instruction": "왼쪽(원본)과 오른쪽(수정본) 패널에서 직접 편집하여 비교하세요."
+    },
+    "Convert": {
+        "title": "JSON 변환기",
+        "swap": "교체",
+        "jsonInput": "JSON 입력",
+        "jsonOutput": "JSON 출력",
+        "formatInput": "{format} 입력",
+        "formatOutput": "{format} 출력"
     }
 }

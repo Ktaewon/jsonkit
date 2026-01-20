@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { JsonEditor } from "@/components/editor/JsonEditor";
 import { Button } from "@/components/ui/button";
 import { convert, ConversionFormat, ConversionDirection } from "@/lib/json/converter";
@@ -17,6 +18,9 @@ const Label = ({ children, className }: { children: React.ReactNode; className?:
 );
 
 export default function ConverterPage() {
+    const t = useTranslations("Convert");
+    const tCommon = useTranslations("Common");
+
     const [input, setInput] = useLocalStorage<string>("jsonkit-converter-input", '{\n  "name": "JSONKit",\n  "version": "1.0.0",\n  "features": ["Beautify", "Validate", "Converter"]\n}');
     const [format, setFormat] = useLocalStorage<ConversionFormat>("jsonkit-converter-format", "yaml");
     const [direction, setDirection] = useLocalStorage<ConversionDirection>("jsonkit-converter-direction", "json-to-format");
@@ -42,9 +46,6 @@ export default function ConverterPage() {
 
     const toggleDirection = () => {
         setDirection(prev => prev === "json-to-format" ? "format-to-json" : "json-to-format");
-        // We might want to swap input/output content too, but that's tricky if output is invalid or simple state swap?
-        // Let's just reset or keep input? Swapping is better UX usually.
-        // If conversion was successful, we can set input = output (format) and clear output until re-convert (which happens auto).
         if (output && !error) {
             setInput(output);
         } else {
@@ -60,7 +61,7 @@ export default function ConverterPage() {
         <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold flex items-center gap-2">
-                    <ArrowRightLeft className="h-6 w-6" /> JSON Converter
+                    <ArrowRightLeft className="h-6 w-6" /> {t("title")}
                 </h1>
             </div>
 
@@ -79,7 +80,7 @@ export default function ConverterPage() {
                     </select>
                 </div>
                 <Button variant="outline" size="sm" onClick={toggleDirection} title="Swap Direction">
-                    <ArrowRightLeft className="h-4 w-4 mr-2" /> Swap
+                    <ArrowRightLeft className="h-4 w-4 mr-2" /> {t("swap")}
                 </Button>
             </div>
 
@@ -87,10 +88,10 @@ export default function ConverterPage() {
                 <div className="flex flex-col gap-2 min-h-0">
                     <div className="flex items-center justify-between">
                         <Label>
-                            {isJsonInput ? "JSON Input" : `${format.toUpperCase()} Input`}
+                            {isJsonInput ? t("jsonInput") : t("formatInput", { format: format.toUpperCase() })}
                         </Label>
                         <Button variant="ghost" size="sm" onClick={() => setInput("")}>
-                            <Trash2 className="h-4 w-4 mr-2" /> Clear
+                            <Trash2 className="h-4 w-4 mr-2" /> {tCommon("clear")}
                         </Button>
                     </div>
                     <div className="flex-1 min-h-0 border rounded-md overflow-hidden relative">
@@ -101,7 +102,7 @@ export default function ConverterPage() {
                         />
                         {error && (
                             <div className="absolute bottom-2 left-2 right-2 text-xs text-destructive bg-destructive/10 px-2 py-1 rounded">
-                                {error}
+                                {tCommon("error")}: {error}
                             </div>
                         )}
                     </div>
@@ -110,10 +111,10 @@ export default function ConverterPage() {
                 <div className="flex flex-col gap-2 min-h-0">
                     <div className="flex items-center justify-between">
                         <Label>
-                            {isJsonInput ? `${format.toUpperCase()} Output` : "JSON Output"}
+                            {isJsonInput ? t("formatOutput", { format: format.toUpperCase() }) : t("jsonOutput")}
                         </Label>
-                        <Button variant="ghost" size="sm" onClick={handleCopy} title="Copy Output">
-                            <Copy className="h-4 w-4 mr-2" /> Copy
+                        <Button variant="ghost" size="sm" onClick={handleCopy} title={tCommon("copy")}>
+                            <Copy className="h-4 w-4 mr-2" /> {tCommon("copy")}
                         </Button>
                     </div>
                     <div className="flex-1 min-h-0 border rounded-md overflow-hidden relative bg-muted/30">
