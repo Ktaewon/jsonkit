@@ -5,18 +5,16 @@ type Props = {
 };
 
 const GoogleAdsense = ({ pId }: Props) => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!pId) {
         return null;
     }
 
-    return (
     return (
         <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pId}`}
             crossOrigin="anonymous"
         />
-    );
     );
 };
 
