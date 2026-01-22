@@ -28,7 +28,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <GoogleAdsense pId="0000000000000000" />
+        <GoogleAdsense pId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ""} />
       </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
