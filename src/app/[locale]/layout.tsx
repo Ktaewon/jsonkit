@@ -18,6 +18,22 @@ export const metadata: Metadata = {
       "naver-site-verification": "187890350fe5651feb3073524c2b1ab610469222",
     },
   },
+  openGraph: {
+    title: "JSONKit - All-in-one JSON Utility",
+    description: "Free online JSON beautifier, validator, viewer and more.",
+    url: "https://jsonkit.org",
+    siteName: "JSONKit",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png", // We should probably verify if this exists or just add a placeholder
+        width: 1200,
+        height: 630,
+        alt: "JSONKit Preview",
+      },
+    ],
+  },
 };
 
 export default async function RootLayout({
