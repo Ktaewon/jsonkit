@@ -37,7 +37,7 @@ export function JsonDiffEditor({
             glyphMargin: false,
             lineDecorationsWidth: 0,
             lineNumbersMinChars: 3,
-            folding: false,
+            folding: true,
             ...props.options,
         };
 

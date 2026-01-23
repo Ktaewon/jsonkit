@@ -55,8 +55,8 @@ export function JsonEditor({
                     readOnly,
                     glyphMargin: false,
                     lineDecorationsWidth: 0,
-                    lineNumbersMinChars: 4,
-                    folding: false,
+                    lineNumbersMinChars: 3,
+                    folding: true,
                     ...props.options,
                 }}
                 {...props}
