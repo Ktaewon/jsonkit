@@ -17,7 +17,7 @@ export function JsonEditor({
     readOnly = false,
     ...props
 }: JsonEditorProps) {
-    const { theme } = useTheme();
+    const { theme, resolvedTheme } = useTheme();
     const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
 
     const handleEditorDidMount: OnMount = (editor, monaco) => {
@@ -39,7 +39,7 @@ export function JsonEditor({
                 defaultLanguage="json"
                 value={value}
                 onChange={onChange}
-                theme={theme === "dark" ? "vs-dark" : "light"}
+                theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
                 onMount={handleEditorDidMount}
                 loading={
                     <div className="flex h-full items-center justify-center">
