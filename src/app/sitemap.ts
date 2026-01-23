@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 // This would typically come from an environment variable
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://jsonkit.vercel.app';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://jsonkit.org';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const routes = [
