@@ -34,6 +34,8 @@
         "system": "System",
         "copy": "Copy",
         "clear": "Clear",
+        "inlineView": "Inline View",
+        "splitView": "Split View",
         "download": "Download",
         "input": "Input",
         "output": "Output",

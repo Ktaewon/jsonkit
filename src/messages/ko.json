@@ -34,6 +34,8 @@
         "system": "시스템",
         "copy": "복사",
         "clear": "지우기",
+        "inlineView": "일렬 보기",
+        "splitView": "분할 보기",
         "download": "다운로드",
         "input": "입력",
         "output": "출력",

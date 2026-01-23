@@ -14,6 +14,12 @@ export default function ComparePage() {
     const [original, setOriginal] = useLocalStorage<string>("jsonkit-compare-original", '{\n  "name": "JSONKit",\n  "version": "1.0.0"\n}');
     const [modified, setModified] = useLocalStorage<string>("jsonkit-compare-modified", '{\n  "name": "JSONKit",\n  "version": "2.0.0",\n  "newFeature": true\n}');
 
+    const [viewMode, setViewMode] = useLocalStorage<"split" | "inline">("jsonkit-compare-viewmode", "split");
+
+    const toggleViewMode = () => {
+        setViewMode(prev => prev === "split" ? "inline" : "split");
+    };
+
     const handleClear = () => {
         setOriginal("");
         setModified("");
@@ -33,9 +39,11 @@ export default function ComparePage() {
 
             <div className="flex flex-col gap-2 flex-1 min-h-0">
                 <div className="flex items-center justify-between">
-                    <p className="text-sm text-muted-foreground hidden md:block">
-                        {t("instruction")}
-                    </p>
+                    <div className="flex gap-2">
+                        <Button variant="outline" onClick={toggleViewMode}>
+                            {viewMode === "split" ? tCommon("inlineView") : tCommon("splitView")}
+                        </Button>
+                    </div>
                     <div className="flex gap-2 ml-auto">
                         <Button variant="outline" onClick={handleClear}>
                             <Trash2 className="h-4 w-4 mr-2" /> {t("clearAll")}
@@ -47,6 +55,9 @@ export default function ComparePage() {
                     <JsonDiffEditor
                         original={original}
                         modified={modified}
+                        options={{
+                            renderSideBySide: viewMode === "split"
+                        }}
                     />
                 </div>
             </div>

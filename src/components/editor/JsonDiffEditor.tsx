@@ -19,7 +19,7 @@ export function JsonDiffEditor({
     readOnly = false,
     ...props
 }: JsonDiffEditorProps) {
-    const { theme } = useTheme();
+    const { theme, resolvedTheme } = useTheme();
 
     return (
         <div className="h-full w-full min-h-[400px] border rounded-md overflow-hidden bg-background">
@@ -28,7 +28,7 @@ export function JsonDiffEditor({
                 language="json"
                 original={original}
                 modified={modified}
-                theme={theme === "dark" ? "vs-dark" : "light"}
+                theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
                 loading={
                     <div className="flex h-full items-center justify-center">
                         <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
