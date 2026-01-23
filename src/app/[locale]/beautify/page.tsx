@@ -68,7 +68,7 @@ export default function BeautifyPage() {
                     <div className="flex items-center justify-between">
                         <h2 className="text-sm font-medium text-muted-foreground">{tCommon("input")}</h2>
                         <div className="flex gap-2">
-                            <Button variant="ghost" onClick={handleClear} title={tCommon("clear")}>
+                            <Button variant="outline" onClick={handleClear} title={tCommon("clear")}>
                                 <Trash2 className="h-4 w-4" />
                             </Button>
                         </div>
@@ -88,7 +88,7 @@ export default function BeautifyPage() {
                             <Button onClick={handleMinify}>
                                 {t("minify")}
                             </Button>
-                            <Button variant="ghost" onClick={handleCopy} title={tCommon("copy")}>
+                            <Button variant="outline" onClick={handleCopy} title={tCommon("copy")}>
                                 <Copy className="h-4 w-4" />
                             </Button>
                         </div>

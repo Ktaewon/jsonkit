@@ -47,7 +47,7 @@ export default function ViewerPage() {
                 <div className="flex flex-col gap-2 min-h-0">
                     <div className="flex items-center justify-between">
                         <h2 className="text-sm font-medium text-muted-foreground">{t("inputTitle")}</h2>
-                        <Button variant="ghost" onClick={handleClear}>
+                        <Button variant="outline" onClick={handleClear}>
                             <Trash2 className="h-4 w-4 mr-2" /> {tCommon("clear")}
                         </Button>
                     </div>

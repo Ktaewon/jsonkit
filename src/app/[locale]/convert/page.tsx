@@ -93,7 +93,7 @@ export default function ConverterPage() {
                         <Label>
                             {isJsonInput ? t("jsonInput") : t("formatInput", { format: format.toUpperCase() })}
                         </Label>
-                        <Button variant="ghost" onClick={() => setInput("")}>
+                        <Button variant="outline" onClick={() => setInput("")}>
                             <Trash2 className="h-4 w-4 mr-2" /> {tCommon("clear")}
                         </Button>
                     </div>
@@ -116,7 +116,7 @@ export default function ConverterPage() {
                         <Label>
                             {isJsonInput ? t("formatOutput", { format: format.toUpperCase() }) : t("jsonOutput")}
                         </Label>
-                        <Button variant="ghost" onClick={handleCopy} title={tCommon("copy")}>
+                        <Button variant="outline" onClick={handleCopy} title={tCommon("copy")}>
                             <Copy className="h-4 w-4 mr-2" /> {tCommon("copy")}
                         </Button>
                     </div>
