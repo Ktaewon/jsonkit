@@ -3,8 +3,12 @@
 import { useTranslations } from "next-intl";
 import { JsonDiffEditor } from "@/components/editor/JsonDiffEditor";
 import { Button } from "@/components/ui/button";
-import { GitCompare, Trash2 } from "lucide-react";
+import { GitCompare, Trash2, Columns, Rows } from "lucide-react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useState, useEffect } from "react";
+
+import { JsonEditor } from "@/components/editor/JsonEditor";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function ComparePage() {
     const t = useTranslations("Compare");
@@ -14,16 +18,29 @@ export default function ComparePage() {
     const [original, setOriginal] = useLocalStorage<string>("jsonkit-compare-original", '{\n  "name": "JSONKit",\n  "version": "1.0.0"\n}');
     const [modified, setModified] = useLocalStorage<string>("jsonkit-compare-modified", '{\n  "name": "JSONKit",\n  "version": "2.0.0",\n  "newFeature": true\n}');
 
-    const [viewMode, setViewMode] = useLocalStorage<"split" | "inline">("jsonkit-compare-viewmode", "split");
+    const [activeTab, setActiveTab] = useState("diff");
+    const [viewMode, setViewMode] = useState<"split" | "inline">("split");
+    const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
-    const toggleViewMode = () => {
-        setViewMode(prev => prev === "split" ? "inline" : "split");
-    };
+    useEffect(() => {
+        setMounted(true);
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     const handleClear = () => {
         setOriginal("");
         setModified("");
     };
+
+    if (!mounted) {
+        return null;
+    }
 
     return (
         <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
@@ -31,36 +48,109 @@ export default function ComparePage() {
                 <h1 className="text-2xl font-bold flex items-center gap-2">
                     <GitCompare className="h-6 w-6" /> {t("title")}
                 </h1>
-                {/* Actions could go here */}
-            </div>
-            <p className="text-muted-foreground">
-                {t("description")}
-            </p>
-
-            <div className="flex flex-col gap-2 flex-1 min-h-0">
-                <div className="flex items-center justify-between">
-                    <div className="flex gap-2">
-                        <Button variant="outline" onClick={toggleViewMode}>
-                            {viewMode === "split" ? tCommon("inlineView") : tCommon("splitView")}
-                        </Button>
-                    </div>
-                    <div className="flex gap-2 ml-auto">
-                        <Button variant="outline" onClick={handleClear}>
-                            <Trash2 className="h-4 w-4 mr-2" /> {t("clearAll")}
-                        </Button>
-                    </div>
-                </div>
-
-                <div className="flex-1 min-h-0 relative">
-                    <JsonDiffEditor
-                        original={original}
-                        modified={modified}
-                        options={{
-                            renderSideBySide: viewMode === "split"
-                        }}
-                    />
+                <div className="flex items-center gap-2">
+                    {!isMobile && (
+                        <div className="flex items-center gap-1 bg-muted p-1 rounded-md mr-2">
+                            <Button
+                                variant={viewMode === "split" ? "default" : "ghost"}
+                                size="sm"
+                                onClick={() => setViewMode("split")}
+                                className="h-7 px-2 text-xs"
+                            >
+                                <Columns className="h-3.5 w-3.5 mr-1" />
+                                {tCommon("splitView")}
+                            </Button>
+                            <Button
+                                variant={viewMode === "inline" ? "default" : "ghost"}
+                                size="sm"
+                                onClick={() => setViewMode("inline")}
+                                className="h-7 px-2 text-xs"
+                            >
+                                <Rows className="h-3.5 w-3.5 mr-1" />
+                                {tCommon("inlineView")}
+                            </Button>
+                        </div>
+                    )}
+                    <Button variant="outline" onClick={handleClear} size="sm">
+                        <Trash2 className="h-4 w-4 mr-2" /> {t("clearAll")}
+                    </Button>
                 </div>
             </div>
+
+            {!isMobile ? (
+                // Desktop View
+                <div className="flex flex-col gap-2 flex-1 min-h-0">
+                    <p className="text-muted-foreground">
+                        {t("description")}
+                    </p>
+                    <div className="flex-1 min-h-0 relative">
+                        <JsonDiffEditor
+                            original={original}
+                            modified={modified}
+                            onOriginalChange={setOriginal}
+                            onModifiedChange={setModified}
+                            options={{
+                                renderSideBySide: viewMode === "split",
+                                wordWrap: "on"
+                            }}
+                        />
+                    </div>
+                </div>
+            ) : (
+
+                // Mobile View
+                <Tabs className="flex flex-col flex-1 min-h-0">
+                    <TabsList className="grid w-full grid-cols-3 mb-4">
+                        <TabsTrigger
+                            value="original"
+                            activeValue={activeTab}
+                            onValueChange={setActiveTab}
+                        >
+                            Original
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="modified"
+                            activeValue={activeTab}
+                            onValueChange={setActiveTab}
+                        >
+                            Modified
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="diff"
+                            activeValue={activeTab}
+                            onValueChange={setActiveTab}
+                        >
+                            Compare
+                        </TabsTrigger>
+                    </TabsList>
+
+                    <div className="flex-1 min-h-0 relative">
+                        <TabsContent value="original" activeValue={activeTab} className="h-full mt-0">
+                            <JsonEditor
+                                value={original}
+                                onChange={value => setOriginal(value || "")}
+                            />
+                        </TabsContent>
+                        <TabsContent value="modified" activeValue={activeTab} className="h-full mt-0">
+                            <JsonEditor
+                                value={modified}
+                                onChange={value => setModified(value || "")}
+                            />
+                        </TabsContent>
+                        <TabsContent value="diff" activeValue={activeTab} className="h-full mt-0">
+                            <JsonDiffEditor
+                                original={original}
+                                modified={modified}
+                                readOnly
+                                options={{
+                                    renderSideBySide: false,
+                                    wordWrap: "on"
+                                }}
+                            />
+                        </TabsContent>
+                    </div>
+                </Tabs>
+            )}
         </div>
     );
 }

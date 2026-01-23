@@ -36,11 +36,13 @@ export function JsonDiffEditor({
                 }
                 options={{
                     minimap: { enabled: false },
-                    fontSize: 14,
+                    fontSize: 13,
                     scrollBeyondLastLine: false,
                     readOnly,
-                    originalEditable: !readOnly, // Allow editing both sides for side-by-side comparison input
+                    originalEditable: !readOnly,
                     renderSideBySide: true,
+                    wordWrap: "on",
+                    diffWordWrap: "on",
                     ...props.options,
                 }}
                 {...props}
