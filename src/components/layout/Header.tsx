@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
-import { MobileNav } from "@/components/layout/MobileNav";
 import { FileJson } from "lucide-react";
 import { useLocale } from "next-intl";
 import { ChangeEvent, useTransition } from "react";
@@ -25,7 +24,6 @@ export function Header() {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-14 items-center">
-                <MobileNav />
                 <div className="mr-4 flex">
                     <Link href="/" className="mr-6 flex items-center space-x-2">
                         <FileJson className="h-6 w-6" />

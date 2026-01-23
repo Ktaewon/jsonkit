@@ -39,7 +39,7 @@ export function MobileNav() {
             {/* Overlay */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+                    className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-sm"
                     onClick={() => setIsOpen(false)}
                 />
             )}
@@ -47,9 +47,10 @@ export function MobileNav() {
             {/* Drawer */}
             <div
                 className={cn(
-                    "fixed inset-y-0 left-0 z-50 w-[75%] max-w-sm border-r bg-background p-6 shadow-lg transition-transform duration-300 ease-in-out",
+                    "fixed inset-y-0 left-0 z-[100] w-[75%] max-w-sm border-r bg-background p-6 shadow-lg transition-transform duration-300 ease-in-out",
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 )}
+                style={{ backgroundColor: "hsl(var(--background))" }}
             >
                 <div className="flex items-center justify-between mb-8">
                     <Link href="/" className="flex items-center space-x-2 font-bold">
