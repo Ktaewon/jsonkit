@@ -37,7 +37,7 @@ export default function ComparePage() {
                         {t("instruction")}
                     </p>
                     <div className="flex gap-2 ml-auto">
-                        <Button variant="ghost" size="sm" onClick={handleClear}>
+                        <Button variant="ghost" onClick={handleClear}>
                             <Trash2 className="h-4 w-4 mr-2" /> {t("clearAll")}
                         </Button>
                     </div>

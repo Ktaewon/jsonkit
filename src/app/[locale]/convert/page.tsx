@@ -82,7 +82,7 @@ export default function ConverterPage() {
                         <option value="csv">CSV</option>
                     </select>
                 </div>
-                <Button variant="outline" size="sm" onClick={toggleDirection} title="Swap Direction">
+                <Button variant="outline" onClick={toggleDirection} title="Swap Direction">
                     <ArrowRightLeft className="h-4 w-4 mr-2" /> {t("swap")}
                 </Button>
             </div>
@@ -93,7 +93,7 @@ export default function ConverterPage() {
                         <Label>
                             {isJsonInput ? t("jsonInput") : t("formatInput", { format: format.toUpperCase() })}
                         </Label>
-                        <Button variant="ghost" size="sm" onClick={() => setInput("")}>
+                        <Button variant="ghost" onClick={() => setInput("")}>
                             <Trash2 className="h-4 w-4 mr-2" /> {tCommon("clear")}
                         </Button>
                     </div>
@@ -116,7 +116,7 @@ export default function ConverterPage() {
                         <Label>
                             {isJsonInput ? t("formatOutput", { format: format.toUpperCase() }) : t("jsonOutput")}
                         </Label>
-                        <Button variant="ghost" size="sm" onClick={handleCopy} title={tCommon("copy")}>
+                        <Button variant="ghost" onClick={handleCopy} title={tCommon("copy")}>
                             <Copy className="h-4 w-4 mr-2" /> {tCommon("copy")}
                         </Button>
                     </div>

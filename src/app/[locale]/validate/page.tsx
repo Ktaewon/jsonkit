@@ -53,7 +53,7 @@ export default function ValidatePage() {
             <div className="flex flex-col gap-2 flex-1 min-h-0">
                 <div className="flex items-center justify-between">
                     <div className="flex gap-2">
-                        <Button variant="outline" onClick={handleValidate}>{t("validateBtn")}</Button>
+                        <Button onClick={handleValidate}>{t("validateBtn")}</Button>
                         <Button variant="ghost" onClick={handleClear}>
                             <Trash2 className="h-4 w-4 mr-2" /> {tCommon("clear")}
                         </Button>
