@@ -36,7 +36,7 @@ export function JsonEditor({
         <div className="h-full w-full min-h-[300px] border rounded-md overflow-hidden bg-background">
             <Editor
                 height="100%"
-                defaultLanguage="json"
+                language={props.language ?? "json"}
                 value={value}
                 onChange={onChange}
                 theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
