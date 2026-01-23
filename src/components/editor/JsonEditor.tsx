@@ -53,6 +53,10 @@ export function JsonEditor({
                     formatOnType: true,
                     scrollBeyondLastLine: false,
                     readOnly,
+                    glyphMargin: false,
+                    lineDecorationsWidth: 0,
+                    lineNumbersMinChars: 4,
+                    folding: false,
                     ...props.options,
                 }}
                 {...props}

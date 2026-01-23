@@ -98,7 +98,7 @@ export function JsonDiffEditor({
                     diffWordWrap: "on",
                     glyphMargin: false,
                     lineDecorationsWidth: 0,
-                    lineNumbersMinChars: 3,
+                    lineNumbersMinChars: 4,
                     folding: false,
                     ...props.options,
                 }}
