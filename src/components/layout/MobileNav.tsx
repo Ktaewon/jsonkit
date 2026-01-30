@@ -31,10 +31,13 @@ export function MobileNav() {
 
     return (
         <div className="md:hidden">
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle menu</span>
-            </Button>
+            {/* 햄버거 버튼: Header와 동일한 높이/위치에 fixed */}
+            <div className="fixed top-0 left-0 z-[60] h-14 flex items-center pl-4">
+                <Button variant="ghost" size="icon" onClick={() => setIsOpen(true)}>
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Toggle menu</span>
+                </Button>
+            </div>
 
             {/* Overlay */}
             {isOpen && (
