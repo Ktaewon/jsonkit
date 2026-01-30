@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "repair": "Repair"
     },
     "Landing": {
         "heroTitle": "究極のJSONツールキット",
@@ -75,5 +76,21 @@
         "jsonOutput": "JSON出力",
         "formatInput": "{format} 入力",
         "formatOutput": "{format} 出力"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "不正なJSONを自動的に修正します。末尾のカンマ、クォートの欠落、シングルクォート、コメントなどの一般的な問題を修正します。",
+        "repair": "修復",
+        "repaired": "修復済み",
+        "alreadyValid": "既に有効",
+        "repairFailed": "JSONを修復できませんでした",
+        "supportsTitle": "修正可能な項目",
+        "supports": {
+            "trailingCommas": "配列やオブジェクトの末尾のカンマ",
+            "missingQuotes": "プロパティ名周りの欠落したクォート",
+            "singleQuotes": "ダブルクォートの代わりのシングルクォート",
+            "comments": "JavaScript形式のコメント (// と /* */)",
+            "unquotedKeys": "クォートされていないプロパティキー"
+        }
     }
 }

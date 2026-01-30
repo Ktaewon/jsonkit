@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "repair": "Repair"
     },
     "Landing": {
         "heroTitle": "您的全能 JSON 工具箱",
@@ -75,5 +76,21 @@
         "jsonOutput": "JSON 输出",
         "formatInput": "{format} 输入",
         "formatOutput": "{format} 输出"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "自动修复格式错误的 JSON。修复常见问题，如尾随逗号、缺失引号、单引号和注释。",
+        "repair": "修复",
+        "repaired": "已修复",
+        "alreadyValid": "已经有效",
+        "repairFailed": "无法修复 JSON",
+        "supportsTitle": "支持修复",
+        "supports": {
+            "trailingCommas": "数组和对象中的尾随逗号",
+            "missingQuotes": "属性名周围缺失的引号",
+            "singleQuotes": "单引号代替双引号",
+            "comments": "JavaScript 风格的注释 (// 和 /* */)",
+            "unquotedKeys": "未加引号的属性键"
+        }
     }
 }

@@ -111,6 +111,15 @@ export function MobileNav() {
                     >
                         {t('convert')}
                     </Link>
+                    <Link
+                        href="/repair"
+                        className={cn(
+                            "text-lg font-medium transition-colors hover:text-primary",
+                            pathname === "/repair" ? "text-primary" : "text-muted-foreground"
+                        )}
+                    >
+                        {t('repair')}
+                    </Link>
                 </nav>
 
                 <div className="absolute bottom-8 left-6 right-6 text-sm text-muted-foreground">

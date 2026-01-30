@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "repair": "Repair"
     },
     "Landing": {
         "heroTitle": "Ваш универсальный набор инструментов JSON",
@@ -75,5 +76,21 @@
         "jsonOutput": "Вывод JSON",
         "formatInput": "Ввод {format}",
         "formatOutput": "Вывод {format}"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "Автоматическое исправление некорректного JSON. Исправляет типичные проблемы: висячие запятые, пропущенные кавычки, одинарные кавычки и комментарии.",
+        "repair": "Исправить",
+        "repaired": "Исправлено",
+        "alreadyValid": "Уже корректный",
+        "repairFailed": "Не удалось исправить JSON",
+        "supportsTitle": "Поддерживает исправление",
+        "supports": {
+            "trailingCommas": "Висячие запятые в массивах и объектах",
+            "missingQuotes": "Пропущенные кавычки вокруг имён свойств",
+            "singleQuotes": "Одинарные кавычки вместо двойных",
+            "comments": "Комментарии в стиле JavaScript (// и /* */)",
+            "unquotedKeys": "Ключи свойств без кавычек"
+        }
     }
 }
