@@ -12,26 +12,15 @@ export function escapeJson(input: string): EscapeResult {
     if (!input.trim()) {
         return { success: true, result: "" };
     }
-    try {
-        // First validate that it's valid JSON
-        JSON.parse(input);
+    // Escape the string: use JSON.stringify to escape, then remove outer quotes
+    const escaped = JSON.stringify(input);
+    // Remove the surrounding quotes added by stringify
+    const result = escaped.slice(1, -1);
 
-        // Escape the string: use JSON.stringify to escape, then remove outer quotes
-        const escaped = JSON.stringify(input);
-        // Remove the surrounding quotes added by stringify
-        const result = escaped.slice(1, -1);
-
-        return {
-            success: true,
-            result: result,
-        };
-    } catch (e) {
-        return {
-            success: false,
-            result: input,
-            error: (e as Error).message,
-        };
-    }
+    return {
+        success: true,
+        result: result,
+    };
 }
 
 /**
@@ -45,9 +34,6 @@ export function unescapeJson(input: string): EscapeResult {
     try {
         // Add quotes back and parse to unescape
         const unescaped = JSON.parse(`"${input}"`);
-
-        // Validate that the result is valid JSON
-        JSON.parse(unescaped);
 
         return {
             success: true,

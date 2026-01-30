@@ -72,7 +72,7 @@ export default function EscapePage() {
                             </Button>
                         </div>
                     </div>
-                    <div className="flex-1 min-h-0 border rounded-md overflow-hidden">
+                    <div className="flex-1 min-h-0">
                         <JsonEditor value={input} onChange={(v) => setInput(v || "")} />
                     </div>
                 </div>
@@ -92,7 +92,7 @@ export default function EscapePage() {
                             </Button>
                         </div>
                     </div>
-                    <div className="flex-1 min-h-0 border rounded-md overflow-hidden relative">
+                    <div className="flex-1 min-h-0 relative">
                         <JsonEditor value={output} readOnly />
                         {error && (
                             <div className="absolute bottom-4 left-4 right-4 bg-destructive text-destructive-foreground p-3 rounded-md text-sm shadow-lg animate-in fade-in slide-in-from-bottom-2">
