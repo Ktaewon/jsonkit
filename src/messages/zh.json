@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "query": "Query"
     },
     "Landing": {
         "heroTitle": "您的全能 JSON 工具箱",
@@ -75,5 +76,17 @@
         "jsonOutput": "JSON 输出",
         "formatInput": "{format} 输入",
         "formatOutput": "{format} 输出"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "使用 JSONPath 表达式从 JSON 中提取数据。使用强大的路径语法查询嵌套对象和数组。",
+        "queryPlaceholder": "输入 JSONPath (例如: $.store.book[*].author)",
+        "execute": "执行",
+        "examples": "示例",
+        "jsonInput": "JSON 输入",
+        "queryResult": "查询结果",
+        "matches": "个匹配",
+        "invalidQuery": "无效的 JSONPath 查询",
+        "invalidJson": "无效的 JSON"
     }
 }

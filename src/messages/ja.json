@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "query": "Query"
     },
     "Landing": {
         "heroTitle": "究極のJSONツールキット",
@@ -75,5 +76,17 @@
         "jsonOutput": "JSON出力",
         "formatInput": "{format} 入力",
         "formatOutput": "{format} 出力"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "JSONPath式を使用してJSONからデータを抽出します。強力なパス構文でネストされたオブジェクトと配列をクエリできます。",
+        "queryPlaceholder": "JSONPathを入力 (例: $.store.book[*].author)",
+        "execute": "実行",
+        "examples": "例",
+        "jsonInput": "JSON入力",
+        "queryResult": "クエリ結果",
+        "matches": "件一致",
+        "invalidQuery": "無効なJSONPathクエリ",
+        "invalidJson": "無効なJSON"
     }
 }

@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "query": "Query"
     },
     "Landing": {
         "heroTitle": "Ваш универсальный набор инструментов JSON",
@@ -75,5 +76,17 @@
         "jsonOutput": "Вывод JSON",
         "formatInput": "Ввод {format}",
         "formatOutput": "Вывод {format}"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "Извлекайте данные из JSON с помощью выражений JSONPath. Запрашивайте вложенные объекты и массивы с мощным синтаксисом путей.",
+        "queryPlaceholder": "Введите JSONPath (например: $.store.book[*].author)",
+        "execute": "Выполнить",
+        "examples": "Примеры",
+        "jsonInput": "Ввод JSON",
+        "queryResult": "Результат запроса",
+        "matches": "совпадений",
+        "invalidQuery": "Неверный JSONPath запрос",
+        "invalidJson": "Неверный JSON"
     }
 }
