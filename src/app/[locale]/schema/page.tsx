@@ -19,6 +19,12 @@ export default function SchemaPage() {
     const [errors, setErrors] = useState<Array<{ path: string; message: string; keyword: string }>>([]);
     const [generalError, setGeneralError] = useState<string | null>(null);
 
+    const resetValidationState = () => {
+        setIsValid(null);
+        setErrors([]);
+        setGeneralError(null);
+    };
+
     const handleValidate = () => {
         const result = validateJsonSchema(data, schema);
         if (result.success) {
@@ -35,17 +41,13 @@ export default function SchemaPage() {
     const handleLoadExample = () => {
         setData(getExampleData());
         setSchema(getExampleSchema());
-        setIsValid(null);
-        setErrors([]);
-        setGeneralError(null);
+        resetValidationState();
     };
 
     const handleClear = () => {
         setData("");
         setSchema("");
-        setIsValid(null);
-        setErrors([]);
-        setGeneralError(null);
+        resetValidationState();
     };
 
     return (
@@ -124,7 +126,7 @@ export default function SchemaPage() {
 
                                 <div className="space-y-2">
                                     {errors.map((error, index) => (
-                                        <div key={index} className="bg-background border p-3 rounded-md text-sm">
+                                        <div key={`${index}-${error.path}`} className="bg-background border p-3 rounded-md text-sm">
                                             <div className="font-mono text-xs text-muted-foreground mb-1">
                                                 {error.path || "/"} <span className="text-primary">({error.keyword})</span>
                                             </div>

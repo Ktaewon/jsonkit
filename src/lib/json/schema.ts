@@ -31,7 +31,7 @@ export function validateJsonSchema(data: string, schema: string): SchemaValidati
         const parsedData = JSON.parse(data);
         const parsedSchema = JSON.parse(schema);
 
-        const ajv = new Ajv({ allErrors: true, verbose: true });
+        const ajv = new Ajv({ allErrors: true });
         addFormats(ajv);
 
         const validate = ajv.compile(parsedSchema);
