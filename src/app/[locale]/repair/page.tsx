@@ -38,9 +38,13 @@ export default function RepairPage() {
         setError(null);
     };
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         if (!output) return;
-        navigator.clipboard.writeText(output);
+        try {
+            await navigator.clipboard.writeText(output);
+        } catch {
+            // Clipboard API failed, ignore silently
+        }
     };
 
     return (

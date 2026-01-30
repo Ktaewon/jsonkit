@@ -18,11 +18,11 @@ export function repairJson(input: string): RepairResult {
     try {
         // First check if it's already valid JSON
         try {
-            JSON.parse(input);
+            const parsed = JSON.parse(input);
             // Already valid, just format it
             return {
                 success: true,
-                result: JSON.stringify(JSON.parse(input), null, 2),
+                result: JSON.stringify(parsed, null, 2),
                 wasRepaired: false,
             };
         } catch {
