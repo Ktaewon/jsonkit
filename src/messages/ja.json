@@ -87,6 +87,7 @@
         "queryResult": "クエリ結果",
         "matches": "件一致",
         "invalidQuery": "無効なJSONPathクエリ",
-        "invalidJson": "無効なJSON"
+        "invalidJson": "無効なJSON",
+        "emptyQuery": "JSONPathクエリを入力してください"
     }
 }

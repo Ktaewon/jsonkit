@@ -22,6 +22,12 @@ export default function QueryPage() {
     const exampleQueries = getExampleQueries();
 
     const handleQuery = useCallback(() => {
+        if (!queryPath.trim()) {
+            setOutput("");
+            setResultCount(0);
+            setError(t("emptyQuery"));
+            return;
+        }
         const { success, result, count, error } = queryJson(input, queryPath);
         if (success) {
             setOutput(result);
@@ -46,9 +52,13 @@ export default function QueryPage() {
         setError(null);
     };
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         if (!output) return;
-        navigator.clipboard.writeText(output);
+        try {
+            await navigator.clipboard.writeText(output);
+        } catch {
+            // Clipboard API failed, ignore silently
+        }
     };
 
     return (
@@ -120,14 +130,14 @@ export default function QueryPage() {
                             </Button>
                         </div>
                     </div>
-                    <div className="flex-1 min-h-0 border rounded-md overflow-hidden relative">
+                    <div className="flex-1 min-h-0 border rounded-md overflow-hidden">
                         <JsonEditor value={output} readOnly />
-                        {error && (
-                            <div className="absolute bottom-4 left-4 right-4 bg-destructive text-destructive-foreground p-3 rounded-md text-sm shadow-lg animate-in fade-in slide-in-from-bottom-2">
-                                {tCommon("error")}: {error}
-                            </div>
-                        )}
                     </div>
+                    {error && (
+                        <div className="bg-destructive text-destructive-foreground p-3 rounded-md text-sm mt-2">
+                            {tCommon("error")}: {error}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

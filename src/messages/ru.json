@@ -87,6 +87,7 @@
         "queryResult": "Результат запроса",
         "matches": "совпадений",
         "invalidQuery": "Неверный JSONPath запрос",
-        "invalidJson": "Неверный JSON"
+        "invalidJson": "Неверный JSON",
+        "emptyQuery": "Введите JSONPath запрос"
     }
 }

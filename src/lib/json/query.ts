@@ -19,9 +19,6 @@ export function queryJson(json: string, path: string): QueryResult {
     if (!json.trim()) {
         return { success: true, result: "", count: 0 };
     }
-    if (!path.trim()) {
-        return { success: false, result: "", count: 0, error: "Please enter a JSONPath query" };
-    }
     try {
         const parsed = JSON.parse(json);
         const results = JSONPath({ path, json: parsed, wrap: true });

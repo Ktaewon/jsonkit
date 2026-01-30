@@ -89,6 +89,7 @@
         "queryResult": "Query Result",
         "matches": "matches",
         "invalidQuery": "Invalid JSONPath query",
-        "invalidJson": "Invalid JSON"
+        "invalidJson": "Invalid JSON",
+        "emptyQuery": "Please enter a JSONPath query"
     }
 }

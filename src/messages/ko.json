@@ -89,6 +89,7 @@
         "queryResult": "쿼리 결과",
         "matches": "개 일치",
         "invalidQuery": "유효하지 않은 JSONPath 쿼리",
-        "invalidJson": "유효하지 않은 JSON"
+        "invalidJson": "유효하지 않은 JSON",
+        "emptyQuery": "JSONPath 쿼리를 입력하세요"
     }
 }

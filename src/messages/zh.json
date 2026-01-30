@@ -87,6 +87,7 @@
         "queryResult": "查询结果",
         "matches": "个匹配",
         "invalidQuery": "无效的 JSONPath 查询",
-        "invalidJson": "无效的 JSON"
+        "invalidJson": "无效的 JSON",
+        "emptyQuery": "请输入 JSONPath 查询"
     }
 }
