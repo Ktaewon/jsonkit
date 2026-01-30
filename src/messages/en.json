@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "escape": "Escape"
     },
     "Landing": {
         "heroTitle": "Your All-in-One JSON Toolkit",
@@ -77,5 +78,13 @@
         "jsonOutput": "JSON Output",
         "formatInput": "{format} Input",
         "formatOutput": "{format} Output"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "Escape JSON strings for embedding in other JSON or code, or unescape previously escaped JSON strings back to their original format.",
+        "escape": "Escape",
+        "unescape": "Unescape",
+        "invalidJson": "Invalid JSON",
+        "invalidEscaped": "Invalid escaped string"
     }
 }

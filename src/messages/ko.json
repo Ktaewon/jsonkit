@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "escape": "Escape"
     },
     "Landing": {
         "heroTitle": "모든 JSON 작업을 한 곳에서",
@@ -77,5 +78,13 @@
         "jsonOutput": "JSON 출력",
         "formatInput": "{format} 입력",
         "formatOutput": "{format} 출력"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "JSON 문자열을 이스케이프하여 다른 JSON이나 코드에 포함시키거나, 이스케이프된 JSON 문자열을 원래 형식으로 되돌립니다.",
+        "escape": "Escape",
+        "unescape": "Unescape",
+        "invalidJson": "유효하지 않은 JSON",
+        "invalidEscaped": "유효하지 않은 이스케이프 문자열"
     }
 }

@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "escape": "Escape"
     },
     "Landing": {
         "heroTitle": "Ваш универсальный набор инструментов JSON",
@@ -75,5 +76,13 @@
         "jsonOutput": "Вывод JSON",
         "formatInput": "Ввод {format}",
         "formatOutput": "Вывод {format}"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "Экранируйте строки JSON для встраивания в другой JSON или код, или снимите экранирование с ранее экранированных строк JSON.",
+        "escape": "Экранировать",
+        "unescape": "Снять экранирование",
+        "invalidJson": "Неверный JSON",
+        "invalidEscaped": "Неверная экранированная строка"
     }
 }
