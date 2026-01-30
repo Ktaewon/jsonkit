@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "schema": "Schema"
     },
     "Landing": {
         "heroTitle": "Your All-in-One JSON Toolkit",
@@ -77,5 +78,19 @@
         "jsonOutput": "JSON Output",
         "formatInput": "{format} Input",
         "formatOutput": "{format} Output"
+    },
+    "Schema": {
+        "title": "JSON Schema Validator",
+        "description": "Validate your JSON data against a JSON Schema. Ensure your data conforms to a defined structure with detailed error reporting.",
+        "jsonData": "JSON Data",
+        "jsonSchema": "JSON Schema",
+        "result": "Validation Result",
+        "validate": "Validate",
+        "loadExample": "Load Example",
+        "valid": "Valid - JSON matches the schema",
+        "invalid": "Invalid",
+        "errors": "errors",
+        "enterDataAndSchema": "Enter JSON data and schema, then click Validate",
+        "validationFailed": "Validation failed"
     }
 }

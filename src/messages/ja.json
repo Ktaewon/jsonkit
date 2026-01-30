@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "schema": "Schema"
     },
     "Landing": {
         "heroTitle": "究極のJSONツールキット",
@@ -75,5 +76,19 @@
         "jsonOutput": "JSON出力",
         "formatInput": "{format} 入力",
         "formatOutput": "{format} 出力"
+    },
+    "Schema": {
+        "title": "JSON Schema Validator",
+        "description": "JSON SchemaでJSONデータを検証します。詳細なエラーレポートで、データが定義された構造に準拠しているか確認できます。",
+        "jsonData": "JSONデータ",
+        "jsonSchema": "JSON Schema",
+        "result": "検証結果",
+        "validate": "検証",
+        "loadExample": "サンプルを読み込む",
+        "valid": "有効 - JSONがスキーマと一致します",
+        "invalid": "無効",
+        "errors": "件のエラー",
+        "enterDataAndSchema": "JSONデータとスキーマを入力し、検証をクリックしてください",
+        "validationFailed": "検証に失敗しました"
     }
 }
