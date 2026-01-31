@@ -9,6 +9,8 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
+        "query": "Query",
+        "escape": "Escape",
         "repair": "Repair"
     },
     "Landing": {
@@ -76,6 +78,27 @@
         "jsonOutput": "JSON出力",
         "formatInput": "{format} 入力",
         "formatOutput": "{format} 出力"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "JSONPath式を使用してJSONからデータを抽出します。強力なパス構文でネストされたオブジェクトと配列をクエリできます。",
+        "queryPlaceholder": "JSONPathを入力 (例: $.store.book[*].author)",
+        "execute": "実行",
+        "examples": "例",
+        "jsonInput": "JSON入力",
+        "queryResult": "クエリ結果",
+        "matches": "件一致",
+        "invalidQuery": "無効なJSONPathクエリ",
+        "invalidJson": "無効なJSON",
+        "emptyQuery": "JSONPathクエリを入力してください"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",
+        "escape": "エスケープ",
+        "unescape": "アンエスケープ",
+        "invalidJson": "無効なJSON",
+        "invalidEscaped": "無効なエスケープ文字列"
     },
     "Repair": {
         "title": "JSON Repair",

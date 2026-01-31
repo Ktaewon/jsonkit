@@ -112,6 +112,24 @@ export function MobileNav() {
                         {t('convert')}
                     </Link>
                     <Link
+                        href="/query"
+                        className={cn(
+                            "text-lg font-medium transition-colors hover:text-primary",
+                            pathname === "/query" ? "text-primary" : "text-muted-foreground"
+                        )}
+                    >
+                        {t('query')}
+                    </Link>
+                    <Link
+                        href="/escape"
+                        className={cn(
+                            "text-lg font-medium transition-colors hover:text-primary",
+                            pathname === "/escape" ? "text-primary" : "text-muted-foreground"
+                        )}
+                    >
+                        {t('escape')}
+                    </Link>
+                    <Link
                         href="/repair"
                         className={cn(
                             "text-lg font-medium transition-colors hover:text-primary",

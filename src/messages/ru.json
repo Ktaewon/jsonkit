@@ -9,6 +9,8 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
+        "query": "Query",
+        "escape": "Escape",
         "repair": "Repair"
     },
     "Landing": {
@@ -76,6 +78,27 @@
         "jsonOutput": "Вывод JSON",
         "formatInput": "Ввод {format}",
         "formatOutput": "Вывод {format}"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "Извлекайте данные из JSON с помощью выражений JSONPath. Запрашивайте вложенные объекты и массивы с мощным синтаксисом путей.",
+        "queryPlaceholder": "Введите JSONPath (например: $.store.book[*].author)",
+        "execute": "Выполнить",
+        "examples": "Примеры",
+        "jsonInput": "Ввод JSON",
+        "queryResult": "Результат запроса",
+        "matches": "совпадений",
+        "invalidQuery": "Неверный JSONPath запрос",
+        "invalidJson": "Неверный JSON",
+        "emptyQuery": "Введите JSONPath запрос"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "Экранируйте строки JSON для встраивания в другой JSON или код, или снимите экранирование с ранее экранированных строк JSON.",
+        "escape": "Экранировать",
+        "unescape": "Снять экранирование",
+        "invalidJson": "Неверный JSON",
+        "invalidEscaped": "Неверная экранированная строка"
     },
     "Repair": {
         "title": "JSON Repair",

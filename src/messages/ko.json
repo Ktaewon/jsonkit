@@ -9,6 +9,8 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
+        "query": "Query",
+        "escape": "Escape",
         "repair": "Repair"
     },
     "Landing": {
@@ -78,6 +80,27 @@
         "jsonOutput": "JSON 출력",
         "formatInput": "{format} 입력",
         "formatOutput": "{format} 출력"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "JSONPath 표현식을 사용하여 JSON에서 데이터를 추출합니다. 강력한 경로 문법으로 중첩된 객체와 배열을 쿼리할 수 있습니다.",
+        "queryPlaceholder": "JSONPath 입력 (예: $.store.book[*].author)",
+        "execute": "실행",
+        "examples": "예제",
+        "jsonInput": "JSON 입력",
+        "queryResult": "쿼리 결과",
+        "matches": "개 일치",
+        "invalidQuery": "유효하지 않은 JSONPath 쿼리",
+        "invalidJson": "유효하지 않은 JSON",
+        "emptyQuery": "JSONPath 쿼리를 입력하세요"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "JSON 문자열을 이스케이프하여 다른 JSON이나 코드에 포함시키거나, 이스케이프된 JSON 문자열을 원래 형식으로 되돌립니다.",
+        "escape": "Escape",
+        "unescape": "Unescape",
+        "invalidJson": "유효하지 않은 JSON",
+        "invalidEscaped": "유효하지 않은 이스케이프 문자열"
     },
     "Repair": {
         "title": "JSON Repair",
