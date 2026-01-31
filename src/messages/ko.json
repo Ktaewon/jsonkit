@@ -9,7 +9,7 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
-        "query": "Query"
+        "query": "Query",
         "escape": "Escape"
     },
     "Landing": {
@@ -92,6 +92,7 @@
         "invalidQuery": "유효하지 않은 JSONPath 쿼리",
         "invalidJson": "유효하지 않은 JSON",
         "emptyQuery": "JSONPath 쿼리를 입력하세요"
+    },
     "Escape": {
         "title": "JSON Escape & Unescape",
         "description": "JSON 문자열을 이스케이프하여 다른 JSON이나 코드에 포함시키거나, 이스케이프된 JSON 문자열을 원래 형식으로 되돌립니다.",

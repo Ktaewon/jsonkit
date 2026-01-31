@@ -9,7 +9,7 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
-        "query": "Query"
+        "query": "Query",
         "escape": "Escape"
     },
     "Landing": {
@@ -90,6 +90,7 @@
         "invalidQuery": "無効なJSONPathクエリ",
         "invalidJson": "無効なJSON",
         "emptyQuery": "JSONPathクエリを入力してください"
+    },
     "Escape": {
         "title": "JSON Escape & Unescape",
         "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",

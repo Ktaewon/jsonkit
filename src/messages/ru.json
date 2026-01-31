@@ -9,7 +9,7 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
-        "query": "Query"
+        "query": "Query",
         "escape": "Escape"
     },
     "Landing": {
@@ -90,6 +90,7 @@
         "invalidQuery": "Неверный JSONPath запрос",
         "invalidJson": "Неверный JSON",
         "emptyQuery": "Введите JSONPath запрос"
+    },
     "Escape": {
         "title": "JSON Escape & Unescape",
         "description": "Экранируйте строки JSON для встраивания в другой JSON или код, или снимите экранирование с ранее экранированных строк JSON.",

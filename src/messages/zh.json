@@ -9,7 +9,7 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
-        "query": "Query"
+        "query": "Query",
         "escape": "Escape"
     },
     "Landing": {
@@ -90,6 +90,7 @@
         "invalidQuery": "无效的 JSONPath 查询",
         "invalidJson": "无效的 JSON",
         "emptyQuery": "请输入 JSONPath 查询"
+    },
     "Escape": {
         "title": "JSON Escape & Unescape",
         "description": "将 JSON 字符串转义以嵌入其他 JSON 或代码中，或将已转义的 JSON 字符串还原为原始格式。",
