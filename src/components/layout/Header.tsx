@@ -53,6 +53,9 @@ export function Header() {
                         <Link href="/escape" className="transition-colors hover:text-foreground/80 text-foreground/60">
                             {t('escape')}
                         </Link>
+                        <Link href="/repair" className="transition-colors hover:text-foreground/80 text-foreground/60">
+                            {t('repair')}
+                        </Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">

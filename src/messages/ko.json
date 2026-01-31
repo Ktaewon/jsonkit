@@ -10,7 +10,8 @@
         "compare": "Compare",
         "convert": "Convert",
         "query": "Query",
-        "escape": "Escape"
+        "escape": "Escape",
+        "repair": "Repair"
     },
     "Landing": {
         "heroTitle": "모든 JSON 작업을 한 곳에서",
@@ -100,5 +101,21 @@
         "unescape": "Unescape",
         "invalidJson": "유효하지 않은 JSON",
         "invalidEscaped": "유효하지 않은 이스케이프 문자열"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "잘못된 JSON을 자동으로 수정합니다. 후행 쉼표, 누락된 따옴표, 작은따옴표, 주석 등 일반적인 문제를 수정합니다.",
+        "repair": "수리",
+        "repaired": "수리됨",
+        "alreadyValid": "이미 유효함",
+        "repairFailed": "JSON을 수리할 수 없습니다",
+        "supportsTitle": "수정 가능한 항목",
+        "supports": {
+            "trailingCommas": "배열 및 객체의 후행 쉼표",
+            "missingQuotes": "속성 이름 주변의 누락된 따옴표",
+            "singleQuotes": "큰따옴표 대신 작은따옴표",
+            "comments": "JavaScript 스타일 주석 (// 및 /* */)",
+            "unquotedKeys": "따옴표 없는 속성 키"
+        }
     }
 }

@@ -10,7 +10,8 @@
         "compare": "Compare",
         "convert": "Convert",
         "query": "Query",
-        "escape": "Escape"
+        "escape": "Escape",
+        "repair": "Repair"
     },
     "Landing": {
         "heroTitle": "Your All-in-One JSON Toolkit",
@@ -100,5 +101,21 @@
         "unescape": "Unescape",
         "invalidJson": "Invalid JSON",
         "invalidEscaped": "Invalid escaped string"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "Automatically fix malformed JSON. Repairs common issues like trailing commas, missing quotes, single quotes, and comments.",
+        "repair": "Repair",
+        "repaired": "Repaired",
+        "alreadyValid": "Already valid",
+        "repairFailed": "Could not repair JSON",
+        "supportsTitle": "Supports fixing",
+        "supports": {
+            "trailingCommas": "Trailing commas in arrays and objects",
+            "missingQuotes": "Missing quotes around property names",
+            "singleQuotes": "Single quotes instead of double quotes",
+            "comments": "JavaScript-style comments (// and /* */)",
+            "unquotedKeys": "Unquoted property keys"
+        }
     }
 }

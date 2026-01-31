@@ -19,6 +19,7 @@
     "json2csv": "^6.0.0-alpha.2",
     "jsonlint-mod": "^1.7.6",
     "jsonpath-plus": "^10.3.0",
+    "jsonrepair": "^3.13.2",
     "lucide-react": "^0.562.0",
     "next": "16.1.4",
     "next-intl": "^4.7.0",

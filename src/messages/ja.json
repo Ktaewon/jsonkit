@@ -10,7 +10,8 @@
         "compare": "Compare",
         "convert": "Convert",
         "query": "Query",
-        "escape": "Escape"
+        "escape": "Escape",
+        "repair": "Repair"
     },
     "Landing": {
         "heroTitle": "究極のJSONツールキット",
@@ -98,5 +99,21 @@
         "unescape": "アンエスケープ",
         "invalidJson": "無効なJSON",
         "invalidEscaped": "無効なエスケープ文字列"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "不正なJSONを自動的に修正します。末尾のカンマ、クォートの欠落、シングルクォート、コメントなどの一般的な問題を修正します。",
+        "repair": "修復",
+        "repaired": "修復済み",
+        "alreadyValid": "既に有効",
+        "repairFailed": "JSONを修復できませんでした",
+        "supportsTitle": "修正可能な項目",
+        "supports": {
+            "trailingCommas": "配列やオブジェクトの末尾のカンマ",
+            "missingQuotes": "プロパティ名周りの欠落したクォート",
+            "singleQuotes": "ダブルクォートの代わりのシングルクォート",
+            "comments": "JavaScript形式のコメント (// と /* */)",
+            "unquotedKeys": "クォートされていないプロパティキー"
+        }
     }
 }
