@@ -11,7 +11,8 @@
         "convert": "Convert",
         "query": "Query",
         "escape": "Escape",
-        "repair": "Repair"
+        "repair": "Repair",
+        "schema": "Schema"
     },
     "Landing": {
         "heroTitle": "Ваш универсальный набор инструментов JSON",
@@ -115,5 +116,19 @@
             "comments": "Комментарии в стиле JavaScript (// и /* */)",
             "unquotedKeys": "Ключи свойств без кавычек"
         }
+    },
+    "Schema": {
+        "title": "JSON Schema Validator",
+        "description": "Проверьте ваши JSON-данные на соответствие JSON Schema. Убедитесь, что данные соответствуют определённой структуре с подробным отчётом об ошибках.",
+        "jsonData": "JSON данные",
+        "jsonSchema": "JSON Schema",
+        "result": "Результат проверки",
+        "validate": "Проверить",
+        "loadExample": "Загрузить пример",
+        "valid": "Верно - JSON соответствует схеме",
+        "invalid": "Неверно",
+        "errors": "ошибок",
+        "enterDataAndSchema": "Введите JSON-данные и схему, затем нажмите Проверить",
+        "validationFailed": "Проверка не удалась"
     }
 }

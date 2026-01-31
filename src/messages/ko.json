@@ -11,7 +11,8 @@
         "convert": "Convert",
         "query": "Query",
         "escape": "Escape",
-        "repair": "Repair"
+        "repair": "Repair",
+        "schema": "Schema"
     },
     "Landing": {
         "heroTitle": "모든 JSON 작업을 한 곳에서",
@@ -117,5 +118,19 @@
             "comments": "JavaScript 스타일 주석 (// 및 /* */)",
             "unquotedKeys": "따옴표 없는 속성 키"
         }
+    },
+    "Schema": {
+        "title": "JSON Schema Validator",
+        "description": "JSON Schema에 대해 JSON 데이터를 검증합니다. 상세한 오류 보고와 함께 데이터가 정의된 구조를 준수하는지 확인하세요.",
+        "jsonData": "JSON 데이터",
+        "jsonSchema": "JSON Schema",
+        "result": "검증 결과",
+        "validate": "검증",
+        "loadExample": "예제 불러오기",
+        "valid": "유효함 - JSON이 스키마와 일치합니다",
+        "invalid": "유효하지 않음",
+        "errors": "개 오류",
+        "enterDataAndSchema": "JSON 데이터와 스키마를 입력한 후 검증을 클릭하세요",
+        "validationFailed": "검증에 실패했습니다"
     }
 }

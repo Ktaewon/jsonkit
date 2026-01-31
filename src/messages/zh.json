@@ -11,7 +11,8 @@
         "convert": "Convert",
         "query": "Query",
         "escape": "Escape",
-        "repair": "Repair"
+        "repair": "Repair",
+        "schema": "Schema"
     },
     "Landing": {
         "heroTitle": "您的全能 JSON 工具箱",
@@ -115,5 +116,19 @@
             "comments": "JavaScript 风格的注释 (// 和 /* */)",
             "unquotedKeys": "未加引号的属性键"
         }
+    },
+    "Schema": {
+        "title": "JSON Schema Validator",
+        "description": "根据 JSON Schema 验证 JSON 数据。通过详细的错误报告确保您的数据符合定义的结构。",
+        "jsonData": "JSON 数据",
+        "jsonSchema": "JSON Schema",
+        "result": "验证结果",
+        "validate": "验证",
+        "loadExample": "加载示例",
+        "valid": "有效 - JSON 符合 Schema",
+        "invalid": "无效",
+        "errors": "个错误",
+        "enterDataAndSchema": "输入 JSON 数据和 Schema，然后点击验证",
+        "validationFailed": "验证失败"
     }
 }
