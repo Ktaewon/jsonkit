@@ -9,6 +9,7 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
+        "query": "Query",
         "escape": "Escape"
     },
     "Landing": {
@@ -78,6 +79,19 @@
         "jsonOutput": "JSON Output",
         "formatInput": "{format} Input",
         "formatOutput": "{format} Output"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "Extract data from JSON using JSONPath expressions. Query nested objects and arrays with powerful path syntax.",
+        "queryPlaceholder": "Enter JSONPath (e.g., $.store.book[*].author)",
+        "execute": "Execute",
+        "examples": "Examples",
+        "jsonInput": "JSON Input",
+        "queryResult": "Query Result",
+        "matches": "matches",
+        "invalidQuery": "Invalid JSONPath query",
+        "invalidJson": "Invalid JSON",
+        "emptyQuery": "Please enter a JSONPath query"
     },
     "Escape": {
         "title": "JSON Escape & Unescape",
