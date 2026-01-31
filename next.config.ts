@@ -28,7 +28,7 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=()',
   },
-];
+] as const;
 
 const nextConfig: NextConfig = {
   output: 'standalone',
