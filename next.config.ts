@@ -3,7 +3,7 @@ import type { NextConfig } from 'next';
 
 const withNextIntl = createNextIntlPlugin();
 
-const securityHeaders = [
+const securityHeaders: Array<{ key: string; value: string }> = [
   {
     key: 'X-DNS-Prefetch-Control',
     value: 'on',
@@ -28,7 +28,7 @@ const securityHeaders = [
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=()',
   },
-] as const;
+];
 
 const nextConfig: NextConfig = {
   output: 'standalone',
