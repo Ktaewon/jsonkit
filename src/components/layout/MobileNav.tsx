@@ -119,6 +119,8 @@ export function MobileNav() {
                         )}
                     >
                         {t('query')}
+                    </Link>
+                    <Link
                         href="/escape"
                         className={cn(
                             "text-lg font-medium transition-colors hover:text-primary",
