@@ -17,7 +17,7 @@ export function JsonEditor({
     readOnly = false,
     ...props
 }: JsonEditorProps) {
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
 
     const handleEditorDidMount: OnMount = (editor, monaco) => {
