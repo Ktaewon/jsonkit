@@ -10,6 +10,7 @@
         "compare": "Compare",
         "convert": "Convert",
         "query": "Query"
+        "escape": "Escape"
     },
     "Landing": {
         "heroTitle": "Your All-in-One JSON Toolkit",
@@ -91,5 +92,12 @@
         "invalidQuery": "Invalid JSONPath query",
         "invalidJson": "Invalid JSON",
         "emptyQuery": "Please enter a JSONPath query"
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "Escape JSON strings for embedding in other JSON or code, or unescape previously escaped JSON strings back to their original format.",
+        "escape": "Escape",
+        "unescape": "Unescape",
+        "invalidJson": "Invalid JSON",
+        "invalidEscaped": "Invalid escaped string"
     }
 }

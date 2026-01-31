@@ -10,6 +10,7 @@
         "compare": "Compare",
         "convert": "Convert",
         "query": "Query"
+        "escape": "Escape"
     },
     "Landing": {
         "heroTitle": "究極のJSONツールキット",
@@ -89,5 +90,12 @@
         "invalidQuery": "無効なJSONPathクエリ",
         "invalidJson": "無効なJSON",
         "emptyQuery": "JSONPathクエリを入力してください"
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",
+        "escape": "エスケープ",
+        "unescape": "アンエスケープ",
+        "invalidJson": "無効なJSON",
+        "invalidEscaped": "無効なエスケープ文字列"
     }
 }
