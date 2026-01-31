@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/escape',
         '/repair',
         '/schema',
+        '/privacy',
     ];
 
     const locales = ['en', 'ko', 'ja', 'zh', 'ru'];
