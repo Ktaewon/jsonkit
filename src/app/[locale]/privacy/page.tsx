@@ -3,7 +3,12 @@
 import { useTranslations } from "next-intl";
 import { Shield } from "lucide-react";
 
-const sections = [
+interface Section {
+    key: string;
+    listItems?: string[];
+}
+
+const sections: Section[] = [
     { key: "dataCollection" },
     { key: "localStorage" },
     { key: "cookies", listItems: ["googleAdsense", "googleAnalytics"] },
