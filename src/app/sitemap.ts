@@ -11,6 +11,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/viewer',
         '/compare',
         '/convert',
+        '/query',
+        '/escape',
+        '/repair',
+        '/schema',
     ];
 
     const locales = ['en', 'ko', 'ja', 'zh', 'ru'];
