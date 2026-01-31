@@ -47,6 +47,15 @@ export function Header() {
                         <Link href="/convert" className="transition-colors hover:text-foreground/80 text-foreground/60">
                             {t('convert')}
                         </Link>
+                        <Link href="/query" className="transition-colors hover:text-foreground/80 text-foreground/60">
+                            {t('query')}
+                        </Link>
+                        <Link href="/escape" className="transition-colors hover:text-foreground/80 text-foreground/60">
+                            {t('escape')}
+                        </Link>
+                        <Link href="/repair" className="transition-colors hover:text-foreground/80 text-foreground/60">
+                            {t('repair')}
+                        </Link>
                         <Link href="/schema" className="transition-colors hover:text-foreground/80 text-foreground/60">
                             {t('schema')}
                         </Link>

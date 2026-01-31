@@ -9,6 +9,9 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
+        "query": "Query",
+        "escape": "Escape",
+        "repair": "Repair",
         "schema": "Schema"
     },
     "Landing": {
@@ -78,6 +81,43 @@
         "jsonOutput": "JSON Output",
         "formatInput": "{format} Input",
         "formatOutput": "{format} Output"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "Extract data from JSON using JSONPath expressions. Query nested objects and arrays with powerful path syntax.",
+        "queryPlaceholder": "Enter JSONPath (e.g., $.store.book[*].author)",
+        "execute": "Execute",
+        "examples": "Examples",
+        "jsonInput": "JSON Input",
+        "queryResult": "Query Result",
+        "matches": "matches",
+        "invalidQuery": "Invalid JSONPath query",
+        "invalidJson": "Invalid JSON",
+        "emptyQuery": "Please enter a JSONPath query"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "Escape JSON strings for embedding in other JSON or code, or unescape previously escaped JSON strings back to their original format.",
+        "escape": "Escape",
+        "unescape": "Unescape",
+        "invalidJson": "Invalid JSON",
+        "invalidEscaped": "Invalid escaped string"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "Automatically fix malformed JSON. Repairs common issues like trailing commas, missing quotes, single quotes, and comments.",
+        "repair": "Repair",
+        "repaired": "Repaired",
+        "alreadyValid": "Already valid",
+        "repairFailed": "Could not repair JSON",
+        "supportsTitle": "Supports fixing",
+        "supports": {
+            "trailingCommas": "Trailing commas in arrays and objects",
+            "missingQuotes": "Missing quotes around property names",
+            "singleQuotes": "Single quotes instead of double quotes",
+            "comments": "JavaScript-style comments (// and /* */)",
+            "unquotedKeys": "Unquoted property keys"
+        }
     },
     "Schema": {
         "title": "JSON Schema Validator",

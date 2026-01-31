@@ -9,6 +9,9 @@
         "viewer": "Viewer",
         "compare": "Compare",
         "convert": "Convert",
+        "query": "Query",
+        "escape": "Escape",
+        "repair": "Repair",
         "schema": "Schema"
     },
     "Landing": {
@@ -76,6 +79,43 @@
         "jsonOutput": "JSON 输出",
         "formatInput": "{format} 输入",
         "formatOutput": "{format} 输出"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "使用 JSONPath 表达式从 JSON 中提取数据。使用强大的路径语法查询嵌套对象和数组。",
+        "queryPlaceholder": "输入 JSONPath (例如: $.store.book[*].author)",
+        "execute": "执行",
+        "examples": "示例",
+        "jsonInput": "JSON 输入",
+        "queryResult": "查询结果",
+        "matches": "个匹配",
+        "invalidQuery": "无效的 JSONPath 查询",
+        "invalidJson": "无效的 JSON",
+        "emptyQuery": "请输入 JSONPath 查询"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "将 JSON 字符串转义以嵌入其他 JSON 或代码中，或将已转义的 JSON 字符串还原为原始格式。",
+        "escape": "转义",
+        "unescape": "反转义",
+        "invalidJson": "无效的 JSON",
+        "invalidEscaped": "无效的转义字符串"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "自动修复格式错误的 JSON。修复常见问题，如尾随逗号、缺失引号、单引号和注释。",
+        "repair": "修复",
+        "repaired": "已修复",
+        "alreadyValid": "已经有效",
+        "repairFailed": "无法修复 JSON",
+        "supportsTitle": "支持修复",
+        "supports": {
+            "trailingCommas": "数组和对象中的尾随逗号",
+            "missingQuotes": "属性名周围缺失的引号",
+            "singleQuotes": "单引号代替双引号",
+            "comments": "JavaScript 风格的注释 (// 和 /* */)",
+            "unquotedKeys": "未加引号的属性键"
+        }
     },
     "Schema": {
         "title": "JSON Schema Validator",
