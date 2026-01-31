@@ -28,7 +28,15 @@
             "compareTitle": "Сравнение",
             "compareDesc": "Сравните два JSON-файла бок о бок, чтобы найти различия.",
             "convertTitle": "Конвертер",
-            "convertDesc": "Конвертируйте JSON в YAML, XML, CSV и обратно."
+            "convertDesc": "Конвертируйте JSON в YAML, XML, CSV и обратно.",
+            "queryTitle": "JSONPath запрос",
+            "queryDesc": "Извлекайте данные из JSON с помощью выражений JSONPath.",
+            "escapeTitle": "Экранирование",
+            "escapeDesc": "Экранируйте JSON строки или снимите экранирование.",
+            "repairTitle": "Ремонт JSON",
+            "repairDesc": "Автоматически исправляйте некорректный JSON.",
+            "schemaTitle": "Schema валидатор",
+            "schemaDesc": "Проверяйте JSON данные по JSON Schema."
         }
     },
     "Common": {

@@ -28,7 +28,15 @@
             "compareTitle": "Diff & Compare",
             "compareDesc": "두 JSON 파일을 나란히 비교하여 차이점을 찾으세요.",
             "convertTitle": "Converter",
-            "convertDesc": "JSON을 YAML, XML, CSV 등으로 변환하거나 그 반대로 변환하세요."
+            "convertDesc": "JSON을 YAML, XML, CSV 등으로 변환하거나 그 반대로 변환하세요.",
+            "queryTitle": "JSONPath Query",
+            "queryDesc": "강력한 JSONPath 표현식으로 JSON에서 데이터를 추출하세요.",
+            "escapeTitle": "Escape & Unescape",
+            "escapeDesc": "JSON 문자열을 이스케이프하거나 원래 형식으로 되돌리세요.",
+            "repairTitle": "JSON Repair",
+            "repairDesc": "일반적인 문제가 있는 잘못된 JSON을 자동으로 수정합니다.",
+            "schemaTitle": "Schema Validator",
+            "schemaDesc": "JSON Schema 정의에 따라 JSON 데이터를 검증합니다."
         }
     },
     "Common": {

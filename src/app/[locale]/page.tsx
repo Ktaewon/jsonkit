@@ -12,7 +12,11 @@ import {
   Zap,
   Shield,
   ArrowRightLeft,
-  ArrowLeftRight
+  ArrowLeftRight,
+  Search,
+  Quote,
+  Wrench,
+  FileCode
 } from "lucide-react";
 
 export default function Home() {
@@ -124,6 +128,62 @@ export default function Home() {
                   <h3 className="font-bold">{t('features.convertTitle')}</h3>
                   <p className="text-sm text-muted-foreground">
                     {t('features.convertDesc')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/query" className="group">
+            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+                <Search className="h-12 w-12 text-cyan-500 group-hover:scale-110 transition-transform duration-300" />
+                <div className="space-y-2">
+                  <h3 className="font-bold">{t('features.queryTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {t('features.queryDesc')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/escape" className="group">
+            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+                <Quote className="h-12 w-12 text-indigo-500 group-hover:scale-110 transition-transform duration-300" />
+                <div className="space-y-2">
+                  <h3 className="font-bold">{t('features.escapeTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {t('features.escapeDesc')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/repair" className="group">
+            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+                <Wrench className="h-12 w-12 text-amber-500 group-hover:scale-110 transition-transform duration-300" />
+                <div className="space-y-2">
+                  <h3 className="font-bold">{t('features.repairTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {t('features.repairDesc')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          <Link href="/schema" className="group">
+            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+                <FileCode className="h-12 w-12 text-teal-500 group-hover:scale-110 transition-transform duration-300" />
+                <div className="space-y-2">
+                  <h3 className="font-bold">{t('features.schemaTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {t('features.schemaDesc')}
                   </p>
                 </div>
               </div>

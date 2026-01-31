@@ -28,7 +28,15 @@
             "compareTitle": "差异 & 比较",
             "compareDesc": "并排比较两个 JSON 文件以查找差异。",
             "convertTitle": "转换器",
-            "convertDesc": "将 JSON 转换为 YAML、XML、CSV，反之亦然。"
+            "convertDesc": "将 JSON 转换为 YAML、XML、CSV，反之亦然。",
+            "queryTitle": "JSONPath 查询",
+            "queryDesc": "使用强大的 JSONPath 表达式从 JSON 中提取数据。",
+            "escapeTitle": "转义 & 反转义",
+            "escapeDesc": "转义 JSON 字符串以嵌入或将其还原。",
+            "repairTitle": "JSON 修复",
+            "repairDesc": "自动修复常见问题的格式错误 JSON。",
+            "schemaTitle": "Schema 验证器",
+            "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。"
         }
     },
     "Common": {

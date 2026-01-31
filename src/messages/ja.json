@@ -28,7 +28,15 @@
             "compareTitle": "差分 & 比較",
             "compareDesc": "2つのJSONファイルを並べて比較し、違いを見つけます。",
             "convertTitle": "コンバーター",
-            "convertDesc": "JSONをYAML、XML、CSVなどに変換し、その逆も可能です。"
+            "convertDesc": "JSONをYAML、XML、CSVなどに変換し、その逆も可能です。",
+            "queryTitle": "JSONPath クエリ",
+            "queryDesc": "強力なJSONPath式を使用してJSONからデータを抽出します。",
+            "escapeTitle": "エスケープ & アンエスケープ",
+            "escapeDesc": "JSON文字列をエスケープまたは元の形式に戻します。",
+            "repairTitle": "JSON修復",
+            "repairDesc": "一般的な問題のある不正なJSONを自動的に修正します。",
+            "schemaTitle": "スキーマ検証",
+            "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。"
         }
     },
     "Common": {
