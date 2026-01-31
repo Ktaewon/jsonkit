@@ -59,6 +59,7 @@
         "copy": "Copy",
         "copied": "Copied to clipboard",
         "copyFailed": "Failed to copy",
+        "dismissError": "Dismiss error",
         "clear": "Clear",
         "inlineView": "Inline View",
         "splitView": "Split View",

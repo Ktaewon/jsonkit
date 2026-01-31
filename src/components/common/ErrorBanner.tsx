@@ -1,6 +1,7 @@
 'use client';
 
 import { AlertCircle, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 interface ErrorBannerProps {
@@ -11,6 +12,8 @@ interface ErrorBannerProps {
 }
 
 export function ErrorBanner({ message, details, onDismiss, className }: ErrorBannerProps) {
+  const t = useTranslations('Common');
+
   return (
     <div
       className={cn(
@@ -29,7 +32,7 @@ export function ErrorBanner({ message, details, onDismiss, className }: ErrorBan
           <button
             onClick={onDismiss}
             className="flex-shrink-0 hover:opacity-70 transition-opacity"
-            aria-label="Dismiss error"
+            aria-label={t('dismissError')}
           >
             <X className="h-4 w-4" />
           </button>

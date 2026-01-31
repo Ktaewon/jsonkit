@@ -59,6 +59,7 @@
         "copy": "コピー",
         "copied": "クリップボードにコピーしました",
         "copyFailed": "コピーに失敗しました",
+        "dismissError": "エラーを閉じる",
         "clear": "クリア",
         "download": "ダウンロード",
         "input": "入力",

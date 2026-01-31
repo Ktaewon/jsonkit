@@ -59,6 +59,7 @@
         "copy": "复制",
         "copied": "已复制到剪贴板",
         "copyFailed": "复制失败",
+        "dismissError": "关闭提示",
         "clear": "清除",
         "download": "下载",
         "input": "输入",
