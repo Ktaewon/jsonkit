@@ -38,6 +38,10 @@
             "schemaTitle": "Schema Validator",
             "schemaDesc": "Validate JSON data against a JSON Schema definition."
         },
+        "featuresSection": {
+            "title": "Features",
+            "subtitle": "Everything you need to handle JSON files efficiently."
+        },
         "valueProps": {
             "cleanInterfaceTitle": "Clean Interface",
             "cleanInterfaceDesc": "No distractions. Just the tools you need in a modern, clean UI.",

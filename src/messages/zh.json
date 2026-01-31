@@ -38,6 +38,10 @@
             "schemaTitle": "Schema 验证器",
             "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。"
         },
+        "featuresSection": {
+            "title": "功能",
+            "subtitle": "高效处理 JSON 文件所需的一切。"
+        },
         "valueProps": {
             "cleanInterfaceTitle": "简洁界面",
             "cleanInterfaceDesc": "没有干扰。只有您需要的工具，呈现在现代、简洁的UI中。",

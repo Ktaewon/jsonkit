@@ -38,6 +38,10 @@
             "schemaTitle": "Schema Validator",
             "schemaDesc": "JSON Schema 정의에 따라 JSON 데이터를 검증합니다."
         },
+        "featuresSection": {
+            "title": "기능",
+            "subtitle": "JSON 파일을 효율적으로 다루는 데 필요한 모든 것."
+        },
         "valueProps": {
             "cleanInterfaceTitle": "깔끔한 인터페이스",
             "cleanInterfaceDesc": "방해 요소 없이 현대적이고 깔끔한 UI에서 필요한 도구만 제공합니다.",

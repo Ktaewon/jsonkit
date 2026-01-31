@@ -55,10 +55,10 @@ export default function Home() {
       <section className="container space-y-6 bg-slate-50 py-12 dark:bg-transparent md:py-24 lg:py-32 border-t">
         <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
           <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl font-bold">
-            Features
+            {t('featuresSection.title')}
           </h2>
           <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-            Everything you need to handle JSON files efficiently.
+            {t('featuresSection.subtitle')}
           </p>
         </div>
 

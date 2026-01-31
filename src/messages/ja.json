@@ -38,6 +38,10 @@
             "schemaTitle": "スキーマ検証",
             "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。"
         },
+        "featuresSection": {
+            "title": "機能",
+            "subtitle": "JSONファイルを効率的に扱うために必要なすべて。"
+        },
         "valueProps": {
             "cleanInterfaceTitle": "クリーンなインターフェース",
             "cleanInterfaceDesc": "邪魔なものはありません。モダンでクリーンなUIに必要なツールだけ。",

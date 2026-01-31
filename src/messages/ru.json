@@ -38,6 +38,10 @@
             "schemaTitle": "Schema валидатор",
             "schemaDesc": "Проверяйте JSON данные по JSON Schema."
         },
+        "featuresSection": {
+            "title": "Функции",
+            "subtitle": "Всё, что нужно для эффективной работы с JSON файлами."
+        },
         "valueProps": {
             "cleanInterfaceTitle": "Чистый интерфейс",
             "cleanInterfaceDesc": "Никаких отвлекающих факторов. Только нужные инструменты в современном и чистом UI.",
