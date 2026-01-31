@@ -3,6 +3,14 @@
 import { useTranslations } from "next-intl";
 import { Shield } from "lucide-react";
 
+const sections = [
+    { key: "dataCollection" },
+    { key: "localStorage" },
+    { key: "cookies", listItems: ["googleAdsense", "googleAnalytics"] },
+    { key: "thirdParty" },
+    { key: "contact" },
+];
+
 export default function PrivacyPage() {
     const t = useTranslations("Privacy");
 
@@ -18,44 +26,23 @@ export default function PrivacyPage() {
                     {t("lastUpdated")}: {t("lastUpdatedDate")}
                 </p>
 
-                <section className="mb-8">
-                    <h2 className="text-xl font-semibold mb-4">{t("sections.dataCollection.title")}</h2>
-                    <p className="text-muted-foreground">
-                        {t("sections.dataCollection.content")}
-                    </p>
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-xl font-semibold mb-4">{t("sections.localStorage.title")}</h2>
-                    <p className="text-muted-foreground">
-                        {t("sections.localStorage.content")}
-                    </p>
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-xl font-semibold mb-4">{t("sections.cookies.title")}</h2>
-                    <p className="text-muted-foreground mb-4">
-                        {t("sections.cookies.content")}
-                    </p>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                        <li>{t("sections.cookies.googleAdsense")}</li>
-                        <li>{t("sections.cookies.googleAnalytics")}</li>
-                    </ul>
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-xl font-semibold mb-4">{t("sections.thirdParty.title")}</h2>
-                    <p className="text-muted-foreground">
-                        {t("sections.thirdParty.content")}
-                    </p>
-                </section>
-
-                <section className="mb-8">
-                    <h2 className="text-xl font-semibold mb-4">{t("sections.contact.title")}</h2>
-                    <p className="text-muted-foreground">
-                        {t("sections.contact.content")}
-                    </p>
-                </section>
+                {sections.map(({ key, listItems }) => (
+                    <section key={key} className="mb-8">
+                        <h2 className="text-xl font-semibold mb-4">
+                            {t(`sections.${key}.title`)}
+                        </h2>
+                        <p className={`text-muted-foreground ${listItems ? "mb-4" : ""}`}>
+                            {t(`sections.${key}.content`)}
+                        </p>
+                        {listItems && (
+                            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+                                {listItems.map((item) => (
+                                    <li key={item}>{t(`sections.${key}.${item}`)}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </section>
+                ))}
             </div>
         </div>
     );
