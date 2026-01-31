@@ -57,6 +57,8 @@
         "dark": "ダーク",
         "system": "システム",
         "copy": "コピー",
+        "copied": "クリップボードにコピーしました",
+        "copyFailed": "コピーに失敗しました",
         "clear": "クリア",
         "download": "ダウンロード",
         "input": "入力",

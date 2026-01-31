@@ -57,6 +57,8 @@
         "dark": "Dark",
         "system": "System",
         "copy": "Copy",
+        "copied": "Copied to clipboard",
+        "copyFailed": "Failed to copy",
         "clear": "Clear",
         "inlineView": "Inline View",
         "splitView": "Split View",

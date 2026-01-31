@@ -8,6 +8,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import GoogleAdsense from "@/components/common/GoogleAdsense";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -66,6 +67,7 @@ export default async function RootLayout({
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
+            <Toaster position="bottom-right" richColors closeButton />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
