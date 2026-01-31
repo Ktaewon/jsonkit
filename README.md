@@ -9,7 +9,7 @@
 
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
   [![Vercel](https://vercel.com/button)](https://jsonkit.org)
-  [![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org)
+  [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
   
   <br />
@@ -26,15 +26,19 @@
 ## ✨ Features
 
 - **🎨 JSON Beautifier & Minifier**: Instantly format or compress your JSON data.
-- **✅ JSON Validator**: strict syntax checking with error reporting.
-- **🌳 Tree View**: Interactive collapsible tree structure for easy navigation.
-- **🔄 Converters**: JSON to CSV, YAML, XML and vice-versa (Coming Soon).
-- **🆚 API Client**: Lightweight HTTP client for testing APIs directly (Coming Soon).
-- **🔒 Client-Side Only**: Your data never leaves your browser.
+- **✅ JSON Validator**: Strict syntax checking with detailed error reporting.
+- **🌳 Tree Viewer**: Interactive collapsible tree structure for easy navigation.
+- **🔀 Diff & Compare**: Side-by-side comparison to find differences between two JSON files.
+- **🔄 Converter**: Convert JSON to YAML, XML, CSV and vice-versa.
+- **🔍 JSONPath Query**: Extract data from JSON using powerful JSONPath expressions.
+- **📝 Escape & Unescape**: Escape JSON strings for embedding or unescape them back.
+- **🔧 JSON Repair**: Automatically fix malformed JSON with common issues.
+- **📋 Schema Validator**: Validate JSON data against JSON Schema definitions.
+- **🔒 Privacy First**: All processing happens client-side. Your data never leaves your browser.
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) & [Shadcn UI](https://ui.shadcn.com/)
 - **State Management**: [Zustand](https://docs.pmnd.rs/zustand)
