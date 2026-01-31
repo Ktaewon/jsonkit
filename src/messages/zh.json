@@ -1,186 +1,186 @@
 {
-    "Metadata": {
-        "title": "JSONKit - 多合一 JSON 工具",
-        "description": "免费的在线 JSON 美化、验证、查看、比较和转换工具。"
+  "Metadata": {
+    "title": "JSONKit - 多合一 JSON 工具",
+    "description": "免费的在线 JSON 美化、验证、查看、比较和转换工具。"
+  },
+  "Navigation": {
+    "beautify": "Beautify",
+    "validate": "Validate",
+    "viewer": "Viewer",
+    "compare": "Compare",
+    "convert": "Convert",
+    "query": "Query",
+    "escape": "Escape",
+    "repair": "Repair",
+    "schema": "Schema"
+  },
+  "Landing": {
+    "heroTitle": "您的全能 JSON 工具箱",
+    "heroSubtitle": "直接在浏览器中美化、验证、可视化、比较和转换 JSON 数据。快速、安全且免费。",
+    "getStarted": "开始使用",
+    "features": {
+      "beautifyTitle": "美化 & 压缩",
+      "beautifyDesc": "将您的 JSON 格式化为易读格式或压缩以节省空间。",
+      "validateTitle": "验证器",
+      "validateDesc": "通过精确的错误报告检查 JSON 语法错误。",
+      "viewerTitle": "树形查看器",
+      "viewerDesc": "使用交互式树形视图探索复杂的 JSON 结构。",
+      "compareTitle": "差异 & 比较",
+      "compareDesc": "并排比较两个 JSON 文件以查找差异。",
+      "convertTitle": "转换器",
+      "convertDesc": "将 JSON 转换为 YAML、XML、CSV，反之亦然。",
+      "queryTitle": "JSONPath 查询",
+      "queryDesc": "使用强大的 JSONPath 表达式从 JSON 中提取数据。",
+      "escapeTitle": "转义 & 反转义",
+      "escapeDesc": "转义 JSON 字符串以嵌入或将其还原。",
+      "repairTitle": "JSON 修复",
+      "repairDesc": "自动修复常见问题的格式错误 JSON。",
+      "schemaTitle": "Schema 验证器",
+      "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。"
     },
-    "Navigation": {
-        "beautify": "Beautify",
-        "validate": "Validate",
-        "viewer": "Viewer",
-        "compare": "Compare",
-        "convert": "Convert",
-        "query": "Query",
-        "escape": "Escape",
-        "repair": "Repair",
-        "schema": "Schema"
+    "featuresSection": {
+      "title": "功能",
+      "subtitle": "高效处理 JSON 文件所需的一切。"
     },
-    "Landing": {
-        "heroTitle": "您的全能 JSON 工具箱",
-        "heroSubtitle": "直接在浏览器中美化、验证、可视化、比较和转换 JSON 数据。快速、安全且免费。",
-        "getStarted": "开始使用",
-        "features": {
-            "beautifyTitle": "美化 & 压缩",
-            "beautifyDesc": "将您的 JSON 格式化为易读格式或压缩以节省空间。",
-            "validateTitle": "验证器",
-            "validateDesc": "通过精确的错误报告检查 JSON 语法错误。",
-            "viewerTitle": "树形查看器",
-            "viewerDesc": "使用交互式树形视图探索复杂的 JSON 结构。",
-            "compareTitle": "差异 & 比较",
-            "compareDesc": "并排比较两个 JSON 文件以查找差异。",
-            "convertTitle": "转换器",
-            "convertDesc": "将 JSON 转换为 YAML、XML、CSV，反之亦然。",
-            "queryTitle": "JSONPath 查询",
-            "queryDesc": "使用强大的 JSONPath 表达式从 JSON 中提取数据。",
-            "escapeTitle": "转义 & 反转义",
-            "escapeDesc": "转义 JSON 字符串以嵌入或将其还原。",
-            "repairTitle": "JSON 修复",
-            "repairDesc": "自动修复常见问题的格式错误 JSON。",
-            "schemaTitle": "Schema 验证器",
-            "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。"
-        },
-        "featuresSection": {
-            "title": "功能",
-            "subtitle": "高效处理 JSON 文件所需的一切。"
-        },
-        "valueProps": {
-            "cleanInterfaceTitle": "简洁界面",
-            "cleanInterfaceDesc": "没有干扰。只有您需要的工具，呈现在现代、简洁的UI中。",
-            "fastReactiveTitle": "快速响应",
-            "fastReactiveDesc": "输入即得结果。无需等待服务器响应。",
-            "privacyFirstTitle": "隐私优先",
-            "privacyFirstDesc": "所有处理都在浏览器中进行。您的数据永不离开您的设备。"
-        }
-    },
-    "Common": {
-        "theme": "主题",
-        "light": "亮色",
-        "dark": "暗色",
-        "system": "系统",
-        "copy": "复制",
-        "clear": "清除",
-        "download": "下载",
-        "input": "输入",
-        "output": "输出",
-        "error": "错误"
-    },
-    "Beautify": {
-        "title": "JSON Beautifier & Minifier",
-        "description": "格式化（美化）您的 JSON 数据使其更易于阅读，或将其压缩（Minify）以减小文件大小而不更改数据。",
-        "format": "美化 (Beautify)",
-        "minify": "压缩 (Minify)",
-        "invalidJson": "无效的 JSON"
-    },
-    "Validate": {
-        "title": "JSON Validator",
-        "description": "根据标准验证您的 JSON 字符串。通过精确的行号和错误消息快速查找语法错误。",
-        "validateBtn": "验证 JSON",
-        "valid": "有效的 JSON",
-        "invalid": "无效的 JSON",
-        "errorFound": "发现错误："
-    },
-    "Viewer": {
-        "title": "JSON Tree Viewer",
-        "description": "将您的 JSON 数据可视化为交互式树。轻松展开、折叠和探索复杂的嵌套结构。",
-        "inputTitle": "JSON 输入",
-        "treeTitle": "树形视图",
-        "enterValid": "输入有效的 JSON 以查看树"
-    },
-    "Compare": {
-        "title": "JSON Diff & Compare",
-        "description": "并排比较两个 JSON 对象以查看差异。视觉高亮显示使您很容易发现添加、删除或修改的值。",
-        "clearAll": "全部清除",
-        "instruction": "直接在左侧（原始）和右侧（修改）面板中进行编辑以进行比较。"
-    },
-    "Convert": {
-        "title": "JSON Converter",
-        "description": "将 JSON 数据转换为其他流行格式，如 YAML、XML 和 CSV。您也可以将这些格式转回 JSON。",
-        "swap": "交换",
-        "jsonInput": "JSON 输入",
-        "jsonOutput": "JSON 输出",
-        "formatInput": "{format} 输入",
-        "formatOutput": "{format} 输出"
-    },
-    "Query": {
-        "title": "JSONPath Query",
-        "description": "使用 JSONPath 表达式从 JSON 中提取数据。使用强大的路径语法查询嵌套对象和数组。",
-        "queryPlaceholder": "输入 JSONPath (例如: $.store.book[*].author)",
-        "execute": "执行",
-        "examples": "示例",
-        "jsonInput": "JSON 输入",
-        "queryResult": "查询结果",
-        "matches": "个匹配",
-        "invalidQuery": "无效的 JSONPath 查询",
-        "invalidJson": "无效的 JSON",
-        "emptyQuery": "请输入 JSONPath 查询"
-    },
-    "Escape": {
-        "title": "JSON Escape & Unescape",
-        "description": "将 JSON 字符串转义以嵌入其他 JSON 或代码中，或将已转义的 JSON 字符串还原为原始格式。",
-        "escape": "转义",
-        "unescape": "反转义",
-        "invalidJson": "无效的 JSON",
-        "invalidEscaped": "无效的转义字符串"
-    },
-    "Repair": {
-        "title": "JSON Repair",
-        "description": "自动修复格式错误的 JSON。修复常见问题，如尾随逗号、缺失引号、单引号和注释。",
-        "repair": "修复",
-        "repaired": "已修复",
-        "alreadyValid": "已经有效",
-        "repairFailed": "无法修复 JSON",
-        "supportsTitle": "支持修复",
-        "supports": {
-            "trailingCommas": "数组和对象中的尾随逗号",
-            "missingQuotes": "属性名周围缺失的引号",
-            "singleQuotes": "单引号代替双引号",
-            "comments": "JavaScript 风格的注释 (// 和 /* */)",
-            "unquotedKeys": "未加引号的属性键"
-        }
-    },
-    "Schema": {
-        "title": "JSON Schema Validator",
-        "description": "根据 JSON Schema 验证 JSON 数据。通过详细的错误报告确保您的数据符合定义的结构。",
-        "jsonData": "JSON 数据",
-        "jsonSchema": "JSON Schema",
-        "result": "验证结果",
-        "validate": "验证",
-        "loadExample": "加载示例",
-        "valid": "有效 - JSON 符合 Schema",
-        "invalid": "无效",
-        "errors": "个错误",
-        "enterDataAndSchema": "输入 JSON 数据和 Schema，然后点击验证",
-        "validationFailed": "验证失败"
-    },
-    "Footer": {
-        "privacyPolicy": "隐私政策"
-    },
-    "Privacy": {
-        "title": "隐私政策",
-        "lastUpdated": "最后更新",
-        "lastUpdatedDate": "2025年1月",
-        "sections": {
-            "dataCollection": {
-                "title": "数据收集",
-                "content": "JSONKit 不会收集、存储或传输您的任何 JSON 数据。所有 JSON 处理完全在您的浏览器中进行。您的数据永远不会离开您的设备。"
-            },
-            "localStorage": {
-                "title": "本地存储",
-                "content": "我们使用浏览器本地存储来保存您的偏好设置（如主题设置），并为了方便起见记住您的上次输入。这些数据仅存储在您的设备上，永远不会发送到我们的服务器。"
-            },
-            "cookies": {
-                "title": "Cookie 和第三方服务",
-                "content": "我们使用以下可能设置 Cookie 的第三方服务：",
-                "googleAdsense": "Google AdSense：用于显示广告。Google 可能会使用 Cookie 根据您的浏览历史个性化广告。",
-                "googleAnalytics": "Google Analytics：用于了解访问者如何使用我们的网站。这有助于我们改善用户体验。"
-            },
-            "thirdParty": {
-                "title": "第三方链接",
-                "content": "我们的网站可能包含指向第三方网站的链接。我们不对这些外部网站的隐私做法负责。我们建议您阅读您访问的任何链接网站的隐私政策。"
-            },
-            "contact": {
-                "title": "联系我们",
-                "content": "如果您对本隐私政策有任何疑问，请通过我们的 GitHub 仓库与我们联系。"
-            }
-        }
+    "valueProps": {
+      "cleanInterfaceTitle": "简洁界面",
+      "cleanInterfaceDesc": "没有干扰。只有您需要的工具，呈现在现代、简洁的UI中。",
+      "fastReactiveTitle": "快速响应",
+      "fastReactiveDesc": "输入即得结果。无需等待服务器响应。",
+      "privacyFirstTitle": "隐私优先",
+      "privacyFirstDesc": "所有处理都在浏览器中进行。您的数据永不离开您的设备。"
     }
+  },
+  "Common": {
+    "theme": "主题",
+    "light": "亮色",
+    "dark": "暗色",
+    "system": "系统",
+    "copy": "复制",
+    "clear": "清除",
+    "download": "下载",
+    "input": "输入",
+    "output": "输出",
+    "error": "错误"
+  },
+  "Beautify": {
+    "title": "JSON Beautifier & Minifier",
+    "description": "格式化（美化）您的 JSON 数据使其更易于阅读，或将其压缩（Minify）以减小文件大小而不更改数据。",
+    "format": "美化 (Beautify)",
+    "minify": "压缩 (Minify)",
+    "invalidJson": "无效的 JSON"
+  },
+  "Validate": {
+    "title": "JSON Validator",
+    "description": "根据标准验证您的 JSON 字符串。通过精确的行号和错误消息快速查找语法错误。",
+    "validateBtn": "验证 JSON",
+    "valid": "有效的 JSON",
+    "invalid": "无效的 JSON",
+    "errorFound": "发现错误："
+  },
+  "Viewer": {
+    "title": "JSON Tree Viewer",
+    "description": "将您的 JSON 数据可视化为交互式树。轻松展开、折叠和探索复杂的嵌套结构。",
+    "inputTitle": "JSON 输入",
+    "treeTitle": "树形视图",
+    "enterValid": "输入有效的 JSON 以查看树"
+  },
+  "Compare": {
+    "title": "JSON Diff & Compare",
+    "description": "并排比较两个 JSON 对象以查看差异。视觉高亮显示使您很容易发现添加、删除或修改的值。",
+    "clearAll": "全部清除",
+    "instruction": "直接在左侧（原始）和右侧（修改）面板中进行编辑以进行比较。"
+  },
+  "Convert": {
+    "title": "JSON Converter",
+    "description": "将 JSON 数据转换为其他流行格式，如 YAML、XML 和 CSV。您也可以将这些格式转回 JSON。",
+    "swap": "交换",
+    "jsonInput": "JSON 输入",
+    "jsonOutput": "JSON 输出",
+    "formatInput": "{format} 输入",
+    "formatOutput": "{format} 输出"
+  },
+  "Query": {
+    "title": "JSONPath Query",
+    "description": "使用 JSONPath 表达式从 JSON 中提取数据。使用强大的路径语法查询嵌套对象和数组。",
+    "queryPlaceholder": "输入 JSONPath (例如: $.store.book[*].author)",
+    "execute": "执行",
+    "examples": "示例",
+    "jsonInput": "JSON 输入",
+    "queryResult": "查询结果",
+    "matches": "个匹配",
+    "invalidQuery": "无效的 JSONPath 查询",
+    "invalidJson": "无效的 JSON",
+    "emptyQuery": "请输入 JSONPath 查询"
+  },
+  "Escape": {
+    "title": "JSON Escape & Unescape",
+    "description": "将 JSON 字符串转义以嵌入其他 JSON 或代码中，或将已转义的 JSON 字符串还原为原始格式。",
+    "escape": "转义",
+    "unescape": "反转义",
+    "invalidJson": "无效的 JSON",
+    "invalidEscaped": "无效的转义字符串"
+  },
+  "Repair": {
+    "title": "JSON Repair",
+    "description": "自动修复格式错误的 JSON。修复常见问题，如尾随逗号、缺失引号、单引号和注释。",
+    "repair": "修复",
+    "repaired": "已修复",
+    "alreadyValid": "已经有效",
+    "repairFailed": "无法修复 JSON",
+    "supportsTitle": "支持修复",
+    "supports": {
+      "trailingCommas": "数组和对象中的尾随逗号",
+      "missingQuotes": "属性名周围缺失的引号",
+      "singleQuotes": "单引号代替双引号",
+      "comments": "JavaScript 风格的注释 (// 和 /* */)",
+      "unquotedKeys": "未加引号的属性键"
+    }
+  },
+  "Schema": {
+    "title": "JSON Schema Validator",
+    "description": "根据 JSON Schema 验证 JSON 数据。通过详细的错误报告确保您的数据符合定义的结构。",
+    "jsonData": "JSON 数据",
+    "jsonSchema": "JSON Schema",
+    "result": "验证结果",
+    "validate": "验证",
+    "loadExample": "加载示例",
+    "valid": "有效 - JSON 符合 Schema",
+    "invalid": "无效",
+    "errors": "个错误",
+    "enterDataAndSchema": "输入 JSON 数据和 Schema，然后点击验证",
+    "validationFailed": "验证失败"
+  },
+  "Footer": {
+    "privacyPolicy": "隐私政策"
+  },
+  "Privacy": {
+    "title": "隐私政策",
+    "lastUpdated": "最后更新",
+    "lastUpdatedDate": "2025年1月",
+    "sections": {
+      "dataCollection": {
+        "title": "数据收集",
+        "content": "JSONKit 不会收集、存储或传输您的任何 JSON 数据。所有 JSON 处理完全在您的浏览器中进行。您的数据永远不会离开您的设备。"
+      },
+      "localStorage": {
+        "title": "本地存储",
+        "content": "我们使用浏览器本地存储来保存您的偏好设置（如主题设置），并为了方便起见记住您的上次输入。这些数据仅存储在您的设备上，永远不会发送到我们的服务器。"
+      },
+      "cookies": {
+        "title": "Cookie 和第三方服务",
+        "content": "我们使用以下可能设置 Cookie 的第三方服务：",
+        "googleAdsense": "Google AdSense：用于显示广告。Google 可能会使用 Cookie 根据您的浏览历史个性化广告。",
+        "googleAnalytics": "Google Analytics：用于了解访问者如何使用我们的网站。这有助于我们改善用户体验。"
+      },
+      "thirdParty": {
+        "title": "第三方链接",
+        "content": "我们的网站可能包含指向第三方网站的链接。我们不对这些外部网站的隐私做法负责。我们建议您阅读您访问的任何链接网站的隐私政策。"
+      },
+      "contact": {
+        "title": "联系我们",
+        "content": "如果您对本隐私政策有任何疑问，请通过我们的 GitHub 仓库与我们联系。"
+      }
+    }
+  }
 }
