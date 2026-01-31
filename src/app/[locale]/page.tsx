@@ -63,133 +63,31 @@ export default function Home() {
         </div>
 
         <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
-
-          <Link href="/beautify" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <FileJson className="h-12 w-12 text-primary group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.beautifyTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.beautifyDesc')}
-                  </p>
+          {[
+            { href: "/beautify", Icon: FileJson, colorClass: "text-primary", titleKey: "features.beautifyTitle", descKey: "features.beautifyDesc" },
+            { href: "/validate", Icon: FileCheck, colorClass: "text-green-500", titleKey: "features.validateTitle", descKey: "features.validateDesc" },
+            { href: "/viewer", Icon: Network, colorClass: "text-purple-500", titleKey: "features.viewerTitle", descKey: "features.viewerDesc" },
+            { href: "/compare", Icon: ArrowRightLeft, colorClass: "text-orange-500", titleKey: "features.compareTitle", descKey: "features.compareDesc" },
+            { href: "/convert", Icon: ArrowLeftRight, colorClass: "text-pink-500", titleKey: "features.convertTitle", descKey: "features.convertDesc" },
+            { href: "/query", Icon: Search, colorClass: "text-cyan-500", titleKey: "features.queryTitle", descKey: "features.queryDesc" },
+            { href: "/escape", Icon: Quote, colorClass: "text-indigo-500", titleKey: "features.escapeTitle", descKey: "features.escapeDesc" },
+            { href: "/repair", Icon: Wrench, colorClass: "text-amber-500", titleKey: "features.repairTitle", descKey: "features.repairDesc" },
+            { href: "/schema", Icon: FileCode, colorClass: "text-teal-500", titleKey: "features.schemaTitle", descKey: "features.schemaDesc" },
+          ].map(({ href, Icon, colorClass, titleKey, descKey }) => (
+            <Link key={href} href={href} className="group">
+              <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
+                <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+                  <Icon className={`h-12 w-12 ${colorClass} group-hover:scale-110 transition-transform duration-300`} />
+                  <div className="space-y-2">
+                    <h3 className="font-bold">{t(titleKey)}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {t(descKey)}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-
-          <Link href="/validate" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <FileCheck className="h-12 w-12 text-green-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.validateTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.validateDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/viewer" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <Network className="h-12 w-12 text-purple-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.viewerTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.viewerDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/compare" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <ArrowRightLeft className="h-12 w-12 text-orange-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.compareTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.compareDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/convert" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <ArrowLeftRight className="h-12 w-12 text-pink-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.convertTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.convertDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/query" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <Search className="h-12 w-12 text-cyan-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.queryTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.queryDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/escape" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <Quote className="h-12 w-12 text-indigo-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.escapeTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.escapeDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/repair" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <Wrench className="h-12 w-12 text-amber-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.repairTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.repairDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/schema" className="group">
-            <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
-              <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                <FileCode className="h-12 w-12 text-teal-500 group-hover:scale-110 transition-transform duration-300" />
-                <div className="space-y-2">
-                  <h3 className="font-bold">{t('features.schemaTitle')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('features.schemaDesc')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
-
+            </Link>
+          ))}
         </div>
       </section>
 
