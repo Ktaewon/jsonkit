@@ -150,5 +150,37 @@
         "errors": "个错误",
         "enterDataAndSchema": "输入 JSON 数据和 Schema，然后点击验证",
         "validationFailed": "验证失败"
+    },
+    "Footer": {
+        "privacyPolicy": "隐私政策"
+    },
+    "Privacy": {
+        "title": "隐私政策",
+        "lastUpdated": "最后更新",
+        "lastUpdatedDate": "2025年1月",
+        "sections": {
+            "dataCollection": {
+                "title": "数据收集",
+                "content": "JSONKit 不会收集、存储或传输您的任何 JSON 数据。所有 JSON 处理完全在您的浏览器中进行。您的数据永远不会离开您的设备。"
+            },
+            "localStorage": {
+                "title": "本地存储",
+                "content": "我们使用浏览器本地存储来保存您的偏好设置（如主题设置），并为了方便起见记住您的上次输入。这些数据仅存储在您的设备上，永远不会发送到我们的服务器。"
+            },
+            "cookies": {
+                "title": "Cookie 和第三方服务",
+                "content": "我们使用以下可能设置 Cookie 的第三方服务：",
+                "googleAdsense": "Google AdSense：用于显示广告。Google 可能会使用 Cookie 根据您的浏览历史个性化广告。",
+                "googleAnalytics": "Google Analytics：用于了解访问者如何使用我们的网站。这有助于我们改善用户体验。"
+            },
+            "thirdParty": {
+                "title": "第三方链接",
+                "content": "我们的网站可能包含指向第三方网站的链接。我们不对这些外部网站的隐私做法负责。我们建议您阅读您访问的任何链接网站的隐私政策。"
+            },
+            "contact": {
+                "title": "联系我们",
+                "content": "如果您对本隐私政策有任何疑问，请通过我们的 GitHub 仓库与我们联系。"
+            }
+        }
     }
 }

@@ -152,5 +152,37 @@
         "errors": "errors",
         "enterDataAndSchema": "Enter JSON data and schema, then click Validate",
         "validationFailed": "Validation failed"
+    },
+    "Footer": {
+        "privacyPolicy": "Privacy Policy"
+    },
+    "Privacy": {
+        "title": "Privacy Policy",
+        "lastUpdated": "Last Updated",
+        "lastUpdatedDate": "January 2025",
+        "sections": {
+            "dataCollection": {
+                "title": "Data Collection",
+                "content": "JSONKit does not collect, store, or transmit any of your JSON data. All JSON processing happens entirely in your browser. Your data never leaves your device."
+            },
+            "localStorage": {
+                "title": "Local Storage",
+                "content": "We use browser local storage to save your preferences (such as theme settings) and to remember your last input for convenience. This data is stored only on your device and is never sent to our servers."
+            },
+            "cookies": {
+                "title": "Cookies and Third-Party Services",
+                "content": "We use the following third-party services that may set cookies:",
+                "googleAdsense": "Google AdSense: Used to display advertisements. Google may use cookies to personalize ads based on your browsing history.",
+                "googleAnalytics": "Google Analytics: Used to understand how visitors use our site. This helps us improve the user experience."
+            },
+            "thirdParty": {
+                "title": "Third-Party Links",
+                "content": "Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to read the privacy policies of any linked websites you visit."
+            },
+            "contact": {
+                "title": "Contact Us",
+                "content": "If you have any questions about this Privacy Policy, please contact us through our GitHub repository."
+            }
+        }
     }
 }
