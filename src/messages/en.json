@@ -28,7 +28,27 @@
             "compareTitle": "Diff & Compare",
             "compareDesc": "Compare two JSON files side-by-side to find differences.",
             "convertTitle": "Converter",
-            "convertDesc": "Convert JSON to YAML, XML, CSV and vice versa."
+            "convertDesc": "Convert JSON to YAML, XML, CSV and vice versa.",
+            "queryTitle": "JSONPath Query",
+            "queryDesc": "Extract data from JSON using powerful JSONPath expressions.",
+            "escapeTitle": "Escape & Unescape",
+            "escapeDesc": "Escape JSON strings for embedding or unescape them back.",
+            "repairTitle": "JSON Repair",
+            "repairDesc": "Automatically fix malformed JSON with common issues.",
+            "schemaTitle": "Schema Validator",
+            "schemaDesc": "Validate JSON data against a JSON Schema definition."
+        },
+        "featuresSection": {
+            "title": "Features",
+            "subtitle": "Everything you need to handle JSON files efficiently."
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "Clean Interface",
+            "cleanInterfaceDesc": "No distractions. Just the tools you need in a modern, clean UI.",
+            "fastReactiveTitle": "Fast & Reactive",
+            "fastReactiveDesc": "Instant results as you type. No waiting for server roundtrips.",
+            "privacyFirstTitle": "Privacy First",
+            "privacyFirstDesc": "All processing happens in your browser. Your data never leaves your device."
         }
     },
     "Common": {

@@ -28,7 +28,27 @@
             "compareTitle": "差分 & 比較",
             "compareDesc": "2つのJSONファイルを並べて比較し、違いを見つけます。",
             "convertTitle": "コンバーター",
-            "convertDesc": "JSONをYAML、XML、CSVなどに変換し、その逆も可能です。"
+            "convertDesc": "JSONをYAML、XML、CSVなどに変換し、その逆も可能です。",
+            "queryTitle": "JSONPath クエリ",
+            "queryDesc": "強力なJSONPath式を使用してJSONからデータを抽出します。",
+            "escapeTitle": "エスケープ & アンエスケープ",
+            "escapeDesc": "JSON文字列をエスケープまたは元の形式に戻します。",
+            "repairTitle": "JSON修復",
+            "repairDesc": "一般的な問題のある不正なJSONを自動的に修正します。",
+            "schemaTitle": "スキーマ検証",
+            "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。"
+        },
+        "featuresSection": {
+            "title": "機能",
+            "subtitle": "JSONファイルを効率的に扱うために必要なすべて。"
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "クリーンなインターフェース",
+            "cleanInterfaceDesc": "邪魔なものはありません。モダンでクリーンなUIに必要なツールだけ。",
+            "fastReactiveTitle": "高速 & リアクティブ",
+            "fastReactiveDesc": "入力と同時に即座に結果が表示されます。サーバーの応答を待つ必要はありません。",
+            "privacyFirstTitle": "プライバシー第一",
+            "privacyFirstDesc": "すべての処理はブラウザ内で行われます。データがデバイスから離れることはありません。"
         }
     },
     "Common": {
