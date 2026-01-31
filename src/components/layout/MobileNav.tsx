@@ -111,6 +111,15 @@ export function MobileNav() {
                     >
                         {t('convert')}
                     </Link>
+                    <Link
+                        href="/escape"
+                        className={cn(
+                            "text-lg font-medium transition-colors hover:text-primary",
+                            pathname === "/escape" ? "text-primary" : "text-muted-foreground"
+                        )}
+                    >
+                        {t('escape')}
+                    </Link>
                 </nav>
 
                 <div className="absolute bottom-8 left-6 right-6 text-sm text-muted-foreground">

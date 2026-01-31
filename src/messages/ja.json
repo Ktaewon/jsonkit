@@ -8,7 +8,8 @@
         "validate": "Validate",
         "viewer": "Viewer",
         "compare": "Compare",
-        "convert": "Convert"
+        "convert": "Convert",
+        "escape": "Escape"
     },
     "Landing": {
         "heroTitle": "究極のJSONツールキット",
@@ -75,5 +76,13 @@
         "jsonOutput": "JSON出力",
         "formatInput": "{format} 入力",
         "formatOutput": "{format} 出力"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",
+        "escape": "エスケープ",
+        "unescape": "アンエスケープ",
+        "invalidJson": "無効なJSON",
+        "invalidEscaped": "無効なエスケープ文字列"
     }
 }
