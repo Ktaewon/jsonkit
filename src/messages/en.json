@@ -37,6 +37,14 @@
             "repairDesc": "Automatically fix malformed JSON with common issues.",
             "schemaTitle": "Schema Validator",
             "schemaDesc": "Validate JSON data against a JSON Schema definition."
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "Clean Interface",
+            "cleanInterfaceDesc": "No distractions. Just the tools you need in a modern, clean UI.",
+            "fastReactiveTitle": "Fast & Reactive",
+            "fastReactiveDesc": "Instant results as you type. No waiting for server roundtrips.",
+            "privacyFirstTitle": "Privacy First",
+            "privacyFirstDesc": "All processing happens in your browser. Your data never leaves your device."
         }
     },
     "Common": {

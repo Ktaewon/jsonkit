@@ -37,6 +37,14 @@
             "repairDesc": "일반적인 문제가 있는 잘못된 JSON을 자동으로 수정합니다.",
             "schemaTitle": "Schema Validator",
             "schemaDesc": "JSON Schema 정의에 따라 JSON 데이터를 검증합니다."
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "깔끔한 인터페이스",
+            "cleanInterfaceDesc": "방해 요소 없이 현대적이고 깔끔한 UI에서 필요한 도구만 제공합니다.",
+            "fastReactiveTitle": "빠른 반응 속도",
+            "fastReactiveDesc": "입력과 동시에 즉시 결과를 확인하세요. 서버 응답을 기다릴 필요가 없습니다.",
+            "privacyFirstTitle": "프라이버시 우선",
+            "privacyFirstDesc": "모든 처리가 브라우저에서 이루어집니다. 데이터가 기기를 떠나지 않습니다."
         }
     },
     "Common": {

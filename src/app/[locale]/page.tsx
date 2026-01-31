@@ -200,27 +200,27 @@ export default function Home() {
             <div className="p-3 bg-primary/10 rounded-full">
               <Sparkles className="h-6 w-6 text-primary" />
             </div>
-            <h3 className="text-xl font-bold">Clean Interface</h3>
+            <h3 className="text-xl font-bold">{t('valueProps.cleanInterfaceTitle')}</h3>
             <p className="text-muted-foreground">
-              No distractions. Just the tools you need in a modern, clean UI.
+              {t('valueProps.cleanInterfaceDesc')}
             </p>
           </div>
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="p-3 bg-primary/10 rounded-full">
               <Zap className="h-6 w-6 text-primary" />
             </div>
-            <h3 className="text-xl font-bold">Fast & Reactive</h3>
+            <h3 className="text-xl font-bold">{t('valueProps.fastReactiveTitle')}</h3>
             <p className="text-muted-foreground">
-              Instant results as you type. No waiting for server roundtrips.
+              {t('valueProps.fastReactiveDesc')}
             </p>
           </div>
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="p-3 bg-primary/10 rounded-full">
               <Shield className="h-6 w-6 text-primary" />
             </div>
-            <h3 className="text-xl font-bold">Privacy First</h3>
+            <h3 className="text-xl font-bold">{t('valueProps.privacyFirstTitle')}</h3>
             <p className="text-muted-foreground">
-              All processing happens in your browser. Your data never leaves your device.
+              {t('valueProps.privacyFirstDesc')}
             </p>
           </div>
         </div>

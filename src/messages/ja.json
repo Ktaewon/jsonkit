@@ -37,6 +37,14 @@
             "repairDesc": "一般的な問題のある不正なJSONを自動的に修正します。",
             "schemaTitle": "スキーマ検証",
             "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。"
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "クリーンなインターフェース",
+            "cleanInterfaceDesc": "邪魔なものはありません。モダンでクリーンなUIに必要なツールだけ。",
+            "fastReactiveTitle": "高速 & リアクティブ",
+            "fastReactiveDesc": "入力と同時に即座に結果が表示されます。サーバーの応答を待つ必要はありません。",
+            "privacyFirstTitle": "プライバシー第一",
+            "privacyFirstDesc": "すべての処理はブラウザ内で行われます。データがデバイスから離れることはありません。"
         }
     },
     "Common": {

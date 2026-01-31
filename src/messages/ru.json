@@ -37,6 +37,14 @@
             "repairDesc": "Автоматически исправляйте некорректный JSON.",
             "schemaTitle": "Schema валидатор",
             "schemaDesc": "Проверяйте JSON данные по JSON Schema."
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "Чистый интерфейс",
+            "cleanInterfaceDesc": "Никаких отвлекающих факторов. Только нужные инструменты в современном и чистом UI.",
+            "fastReactiveTitle": "Быстро и реактивно",
+            "fastReactiveDesc": "Мгновенные результаты при вводе. Никакого ожидания ответа сервера.",
+            "privacyFirstTitle": "Конфиденциальность",
+            "privacyFirstDesc": "Вся обработка происходит в браузере. Ваши данные никогда не покидают устройство."
         }
     },
     "Common": {

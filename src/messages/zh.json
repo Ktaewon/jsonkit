@@ -37,6 +37,14 @@
             "repairDesc": "自动修复常见问题的格式错误 JSON。",
             "schemaTitle": "Schema 验证器",
             "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。"
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "简洁界面",
+            "cleanInterfaceDesc": "没有干扰。只有您需要的工具，呈现在现代、简洁的UI中。",
+            "fastReactiveTitle": "快速响应",
+            "fastReactiveDesc": "输入即得结果。无需等待服务器响应。",
+            "privacyFirstTitle": "隐私优先",
+            "privacyFirstDesc": "所有处理都在浏览器中进行。您的数据永不离开您的设备。"
         }
     },
     "Common": {
