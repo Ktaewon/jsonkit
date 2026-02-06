@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { validateJson } from "@/lib/json/validate";
 import { FileCheck, Trash2, CheckCircle2, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { ErrorBanner } from "@/components/common/ErrorBanner";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 
 export default function ValidatePage() {
@@ -84,10 +84,11 @@ export default function ValidatePage() {
                     <JsonEditor value={input} onChange={(v) => setInput(v || "")} />
 
                     {result.isValid === false && (
-                        <div className="absolute bottom-4 left-4 right-4 bg-destructive text-destructive-foreground p-3 rounded-md text-sm shadow-lg animate-in fade-in slide-in-from-bottom-2">
-                            <p className="font-bold">{t("errorFound")}</p>
-                            <pre className="whitespace-pre-wrap mt-1">{result.message}</pre>
-                        </div>
+                        <ErrorBanner
+                            message={t("errorFound")}
+                            details={result.message}
+                            onDismiss={() => setResult({ isValid: null })}
+                        />
                     )}
                 </div>
             </div>

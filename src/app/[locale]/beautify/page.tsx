@@ -6,7 +6,8 @@ import { JsonEditor } from "@/components/editor/JsonEditor";
 import { Button } from "@/components/ui/button";
 import { formatJson, minifyJson } from "@/lib/json/beautify";
 import { Copy, Trash2, FileJson } from "lucide-react";
-
+import { toast } from "sonner";
+import { ErrorBanner } from "@/components/common/ErrorBanner";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 
 export default function BeautifyPage() {
@@ -43,10 +44,14 @@ export default function BeautifyPage() {
         setError(null);
     };
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         if (!output) return;
-        navigator.clipboard.writeText(output);
-        // toast("Copied to clipboard"); // Need Toaster
+        try {
+            await navigator.clipboard.writeText(output);
+            toast.success(tCommon("copied"));
+        } catch {
+            toast.error(tCommon("copyFailed"));
+        }
     };
 
     return (
@@ -96,9 +101,11 @@ export default function BeautifyPage() {
                     <div className="flex-1 min-h-0 border rounded-md overflow-hidden relative">
                         <JsonEditor value={output} readOnly />
                         {error && (
-                            <div className="absolute bottom-4 left-4 right-4 bg-destructive text-destructive-foreground p-3 rounded-md text-sm shadow-lg animate-in fade-in slide-in-from-bottom-2">
-                                {tCommon("error")}: {error}
-                            </div>
+                            <ErrorBanner
+                                message={tCommon("error")}
+                                details={error}
+                                onDismiss={() => setError(null)}
+                            />
                         )}
                     </div>
                 </div>

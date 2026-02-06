@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { convert, ConversionFormat, ConversionDirection } from "@/lib/json/converter";
 import { ArrowRightLeft, Copy, Trash2, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import { toast } from "sonner";
+import { ErrorBanner } from "@/components/common/ErrorBanner";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 
 // Simple Label component
@@ -39,9 +40,14 @@ export default function ConverterPage() {
         }
     }, [input, format, direction]);
 
-    const handleCopy = () => {
+    const handleCopy = async () => {
         if (!output) return;
-        navigator.clipboard.writeText(output);
+        try {
+            await navigator.clipboard.writeText(output);
+            toast.success(tCommon("copied"));
+        } catch {
+            toast.error(tCommon("copyFailed"));
+        }
     };
 
     const toggleDirection = () => {
@@ -104,9 +110,10 @@ export default function ConverterPage() {
                             language={inputLanguage}
                         />
                         {error && (
-                            <div className="absolute bottom-2 left-2 right-2 text-xs text-destructive bg-destructive/10 px-2 py-1 rounded">
-                                {tCommon("error")}: {error}
-                            </div>
+                            <ErrorBanner
+                                message={tCommon("error")}
+                                details={error}
+                            />
                         )}
                     </div>
                 </div>
