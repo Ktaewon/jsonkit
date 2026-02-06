@@ -10,9 +10,9 @@
     "validate": "Validate",
     "viewer": "Viewer",
     "compare": "Compare",
-    "convert": "변환",
-    "type": "코드",
-    "query": "쿼리",
+    "convert": "Convert",
+    "type": "JSON to Code",
+    "query": "Query",
     "escape": "Escape",
     "repair": "Repair",
     "schema": "Schema"
