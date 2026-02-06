@@ -40,4 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-.omc/state/subagent-tracking.json
+
+# omc (oh-my-claudecode) generated files
+.omc/

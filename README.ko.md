@@ -1,4 +1,3 @@
-
 <div align="center">
   <img src="./public/og-image.png" alt="JSONKit Banner" width="100%" />
 
@@ -7,14 +6,15 @@
   <h1>JSONKit</h1>
   <p><strong>개발자를 위한 올인원 JSON 유틸리티</strong></p>
 
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-  [![Vercel](https://vercel.com/button)](https://jsonkit.org)
-  [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Vercel](https://vercel.com/button)](https://jsonkit.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
   <br />
 
-  [English](./README.md) · [한국어](./README.ko.md)
+[English](./README.md) · [한국어](./README.ko.md)
+
 </div>
 
 <br />
@@ -55,12 +55,14 @@
 ### 설치
 
 1. 저장소 클론:
+
    ```bash
    git clone https://github.com/Ktaewon/jsonkit.git
    cd jsonkit
    ```
 
 2. 의존성 설치:
+
    ```bash
    npm install
    # 또는
@@ -69,11 +71,13 @@
 
 3. 환경 변수 설정:
    `.env.example`을 `.env.local`로 복사하고 키를 추가합니다 (로컬 개발 시 선택사항).
+
    ```bash
    cp .env.example .env.local
    ```
 
 4. 개발 서버 실행:
+
    ```bash
    npm run dev
    ```

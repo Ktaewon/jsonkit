@@ -1,4 +1,3 @@
-
 <div align="center">
   <img src="./public/og-image.png" alt="JSONKit Banner" width="100%" />
   
@@ -7,14 +6,15 @@
   <h1>JSONKit</h1>
   <p><strong>All-in-one JSON Utility for Developers</strong></p>
 
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-  [![Vercel](https://vercel.com/button)](https://jsonkit.org)
-  [![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-  
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Vercel](https://vercel.com/button)](https://jsonkit.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
+
   <br />
 
-  [English](./README.md) · [한국어](./README.ko.md)
+[English](./README.md) · [한국어](./README.ko.md)
+
 </div>
 
 <br />
@@ -55,12 +55,14 @@
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/Ktaewon/jsonkit.git
    cd jsonkit
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -69,11 +71,13 @@
 
 3. Set up environment variables:
    Copy `.env.example` to `.env.local` and add your keys (optional for local dev).
+
    ```bash
    cp .env.example .env.local
    ```
 
 4. Run the development server:
+
    ```bash
    npm run dev
    ```

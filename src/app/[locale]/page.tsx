@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { Button } from "@/components/ui/button";
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
+import { Button } from '@/components/ui/button';
 import {
   FileJson,
   FileCheck,
@@ -16,11 +16,11 @@ import {
   Search,
   Quote,
   Wrench,
-  FileCode
-} from "lucide-react";
+  FileCode,
+} from 'lucide-react';
 
 export default function Home() {
-  const t = useTranslations("Landing");
+  const t = useTranslations('Landing');
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-3.5rem)]">
@@ -64,25 +64,79 @@ export default function Home() {
 
         <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
           {[
-            { href: "/beautify", Icon: FileJson, colorClass: "text-primary", titleKey: "features.beautifyTitle", descKey: "features.beautifyDesc" },
-            { href: "/validate", Icon: FileCheck, colorClass: "text-green-500", titleKey: "features.validateTitle", descKey: "features.validateDesc" },
-            { href: "/viewer", Icon: Network, colorClass: "text-purple-500", titleKey: "features.viewerTitle", descKey: "features.viewerDesc" },
-            { href: "/compare", Icon: ArrowRightLeft, colorClass: "text-orange-500", titleKey: "features.compareTitle", descKey: "features.compareDesc" },
-            { href: "/convert", Icon: ArrowLeftRight, colorClass: "text-pink-500", titleKey: "features.convertTitle", descKey: "features.convertDesc" },
-            { href: "/query", Icon: Search, colorClass: "text-cyan-500", titleKey: "features.queryTitle", descKey: "features.queryDesc" },
-            { href: "/escape", Icon: Quote, colorClass: "text-indigo-500", titleKey: "features.escapeTitle", descKey: "features.escapeDesc" },
-            { href: "/repair", Icon: Wrench, colorClass: "text-amber-500", titleKey: "features.repairTitle", descKey: "features.repairDesc" },
-            { href: "/schema", Icon: FileCode, colorClass: "text-teal-500", titleKey: "features.schemaTitle", descKey: "features.schemaDesc" },
+            {
+              href: '/beautify',
+              Icon: FileJson,
+              colorClass: 'text-primary',
+              titleKey: 'features.beautifyTitle',
+              descKey: 'features.beautifyDesc',
+            },
+            {
+              href: '/validate',
+              Icon: FileCheck,
+              colorClass: 'text-green-500',
+              titleKey: 'features.validateTitle',
+              descKey: 'features.validateDesc',
+            },
+            {
+              href: '/viewer',
+              Icon: Network,
+              colorClass: 'text-purple-500',
+              titleKey: 'features.viewerTitle',
+              descKey: 'features.viewerDesc',
+            },
+            {
+              href: '/compare',
+              Icon: ArrowRightLeft,
+              colorClass: 'text-orange-500',
+              titleKey: 'features.compareTitle',
+              descKey: 'features.compareDesc',
+            },
+            {
+              href: '/convert',
+              Icon: ArrowLeftRight,
+              colorClass: 'text-pink-500',
+              titleKey: 'features.convertTitle',
+              descKey: 'features.convertDesc',
+            },
+            {
+              href: '/query',
+              Icon: Search,
+              colorClass: 'text-cyan-500',
+              titleKey: 'features.queryTitle',
+              descKey: 'features.queryDesc',
+            },
+            {
+              href: '/escape',
+              Icon: Quote,
+              colorClass: 'text-indigo-500',
+              titleKey: 'features.escapeTitle',
+              descKey: 'features.escapeDesc',
+            },
+            {
+              href: '/repair',
+              Icon: Wrench,
+              colorClass: 'text-amber-500',
+              titleKey: 'features.repairTitle',
+              descKey: 'features.repairDesc',
+            },
+            {
+              href: '/schema',
+              Icon: FileCode,
+              colorClass: 'text-teal-500',
+              titleKey: 'features.schemaTitle',
+              descKey: 'features.schemaDesc',
+            },
           ].map(({ href, Icon, colorClass, titleKey, descKey }) => (
             <Link key={href} href={href} className="group">
               <div className="relative overflow-hidden rounded-lg border bg-background p-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1">
                 <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
-                  <Icon className={`h-12 w-12 ${colorClass} group-hover:scale-110 transition-transform duration-300`} />
+                  <Icon
+                    className={`h-12 w-12 ${colorClass} group-hover:scale-110 transition-transform duration-300`}
+                  />
                   <div className="space-y-2">
                     <h3 className="font-bold">{t(titleKey)}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {t(descKey)}
-                    </p>
+                    <p className="text-sm text-muted-foreground">{t(descKey)}</p>
                   </div>
                 </div>
               </div>
@@ -99,27 +153,21 @@ export default function Home() {
               <Sparkles className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold">{t('valueProps.cleanInterfaceTitle')}</h3>
-            <p className="text-muted-foreground">
-              {t('valueProps.cleanInterfaceDesc')}
-            </p>
+            <p className="text-muted-foreground">{t('valueProps.cleanInterfaceDesc')}</p>
           </div>
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="p-3 bg-primary/10 rounded-full">
               <Zap className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold">{t('valueProps.fastReactiveTitle')}</h3>
-            <p className="text-muted-foreground">
-              {t('valueProps.fastReactiveDesc')}
-            </p>
+            <p className="text-muted-foreground">{t('valueProps.fastReactiveDesc')}</p>
           </div>
           <div className="flex flex-col items-center text-center space-y-2">
             <div className="p-3 bg-primary/10 rounded-full">
               <Shield className="h-6 w-6 text-primary" />
             </div>
             <h3 className="text-xl font-bold">{t('valueProps.privacyFirstTitle')}</h3>
-            <p className="text-muted-foreground">
-              {t('valueProps.privacyFirstDesc')}
-            </p>
+            <p className="text-muted-foreground">{t('valueProps.privacyFirstDesc')}</p>
           </div>
         </div>
       </section>
