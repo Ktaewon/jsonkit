@@ -34,8 +34,8 @@ export async function generateMetadata({
       },
     },
     icons: {
-      icon: '/icon?size=32',
-      apple: '/apple-icon',
+      icon: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
     },
   };
 }
