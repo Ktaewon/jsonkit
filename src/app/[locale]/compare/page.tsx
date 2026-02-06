@@ -1,13 +1,13 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { JsonDiffEditor } from '@/components/editor/JsonDiffEditor';
+import { DynamicJsonDiffEditor as JsonDiffEditor } from '@/components/editor/DynamicJsonDiffEditor';
 import { Button } from '@/components/ui/button';
 import { GitCompare, Trash2, Columns, Rows } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useState, useEffect } from 'react';
 
-import { JsonEditor } from '@/components/editor/JsonEditor';
+import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function ComparePage() {
