@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { generateCode, SupportedLanguage } from '@/lib/json/code-generator';
+import { generateCode, SupportedLanguage, SUPPORTED_LANGUAGES } from '@/lib/json/code-generator';
 
 const Label = ({ children, className }: { children: React.ReactNode; className?: string }) => (
     <label
@@ -96,14 +96,11 @@ export default function JsonToCodePage() {
                         value={language}
                         onChange={(e) => setLanguage(e.target.value as SupportedLanguage)}
                     >
-                        <option value="typescript">TypeScript</option>
-                        <option value="go">Go</option>
-                        <option value="python">Python</option>
-                        <option value="csharp">C#</option>
-                        <option value="rust">Rust</option>
-                        <option value="swift">Swift</option>
-                        <option value="java">Java</option>
-                        <option value="cpp">C++</option>
+                        {SUPPORTED_LANGUAGES.map((lang) => (
+                            <option key={lang.value} value={lang.value}>
+                                {lang.label}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
