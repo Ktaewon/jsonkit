@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://jsonkit.org';
+import { BASE_URL } from '@/lib/constants';
 
 const OG_LOCALE_MAP: Record<string, string> = {
   en: 'en_US',
