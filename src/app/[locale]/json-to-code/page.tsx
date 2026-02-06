@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Button } from '@/components/ui/button';
-import { Code, Trash2, Copy, Loader2, ArrowRight } from 'lucide-react';
+import { Code, Trash2, Copy, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
@@ -41,6 +41,8 @@ export default function JsonToCodePage() {
 
     // Debounced generation
     useEffect(() => {
+        let isActive = true;
+
         const generate = async () => {
             if (!input.trim()) {
                 setOutput('');
@@ -51,21 +53,30 @@ export default function JsonToCodePage() {
             setIsGenerating(true);
             setError(null);
 
-            // Small delay to prevent flashing on fast inputs and allow UI to update
             try {
                 const code = await generateCode(input, { language, typeName });
-                setOutput(code);
+                if (isActive) {
+                    setOutput(code);
+                }
             } catch (err) {
                 console.error('Generation failed:', err);
-                setError(err instanceof Error ? err.message : 'Generation failed');
-                setOutput('');
+                if (isActive) {
+                    setError(err instanceof Error ? err.message : 'Generation failed');
+                    setOutput('');
+                }
             } finally {
-                setIsGenerating(false);
+                if (isActive) {
+                    setIsGenerating(false);
+                }
             }
         };
 
         const timer = setTimeout(generate, 800);
-        return () => clearTimeout(timer);
+
+        return () => {
+            isActive = false;
+            clearTimeout(timer);
+        };
     }, [input, language, typeName]);
 
     const handleCopy = async () => {
@@ -154,7 +165,7 @@ export default function JsonToCodePage() {
                         <JsonEditor
                             value={output}
                             readOnly
-                            language={language === 'csharp' ? 'csharp' : language === 'cpp' ? 'cpp' : language}
+                            language={language}
                         />
                     </div>
                 </div>

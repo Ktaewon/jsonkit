@@ -1,9 +1,9 @@
+'use server';
+
 import {
     quicktype,
     InputData,
     jsonInputForTargetLanguage,
-    JSONSchemaInput,
-    FetchingJSONSchemaStore,
 } from 'quicktype-core';
 
 export type SupportedLanguage = 'typescript' | 'go' | 'python' | 'csharp' | 'rust' | 'swift' | 'java' | 'cpp';
