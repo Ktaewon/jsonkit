@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { JsonEditor } from '@/components/editor/JsonEditor';
+import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Button } from '@/components/ui/button';
 import { queryJson, getExampleQueries } from '@/lib/json/query';
 import { Copy, Trash2, Search, Play } from 'lucide-react';

@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { JsonEditor } from '@/components/editor/JsonEditor';
+import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { JsonTreeView } from '@/components/editor/TreeView';
 import { Button } from '@/components/ui/button';
 import { Network, Trash2, ArrowRight } from 'lucide-react';

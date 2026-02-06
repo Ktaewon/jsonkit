@@ -33,6 +33,10 @@ export async function generateMetadata({
         'naver-site-verification': '187890350fe5651feb3073524c2b1ab610469222',
       },
     },
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/apple-touch-icon.png',
+    },
   };
 }
 

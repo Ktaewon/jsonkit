@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { JsonEditor } from '@/components/editor/JsonEditor';
+import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Button } from '@/components/ui/button';
 import { repairJson } from '@/lib/json/repair';
 import { Copy, Trash2, Wrench, CheckCircle, AlertCircle } from 'lucide-react';

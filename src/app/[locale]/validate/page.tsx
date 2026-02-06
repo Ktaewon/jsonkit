@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { JsonEditor } from '@/components/editor/JsonEditor';
+import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Button } from '@/components/ui/button';
 import { validateJson } from '@/lib/json/validate';
 import { FileCheck, Trash2, CheckCircle2, AlertCircle } from 'lucide-react';

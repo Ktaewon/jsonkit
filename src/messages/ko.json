@@ -77,7 +77,11 @@
     "metaDescription": "무료 온라인 JSON 포맷터 및 압축기. 적절한 들여쓰기로 JSON을 보기 좋게 정리하거나 압축하여 용량을 줄이세요. 서버 전송 없이 빠른 클라이언트 처리.",
     "format": "Beautify",
     "minify": "Minify",
-    "invalidJson": "유효하지 않은 JSON"
+    "invalidJson": "유효하지 않은 JSON",
+    "seoContent": {
+      "heading": "JSON Beautifier란?",
+      "paragraph": "JSON Beautifier(JSON 포맷터 또는 프리티 프린터)는 원시 JSON 데이터를 적절한 들여쓰기, 줄 바꿈, 간격으로 포맷하여 사람이 읽기 쉽게 만듭니다. JSONKit의 포맷터는 모든 처리를 브라우저에서 수행하므로 데이터가 기기를 떠나지 않습니다. 공백을 제거하여 프로덕션용 파일 크기를 줄이는 JSON 압축(Minify)도 가능합니다."
+    }
   },
   "Validate": {
     "title": "JSON Validator",
@@ -87,7 +91,11 @@
     "validateBtn": "JSON 검증",
     "valid": "유효한 JSON",
     "invalid": "유효하지 않은 JSON",
-    "errorFound": "오류 발견:"
+    "errorFound": "오류 발견:",
+    "seoContent": {
+      "heading": "JSON Validator란?",
+      "paragraph": "JSON Validator는 공식 JSON 사양(RFC 8259)에 따라 JSON 데이터의 문법 오류를 감지합니다. JSONKit의 검증기는 정확한 줄 번호와 설명적인 오류 메시지를 제공하여 누락된 쉼표, 닫히지 않은 괄호, 잘못된 이스케이프 시퀀스 등의 문제를 빠르게 찾고 수정할 수 있습니다."
+    }
   },
   "Viewer": {
     "title": "JSON Tree Viewer",
@@ -96,7 +104,11 @@
     "metaDescription": "무료 온라인 JSON 트리 뷰어. JSON을 인터랙티브한 접기/펼치기 트리 구조로 시각화하고 JSONPath 복사를 지원합니다.",
     "inputTitle": "JSON 입력",
     "treeTitle": "트리 뷰",
-    "enterValid": "유효한 JSON을 입력하여 트리를 확인하세요"
+    "enterValid": "유효한 JSON을 입력하여 트리를 확인하세요",
+    "seoContent": {
+      "heading": "JSON 트리 뷰어란?",
+      "paragraph": "JSON 트리 뷰어는 JSON 데이터를 인터랙티브한 계층적 트리 구조로 렌더링합니다. 노드를 펼치고 접어 깊게 중첩된 객체와 배열을 탐색할 수 있습니다. JSONKit의 트리 뷰어는 JSONPath 복사, 타입별 색상 구분을 지원하며 처음 두 단계를 자동 확장하여 빠른 미리보기를 제공합니다."
+    }
   },
   "Compare": {
     "title": "JSON Diff & Compare",
@@ -104,7 +116,11 @@
     "metaTitle": "JSON 비교 도구 - 나란히 비교 & 차이점 확인 | JSONKit",
     "metaDescription": "무료 온라인 JSON 비교 도구. 두 JSON 객체를 나란히 비교하여 추가, 삭제, 변경된 값을 시각적으로 강조 표시합니다.",
     "clearAll": "모두 지우기",
-    "instruction": "왼쪽(원본)과 오른쪽(수정본) 패널에서 직접 편집하여 비교하세요."
+    "instruction": "왼쪽(원본)과 오른쪽(수정본) 패널에서 직접 편집하여 비교하세요.",
+    "seoContent": {
+      "heading": "JSON 비교 도구란?",
+      "paragraph": "JSON 비교(Diff) 도구는 두 JSON 문서를 비교하여 차이점을 강조 표시합니다. JSONKit의 비교 도구는 Monaco Editor의 diff 엔진을 기반으로 나란히 보기와 인라인 보기를 제공하며, 추가, 삭제, 수정 사항을 색상으로 구분합니다. API 응답 디버깅, 설정 변경, 데이터 마이그레이션에 적합합니다."
+    }
   },
   "Convert": {
     "title": "JSON Converter",
@@ -115,7 +131,11 @@
     "jsonInput": "JSON 입력",
     "jsonOutput": "JSON 출력",
     "formatInput": "{format} 입력",
-    "formatOutput": "{format} 출력"
+    "formatOutput": "{format} 출력",
+    "seoContent": {
+      "heading": "JSON 변환기란?",
+      "paragraph": "JSON 변환기는 JSON 데이터를 다른 인기 데이터 형식으로 양방향 변환합니다. JSONKit은 JSON과 YAML, XML, CSV 간의 변환을 지원합니다. 변환은 브라우저에서 즉시 실시간 미리보기와 함께 수행되어 데이터 마이그레이션, API 테스트, 형식 호환성 작업에 이상적입니다."
+    }
   },
   "Query": {
     "title": "JSONPath Query",
@@ -130,7 +150,11 @@
     "matches": "개 일치",
     "invalidQuery": "유효하지 않은 JSONPath 쿼리",
     "invalidJson": "유효하지 않은 JSON",
-    "emptyQuery": "JSONPath 쿼리를 입력하세요"
+    "emptyQuery": "JSONPath 쿼리를 입력하세요",
+    "seoContent": {
+      "heading": "JSONPath 쿼리란?",
+      "paragraph": "JSONPath는 XML의 XPath와 유사한 JSON용 쿼리 언어입니다. $.store.book[*].author와 같은 경로 표현식을 사용하여 복잡한 JSON 구조에서 특정 데이터를 추출할 수 있습니다. JSONKit의 쿼리 도구는 전체 JSONPath 사양을 지원하며 즉시 결과, 일치 수 카운팅, 내장 예제 쿼리를 제공합니다."
+    }
   },
   "Escape": {
     "title": "JSON Escape & Unescape",
@@ -140,7 +164,11 @@
     "escape": "Escape",
     "unescape": "Unescape",
     "invalidJson": "유효하지 않은 JSON",
-    "invalidEscaped": "유효하지 않은 이스케이프 문자열"
+    "invalidEscaped": "유효하지 않은 이스케이프 문자열",
+    "seoContent": {
+      "heading": "JSON 이스케이프 & 언이스케이프란?",
+      "paragraph": "JSON 이스케이프는 문자열의 특수 문자(따옴표, 백슬래시, 줄 바꿈 등)를 이스케이프 시퀀스로 변환하여 JSON이나 소스 코드에 안전하게 포함시킵니다. 언이스케이프는 이 과정을 역으로 수행합니다. JSONKit은 양방향을 즉시 처리하며, 중첩된 JSON 문자열이나 코드에 JSON을 삽입할 때 유용합니다."
+    }
   },
   "Repair": {
     "title": "JSON Repair",
@@ -158,6 +186,10 @@
       "singleQuotes": "큰따옴표 대신 작은따옴표",
       "comments": "JavaScript 스타일 주석 (// 및 /* */)",
       "unquotedKeys": "따옴표 없는 속성 키"
+    },
+    "seoContent": {
+      "heading": "JSON 수리란?",
+      "paragraph": "JSON 수리는 잘못된 JSON의 일반적인 문법 오류를 자동으로 수정합니다. 후행 쉼표, 누락되거나 불일치하는 따옴표, 큰따옴표 대신 작은따옴표, JavaScript 스타일 주석, 따옴표 없는 속성 키 등을 처리합니다. JSONKit의 수리 도구는 표준 파서가 거부하는 손상된 JSON에서도 데이터를 복구할 수 있습니다."
     }
   },
   "Schema": {
@@ -174,7 +206,11 @@
     "invalid": "유효하지 않음",
     "errors": "개 오류",
     "enterDataAndSchema": "JSON 데이터와 스키마를 입력한 후 검증을 클릭하세요",
-    "validationFailed": "검증에 실패했습니다"
+    "validationFailed": "검증에 실패했습니다",
+    "seoContent": {
+      "heading": "JSON 스키마 검증이란?",
+      "paragraph": "JSON Schema는 JSON 데이터의 구조, 내용, 의미를 정의하는 어휘입니다. JSON Schema 검증기는 데이터가 주어진 스키마 정의를 준수하는지 확인합니다. JSONKit은 Ajv 라이브러리를 사용하여 빠르고 사양 준수적인 검증과 위반 위치를 정확히 가리키는 상세한 오류 메시지를 제공합니다."
+    }
   },
   "Footer": {
     "privacyPolicy": "개인정보 처리방침"
