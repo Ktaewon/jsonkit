@@ -12,6 +12,7 @@ const SUPPORTED_LANGUAGE_SET: ReadonlySet<SupportedLanguage> = new Set([
   'swift',
   'java',
   'cpp',
+  'kotlin',
 ]);
 
 export async function generateCode(

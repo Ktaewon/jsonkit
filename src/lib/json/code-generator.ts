@@ -6,7 +6,8 @@ export type SupportedLanguage =
   | 'rust'
   | 'swift'
   | 'java'
-  | 'cpp';
+  | 'cpp'
+  | 'kotlin';
 
 export const SUPPORTED_LANGUAGES: { value: SupportedLanguage; label: string }[] = [
   { value: 'typescript', label: 'TypeScript' },
@@ -17,6 +18,7 @@ export const SUPPORTED_LANGUAGES: { value: SupportedLanguage; label: string }[] 
   { value: 'swift', label: 'Swift' },
   { value: 'java', label: 'Java' },
   { value: 'cpp', label: 'C++' },
+  { value: 'kotlin', label: 'Kotlin' },
 ];
 
 export interface GenerateCodeOptions {
