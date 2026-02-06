@@ -1,7 +1,9 @@
 {
   "Metadata": {
     "title": "JSONKit - オールインワンJSONユーティリティ",
-    "description": "無料のオンラインJSON整形、バリデーション、ビューア、比較、変換ツール。"
+    "description": "無料のオンラインJSON整形、バリデーション、ビューア、比較、変換ツール。",
+    "metaTitle": "JSONKit - 無料オンラインJSONツール | 整形・検証・比較・変換",
+    "metaDescription": "オールインワンJSONツールキット：整形、圧縮、検証、ツリービュー、差分比較、YAML/XML/CSV変換、JSONPathクエリ、エスケープ、修復、スキーマ検証。無料・高速・安全 - すべてブラウザ内で処理。"
   },
   "Navigation": {
     "beautify": "Beautify",
@@ -69,6 +71,8 @@
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
     "description": "JSONデータを整形（プリティプリント）して読みやすくしたり、データを変更せずにファイルサイズを縮小（ミニファイ）したりできます。",
+    "metaTitle": "JSON整形 & 圧縮ツール オンライン - JSONフォーマッター | JSONKit",
+    "metaDescription": "無料オンラインJSON整形・圧縮ツール。適切なインデントでJSONを整形したり、スペースを削除して圧縮します。サーバー送信不要の高速クライアント処理。",
     "format": "整形 (Beautify)",
     "minify": "圧縮 (Minify)",
     "invalidJson": "無効なJSON"
@@ -76,6 +80,8 @@
   "Validate": {
     "title": "JSON Validator",
     "description": "JSON文字列が標準に準拠しているか検証します。正確な行番号とエラーメッセージで構文エラーを素早く見つけられます。",
+    "metaTitle": "JSONバリデーター オンライン - 構文チェッカー | JSONKit",
+    "metaDescription": "無料オンラインJSONバリデーター。正確な行番号と詳細なエラーメッセージでJSONの構文エラーを即座に検出します。",
     "validateBtn": "JSONを検証",
     "valid": "有効なJSON",
     "invalid": "無効なJSON",
@@ -84,6 +90,8 @@
   "Viewer": {
     "title": "JSON Tree Viewer",
     "description": "JSONデータをインタラクティブなツリーとして可視化します。複雑なネスト構造を簡単に展開、折りたたみ、探索できます。",
+    "metaTitle": "JSONツリービューア オンライン - インタラクティブJSON閲覧 | JSONKit",
+    "metaDescription": "無料オンラインJSONツリービューア。JSONをインタラクティブな折りたたみツリー構造で可視化し、JSONPathコピーをサポートします。",
     "inputTitle": "JSON入力",
     "treeTitle": "ツリービュー",
     "enterValid": "ツリーを表示するには有効なJSONを入力してください"
@@ -91,12 +99,16 @@
   "Compare": {
     "title": "JSON Diff & Compare",
     "description": "2つのJSONオブジェクトを並べて比較し、違いを確認します。追加、削除、変更された値が視覚的にハイライトされます。",
+    "metaTitle": "JSON差分 & 比較ツール - 並列比較 | JSONKit",
+    "metaDescription": "無料オンラインJSON差分・比較ツール。2つのJSONオブジェクトを並べて比較し、追加・削除・変更された値を視覚的にハイライトします。",
     "clearAll": "すべてクリア",
     "instruction": "左（元のデータ）と右（変更後）のパネルで直接編集して比較してください。"
   },
   "Convert": {
     "title": "JSON Converter",
     "description": "JSONデータをYAML、XML、CSVなどの一般的な形式に変換したり、逆に変換してJSONに戻すことができます。",
+    "metaTitle": "JSONコンバーター - JSON ↔ YAML, XML, CSV変換 | JSONKit",
+    "metaDescription": "無料オンラインJSONコンバーター。JSONをYAML、XML、CSVに変換、またはその逆も可能。即座にプレビューできる双方向変換。",
     "swap": "入れ替え",
     "jsonInput": "JSON入力",
     "jsonOutput": "JSON出力",
@@ -106,6 +118,8 @@
   "Query": {
     "title": "JSONPath Query",
     "description": "JSONPath式を使用してJSONからデータを抽出します。強力なパス構文でネストされたオブジェクトと配列をクエリできます。",
+    "metaTitle": "JSONPathクエリツール - JSONからデータ抽出 | JSONKit",
+    "metaDescription": "無料オンラインJSONPathクエリツール。強力なJSONPath式を使用してJSONからデータを抽出。ネストされたオブジェクトと配列を即座にクエリ。",
     "queryPlaceholder": "JSONPathを入力 (例: $.store.book[*].author)",
     "execute": "実行",
     "examples": "例",
@@ -119,6 +133,8 @@
   "Escape": {
     "title": "JSON Escape & Unescape",
     "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",
+    "metaTitle": "JSONエスケープ & アンエスケープ オンライン | JSONKit",
+    "metaDescription": "無料オンラインJSONエスケープ・アンエスケープツール。JSON文字列をコードに埋め込むためにエスケープしたり、元の形式に戻します。",
     "escape": "エスケープ",
     "unescape": "アンエスケープ",
     "invalidJson": "無効なJSON",
@@ -127,6 +143,8 @@
   "Repair": {
     "title": "JSON Repair",
     "description": "不正なJSONを自動的に修正します。末尾のカンマ、クォートの欠落、シングルクォート、コメントなどの一般的な問題を修正します。",
+    "metaTitle": "JSON修復ツール - 不正なJSONを自動修正 | JSONKit",
+    "metaDescription": "無料オンラインJSON修復ツール。末尾のカンマ、クォートの欠落、シングルクォート、コメント、クォートなしキーなどを自動修正します。",
     "repair": "修復",
     "repaired": "修復済み",
     "alreadyValid": "既に有効",
@@ -143,6 +161,8 @@
   "Schema": {
     "title": "JSON Schema Validator",
     "description": "JSON SchemaでJSONデータを検証します。詳細なエラーレポートで、データが定義された構造に準拠しているか確認できます。",
+    "metaTitle": "JSONスキーマバリデーター オンライン | JSONKit",
+    "metaDescription": "無料オンラインJSONスキーマバリデーター。JSON Schema定義に対してJSONデータを検証し、詳細なエラーレポートを提供します。",
     "jsonData": "JSONデータ",
     "jsonSchema": "JSON Schema",
     "result": "検証結果",
@@ -159,6 +179,8 @@
   },
   "Privacy": {
     "title": "プライバシーポリシー",
+    "metaTitle": "プライバシーポリシー | JSONKit",
+    "metaDescription": "JSONKitプライバシーポリシー。すべてのJSON処理はブラウザ内で行われ、サーバーへのデータ送信はありません。",
     "lastUpdated": "最終更新日",
     "lastUpdatedDate": "2025年1月",
     "sections": {

@@ -1,7 +1,9 @@
 {
   "Metadata": {
     "title": "JSONKit - All-in-one JSON Utility",
-    "description": "Free online JSON beautifier, validator, viewer, diff, and converter."
+    "description": "Free online JSON beautifier, validator, viewer, diff, and converter.",
+    "metaTitle": "JSONKit - Free Online JSON Tools | Beautify, Validate, Compare & Convert",
+    "metaDescription": "All-in-one JSON toolkit: beautify, minify, validate, tree view, diff compare, convert to YAML/XML/CSV, JSONPath query, escape, repair, and schema validate. Free, fast, and private - all processing in your browser."
   },
   "Navigation": {
     "beautify": "Beautify",
@@ -71,6 +73,8 @@
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
     "description": "Format and pretty-print your JSON data to make it easier to read, or minify it to reduce file size without changing the data.",
+    "metaTitle": "JSON Beautifier & Minifier Online - Format JSON | JSONKit",
+    "metaDescription": "Free online JSON beautifier and minifier. Pretty-print JSON with proper indentation or compress it to save space. Fast, client-side processing with no data upload.",
     "format": "Beautify",
     "minify": "Minify",
     "invalidJson": "Invalid JSON"
@@ -78,6 +82,8 @@
   "Validate": {
     "title": "JSON Validator",
     "description": "Validate your JSON strings against the standard. Find syntax errors quickly with precise line numbers and error messages.",
+    "metaTitle": "JSON Validator Online - Syntax Checker with Line Numbers | JSONKit",
+    "metaDescription": "Free online JSON validator and syntax checker. Detect errors with precise line numbers and detailed error messages. Validate JSON instantly in your browser.",
     "validateBtn": "Validate JSON",
     "valid": "Valid JSON",
     "invalid": "Invalid JSON",
@@ -86,6 +92,8 @@
   "Viewer": {
     "title": "JSON Tree Viewer",
     "description": "Visualize your JSON data as an interactive tree. Expand, collapse, and explore complex nested structures effortlessly.",
+    "metaTitle": "JSON Tree Viewer Online - Interactive JSON Explorer | JSONKit",
+    "metaDescription": "Free online JSON tree viewer. Visualize JSON as an interactive, collapsible tree structure. Explore nested objects and arrays with JSONPath copy support.",
     "inputTitle": "JSON Input",
     "treeTitle": "Tree View",
     "enterValid": "Enter valid JSON to view tree"
@@ -93,12 +101,16 @@
   "Compare": {
     "title": "JSON Diff & Compare",
     "description": "Compare two JSON objects side-by-side to see differences. Visual highlighting makes it easy to spot added, removed, or modified values.",
+    "metaTitle": "JSON Diff & Compare Tool - Side-by-Side Comparison | JSONKit",
+    "metaDescription": "Free online JSON diff and compare tool. Compare two JSON objects side-by-side with visual highlighting of added, removed, and modified values.",
     "clearAll": "Clear All",
     "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare."
   },
   "Convert": {
     "title": "JSON Converter",
     "description": "Convert JSON data to other popular formats like YAML, XML, and CSV. You can also convert these formats back to JSON.",
+    "metaTitle": "JSON Converter - JSON to YAML, XML, CSV & Back | JSONKit",
+    "metaDescription": "Free online JSON converter. Convert JSON to YAML, XML, CSV and back. Bidirectional conversion with instant preview. No server upload required.",
     "swap": "Swap",
     "jsonInput": "JSON Input",
     "jsonOutput": "JSON Output",
@@ -108,6 +120,8 @@
   "Query": {
     "title": "JSONPath Query",
     "description": "Extract data from JSON using JSONPath expressions. Query nested objects and arrays with powerful path syntax.",
+    "metaTitle": "JSONPath Query Tool - Extract Data from JSON | JSONKit",
+    "metaDescription": "Free online JSONPath query tool. Extract data from JSON using powerful JSONPath expressions. Query nested objects and arrays with instant results.",
     "queryPlaceholder": "Enter JSONPath (e.g., $.store.book[*].author)",
     "execute": "Execute",
     "examples": "Examples",
@@ -121,6 +135,8 @@
   "Escape": {
     "title": "JSON Escape & Unescape",
     "description": "Escape JSON strings for embedding in other JSON or code, or unescape previously escaped JSON strings back to their original format.",
+    "metaTitle": "JSON Escape & Unescape Online | JSONKit",
+    "metaDescription": "Free online JSON escape and unescape tool. Escape JSON strings for embedding in code or unescape them back to original format. Fast, browser-based processing.",
     "escape": "Escape",
     "unescape": "Unescape",
     "invalidJson": "Invalid JSON",
@@ -129,6 +145,8 @@
   "Repair": {
     "title": "JSON Repair",
     "description": "Automatically fix malformed JSON. Repairs common issues like trailing commas, missing quotes, single quotes, and comments.",
+    "metaTitle": "JSON Repair Tool - Fix Malformed JSON | JSONKit",
+    "metaDescription": "Free online JSON repair tool. Automatically fix malformed JSON including trailing commas, missing quotes, single quotes, comments, and unquoted keys.",
     "repair": "Repair",
     "repaired": "Repaired",
     "alreadyValid": "Already valid",
@@ -145,6 +163,8 @@
   "Schema": {
     "title": "JSON Schema Validator",
     "description": "Validate your JSON data against a JSON Schema. Ensure your data conforms to a defined structure with detailed error reporting.",
+    "metaTitle": "JSON Schema Validator Online | JSONKit",
+    "metaDescription": "Free online JSON Schema validator. Validate JSON data against JSON Schema definitions with detailed error reporting. Supports draft-07 and later.",
     "jsonData": "JSON Data",
     "jsonSchema": "JSON Schema",
     "result": "Validation Result",
@@ -161,6 +181,8 @@
   },
   "Privacy": {
     "title": "Privacy Policy",
+    "metaTitle": "Privacy Policy | JSONKit",
+    "metaDescription": "JSONKit privacy policy. Learn how we handle your data - all JSON processing happens in your browser with no server transmission.",
     "lastUpdated": "Last Updated",
     "lastUpdatedDate": "January 2025",
     "sections": {
