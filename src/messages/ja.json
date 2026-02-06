@@ -10,8 +10,9 @@
     "validate": "Validate",
     "viewer": "Viewer",
     "compare": "Compare",
-    "convert": "Convert",
-    "query": "Query",
+    "convert": "変換",
+    "type": "コード生成",
+    "query": "クエリ",
     "escape": "Escape",
     "repair": "Repair",
     "schema": "Schema"
@@ -133,6 +134,20 @@
     "seoContent": {
       "heading": "JSONコンバーターとは？",
       "paragraph": "JSONコンバーターは、JSONデータを他の一般的なデータ形式に変換したり、逆変換したりします。JSONKitは、JSONとYAML、XML、CSVの双方向変換をサポートしています。変換はブラウザ内で即座に行われ、リアルタイムプレビューが可能で、データ移行、APIテスト、フォーマット間の相互運用に最適です。"
+    }
+  },
+  "Type": {
+    "title": "JSONコード生成",
+    "description": "JSONデータからTypeScript、Go、Pythonなどの型定義やクラス構造を自動生成します。",
+    "metaTitle": "JSONコード生成 - 型定義とクラスの自動生成 | JSONKit",
+    "metaDescription": "無料のオンラインJSONコード生成ツール。JSONからTypeScriptインターフェース、Go構造体、Pythonクラスなどを生成します。安全で高速なクライアントサイド処理。",
+    "language": "言語",
+    "typeName": "型名",
+    "generate": "生成",
+    "generating": "生成中...",
+    "seoContent": {
+      "heading": "JSONをコードに即座に変換",
+      "paragraph": "型定義を手動で書く必要はありません。JSONKitのコード生成ツールは、TypeScript、Go、Python、C#など、さまざまなプログラミング言語に対応した型安全なインターフェースやクラスを自動的に生成します。JSONを貼り付けるだけで、すぐに使えるコードが手に入ります。"
     }
   },
   "Query": {
