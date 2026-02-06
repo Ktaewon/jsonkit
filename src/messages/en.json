@@ -14,7 +14,9 @@
     "query": "Query",
     "escape": "Escape",
     "repair": "Repair",
-    "schema": "Schema"
+    "schema": "Schema",
+    "type": "Code",
+    "graph": "Graph"
   },
   "Landing": {
     "heroTitle": "Your All-in-One JSON Toolkit",
@@ -58,6 +60,7 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
+    "generating": "Generating...",
     "copy": "Copy",
     "copied": "Copied to clipboard",
     "copyFailed": "Failed to copy",

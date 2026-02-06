@@ -104,13 +104,22 @@ export function MobileNav() {
             {t('compare')}
           </Link>
           <Link
-            href="/convert"
+            href="/json-to-code"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/convert' ? 'text-primary' : 'text-muted-foreground'
+              pathname === '/json-to-code' ? 'text-primary' : 'text-muted-foreground'
             )}
           >
-            {t('convert')}
+            {t('type')}
+          </Link>
+          <Link
+            href="/graph"
+            className={cn(
+              'text-lg font-medium transition-colors hover:text-primary',
+              pathname === '/graph' ? 'text-primary' : 'text-muted-foreground'
+            )}
+          >
+            {t('graph')}
           </Link>
           <Link
             href="/query"

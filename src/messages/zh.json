@@ -58,6 +58,7 @@
     "light": "亮色",
     "dark": "暗色",
     "system": "系统",
+    "generating": "生成中...",
     "copy": "复制",
     "copied": "已复制到剪贴板",
     "copyFailed": "复制失败",

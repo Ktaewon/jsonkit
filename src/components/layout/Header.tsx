@@ -55,6 +55,18 @@ export function Header() {
               {t('compare')}
             </Link>
             <Link
+              href="/json-to-code"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              {t('type')}
+            </Link>
+            <Link
+              href="/graph"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              {t('graph')}
+            </Link>
+            <Link
               href="/convert"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
