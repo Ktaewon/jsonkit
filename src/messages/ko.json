@@ -58,6 +58,7 @@
     "light": "라이트",
     "dark": "다크",
     "system": "시스템",
+    "generating": "생성 중...",
     "copy": "복사",
     "copied": "클립보드에 복사됨",
     "copyFailed": "복사 실패",
@@ -69,6 +70,13 @@
     "input": "입력",
     "output": "출력",
     "error": "오류"
+  },
+  "Graph": {
+    "title": "그래프 시각화",
+    "description": "JSON 데이터를 인터랙티브 노드 그래프로 시각화합니다.",
+    "visualization": "그래프 시각화",
+    "layoutLR": "레이아웃: 가로",
+    "layoutTB": "레이아웃: 세로"
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",

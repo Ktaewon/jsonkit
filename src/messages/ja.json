@@ -58,6 +58,7 @@
     "light": "ライト",
     "dark": "ダーク",
     "system": "システム",
+    "generating": "生成中...",
     "copy": "コピー",
     "copied": "クリップボードにコピーしました",
     "copyFailed": "コピーに失敗しました",

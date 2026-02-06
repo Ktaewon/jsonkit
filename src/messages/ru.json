@@ -13,10 +13,12 @@
     "convert": "Convert",
     "query": "Query",
     "escape": "Escape",
-    "repair": "Repair",
-    "schema": "Schema"
+    "repair": "Исправить",
+    "schema": "Схема",
+    "type": "Код",
+    "graph": "Граф"
   },
-  "Landing": {
+  "Home": {
     "heroTitle": "Ваш универсальный набор инструментов JSON",
     "heroSubtitle": "Форматируйте, проверяйте, визуализируйте, сравнивайте и конвертируйте JSON-данные прямо в браузере. Быстро, безопасно и бесплатно.",
     "getStarted": "Начать",
@@ -58,6 +60,7 @@
     "light": "Светлая",
     "dark": "Темная",
     "system": "Системная",
+    "generating": "Генерация...",
     "copy": "Копировать",
     "copied": "Скопировано в буфер обмена",
     "copyFailed": "Не удалось скопировать",
@@ -67,6 +70,13 @@
     "input": "Ввод",
     "output": "Вывод",
     "error": "Ошибка"
+  },
+  "Graph": {
+    "title": "Визуализация графа",
+    "description": "Визуализируйте ваши JSON-данные в виде интерактивного графа узлов.",
+    "visualization": "Визуализация графа",
+    "layoutLR": "Макет: Горизонтальный",
+    "layoutTB": "Макет: Вертикальный"
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
