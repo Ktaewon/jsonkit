@@ -140,7 +140,7 @@
     "title": "JSON代码生成器",
     "description": "从JSON数据自动生成TypeScript、Go、Python等的类型定义和类结构。",
     "metaTitle": "JSON代码生成器 - 在线生成类型和接口 | JSONKit",
-    "metaDescription": "免费在线JSON代码生成器。从JSON生成TypeScript接口、Go结构体、Python类等。即时、安全的客户端生成。",
+    "metaDescription": "免费在线JSON代码生成器。从JSON生成 TypeScript、Go、Python、C#、Rust、Swift、Java、C++ 和 Kotlin 代码。即时、安全的客户端生成。",
     "language": "语言",
     "typeName": "类型名称",
     "generate": "生成",

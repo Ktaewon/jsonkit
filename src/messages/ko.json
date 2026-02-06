@@ -142,7 +142,7 @@
     "title": "JSON 코드 생성기",
     "description": "JSON 데이터에서 TypeScript, Go, Python 등의 타입 정의 및 클래스 구조를 자동으로 생성하세요.",
     "metaTitle": "JSON 코드 생성 - 타입 및 인터페이스 자동 생성 | JSONKit",
-    "metaDescription": "무료 온라인 JSON 코드 변환기. JSON에서 TypeScript 인터페이스, Go 구조체, Python 클래스 등을 생성합니다. 브라우저에서 안전하고 빠르게 변환하세요.",
+    "metaDescription": "무료 온라인 JSON 코드 변환기. JSON에서 TypeScript, Go, Python, C#, Rust, Swift, Java, C++, Kotlin 코드를 생성합니다. 브라우저에서 안전하고 빠르게 변환하세요.",
     "language": "언어",
     "typeName": "타입 이름",
     "generate": "생성하기",

@@ -140,7 +140,7 @@
     "title": "JSONコード生成",
     "description": "JSONデータからTypeScript、Go、Pythonなどの型定義やクラス構造を自動生成します。",
     "metaTitle": "JSONコード生成 - 型定義とクラスの自動生成 | JSONKit",
-    "metaDescription": "無料のオンラインJSONコード生成ツール。JSONからTypeScriptインターフェース、Go構造体、Pythonクラスなどを生成します。安全で高速なクライアントサイド処理。",
+    "metaDescription": "無料のオンラインJSONコード生成ツール。JSONからTypeScript、Go、Python、C#、Rust、Swift、Java、C++、Kotlinのコードを生成します。安全で高速なクライアントサイド処理。",
     "language": "言語",
     "typeName": "型名",
     "generate": "生成",

@@ -142,7 +142,7 @@
     "title": "JSON to Code Converter",
     "description": "Generate type definitions and class structures for TypeScript, Go, Python, and more from your JSON data.",
     "metaTitle": "JSON to Code - Generate Types & Interfaces Online | JSONKit",
-    "metaDescription": "Free online JSON to Code converter. Generate TypeScript interfaces, Go structs, Python classes, and more from JSON. Instant and secure client-side generation.",
+    "metaDescription": "Free online JSON to Code converter. Generate TypeScript, Go, Python, C#, Rust, Swift, Java, C++, and Kotlin code from JSON with instant, secure client-side generation.",
     "language": "Language",
     "typeName": "Type Name",
     "generate": "Generate",
