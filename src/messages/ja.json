@@ -1,186 +1,189 @@
 {
-  "Metadata": {
-    "title": "JSONKit - オールインワンJSONユーティリティ",
-    "description": "無料のオンラインJSON整形、バリデーション、ビューア、比較、変換ツール。"
-  },
-  "Navigation": {
-    "beautify": "Beautify",
-    "validate": "Validate",
-    "viewer": "Viewer",
-    "compare": "Compare",
-    "convert": "Convert",
-    "query": "Query",
-    "escape": "Escape",
-    "repair": "Repair",
-    "schema": "Schema"
-  },
-  "Landing": {
-    "heroTitle": "究極のJSONツールキット",
-    "heroSubtitle": "ブラウザ上で直接JSONデータの整形、検証、可視化、比較、変換が可能です。高速、安全、そして無料。",
-    "getStarted": "始める",
-    "features": {
-      "beautifyTitle": "整形 & 圧縮",
-      "beautifyDesc": "JSONを読みやすく整形したり、スペースを節約するために圧縮します。",
-      "validateTitle": "バリデーター",
-      "validateDesc": "正確なエラーレポートでJSONの構文エラーをチェックします。",
-      "viewerTitle": "ツリービューア",
-      "viewerDesc": "インタラクティブなツリービューで複雑なJSON構造を探索します。",
-      "compareTitle": "差分 & 比較",
-      "compareDesc": "2つのJSONファイルを並べて比較し、違いを見つけます。",
-      "convertTitle": "コンバーター",
-      "convertDesc": "JSONをYAML、XML、CSVなどに変換し、その逆も可能です。",
-      "queryTitle": "JSONPath クエリ",
-      "queryDesc": "強力なJSONPath式を使用してJSONからデータを抽出します。",
-      "escapeTitle": "エスケープ & アンエスケープ",
-      "escapeDesc": "JSON文字列をエスケープまたは元の形式に戻します。",
-      "repairTitle": "JSON修復",
-      "repairDesc": "一般的な問題のある不正なJSONを自動的に修正します。",
-      "schemaTitle": "スキーマ検証",
-      "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。"
+    "Metadata": {
+        "title": "JSONKit - オールインワンJSONユーティリティ",
+        "description": "無料のオンラインJSON整形、バリデーション、ビューア、比較、変換ツール。"
     },
-    "featuresSection": {
-      "title": "機能",
-      "subtitle": "JSONファイルを効率的に扱うために必要なすべて。"
+    "Navigation": {
+        "beautify": "Beautify",
+        "validate": "Validate",
+        "viewer": "Viewer",
+        "compare": "Compare",
+        "convert": "Convert",
+        "query": "Query",
+        "escape": "Escape",
+        "repair": "Repair",
+        "schema": "Schema"
     },
-    "valueProps": {
-      "cleanInterfaceTitle": "クリーンなインターフェース",
-      "cleanInterfaceDesc": "邪魔なものはありません。モダンでクリーンなUIに必要なツールだけ。",
-      "fastReactiveTitle": "高速 & リアクティブ",
-      "fastReactiveDesc": "入力と同時に即座に結果が表示されます。サーバーの応答を待つ必要はありません。",
-      "privacyFirstTitle": "プライバシー第一",
-      "privacyFirstDesc": "すべての処理はブラウザ内で行われます。データがデバイスから離れることはありません。"
+    "Landing": {
+        "heroTitle": "究極のJSONツールキット",
+        "heroSubtitle": "ブラウザ上で直接JSONデータの整形、検証、可視化、比較、変換が可能です。高速、安全、そして無料。",
+        "getStarted": "始める",
+        "features": {
+            "beautifyTitle": "整形 & 圧縮",
+            "beautifyDesc": "JSONを読みやすく整形したり、スペースを節約するために圧縮します。",
+            "validateTitle": "バリデーター",
+            "validateDesc": "正確なエラーレポートでJSONの構文エラーをチェックします。",
+            "viewerTitle": "ツリービューア",
+            "viewerDesc": "インタラクティブなツリービューで複雑なJSON構造を探索します。",
+            "compareTitle": "差分 & 比較",
+            "compareDesc": "2つのJSONファイルを並べて比較し、違いを見つけます。",
+            "convertTitle": "コンバーター",
+            "convertDesc": "JSONをYAML、XML、CSVなどに変換し、その逆も可能です。",
+            "queryTitle": "JSONPath クエリ",
+            "queryDesc": "強力なJSONPath式を使用してJSONからデータを抽出します。",
+            "escapeTitle": "エスケープ & アンエスケープ",
+            "escapeDesc": "JSON文字列をエスケープまたは元の形式に戻します。",
+            "repairTitle": "JSON修復",
+            "repairDesc": "一般的な問題のある不正なJSONを自動的に修正します。",
+            "schemaTitle": "スキーマ検証",
+            "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。"
+        },
+        "featuresSection": {
+            "title": "機能",
+            "subtitle": "JSONファイルを効率的に扱うために必要なすべて。"
+        },
+        "valueProps": {
+            "cleanInterfaceTitle": "クリーンなインターフェース",
+            "cleanInterfaceDesc": "邪魔なものはありません。モダンでクリーンなUIに必要なツールだけ。",
+            "fastReactiveTitle": "高速 & リアクティブ",
+            "fastReactiveDesc": "入力と同時に即座に結果が表示されます。サーバーの応答を待つ必要はありません。",
+            "privacyFirstTitle": "プライバシー第一",
+            "privacyFirstDesc": "すべての処理はブラウザ内で行われます。データがデバイスから離れることはありません。"
+        }
+    },
+    "Common": {
+        "theme": "テーマ",
+        "light": "ライト",
+        "dark": "ダーク",
+        "system": "システム",
+        "copy": "コピー",
+        "copied": "クリップボードにコピーしました",
+        "copyFailed": "コピーに失敗しました",
+        "dismissError": "エラーを閉じる",
+        "clear": "クリア",
+        "download": "ダウンロード",
+        "input": "入力",
+        "output": "出力",
+        "error": "エラー"
+    },
+    "Beautify": {
+        "title": "JSON Beautifier & Minifier",
+        "description": "JSONデータを整形（プリティプリント）して読みやすくしたり、データを変更せずにファイルサイズを縮小（ミニファイ）したりできます。",
+        "format": "整形 (Beautify)",
+        "minify": "圧縮 (Minify)",
+        "invalidJson": "無効なJSON"
+    },
+    "Validate": {
+        "title": "JSON Validator",
+        "description": "JSON文字列が標準に準拠しているか検証します。正確な行番号とエラーメッセージで構文エラーを素早く見つけられます。",
+        "validateBtn": "JSONを検証",
+        "valid": "有効なJSON",
+        "invalid": "無効なJSON",
+        "errorFound": "エラーが見つかりました:"
+    },
+    "Viewer": {
+        "title": "JSON Tree Viewer",
+        "description": "JSONデータをインタラクティブなツリーとして可視化します。複雑なネスト構造を簡単に展開、折りたたみ、探索できます。",
+        "inputTitle": "JSON入力",
+        "treeTitle": "ツリービュー",
+        "enterValid": "ツリーを表示するには有効なJSONを入力してください"
+    },
+    "Compare": {
+        "title": "JSON Diff & Compare",
+        "description": "2つのJSONオブジェクトを並べて比較し、違いを確認します。追加、削除、変更された値が視覚的にハイライトされます。",
+        "clearAll": "すべてクリア",
+        "instruction": "左（元のデータ）と右（変更後）のパネルで直接編集して比較してください。"
+    },
+    "Convert": {
+        "title": "JSON Converter",
+        "description": "JSONデータをYAML、XML、CSVなどの一般的な形式に変換したり、逆に変換してJSONに戻すことができます。",
+        "swap": "入れ替え",
+        "jsonInput": "JSON入力",
+        "jsonOutput": "JSON出力",
+        "formatInput": "{format} 入力",
+        "formatOutput": "{format} 出力"
+    },
+    "Query": {
+        "title": "JSONPath Query",
+        "description": "JSONPath式を使用してJSONからデータを抽出します。強力なパス構文でネストされたオブジェクトと配列をクエリできます。",
+        "queryPlaceholder": "JSONPathを入力 (例: $.store.book[*].author)",
+        "execute": "実行",
+        "examples": "例",
+        "jsonInput": "JSON入力",
+        "queryResult": "クエリ結果",
+        "matches": "件一致",
+        "invalidQuery": "無効なJSONPathクエリ",
+        "invalidJson": "無効なJSON",
+        "emptyQuery": "JSONPathクエリを入力してください"
+    },
+    "Escape": {
+        "title": "JSON Escape & Unescape",
+        "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",
+        "escape": "エスケープ",
+        "unescape": "アンエスケープ",
+        "invalidJson": "無効なJSON",
+        "invalidEscaped": "無効なエスケープ文字列"
+    },
+    "Repair": {
+        "title": "JSON Repair",
+        "description": "不正なJSONを自動的に修正します。末尾のカンマ、クォートの欠落、シングルクォート、コメントなどの一般的な問題を修正します。",
+        "repair": "修復",
+        "repaired": "修復済み",
+        "alreadyValid": "既に有効",
+        "repairFailed": "JSONを修復できませんでした",
+        "supportsTitle": "修正可能な項目",
+        "supports": {
+            "trailingCommas": "配列やオブジェクトの末尾のカンマ",
+            "missingQuotes": "プロパティ名周りの欠落したクォート",
+            "singleQuotes": "ダブルクォートの代わりのシングルクォート",
+            "comments": "JavaScript形式のコメント (// と /* */)",
+            "unquotedKeys": "クォートされていないプロパティキー"
+        }
+    },
+    "Schema": {
+        "title": "JSON Schema Validator",
+        "description": "JSON SchemaでJSONデータを検証します。詳細なエラーレポートで、データが定義された構造に準拠しているか確認できます。",
+        "jsonData": "JSONデータ",
+        "jsonSchema": "JSON Schema",
+        "result": "検証結果",
+        "validate": "検証",
+        "loadExample": "サンプルを読み込む",
+        "valid": "有効 - JSONがスキーマと一致します",
+        "invalid": "無効",
+        "errors": "件のエラー",
+        "enterDataAndSchema": "JSONデータとスキーマを入力し、検証をクリックしてください",
+        "validationFailed": "検証に失敗しました"
+    },
+    "Footer": {
+        "privacyPolicy": "プライバシーポリシー"
+    },
+    "Privacy": {
+        "title": "プライバシーポリシー",
+        "lastUpdated": "最終更新日",
+        "lastUpdatedDate": "2025年1月",
+        "sections": {
+            "dataCollection": {
+                "title": "データ収集",
+                "content": "JSONKitは、お客様のJSONデータを収集、保存、送信しません。すべてのJSON処理は完全にブラウザ内で行われます。お客様のデータがデバイスから離れることはありません。"
+            },
+            "localStorage": {
+                "title": "ローカルストレージ",
+                "content": "ブラウザのローカルストレージを使用して、設定（テーマ設定など）を保存し、利便性のために最後の入力を記憶します。このデータはお客様のデバイスにのみ保存され、サーバーに送信されることはありません。"
+            },
+            "cookies": {
+                "title": "Cookieとサードパーティサービス",
+                "content": "以下のサードパーティサービスを使用しており、Cookieを設定する場合があります：",
+                "googleAdsense": "Google AdSense：広告の表示に使用されます。Googleは、お客様の閲覧履歴に基づいて広告をパーソナライズするためにCookieを使用する場合があります。",
+                "googleAnalytics": "Google Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。これにより、ユーザーエクスペリエンスの向上に役立てています。"
+            },
+            "thirdParty": {
+                "title": "サードパーティリンク",
+                "content": "当ウェブサイトには、サードパーティのウェブサイトへのリンクが含まれている場合があります。これらの外部サイトのプライバシー慣行については責任を負いません。訪問するリンク先のウェブサイトのプライバシーポリシーをお読みになることをお勧めします。"
+            },
+            "contact": {
+                "title": "お問い合わせ",
+                "content": "このプライバシーポリシーについてご質問がある場合は、GitHubリポジトリを通じてお問い合わせください。"
+            }
+        }
     }
-  },
-  "Common": {
-    "theme": "テーマ",
-    "light": "ライト",
-    "dark": "ダーク",
-    "system": "システム",
-    "copy": "コピー",
-    "clear": "クリア",
-    "download": "ダウンロード",
-    "input": "入力",
-    "output": "出力",
-    "error": "エラー"
-  },
-  "Beautify": {
-    "title": "JSON Beautifier & Minifier",
-    "description": "JSONデータを整形（プリティプリント）して読みやすくしたり、データを変更せずにファイルサイズを縮小（ミニファイ）したりできます。",
-    "format": "整形 (Beautify)",
-    "minify": "圧縮 (Minify)",
-    "invalidJson": "無効なJSON"
-  },
-  "Validate": {
-    "title": "JSON Validator",
-    "description": "JSON文字列が標準に準拠しているか検証します。正確な行番号とエラーメッセージで構文エラーを素早く見つけられます。",
-    "validateBtn": "JSONを検証",
-    "valid": "有効なJSON",
-    "invalid": "無効なJSON",
-    "errorFound": "エラーが見つかりました:"
-  },
-  "Viewer": {
-    "title": "JSON Tree Viewer",
-    "description": "JSONデータをインタラクティブなツリーとして可視化します。複雑なネスト構造を簡単に展開、折りたたみ、探索できます。",
-    "inputTitle": "JSON入力",
-    "treeTitle": "ツリービュー",
-    "enterValid": "ツリーを表示するには有効なJSONを入力してください"
-  },
-  "Compare": {
-    "title": "JSON Diff & Compare",
-    "description": "2つのJSONオブジェクトを並べて比較し、違いを確認します。追加、削除、変更された値が視覚的にハイライトされます。",
-    "clearAll": "すべてクリア",
-    "instruction": "左（元のデータ）と右（変更後）のパネルで直接編集して比較してください。"
-  },
-  "Convert": {
-    "title": "JSON Converter",
-    "description": "JSONデータをYAML、XML、CSVなどの一般的な形式に変換したり、逆に変換してJSONに戻すことができます。",
-    "swap": "入れ替え",
-    "jsonInput": "JSON入力",
-    "jsonOutput": "JSON出力",
-    "formatInput": "{format} 入力",
-    "formatOutput": "{format} 出力"
-  },
-  "Query": {
-    "title": "JSONPath Query",
-    "description": "JSONPath式を使用してJSONからデータを抽出します。強力なパス構文でネストされたオブジェクトと配列をクエリできます。",
-    "queryPlaceholder": "JSONPathを入力 (例: $.store.book[*].author)",
-    "execute": "実行",
-    "examples": "例",
-    "jsonInput": "JSON入力",
-    "queryResult": "クエリ結果",
-    "matches": "件一致",
-    "invalidQuery": "無効なJSONPathクエリ",
-    "invalidJson": "無効なJSON",
-    "emptyQuery": "JSONPathクエリを入力してください"
-  },
-  "Escape": {
-    "title": "JSON Escape & Unescape",
-    "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",
-    "escape": "エスケープ",
-    "unescape": "アンエスケープ",
-    "invalidJson": "無効なJSON",
-    "invalidEscaped": "無効なエスケープ文字列"
-  },
-  "Repair": {
-    "title": "JSON Repair",
-    "description": "不正なJSONを自動的に修正します。末尾のカンマ、クォートの欠落、シングルクォート、コメントなどの一般的な問題を修正します。",
-    "repair": "修復",
-    "repaired": "修復済み",
-    "alreadyValid": "既に有効",
-    "repairFailed": "JSONを修復できませんでした",
-    "supportsTitle": "修正可能な項目",
-    "supports": {
-      "trailingCommas": "配列やオブジェクトの末尾のカンマ",
-      "missingQuotes": "プロパティ名周りの欠落したクォート",
-      "singleQuotes": "ダブルクォートの代わりのシングルクォート",
-      "comments": "JavaScript形式のコメント (// と /* */)",
-      "unquotedKeys": "クォートされていないプロパティキー"
-    }
-  },
-  "Schema": {
-    "title": "JSON Schema Validator",
-    "description": "JSON SchemaでJSONデータを検証します。詳細なエラーレポートで、データが定義された構造に準拠しているか確認できます。",
-    "jsonData": "JSONデータ",
-    "jsonSchema": "JSON Schema",
-    "result": "検証結果",
-    "validate": "検証",
-    "loadExample": "サンプルを読み込む",
-    "valid": "有効 - JSONがスキーマと一致します",
-    "invalid": "無効",
-    "errors": "件のエラー",
-    "enterDataAndSchema": "JSONデータとスキーマを入力し、検証をクリックしてください",
-    "validationFailed": "検証に失敗しました"
-  },
-  "Footer": {
-    "privacyPolicy": "プライバシーポリシー"
-  },
-  "Privacy": {
-    "title": "プライバシーポリシー",
-    "lastUpdated": "最終更新日",
-    "lastUpdatedDate": "2025年1月",
-    "sections": {
-      "dataCollection": {
-        "title": "データ収集",
-        "content": "JSONKitは、お客様のJSONデータを収集、保存、送信しません。すべてのJSON処理は完全にブラウザ内で行われます。お客様のデータがデバイスから離れることはありません。"
-      },
-      "localStorage": {
-        "title": "ローカルストレージ",
-        "content": "ブラウザのローカルストレージを使用して、設定（テーマ設定など）を保存し、利便性のために最後の入力を記憶します。このデータはお客様のデバイスにのみ保存され、サーバーに送信されることはありません。"
-      },
-      "cookies": {
-        "title": "Cookieとサードパーティサービス",
-        "content": "以下のサードパーティサービスを使用しており、Cookieを設定する場合があります：",
-        "googleAdsense": "Google AdSense：広告の表示に使用されます。Googleは、お客様の閲覧履歴に基づいて広告をパーソナライズするためにCookieを使用する場合があります。",
-        "googleAnalytics": "Google Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。これにより、ユーザーエクスペリエンスの向上に役立てています。"
-      },
-      "thirdParty": {
-        "title": "サードパーティリンク",
-        "content": "当ウェブサイトには、サードパーティのウェブサイトへのリンクが含まれている場合があります。これらの外部サイトのプライバシー慣行については責任を負いません。訪問するリンク先のウェブサイトのプライバシーポリシーをお読みになることをお勧めします。"
-      },
-      "contact": {
-        "title": "お問い合わせ",
-        "content": "このプライバシーポリシーについてご質問がある場合は、GitHubリポジトリを通じてお問い合わせください。"
-      }
-    }
-  }
 }

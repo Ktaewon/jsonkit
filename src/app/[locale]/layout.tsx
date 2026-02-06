@@ -1,37 +1,38 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '../globals.css';
-import { ThemeProvider } from '@/components/common/ThemeProvider';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { MobileNav } from '@/components/layout/MobileNav';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "../globals.css";
+import { ThemeProvider } from "@/components/common/ThemeProvider";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import GoogleAdsense from '@/components/common/GoogleAdsense';
+import GoogleAdsense from "@/components/common/GoogleAdsense";
+import { Toaster } from "sonner";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'JSONKit - All-in-one JSON Utility',
-  description: 'Free online JSON beautifier, validator, viewer and more.',
+  title: "JSONKit - All-in-one JSON Utility",
+  description: "Free online JSON beautifier, validator, viewer and more.",
   verification: {
     other: {
-      'naver-site-verification': '187890350fe5651feb3073524c2b1ab610469222',
+      "naver-site-verification": "187890350fe5651feb3073524c2b1ab610469222",
     },
   },
   openGraph: {
-    title: 'JSONKit - All-in-one JSON Utility',
-    description: 'Free online JSON beautifier, validator, viewer and more.',
-    url: 'https://jsonkit.org',
-    siteName: 'JSONKit',
-    type: 'website',
-    locale: 'en_US',
+    title: "JSONKit - All-in-one JSON Utility",
+    description: "Free online JSON beautifier, validator, viewer and more.",
+    url: "https://jsonkit.org",
+    siteName: "JSONKit",
+    type: "website",
+    locale: "en_US",
     images: [
       {
-        url: '/og-image.png', // We should probably verify if this exists or just add a placeholder
+        url: "/og-image.png", // We should probably verify if this exists or just add a placeholder
         width: 1200,
         height: 630,
-        alt: 'JSONKit Preview',
+        alt: "JSONKit Preview",
       },
     ],
   },
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params,
+  params
 }: Readonly<{
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
@@ -50,7 +51,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <GoogleAdsense pId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''} />
+        <GoogleAdsense pId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ""} />
       </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
@@ -66,6 +67,7 @@ export default async function RootLayout({
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
+            <Toaster position="bottom-right" richColors closeButton />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
