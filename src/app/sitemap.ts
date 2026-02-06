@@ -1,7 +1,5 @@
 import { MetadataRoute } from 'next';
-
-// This would typically come from an environment variable
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://jsonkit.org';
+import { BASE_URL } from '@/lib/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [

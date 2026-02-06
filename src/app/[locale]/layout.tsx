@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import GoogleAdsense from '@/components/common/GoogleAdsense';
 import { Toaster } from 'sonner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
@@ -15,9 +15,17 @@ import { getWebsiteSchema, getOrganizationSchema } from '@/lib/seo/structured-da
 
 const inter = Inter({ subsets: ['latin'] });
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
-  const metadata = await generatePageMetadata({ translationNamespace: 'Metadata', path: '', locale });
+  const metadata = await generatePageMetadata({
+    translationNamespace: 'Metadata',
+    path: '',
+    locale,
+  });
   return {
     ...metadata,
     verification: {
@@ -41,11 +49,12 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <JsonLd data={getWebsiteSchema()} />
+        <JsonLd data={getWebsiteSchema(t('metaDescription'))} />
         <JsonLd data={getOrganizationSchema()} />
         <GoogleAdsense pId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''} />
       </head>

@@ -1,12 +1,12 @@
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://jsonkit.org';
+import { BASE_URL } from '@/lib/constants';
 
-export function getWebsiteSchema() {
+export function getWebsiteSchema(description: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'JSONKit',
     url: BASE_URL,
-    description: 'Free online JSON tools - beautify, validate, compare, convert and more.',
+    description,
   };
 }
 
