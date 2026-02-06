@@ -9,34 +9,24 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import GoogleAdsense from '@/components/common/GoogleAdsense';
 import { Toaster } from 'sonner';
+import { generatePageMetadata } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/common/JsonLd';
+import { getWebsiteSchema, getOrganizationSchema } from '@/lib/seo/structured-data';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'JSONKit - All-in-one JSON Utility',
-  description: 'Free online JSON beautifier, validator, viewer and more.',
-  verification: {
-    other: {
-      'naver-site-verification': '187890350fe5651feb3073524c2b1ab610469222',
-    },
-  },
-  openGraph: {
-    title: 'JSONKit - All-in-one JSON Utility',
-    description: 'Free online JSON beautifier, validator, viewer and more.',
-    url: 'https://jsonkit.org',
-    siteName: 'JSONKit',
-    type: 'website',
-    locale: 'en_US',
-    images: [
-      {
-        url: '/og-image.png', // We should probably verify if this exists or just add a placeholder
-        width: 1200,
-        height: 630,
-        alt: 'JSONKit Preview',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const metadata = await generatePageMetadata({ translationNamespace: 'Metadata', path: '', locale });
+  return {
+    ...metadata,
+    verification: {
+      other: {
+        'naver-site-verification': '187890350fe5651feb3073524c2b1ab610469222',
       },
-    ],
-  },
-};
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -51,6 +41,8 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        <JsonLd data={getWebsiteSchema()} />
+        <JsonLd data={getOrganizationSchema()} />
         <GoogleAdsense pId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''} />
       </head>
       <body className={inter.className}>
