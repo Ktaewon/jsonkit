@@ -12,8 +12,9 @@ export function MobileNav() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
-    // Close menu when route changes
+    // Close menu when route changes - intentional behavior
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: close menu on navigation
         setIsOpen(false);
     }, [pathname]);
 

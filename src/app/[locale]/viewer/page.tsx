@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { JsonEditor } from "@/components/editor/JsonEditor";
 import { JsonTreeView } from "@/components/editor/TreeView";

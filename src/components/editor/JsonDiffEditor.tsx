@@ -1,9 +1,13 @@
 "use client";
 
 import React from "react";
-import { DiffEditor, DiffEditorProps } from "@monaco-editor/react";
+import { DiffEditor, DiffEditorProps, Monaco } from "@monaco-editor/react";
 import { useTheme } from "next-themes";
 import { Loader2 } from "lucide-react";
+import type { editor } from "monaco-editor";
+
+type DiffEditorInstance = editor.IStandaloneDiffEditor;
+type EditorOptions = editor.IDiffEditorOptions;
 
 interface JsonDiffEditorProps extends DiffEditorProps {
     original: string;
@@ -19,21 +23,21 @@ export function JsonDiffEditor({
     readOnly = false,
     ...props
 }: JsonDiffEditorProps) {
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
 
-    const diffEditorRef = React.useRef<any>(null);
+    const diffEditorRef = React.useRef<DiffEditorInstance | null>(null);
 
-    const handleDiffEditorDidMount = (editor: any, monaco: any) => {
+    const handleDiffEditorDidMount = (editor: DiffEditorInstance, _monaco: Monaco) => {
         diffEditorRef.current = editor;
-        const options = {
+        const options: EditorOptions = {
             minimap: { enabled: false },
             fontSize: 13,
             scrollBeyondLastLine: false,
             readOnly,
             originalEditable: !readOnly,
             renderSideBySide: true,
-            wordWrap: "on",
-            diffWordWrap: "on",
+            wordWrap: "on" as const,
+            diffWordWrap: "on" as const,
             glyphMargin: false,
             lineDecorationsWidth: 0,
             lineNumbersMinChars: 3,
@@ -45,7 +49,7 @@ export function JsonDiffEditor({
         updateEditorOptions(editor, options);
     };
 
-    const updateEditorOptions = (editor: any, options: any) => {
+    const updateEditorOptions = (editor: DiffEditorInstance, options: EditorOptions) => {
         if (!editor) return;
         editor.updateOptions(options);
         editor.getOriginalEditor().updateOptions(options);
@@ -54,15 +58,15 @@ export function JsonDiffEditor({
 
     React.useEffect(() => {
         if (diffEditorRef.current && props.options) {
-            const options = {
+            const options: EditorOptions = {
                 minimap: { enabled: false },
                 fontSize: 13,
                 scrollBeyondLastLine: false,
                 readOnly,
                 originalEditable: !readOnly,
                 renderSideBySide: true,
-                wordWrap: "on",
-                diffWordWrap: "on",
+                wordWrap: "on" as const,
+                diffWordWrap: "on" as const,
                 glyphMargin: false,
                 lineDecorationsWidth: 0,
                 lineNumbersMinChars: 3,
