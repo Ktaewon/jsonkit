@@ -77,7 +77,11 @@
     "metaDescription": "Free online JSON beautifier and minifier. Pretty-print JSON with proper indentation or compress it to save space. Fast, client-side processing with no data upload.",
     "format": "Beautify",
     "minify": "Minify",
-    "invalidJson": "Invalid JSON"
+    "invalidJson": "Invalid JSON",
+    "seoContent": {
+      "heading": "What is a JSON Beautifier?",
+      "paragraph": "A JSON beautifier (also known as JSON formatter or JSON pretty-printer) takes raw, compact JSON data and formats it with proper indentation, line breaks, and spacing to make it human-readable. JSONKit's beautifier processes everything in your browser — your data never leaves your device. You can also minify JSON to remove whitespace, reducing file size for production use."
+    }
   },
   "Validate": {
     "title": "JSON Validator",
@@ -87,7 +91,11 @@
     "validateBtn": "Validate JSON",
     "valid": "Valid JSON",
     "invalid": "Invalid JSON",
-    "errorFound": "Error found:"
+    "errorFound": "Error found:",
+    "seoContent": {
+      "heading": "What is a JSON Validator?",
+      "paragraph": "A JSON validator checks your JSON data against the official JSON specification (RFC 8259) to detect syntax errors. JSONKit's validator provides precise line numbers and descriptive error messages so you can quickly locate and fix issues like missing commas, unclosed brackets, or invalid escape sequences."
+    }
   },
   "Viewer": {
     "title": "JSON Tree Viewer",
@@ -96,7 +104,11 @@
     "metaDescription": "Free online JSON tree viewer. Visualize JSON as an interactive, collapsible tree structure. Explore nested objects and arrays with JSONPath copy support.",
     "inputTitle": "JSON Input",
     "treeTitle": "Tree View",
-    "enterValid": "Enter valid JSON to view tree"
+    "enterValid": "Enter valid JSON to view tree",
+    "seoContent": {
+      "heading": "What is a JSON Tree Viewer?",
+      "paragraph": "A JSON tree viewer renders JSON data as an interactive, hierarchical tree structure. You can expand and collapse nodes to explore deeply nested objects and arrays. JSONKit's tree viewer supports JSONPath copying, type-based color coding, and auto-expands the first two levels for quick overview."
+    }
   },
   "Compare": {
     "title": "JSON Diff & Compare",
@@ -104,7 +116,11 @@
     "metaTitle": "JSON Diff & Compare Tool - Side-by-Side Comparison | JSONKit",
     "metaDescription": "Free online JSON diff and compare tool. Compare two JSON objects side-by-side with visual highlighting of added, removed, and modified values.",
     "clearAll": "Clear All",
-    "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare."
+    "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare.",
+    "seoContent": {
+      "heading": "What is a JSON Diff Tool?",
+      "paragraph": "A JSON diff tool compares two JSON documents and highlights the differences between them. JSONKit's diff tool offers side-by-side and inline views powered by Monaco Editor's diff engine, with color-coded additions, deletions, and modifications. Perfect for debugging API responses, config changes, or data migrations."
+    }
   },
   "Convert": {
     "title": "JSON Converter",
@@ -115,7 +131,11 @@
     "jsonInput": "JSON Input",
     "jsonOutput": "JSON Output",
     "formatInput": "{format} Input",
-    "formatOutput": "{format} Output"
+    "formatOutput": "{format} Output",
+    "seoContent": {
+      "heading": "What is a JSON Converter?",
+      "paragraph": "A JSON converter transforms JSON data to and from other popular data formats. JSONKit supports bidirectional conversion between JSON and YAML, XML, and CSV. The conversion happens instantly in your browser with live preview, making it ideal for data migration, API testing, and format interoperability."
+    }
   },
   "Query": {
     "title": "JSONPath Query",
@@ -130,7 +150,11 @@
     "matches": "matches",
     "invalidQuery": "Invalid JSONPath query",
     "invalidJson": "Invalid JSON",
-    "emptyQuery": "Please enter a JSONPath query"
+    "emptyQuery": "Please enter a JSONPath query",
+    "seoContent": {
+      "heading": "What is JSONPath Query?",
+      "paragraph": "JSONPath is a query language for JSON, similar to XPath for XML. It lets you extract specific data from complex JSON structures using path expressions like $.store.book[*].author. JSONKit's query tool supports the full JSONPath specification with instant results, match counting, and built-in example queries to get you started."
+    }
   },
   "Escape": {
     "title": "JSON Escape & Unescape",
@@ -140,7 +164,11 @@
     "escape": "Escape",
     "unescape": "Unescape",
     "invalidJson": "Invalid JSON",
-    "invalidEscaped": "Invalid escaped string"
+    "invalidEscaped": "Invalid escaped string",
+    "seoContent": {
+      "heading": "What is JSON Escape & Unescape?",
+      "paragraph": "JSON escaping converts special characters in strings (like quotes, backslashes, and newlines) into escape sequences so they can be safely embedded in JSON or source code. Unescaping reverses this process. JSONKit handles both directions instantly, useful when working with nested JSON strings or embedding JSON in code."
+    }
   },
   "Repair": {
     "title": "JSON Repair",
@@ -158,6 +186,10 @@
       "singleQuotes": "Single quotes instead of double quotes",
       "comments": "JavaScript-style comments (// and /* */)",
       "unquotedKeys": "Unquoted property keys"
+    },
+    "seoContent": {
+      "heading": "What is JSON Repair?",
+      "paragraph": "JSON repair automatically fixes common syntax errors in malformed JSON, such as trailing commas, missing or mismatched quotes, single quotes instead of double quotes, JavaScript-style comments, and unquoted property keys. JSONKit's repair tool can often recover data from broken JSON that standard parsers reject."
     }
   },
   "Schema": {
@@ -174,7 +206,11 @@
     "invalid": "Invalid",
     "errors": "errors",
     "enterDataAndSchema": "Enter JSON data and schema, then click Validate",
-    "validationFailed": "Validation failed"
+    "validationFailed": "Validation failed",
+    "seoContent": {
+      "heading": "What is JSON Schema Validation?",
+      "paragraph": "JSON Schema is a vocabulary for defining the structure, content, and semantics of JSON data. A JSON Schema validator checks whether your data conforms to a given schema definition. JSONKit uses the Ajv library for fast, spec-compliant validation with detailed error messages pointing to exact locations of violations."
+    }
   },
   "Footer": {
     "privacyPolicy": "Privacy Policy"

@@ -75,7 +75,11 @@
     "metaDescription": "無料オンラインJSON整形・圧縮ツール。適切なインデントでJSONを整形したり、スペースを削除して圧縮します。サーバー送信不要の高速クライアント処理。",
     "format": "整形 (Beautify)",
     "minify": "圧縮 (Minify)",
-    "invalidJson": "無効なJSON"
+    "invalidJson": "無効なJSON",
+    "seoContent": {
+      "heading": "JSON Beautifierとは？",
+      "paragraph": "JSON Beautifier（JSONフォーマッター、JSONプリティプリンターとも呼ばれます）は、未整形のコンパクトなJSONデータを適切なインデント、改行、スペースで整形し、人間が読みやすい形式にします。JSONKitのBeautifierはすべてブラウザ内で処理されるため、データがデバイスから離れることはありません。また、ホワイトスペースを除去してファイルサイズを削減するMinify機能も備えています。"
+    }
   },
   "Validate": {
     "title": "JSON Validator",
@@ -85,7 +89,11 @@
     "validateBtn": "JSONを検証",
     "valid": "有効なJSON",
     "invalid": "無効なJSON",
-    "errorFound": "エラーが見つかりました:"
+    "errorFound": "エラーが見つかりました:",
+    "seoContent": {
+      "heading": "JSONバリデーターとは？",
+      "paragraph": "JSONバリデーターは、JSONデータを公式JSON仕様（RFC 8259）に照らし合わせて構文エラーを検出します。JSONKitのバリデーターは、カンマの欠落、閉じられていないブラケット、無効なエスケープシーケンスなどの問題を、正確な行番号と詳細なエラーメッセージで素早く特定・修正できます。"
+    }
   },
   "Viewer": {
     "title": "JSON Tree Viewer",
@@ -94,7 +102,11 @@
     "metaDescription": "無料オンラインJSONツリービューア。JSONをインタラクティブな折りたたみツリー構造で可視化し、JSONPathコピーをサポートします。",
     "inputTitle": "JSON入力",
     "treeTitle": "ツリービュー",
-    "enterValid": "ツリーを表示するには有効なJSONを入力してください"
+    "enterValid": "ツリーを表示するには有効なJSONを入力してください",
+    "seoContent": {
+      "heading": "JSONツリービューアとは？",
+      "paragraph": "JSONツリービューアは、JSONデータをインタラクティブな階層ツリー構造として描画します。深くネストされたオブジェクトや配列をノードの展開・折りたたみで探索できます。JSONKitのツリービューアは、JSONPathコピー、型別カラーコーディング、最初の2階層の自動展開による素早い概要把握をサポートしています。"
+    }
   },
   "Compare": {
     "title": "JSON Diff & Compare",
@@ -102,7 +114,11 @@
     "metaTitle": "JSON差分 & 比較ツール - 並列比較 | JSONKit",
     "metaDescription": "無料オンラインJSON差分・比較ツール。2つのJSONオブジェクトを並べて比較し、追加・削除・変更された値を視覚的にハイライトします。",
     "clearAll": "すべてクリア",
-    "instruction": "左（元のデータ）と右（変更後）のパネルで直接編集して比較してください。"
+    "instruction": "左（元のデータ）と右（変更後）のパネルで直接編集して比較してください。",
+    "seoContent": {
+      "heading": "JSON Diffツールとは？",
+      "paragraph": "JSON Diffツールは、2つのJSONドキュメントを比較し、それらの違いをハイライト表示します。JSONKitのDiffツールは、Monaco Editorの差分エンジンを使用した並列表示とインライン表示を提供し、追加・削除・変更を色分けで表示します。APIレスポンスのデバッグ、設定変更の確認、データ移行に最適です。"
+    }
   },
   "Convert": {
     "title": "JSON Converter",
@@ -113,7 +129,11 @@
     "jsonInput": "JSON入力",
     "jsonOutput": "JSON出力",
     "formatInput": "{format} 入力",
-    "formatOutput": "{format} 出力"
+    "formatOutput": "{format} 出力",
+    "seoContent": {
+      "heading": "JSONコンバーターとは？",
+      "paragraph": "JSONコンバーターは、JSONデータを他の一般的なデータ形式に変換したり、逆変換したりします。JSONKitは、JSONとYAML、XML、CSVの双方向変換をサポートしています。変換はブラウザ内で即座に行われ、リアルタイムプレビューが可能で、データ移行、APIテスト、フォーマット間の相互運用に最適です。"
+    }
   },
   "Query": {
     "title": "JSONPath Query",
@@ -128,7 +148,11 @@
     "matches": "件一致",
     "invalidQuery": "無効なJSONPathクエリ",
     "invalidJson": "無効なJSON",
-    "emptyQuery": "JSONPathクエリを入力してください"
+    "emptyQuery": "JSONPathクエリを入力してください",
+    "seoContent": {
+      "heading": "JSONPathクエリとは？",
+      "paragraph": "JSONPathは、XMLに対するXPathと同様の、JSON用クエリ言語です。$.store.book[*].authorのようなパス式を使用して、複雑なJSON構造から特定のデータを抽出できます。JSONKitのクエリツールは、完全なJSONPath仕様をサポートし、即座に結果が表示され、マッチ数のカウントと組み込みのサンプルクエリが用意されています。"
+    }
   },
   "Escape": {
     "title": "JSON Escape & Unescape",
@@ -138,7 +162,11 @@
     "escape": "エスケープ",
     "unescape": "アンエスケープ",
     "invalidJson": "無効なJSON",
-    "invalidEscaped": "無効なエスケープ文字列"
+    "invalidEscaped": "無効なエスケープ文字列",
+    "seoContent": {
+      "heading": "JSONエスケープ & アンエスケープとは？",
+      "paragraph": "JSONエスケープは、文字列内の特殊文字（クォート、バックスラッシュ、改行など）をエスケープシーケンスに変換し、JSONやソースコードに安全に埋め込めるようにします。アンエスケープはこのプロセスを逆転させます。JSONKitは両方向を即座に処理し、ネストされたJSON文字列の操作やコードへのJSON埋め込み時に便利です。"
+    }
   },
   "Repair": {
     "title": "JSON Repair",
@@ -156,6 +184,10 @@
       "singleQuotes": "ダブルクォートの代わりのシングルクォート",
       "comments": "JavaScript形式のコメント (// と /* */)",
       "unquotedKeys": "クォートされていないプロパティキー"
+    },
+    "seoContent": {
+      "heading": "JSON修復とは？",
+      "paragraph": "JSON修復は、不正なJSONの一般的な構文エラー（末尾のカンマ、欠落または不一致のクォート、ダブルクォートの代わりのシングルクォート、JavaScript形式のコメント、クォートされていないプロパティキーなど）を自動的に修正します。JSONKitの修復ツールは、標準パーサーが拒否する壊れたJSONからデータを回復できることが多いです。"
     }
   },
   "Schema": {
@@ -172,7 +204,11 @@
     "invalid": "無効",
     "errors": "件のエラー",
     "enterDataAndSchema": "JSONデータとスキーマを入力し、検証をクリックしてください",
-    "validationFailed": "検証に失敗しました"
+    "validationFailed": "検証に失敗しました",
+    "seoContent": {
+      "heading": "JSONスキーマ検証とは？",
+      "paragraph": "JSON Schemaは、JSONデータの構造、内容、セマンティクスを定義するための語彙です。JSONスキーマバリデーターは、データが指定されたスキーマ定義に準拠しているかどうかをチェックします。JSONKitはAjvライブラリを使用して高速かつ仕様準拠の検証を行い、違反箇所を正確に指し示す詳細なエラーメッセージを提供します。"
+    }
   },
   "Footer": {
     "privacyPolicy": "プライバシーポリシー"

@@ -75,7 +75,11 @@
     "metaDescription": "免费在线 JSON 美化和压缩工具。使用适当的缩进美化 JSON 或压缩以节省空间。无需上传数据的快速客户端处理。",
     "format": "美化 (Beautify)",
     "minify": "压缩 (Minify)",
-    "invalidJson": "无效的 JSON"
+    "invalidJson": "无效的 JSON",
+    "seoContent": {
+      "heading": "什么是 JSON 美化工具？",
+      "paragraph": "JSON 美化工具（也称为 JSON 格式化工具或美化打印工具）将原始紧凑的 JSON 数据通过适当的缩进、换行和间距进行格式化，使其易于阅读。JSONKit 的美化工具完全在浏览器中处理，您的数据永远不会离开设备。您还可以压缩（Minify）JSON 以去除空白，减小生产环境的文件大小。"
+    }
   },
   "Validate": {
     "title": "JSON Validator",
@@ -85,7 +89,11 @@
     "validateBtn": "验证 JSON",
     "valid": "有效的 JSON",
     "invalid": "无效的 JSON",
-    "errorFound": "发现错误："
+    "errorFound": "发现错误：",
+    "seoContent": {
+      "heading": "什么是 JSON 验证器？",
+      "paragraph": "JSON 验证器根据官方 JSON 规范（RFC 8259）检查数据的语法错误。JSONKit 的验证器提供精确的行号和描述性错误消息，帮助您快速定位和修复缺失逗号、未闭合括号或无效转义序列等问题。"
+    }
   },
   "Viewer": {
     "title": "JSON Tree Viewer",
@@ -94,7 +102,11 @@
     "metaDescription": "免费在线 JSON 树形查看器。将 JSON 可视化为交互式可折叠树结构，支持 JSONPath 复制。",
     "inputTitle": "JSON 输入",
     "treeTitle": "树形视图",
-    "enterValid": "输入有效的 JSON 以查看树"
+    "enterValid": "输入有效的 JSON 以查看树",
+    "seoContent": {
+      "heading": "什么是 JSON 树形查看器？",
+      "paragraph": "JSON 树形查看器将 JSON 数据渲染为交互式层级树结构。您可以展开和折叠节点来探索深层嵌套的对象和数组。JSONKit 的树形查看器支持 JSONPath 复制、基于类型的颜色编码，并自动展开前两个层级以快速预览。"
+    }
   },
   "Compare": {
     "title": "JSON Diff & Compare",
@@ -102,7 +114,11 @@
     "metaTitle": "JSON 差异 & 比较工具 - 并排对比 | JSONKit",
     "metaDescription": "免费在线 JSON 差异和比较工具。并排比较两个 JSON 对象，视觉高亮显示添加、删除和修改的值。",
     "clearAll": "全部清除",
-    "instruction": "直接在左侧（原始）和右侧（修改）面板中进行编辑以进行比较。"
+    "instruction": "直接在左侧（原始）和右侧（修改）面板中进行编辑以进行比较。",
+    "seoContent": {
+      "heading": "什么是 JSON 差异工具？",
+      "paragraph": "JSON 差异工具比较两个 JSON 文档并高亮显示它们之间的差异。JSONKit 的比较工具基于 Monaco Editor 的差异引擎，提供并排和内联视图，以颜色区分添加、删除和修改。非常适合调试 API 响应、配置更改或数据迁移。"
+    }
   },
   "Convert": {
     "title": "JSON Converter",
@@ -113,7 +129,11 @@
     "jsonInput": "JSON 输入",
     "jsonOutput": "JSON 输出",
     "formatInput": "{format} 输入",
-    "formatOutput": "{format} 输出"
+    "formatOutput": "{format} 输出",
+    "seoContent": {
+      "heading": "什么是 JSON 转换器？",
+      "paragraph": "JSON 转换器在 JSON 和其他流行数据格式之间进行双向转换。JSONKit 支持 JSON 与 YAML、XML、CSV 之间的转换。转换在浏览器中即时完成并提供实时预览，非常适合数据迁移、API 测试和格式互操作性工作。"
+    }
   },
   "Query": {
     "title": "JSONPath Query",
@@ -128,7 +148,11 @@
     "matches": "个匹配",
     "invalidQuery": "无效的 JSONPath 查询",
     "invalidJson": "无效的 JSON",
-    "emptyQuery": "请输入 JSONPath 查询"
+    "emptyQuery": "请输入 JSONPath 查询",
+    "seoContent": {
+      "heading": "什么是 JSONPath 查询？",
+      "paragraph": "JSONPath 是一种类似于 XML 的 XPath 的 JSON 查询语言。它允许您使用 $.store.book[*].author 等路径表达式从复杂的 JSON 结构中提取特定数据。JSONKit 的查询工具支持完整的 JSONPath 规范，提供即时结果、匹配计数和内置示例查询。"
+    }
   },
   "Escape": {
     "title": "JSON Escape & Unescape",
@@ -138,7 +162,11 @@
     "escape": "转义",
     "unescape": "反转义",
     "invalidJson": "无效的 JSON",
-    "invalidEscaped": "无效的转义字符串"
+    "invalidEscaped": "无效的转义字符串",
+    "seoContent": {
+      "heading": "什么是 JSON 转义与反转义？",
+      "paragraph": "JSON 转义将字符串中的特殊字符（如引号、反斜杠和换行符）转换为转义序列，使其可以安全地嵌入 JSON 或源代码中。反转义则执行相反的操作。JSONKit 即时处理两个方向，在处理嵌套 JSON 字符串或在代码中嵌入 JSON 时非常有用。"
+    }
   },
   "Repair": {
     "title": "JSON Repair",
@@ -156,6 +184,10 @@
       "singleQuotes": "单引号代替双引号",
       "comments": "JavaScript 风格的注释 (// 和 /* */)",
       "unquotedKeys": "未加引号的属性键"
+    },
+    "seoContent": {
+      "heading": "什么是 JSON 修复？",
+      "paragraph": "JSON 修复自动修复格式错误 JSON 中的常见语法错误，如尾随逗号、缺失或不匹配的引号、用单引号代替双引号、JavaScript 风格的注释和未加引号的属性键。JSONKit 的修复工具通常可以从标准解析器拒绝的损坏 JSON 中恢复数据。"
     }
   },
   "Schema": {
@@ -172,7 +204,11 @@
     "invalid": "无效",
     "errors": "个错误",
     "enterDataAndSchema": "输入 JSON 数据和 Schema，然后点击验证",
-    "validationFailed": "验证失败"
+    "validationFailed": "验证失败",
+    "seoContent": {
+      "heading": "什么是 JSON Schema 验证？",
+      "paragraph": "JSON Schema 是一种用于定义 JSON 数据的结构、内容和语义的词汇表。JSON Schema 验证器检查您的数据是否符合给定的模式定义。JSONKit 使用 Ajv 库进行快速、符合规范的验证，并提供指向确切违规位置的详细错误消息。"
+    }
   },
   "Footer": {
     "privacyPolicy": "隐私政策"
