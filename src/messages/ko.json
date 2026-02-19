@@ -11,6 +11,7 @@
     "viewer": "Viewer",
     "compare": "Compare",
     "convert": "Convert",
+    "type": "JSON to Code",
     "query": "Query",
     "escape": "Escape",
     "repair": "Repair",
@@ -134,7 +135,21 @@
     "formatOutput": "{format} 출력",
     "seoContent": {
       "heading": "JSON 변환기란?",
-      "paragraph": "JSON 변환기는 JSON 데이터를 다른 인기 데이터 형식으로 양방향 변환합니다. JSONKit은 JSON과 YAML, XML, CSV 간의 변환을 지원합니다. 변환은 브라우저에서 즉시 실시간 미리보기와 함께 수행되어 데이터 마이그레이션, API 테스트, 형식 호환성 작업에 이상적입니다."
+      "paragraph": "JSON 변환기는 JSON 데이터를 YAML, XML, CSV 등 다른 인기 있는 포맷으로 변환해줍니다. JSONKit은 양방향 변환을 지원하며, 결과를 실시간으로 미리볼 수 있습니다. 데이터 마이그레이션이나 API 테스트에 유용합니다."
+    }
+  },
+  "Type": {
+    "title": "JSON 코드 생성기",
+    "description": "JSON 데이터에서 TypeScript, Go, Python 등의 타입 정의 및 클래스 구조를 자동으로 생성하세요.",
+    "metaTitle": "JSON 코드 생성 - 타입 및 인터페이스 자동 생성 | JSONKit",
+    "metaDescription": "무료 온라인 JSON 코드 변환기. JSON에서 TypeScript, Go, Python, C#, Rust, Swift, Java, C++, Kotlin 코드를 생성합니다. 브라우저에서 안전하고 빠르게 변환하세요.",
+    "language": "언어",
+    "typeName": "타입 이름",
+    "generate": "생성하기",
+    "generating": "생성 중...",
+    "seoContent": {
+      "heading": "JSON을 코드로 즉시 변환",
+      "paragraph": "더 이상 타입 정의를 직접 작성하지 마세요. JSONKit의 코드 생성 도구는 TypeScript, Go, Python, C# 등 다양한 프로그래밍 언어에 맞는 타입 안전한 인터페이스와 클래스를 자동으로 생성해 줍니다. JSON을 붙여넣기만 하면 바로 사용할 수 있는 코드가 완성됩니다."
     }
   },
   "Query": {

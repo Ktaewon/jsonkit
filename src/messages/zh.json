@@ -10,8 +10,9 @@
     "validate": "Validate",
     "viewer": "Viewer",
     "compare": "Compare",
-    "convert": "Convert",
-    "query": "Query",
+    "convert": "转换",
+    "type": "JSON转代码",
+    "query": "查询",
     "escape": "Escape",
     "repair": "Repair",
     "schema": "Schema"
@@ -132,13 +133,27 @@
     "formatOutput": "{format} 输出",
     "seoContent": {
       "heading": "什么是 JSON 转换器？",
-      "paragraph": "JSON 转换器在 JSON 和其他流行数据格式之间进行双向转换。JSONKit 支持 JSON 与 YAML、XML、CSV 之间的转换。转换在浏览器中即时完成并提供实时预览，非常适合数据迁移、API 测试和格式互操作性工作。"
+      "paragraph": "JSON转换器将JSON数据转换为YAML、XML、CSV等其他流行格式。JSONKit支持双向转换，并提供即时预览，非常适合数据迁移、API测试和格式互操作性。"
+    }
+  },
+  "Type": {
+    "title": "JSON代码生成器",
+    "description": "从JSON数据自动生成TypeScript、Go、Python等的类型定义和类结构。",
+    "metaTitle": "JSON代码生成器 - 在线生成类型和接口 | JSONKit",
+    "metaDescription": "免费在线JSON代码生成器。从JSON生成 TypeScript、Go、Python、C#、Rust、Swift、Java、C++ 和 Kotlin 代码。即时、安全的客户端生成。",
+    "language": "语言",
+    "typeName": "类型名称",
+    "generate": "生成",
+    "generating": "生成中...",
+    "seoContent": {
+      "heading": "立即将JSON转换为代码",
+      "paragraph": "停止手动编写类型定义。JSONKit的JSON转代码工具可自动为TypeScript、Go、Python、C#等各种编程语言生成类型安全的接口、结构体和类。只需粘贴您的JSON，即可立即获得可使用的代码。"
     }
   },
   "Query": {
     "title": "JSONPath Query",
     "description": "使用 JSONPath 表达式从 JSON 中提取数据。使用强大的路径语法查询嵌套对象和数组。",
-    "metaTitle": "JSONPath 查询工具 - 从 JSON 提取数据 | JSONKit",
+    "metaTitle": "JSONPath 查询工具 - 从 JSON 中提取数据 | JSONKit",
     "metaDescription": "免费在线 JSONPath 查询工具。使用强大的 JSONPath 表达式从 JSON 中提取数据。即时查询嵌套对象和数组。",
     "queryPlaceholder": "输入 JSONPath (例如: $.store.book[*].author)",
     "execute": "执行",
