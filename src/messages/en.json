@@ -21,6 +21,8 @@
   "Graph": {
     "title": "JSON Graph Visualizer",
     "description": "Visualize your JSON data as an interactive node graph. Explore object and array hierarchies at a glance, switch between horizontal and vertical layouts, and understand data relationships intuitively.",
+    "metaTitle": "JSON Graph Visualizer Online - Interactive Node Graph | JSONKit",
+    "metaDescription": "Free online JSON graph visualizer. Visualize JSON as an interactive node graph with automatic hierarchical layout. Switch between horizontal and vertical views.",
     "visualization": "Graph Visualization",
     "layoutLR": "Layout: Horizontal",
     "layoutTB": "Layout: Vertical"

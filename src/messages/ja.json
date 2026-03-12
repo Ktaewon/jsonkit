@@ -21,6 +21,8 @@
   "Graph": {
     "title": "JSON Graph Visualizer",
     "description": "複雑なJSONデータをインタラクティブなノードグラフとして可視化します。オブジェクトや配列の階層構造を一目で把握し、横/縦レイアウトを切り替えてデータの関係を探索できます。",
+    "metaTitle": "JSONグラフ可視化 オンライン - インタラクティブノードグラフ | JSONKit",
+    "metaDescription": "無料オンラインJSONグラフ可視化ツール。JSONデータをインタラクティブなノードグラフとして可視化し、自動階層レイアウトをサポート。横/縦ビューを切り替え可能。",
     "visualization": "グラフ可視化",
     "layoutLR": "レイアウト: 横",
     "layoutTB": "レイアウト: 縦"
