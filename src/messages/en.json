@@ -18,6 +18,13 @@
     "type": "Code",
     "graph": "Graph"
   },
+  "Graph": {
+    "title": "Graph Visualizer",
+    "description": "Visualize your JSON data as an interactive node graph.",
+    "visualization": "Graph Visualization",
+    "layoutLR": "Layout: Horizontal",
+    "layoutTB": "Layout: Vertical"
+  },
   "Landing": {
     "heroTitle": "Your All-in-One JSON Toolkit",
     "heroSubtitle": "Beautify, validate, visualize, compare, and convert JSON data directly in your browser. Fast, secure, and free.",

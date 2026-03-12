@@ -1,17 +1,17 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { ReactFlow, Background, Controls, Node, Edge, useNodesState, useEdgesState, ReactFlowProvider } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
 import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Button } from '@/components/ui/button';
-import { Network, RotateCw, Trash2, ArrowRight } from 'lucide-react';
+import { Network, RotateCw, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { getLayoutedElements, GraphData, processJsonToGraph } from '@/lib/json/graph-layout';
+import { getLayoutedElements, processJsonToGraph } from '@/lib/json/graph-layout';
 
 const Label = ({ children, className }: { children: React.ReactNode; className?: string }) => (
     <label
@@ -37,20 +37,6 @@ export default function GraphPage() {
     const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
     const [direction, setDirection] = useState<'LR' | 'TB'>('LR');
     const [error, setError] = useState<string | null>(null);
-
-    // Layout function
-    const onLayout = useCallback(
-        async (currentNodes: Node[], currentEdges: Edge[], dir: 'LR' | 'TB') => {
-            const { nodes: layoutedNodes, edges: layoutedEdges } = await getLayoutedElements(
-                currentNodes,
-                currentEdges,
-                { direction: dir }
-            );
-            setNodes([...layoutedNodes]);
-            setEdges([...layoutedEdges]);
-        },
-        [setNodes, setEdges]
-    );
 
     // Effect to parse and layout when input changes
     useEffect(() => {

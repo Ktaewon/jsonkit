@@ -14,7 +14,16 @@
     "query": "Query",
     "escape": "Escape",
     "repair": "Repair",
-    "schema": "Schema"
+    "schema": "Schema",
+    "type": "コード",
+    "graph": "グラフ"
+  },
+  "Graph": {
+    "title": "グラフビジュアライザー",
+    "description": "JSONデータをインタラクティブなノードグラフとして可視化します。",
+    "visualization": "グラフ可視化",
+    "layoutLR": "レイアウト: 横",
+    "layoutTB": "レイアウト: 縦"
   },
   "Landing": {
     "heroTitle": "究極のJSONツールキット",

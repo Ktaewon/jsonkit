@@ -14,7 +14,9 @@
     "query": "Query",
     "escape": "Escape",
     "repair": "Repair",
-    "schema": "Schema"
+    "schema": "Schema",
+    "type": "코드",
+    "graph": "그래프"
   },
   "Landing": {
     "heroTitle": "모든 JSON 작업을 한 곳에서",

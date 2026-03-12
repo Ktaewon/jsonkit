@@ -1,10 +1,7 @@
-import ELK, { ElkNode, ElkPrimitiveEdge } from 'elkjs/lib/elk.bundled';
-import { Node, Edge, Position } from '@xyflow/react';
+import ELK, { ElkNode } from 'elkjs/lib/elk.bundled';
+import { Node, Edge } from '@xyflow/react';
 
 const elk = new ELK();
-
-const NODE_WIDTH = 180;
-const NODE_HEIGHT = 40;
 
 export interface GraphData {
     nodes: Node[];
@@ -36,83 +33,6 @@ const formatValue = (value: unknown): string => {
     if (typeof value === 'object') return Array.isArray(value) ? 'Array' : 'Object';
     return String(value);
 };
-
-// Recursive function to generate graph elements from JSON
-function generateElements(
-    data: unknown,
-    parentId: string | null = null,
-    parentKey: string | null = null
-): { nodes: Node[]; edges: Edge[] } {
-    const nodes: Node[] = [];
-    const edges: Edge[] = [];
-
-    const traverse = (obj: unknown, id: string, label: string) => {
-        const type = obj === null ? 'null' : Array.isArray(obj) ? 'array' : typeof obj;
-        const isPrimitive = type !== 'object' && type !== 'array';
-
-        // Create node for current item
-        const node: Node = {
-            id,
-            data: {
-                label: `${label}: ${isPrimitive ? formatValue(obj) : type}`,
-                originalValue: obj,
-                type
-            },
-            position: { x: 0, y: 0 }, // Position will be calculated by ELK
-            style: {
-                border: `1px solid ${getColorForType(type)}`,
-                borderRadius: '4px',
-                padding: '8px',
-                fontSize: '12px',
-                background: 'hsl(var(--background))',
-                color: 'hsl(var(--foreground))',
-                width: NODE_WIDTH,
-            }
-        };
-        nodes.push(node);
-
-        // If it has a parent, create an edge
-        if (parentId) {
-            edges.push({
-                id: `${parentId}-${id}`,
-                source: parentId,
-                target: id,
-                type: 'smoothstep',
-                animated: true,
-                style: { stroke: 'hsl(var(--muted-foreground))' }
-            });
-        }
-
-        if (type === 'object' && obj !== null) {
-            Object.entries(obj).forEach(([key, value], index) => {
-                const childId = `${id}-${key}-${index}`;
-                const childElements = generateElements(value, id, key);
-                nodes.push(...childElements.nodes);
-                edges.push(...childElements.edges);
-
-                // Connect current node to child node
-                edges.push({
-                    id: `${id}-${childId}`,
-                    source: id,
-                    target: childId,
-                    type: 'default', // Using default simple edge for direct children to avoid clutter if recursive func logic was different
-                    // Actually generateElements is recursive but logic above is slightly mixed. 
-                    // Let's simplified: traverse calls itself or helper
-                });
-            });
-        } else if (type === 'array' && Array.isArray(obj)) {
-            obj.forEach((value, index) => {
-                const key = `[${index}]`;
-                const childId = `${id}-${index}`;
-                // We need to NOT call generateElements as a separate root, but continue traversal.
-                // My recursion logic above is a bit flawed. Let's rewrite traverse.
-            });
-        }
-    };
-
-    // Re-write traversal
-    return processJsonToGraph(data);
-}
 
 export function processJsonToGraph(data: unknown): { nodes: Node[]; edges: Edge[] } {
     const nodes: Node[] = [];
@@ -194,8 +114,6 @@ export async function getLayoutedElements(
     edges: Edge[],
     options: { direction: 'TB' | 'LR' } = { direction: 'LR' }
 ): Promise<{ nodes: Node[]; edges: Edge[] }> {
-    const isHorizontal = options.direction === 'LR';
-
     const graph: ElkNode = {
         id: 'root',
         layoutOptions: {
@@ -212,9 +130,9 @@ export async function getLayoutedElements(
         })),
         edges: edges.map((edge) => ({
             id: edge.id,
-            source: edge.source,
-            target: edge.target,
-        })) as ElkPrimitiveEdge[],
+            sources: [edge.source],
+            targets: [edge.target],
+        })),
     };
 
     try {

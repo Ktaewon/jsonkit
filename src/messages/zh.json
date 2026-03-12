@@ -14,7 +14,16 @@
     "query": "Query",
     "escape": "Escape",
     "repair": "Repair",
-    "schema": "Schema"
+    "schema": "Schema",
+    "type": "代码",
+    "graph": "图表"
+  },
+  "Graph": {
+    "title": "图表可视化",
+    "description": "将您的 JSON 数据可视化为交互式节点图。",
+    "visualization": "图表可视化",
+    "layoutLR": "布局：水平",
+    "layoutTB": "布局：垂直"
   },
   "Landing": {
     "heroTitle": "您的全能 JSON 工具箱",
