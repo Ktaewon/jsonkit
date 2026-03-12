@@ -122,6 +122,15 @@ export function MobileNav() {
             {t('graph')}
           </Link>
           <Link
+            href="/json-to-code"
+            className={cn(
+              'text-lg font-medium transition-colors hover:text-primary',
+              pathname === '/json-to-code' ? 'text-primary' : 'text-muted-foreground'
+            )}
+          >
+            {t('type')}
+          </Link>
+          <Link
             href="/query"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
