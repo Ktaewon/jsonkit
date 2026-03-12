@@ -74,7 +74,7 @@
     "error": "오류"
   },
   "Graph": {
-    "title": "그래프 시각화",
+    "title": "JSON Graph Visualizer",
     "description": "복잡한 JSON 데이터를 인터랙티브 노드 그래프로 시각화합니다. 객체와 배열의 계층 구조를 한눈에 파악하고, 가로/세로 레이아웃을 전환하며 데이터 관계를 탐색할 수 있습니다.",
     "visualization": "그래프 시각화",
     "layoutLR": "레이아웃: 가로",
