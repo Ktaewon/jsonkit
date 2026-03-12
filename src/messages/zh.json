@@ -15,8 +15,8 @@
     "escape": "Escape",
     "repair": "Repair",
     "schema": "Schema",
-    "type": "代码",
-    "graph": "图表"
+    "type": "Code",
+    "graph": "Graph"
   },
   "Graph": {
     "title": "图表可视化",

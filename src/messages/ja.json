@@ -15,8 +15,8 @@
     "escape": "Escape",
     "repair": "Repair",
     "schema": "Schema",
-    "type": "コード",
-    "graph": "グラフ"
+    "type": "Code",
+    "graph": "Graph"
   },
   "Graph": {
     "title": "グラフビジュアライザー",
