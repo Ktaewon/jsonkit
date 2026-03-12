@@ -12,7 +12,7 @@ import { Toaster } from 'sonner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/common/JsonLd';
 import { getWebsiteSchema, getOrganizationSchema } from '@/lib/seo/structured-data';
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
