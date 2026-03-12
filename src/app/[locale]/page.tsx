@@ -17,6 +17,8 @@ import {
   Quote,
   Wrench,
   FileCode,
+  GitGraph,
+  Braces,
 } from 'lucide-react';
 
 export default function Home() {
@@ -126,6 +128,20 @@ export default function Home() {
               colorClass: 'text-teal-500',
               titleKey: 'features.schemaTitle',
               descKey: 'features.schemaDesc',
+            },
+            {
+              href: '/graph',
+              Icon: GitGraph,
+              colorClass: 'text-rose-500',
+              titleKey: 'features.graphTitle',
+              descKey: 'features.graphDesc',
+            },
+            {
+              href: '/json-to-code',
+              Icon: Braces,
+              colorClass: 'text-sky-500',
+              titleKey: 'features.codeGenTitle',
+              descKey: 'features.codeGenDesc',
             },
           ].map(({ href, Icon, colorClass, titleKey, descKey }) => (
             <Link key={href} href={href} className="group">

@@ -40,7 +40,11 @@
       "repairTitle": "Ремонт JSON",
       "repairDesc": "Автоматически исправляйте некорректный JSON.",
       "schemaTitle": "Schema валидатор",
-      "schemaDesc": "Проверяйте JSON данные по JSON Schema."
+      "schemaDesc": "Проверяйте JSON данные по JSON Schema.",
+      "graphTitle": "Визуализация графа",
+      "graphDesc": "Визуализируйте JSON данные в виде интерактивных графовых диаграмм.",
+      "codeGenTitle": "JSON to Code",
+      "codeGenDesc": "Генерируйте определения типов и классы из JSON данных."
     },
     "featuresSection": {
       "title": "Функции",

@@ -49,7 +49,11 @@
       "repairTitle": "JSON Repair",
       "repairDesc": "Automatically fix malformed JSON with common issues.",
       "schemaTitle": "Schema Validator",
-      "schemaDesc": "Validate JSON data against a JSON Schema definition."
+      "schemaDesc": "Validate JSON data against a JSON Schema definition.",
+      "graphTitle": "Graph Visualizer",
+      "graphDesc": "Visualize JSON data as interactive graph diagrams.",
+      "codeGenTitle": "JSON to Code",
+      "codeGenDesc": "Generate type definitions and classes from JSON data."
     },
     "featuresSection": {
       "title": "Features",
