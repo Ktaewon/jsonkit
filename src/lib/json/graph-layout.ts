@@ -3,11 +3,6 @@ import { Node, Edge } from '@xyflow/react';
 
 const elk = new ELK();
 
-export interface GraphData {
-  nodes: Node[];
-  edges: Edge[];
-}
-
 const getColorForType = (type: string) => {
   switch (type) {
     case 'string':
@@ -76,10 +71,6 @@ export function processJsonToGraph(data: unknown): { nodes: Node[]; edges: Edge[
       },
     };
 
-    // Custom label content for default node
-    node.data.label = `${displayLabel}`;
-    // We strictly can't put JSX in label here efficiently without custom node.
-    // For now, let's just make a string representation.
     if (isPrimitive) {
       node.data.label = `${displayLabel}: ${formatValue(currentData)}`;
     } else {
@@ -156,8 +147,7 @@ export async function getLayoutedElements(
     });
 
     return { nodes: layoutedNodes, edges };
-  } catch (e) {
-    console.error('ELK Layout Error:', e);
+  } catch {
     return { nodes, edges };
   }
 }

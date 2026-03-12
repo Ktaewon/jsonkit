@@ -72,7 +72,6 @@ export default function GraphPage() {
         setEdges(layoutedEdges);
         setError(null);
       } catch (err) {
-        console.error(err);
         setError((err as Error).message || 'Invalid JSON');
       }
     };
