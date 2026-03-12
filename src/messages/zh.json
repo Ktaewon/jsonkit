@@ -25,7 +25,11 @@
     "metaDescription": "免费在线 JSON 图表可视化工具。将 JSON 数据可视化为交互式节点图，支持自动层级布局。可切换水平/垂直视图。",
     "visualization": "图表可视化",
     "layoutLR": "布局：水平",
-    "layoutTB": "布局：垂直"
+    "layoutTB": "布局：垂直",
+    "seoContent": {
+      "heading": "什么是 JSON 图表可视化？",
+      "paragraph": "JSON 图表可视化工具将 JSON 数据渲染为交互式节点图，方便探索复杂的层级结构。JSONKit 的图表工具支持自动节点定位的水平/垂直布局，帮助您一目了然地理解对象和数组之间的关系。"
+    }
   },
   "Landing": {
     "heroTitle": "您的全能 JSON 工具箱",

@@ -55,7 +55,7 @@ export async function generatePageMetadata({
           url: `${BASE_URL}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: 'JSONKit - Online JSON Tools',
+          alt: metaTitle,
         },
       ],
     },

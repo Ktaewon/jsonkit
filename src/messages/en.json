@@ -25,7 +25,11 @@
     "metaDescription": "Free online JSON graph visualizer. Visualize JSON as an interactive node graph with automatic hierarchical layout. Switch between horizontal and vertical views.",
     "visualization": "Graph Visualization",
     "layoutLR": "Layout: Horizontal",
-    "layoutTB": "Layout: Vertical"
+    "layoutTB": "Layout: Vertical",
+    "seoContent": {
+      "heading": "What is a JSON Graph Visualizer?",
+      "paragraph": "A JSON graph visualizer renders JSON data as an interactive node graph, making it easy to explore complex hierarchical structures. JSONKit's graph tool supports both horizontal and vertical layouts with automatic node positioning, helping you understand object and array relationships at a glance."
+    }
   },
   "Landing": {
     "heroTitle": "Your All-in-One JSON Toolkit",
