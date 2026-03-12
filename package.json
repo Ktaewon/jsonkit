@@ -17,6 +17,8 @@
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
     "@radix-ui/react-slot": "^1.2.4",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "@xyflow/react": "^12.10.0",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",

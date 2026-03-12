@@ -12,6 +12,8 @@ import { Toaster } from 'sonner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/common/JsonLd';
 import { getWebsiteSchema, getOrganizationSchema } from '@/lib/seo/structured-data';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -75,6 +77,8 @@ export default async function RootLayout({
             <Toaster position="bottom-right" richColors closeButton />
           </ThemeProvider>
         </NextIntlClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
