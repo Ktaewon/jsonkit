@@ -20,7 +20,7 @@
   },
   "Graph": {
     "title": "图表可视化",
-    "description": "将您的 JSON 数据可视化为交互式节点图。",
+    "description": "将复杂的 JSON 数据可视化为交互式节点图。一目了然地查看对象和数组的层级结构，切换水平/垂直布局，直观地探索数据关系。",
     "visualization": "图表可视化",
     "layoutLR": "布局：水平",
     "layoutTB": "布局：垂直"
