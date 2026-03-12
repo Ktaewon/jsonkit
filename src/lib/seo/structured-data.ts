@@ -17,7 +17,7 @@ export function getOrganizationSchema() {
     name: 'JSONKit',
     url: BASE_URL,
     logo: `${BASE_URL}/icon.png`,
-    sameAs: ['https://github.com/AntigravityProjects/jsonkit'],
+    sameAs: ['https://github.com/Ktaewon/jsonkit'],
   };
 }
 

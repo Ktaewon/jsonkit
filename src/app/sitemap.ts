@@ -13,6 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/escape',
     '/repair',
     '/schema',
+    '/graph',
+    '/json-to-code',
     '/privacy',
   ];
 
@@ -26,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${BASE_URL}/${locale}${route}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
-        priority: route === '' ? 1 : 0.8,
+        priority: route === '' ? 1 : route === '/privacy' ? 0.5 : 0.8,
       });
     });
   });

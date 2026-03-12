@@ -73,12 +73,6 @@ export function Header() {
               {t('convert')}
             </Link>
             <Link
-              href="/json-to-code"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              {t('type')}
-            </Link>
-            <Link
               href="/query"
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
