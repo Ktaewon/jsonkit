@@ -34,7 +34,7 @@ export async function generatePageMetadata({
     const locPath = path ? `/${loc}${path}` : `/${loc}`;
     languages[loc] = `${BASE_URL}${locPath}`;
   }
-  languages['x-default'] = `${BASE_URL}${path || '/'}`;
+  languages['x-default'] = `${BASE_URL}/en${path || ''}`;
 
   return {
     title: metaTitle,
