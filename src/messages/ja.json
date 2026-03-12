@@ -49,7 +49,11 @@
       "repairTitle": "JSON修復",
       "repairDesc": "一般的な問題のある不正なJSONを自動的に修正します。",
       "schemaTitle": "スキーマ検証",
-      "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。"
+      "schemaDesc": "JSON Schema定義に対してJSONデータを検証します。",
+      "graphTitle": "グラフビジュアライザー",
+      "graphDesc": "JSONデータをインタラクティブなグラフ図で視覚化します。",
+      "codeGenTitle": "JSON to Code",
+      "codeGenDesc": "JSONデータから型定義やクラスを生成します。"
     },
     "featuresSection": {
       "title": "機能",

@@ -40,7 +40,11 @@
       "repairTitle": "JSON Repair",
       "repairDesc": "일반적인 문제가 있는 잘못된 JSON을 자동으로 수정합니다.",
       "schemaTitle": "Schema Validator",
-      "schemaDesc": "JSON Schema 정의에 따라 JSON 데이터를 검증합니다."
+      "schemaDesc": "JSON Schema 정의에 따라 JSON 데이터를 검증합니다.",
+      "graphTitle": "Graph Visualizer",
+      "graphDesc": "JSON 데이터를 인터랙티브 그래프 다이어그램으로 시각화하세요.",
+      "codeGenTitle": "JSON to Code",
+      "codeGenDesc": "JSON 데이터에서 타입 정의와 클래스를 생성하세요."
     },
     "featuresSection": {
       "title": "기능",

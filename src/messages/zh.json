@@ -49,7 +49,11 @@
       "repairTitle": "JSON 修复",
       "repairDesc": "自动修复常见问题的格式错误 JSON。",
       "schemaTitle": "Schema 验证器",
-      "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。"
+      "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。",
+      "graphTitle": "图形可视化",
+      "graphDesc": "将 JSON 数据可视化为交互式图形图表。",
+      "codeGenTitle": "JSON to Code",
+      "codeGenDesc": "从 JSON 数据生成类型定义和类。"
     },
     "featuresSection": {
       "title": "功能",
