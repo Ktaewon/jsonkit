@@ -8,12 +8,10 @@ interface PageSeoContentProps {
 export async function PageSeoContent({ namespace, locale }: PageSeoContentProps) {
   const t = await getTranslations({ locale, namespace });
 
-  let heading: string;
-  let paragraph: string;
-  try {
-    heading = t('seoContent.heading');
-    paragraph = t('seoContent.paragraph');
-  } catch {
+  const heading = t('seoContent.heading');
+  const paragraph = t('seoContent.paragraph');
+
+  if (heading === 'seoContent.heading' || paragraph === 'seoContent.paragraph') {
     return null;
   }
 
