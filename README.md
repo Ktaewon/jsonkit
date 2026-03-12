@@ -34,6 +34,8 @@
 - **📝 Escape & Unescape**: Escape JSON strings for embedding or unescape them back.
 - **🔧 JSON Repair**: Automatically fix malformed JSON with common issues.
 - **📋 Schema Validator**: Validate JSON data against JSON Schema definitions.
+- **💻 JSON to Code**: Generate type definitions and class structures for TypeScript, Go, Python, and more.
+- **📊 Graph Visualizer**: Visualize JSON as an interactive node graph with automatic hierarchical layout.
 - **🔒 Privacy First**: All processing happens client-side. Your data never leaves your browser.
 
 ## 🛠️ Tech Stack
