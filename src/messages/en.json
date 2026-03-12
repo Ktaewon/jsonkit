@@ -11,11 +11,21 @@
     "viewer": "Viewer",
     "compare": "Compare",
     "convert": "Convert",
-    "type": "JSON to Code",
     "query": "Query",
     "escape": "Escape",
     "repair": "Repair",
-    "schema": "Schema"
+    "schema": "Schema",
+    "type": "Code",
+    "graph": "Graph"
+  },
+  "Graph": {
+    "title": "JSON Graph Visualizer",
+    "description": "Visualize your JSON data as an interactive node graph. Explore object and array hierarchies at a glance, switch between horizontal and vertical layouts, and understand data relationships intuitively.",
+    "metaTitle": "JSON Graph Visualizer Online - Interactive Node Graph | JSONKit",
+    "metaDescription": "Free online JSON graph visualizer. Visualize JSON as an interactive node graph with automatic hierarchical layout. Switch between horizontal and vertical views.",
+    "visualization": "Graph Visualization",
+    "layoutLR": "Layout: Horizontal",
+    "layoutTB": "Layout: Vertical"
   },
   "Landing": {
     "heroTitle": "Your All-in-One JSON Toolkit",
@@ -59,6 +69,7 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
+    "generating": "Generating...",
     "copy": "Copy",
     "copied": "Copied to clipboard",
     "copyFailed": "Failed to copy",

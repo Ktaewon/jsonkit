@@ -122,6 +122,15 @@ export function MobileNav() {
             {t('type')}
           </Link>
           <Link
+            href="/graph"
+            className={cn(
+              'text-lg font-medium transition-colors hover:text-primary',
+              pathname === '/graph' ? 'text-primary' : 'text-muted-foreground'
+            )}
+          >
+            {t('graph')}
+          </Link>
+          <Link
             href="/query"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',

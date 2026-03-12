@@ -11,11 +11,21 @@
     "viewer": "Viewer",
     "compare": "Compare",
     "convert": "转换",
-    "type": "JSON转代码",
     "query": "查询",
     "escape": "Escape",
     "repair": "Repair",
-    "schema": "Schema"
+    "schema": "Schema",
+    "type": "Code",
+    "graph": "Graph"
+  },
+  "Graph": {
+    "title": "JSON Graph Visualizer",
+    "description": "将复杂的 JSON 数据可视化为交互式节点图。一目了然地查看对象和数组的层级结构，切换水平/垂直布局，直观地探索数据关系。",
+    "metaTitle": "JSON 图表可视化 在线 - 交互式节点图 | JSONKit",
+    "metaDescription": "免费在线 JSON 图表可视化工具。将 JSON 数据可视化为交互式节点图，支持自动层级布局。可切换水平/垂直视图。",
+    "visualization": "图表可视化",
+    "layoutLR": "布局：水平",
+    "layoutTB": "布局：垂直"
   },
   "Landing": {
     "heroTitle": "您的全能 JSON 工具箱",
@@ -59,6 +69,7 @@
     "light": "亮色",
     "dark": "暗色",
     "system": "系统",
+    "generating": "生成中...",
     "copy": "复制",
     "copied": "已复制到剪贴板",
     "copyFailed": "复制失败",
