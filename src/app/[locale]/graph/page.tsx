@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { ReactFlow, Background, Controls, Node, Edge, useNodesState, useEdgesState, ReactFlowProvider } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -27,6 +28,7 @@ const Label = ({ children, className }: { children: React.ReactNode; className?:
 export default function GraphPage() {
     const t = useTranslations('Graph');
     const tCommon = useTranslations('Common');
+    const { resolvedTheme } = useTheme();
 
     const [input, setInput] = useLocalStorage<string>(
         'jsonkit-graph-input',
@@ -120,6 +122,7 @@ export default function GraphPage() {
                                 edges={edges}
                                 onNodesChange={onNodesChange}
                                 onEdgesChange={onEdgesChange}
+                                colorMode={resolvedTheme === 'dark' ? 'dark' : 'light'}
                                 fitView
                                 minZoom={0.1}
                                 maxZoom={4}
