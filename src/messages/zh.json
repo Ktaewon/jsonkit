@@ -86,7 +86,9 @@
     "download": "下载",
     "input": "输入",
     "output": "输出",
-    "error": "错误"
+    "error": "错误",
+    "contact": "联系我们",
+    "contactDescription": "有 Bug 反馈、功能建议或疑问？请在 GitHub Issues 上告诉我们。"
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
@@ -244,7 +246,60 @@
       "paragraph": "JSON Schema 是一种用于定义 JSON 数据的结构、内容和语义的词汇表。JSON Schema 验证器检查您的数据是否符合给定的模式定义。JSONKit 使用 Ajv 库进行快速、符合规范的验证，并提供指向确切违规位置的详细错误消息。"
     }
   },
+  "Blog": {
+    "title": "博客",
+    "description": "为开发者提供的 JSON 教程、指南和最佳实践。",
+    "metaTitle": "JSON 博客 - 教程与指南 | JSONKit",
+    "metaDescription": "学习 JSON 最佳实践、比较数据格式、掌握 JSONPath 查询。为开发者提供的免费教程和指南。",
+    "posts": {
+      "json-format-guide": {
+        "title": "JSON 格式完全指南",
+        "summary": "了解 JSON 结构、语法规则、数据类型、常见错误和格式化最佳实践。"
+      },
+      "json-vs-yaml": {
+        "title": "JSON vs YAML 完全比较",
+        "summary": "详细比较 JSON 和 YAML 的语法差异、优缺点以及各种格式的适用场景。"
+      },
+      "jsonpath-tutorial": {
+        "title": "JSONPath 使用指南",
+        "summary": "掌握从复杂 JSON 结构中提取数据的 JSONPath 语法 — 通配符、过滤器、递归搜索和实际示例。"
+      },
+      "json-validation-guide": {
+        "title": "JSON验证完全指南",
+        "summary": "了解JSON语法规则、常见错误类型以及使用JSON Schema进行结构验证的方法。"
+      },
+      "json-tree-viewer": {
+        "title": "JSON树形查看器使用指南",
+        "summary": "将复杂的嵌套JSON数据以树形结构可视化，实现高效的数据探索和调试。"
+      },
+      "json-diff-comparison": {
+        "title": "JSON比较(Diff)完全指南",
+        "summary": "查找两个JSON文档之间的差异 — 基于文本vs基于结构的比较策略。"
+      },
+      "json-escape-unescape": {
+        "title": "JSON转义完全指南",
+        "summary": "掌握JSON转义字符、Unicode处理以及双重转义问题的解决方法。"
+      },
+      "json-repair-guide": {
+        "title": "修复损坏的JSON指南",
+        "summary": "修复尾随逗号、单引号、注释等常见JSON错误模式和自动修复方法。"
+      },
+      "json-schema-intro": {
+        "title": "JSON Schema入门指南",
+        "summary": "使用JSON Schema定义和验证数据结构 — 类型、必填字段和高级功能。"
+      },
+      "json-to-type-codegen": {
+        "title": "从JSON自动生成类型代码",
+        "summary": "从JSON数据自动生成TypeScript接口和Python数据类。"
+      },
+      "json-visualization": {
+        "title": "JSON数据可视化指南",
+        "summary": "将JSON数据以图形方式可视化，一目了然地理解复杂结构。"
+      }
+    }
+  },
   "Footer": {
+    "blog": "博客",
     "privacyPolicy": "隐私政策"
   },
   "Privacy": {
@@ -252,7 +307,7 @@
     "metaTitle": "隐私政策 | JSONKit",
     "metaDescription": "JSONKit 隐私政策。所有 JSON 处理在浏览器中完成，不向服务器传输数据。",
     "lastUpdated": "最后更新",
-    "lastUpdatedDate": "2025年1月",
+    "lastUpdatedDate": "2025-03-14",
     "sections": {
       "dataCollection": {
         "title": "数据收集",
@@ -266,7 +321,7 @@
         "title": "Cookie 和第三方服务",
         "content": "我们使用以下可能设置 Cookie 的第三方服务：",
         "googleAdsense": "Google AdSense：用于显示广告。Google 可能会使用 Cookie 根据您的浏览历史个性化广告。",
-        "googleAnalytics": "Google Analytics：用于了解访问者如何使用我们的网站。这有助于我们改善用户体验。"
+        "vercelAnalytics": "Vercel Analytics：用于了解访问者如何使用我们的网站。Vercel Analytics 不使用 Cookie，也不收集个人数据。"
       },
       "thirdParty": {
         "title": "第三方链接",

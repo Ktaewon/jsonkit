@@ -75,3 +75,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .prose table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .prose th {
+    @apply border border-border bg-muted px-4 py-2 text-left font-semibold;
+  }
+
+  .prose td {
+    @apply border border-border px-4 py-2;
+  }
+}

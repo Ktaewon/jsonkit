@@ -1,0 +1,237 @@
+# JSON Diff Guide: Finding Differences Between Two JSON Documents
+
+Comparing two JSON documents sounds straightforward until you encounter key reordering, nested array changes, and whitespace noise. A naive text diff reports every moved key as a deletion and insertion even when the data is identical. This guide covers when you need JSON comparison, the different approaches, their tradeoffs, and practical tips for using JSON diff effectively in development workflows.
+
+## When You Need JSON Comparison
+
+JSON diff is not just a convenience feature. It solves real problems that come up constantly in professional development.
+
+### API Versioning and Change Detection
+
+When a third-party API releases a new version, you need to know exactly what changed. Comparing a v1 response sample with a v2 response sample gives you a precise change report: which fields were added, removed, renamed, or changed type. This is far more reliable than reading changelog documentation that may be incomplete or inaccurate.
+
+### Configuration Tracking
+
+Configuration files like `package.json`, `tsconfig.json`, `appsettings.json`, and custom application configs accumulate changes over time. Comparing the config from two different deployments or Git revisions helps you understand what changed between a working and a broken environment.
+
+### Test Verification
+
+In snapshot testing and integration tests, the expected output is often a JSON document. When a test fails, a JSON diff immediately shows you which fields changed and by how much — not just that the assertion failed.
+
+### Database Record Auditing
+
+When an application updates a record, storing a before/after JSON diff in an audit log gives you a compact, human-readable history of exactly what changed, who changed it, and when.
+
+## Text-Based vs. Structural Comparison
+
+There are two fundamentally different approaches to comparing JSON, and choosing the wrong one generates enormous noise.
+
+### Text-Based Diff
+
+A text diff (like `git diff` or the Unix `diff` command) compares JSON as plain text, line by line. It is fast and requires no JSON parsing, but it treats any formatting change as a difference.
+
+If the same data is formatted with different indentation, or if an object's keys are in a different order, a text diff reports massive differences even though the JSON values are identical:
+
+```
+// "Before" (keys in one order)
+{
+  "name": "Alice",
+  "id": 42
+}
+
+// "After" (keys reordered)
+{
+  "id": 42,
+  "name": "Alice"
+}
+```
+
+A text diff reports both keys as changed. A structural diff reports no difference.
+
+### Structural Diff
+
+A structural diff parses both JSON documents into their in-memory representations first, then compares the parsed structures. This means:
+
+- Key order in objects does not matter — `{"a":1,"b":2}` equals `{"b":2,"a":1}`
+- Whitespace and indentation are ignored entirely
+- Only actual value differences are reported
+
+For comparing JSON data, structural diff is almost always the right choice.
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Text Diff</th>
+      <th>Structural Diff</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Key reordering</td>
+      <td>Reported as change</td>
+      <td>Ignored</td>
+    </tr>
+    <tr>
+      <td>Whitespace changes</td>
+      <td>Reported as change</td>
+      <td>Ignored</td>
+    </tr>
+    <tr>
+      <td>
+        Type changes (<code>"1"</code> vs <code>1</code>)
+      </td>
+      <td>Reported</td>
+      <td>Reported</td>
+    </tr>
+    <tr>
+      <td>Nested value changes</td>
+      <td>Reported (with noise)</td>
+      <td>Reported (clean)</td>
+    </tr>
+    <tr>
+      <td>Requires valid JSON</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Speed on large files</td>
+      <td>Faster</td>
+      <td>Slower (parsing overhead)</td>
+    </tr>
+  </tbody>
+</table>
+
+## Handling Key Order Differences
+
+JSON objects are defined as _unordered_ collections of key-value pairs (per RFC 8259). In practice, different languages, serializers, and pretty-printers produce different key orders for the same data.
+
+Python's `json.dumps` outputs keys in insertion order. JavaScript's `JSON.stringify` preserves insertion order in modern engines but historical behavior differed. Go's `encoding/json` serializes struct fields in declaration order. When these systems exchange data, the JSON they produce is semantically identical but textually different.
+
+A proper JSON diff normalizes key order before comparison, so `{"z":1,"a":2}` and `{"a":2,"z":1}` are reported as equal.
+
+If you are using a text diff and want to handle key reordering, sort the keys before diffing:
+
+```python
+import json
+
+def normalize(data):
+    return json.dumps(json.loads(data), sort_keys=True, indent=2)
+
+# Now text-diff the normalized versions
+```
+
+## Array Comparison Challenges
+
+Arrays are the hardest part of JSON comparison. Unlike objects, arrays are ordered — `[1, 2, 3]` and `[3, 1, 2]` are semantically different even though they contain the same elements. This creates two common problems.
+
+### Insertion and Deletion Shift
+
+When an element is inserted at the beginning or middle of an array, a naive diff reports every subsequent element as changed because their indices shifted. A diff that shows items 0 through 50 as modified when only one item was inserted at index 0 is not useful.
+
+Better diff algorithms (like the Myers diff) detect common subsequences and report insertions and deletions correctly, minimizing false positives.
+
+### Identifying Items in Arrays of Objects
+
+For arrays of objects, a good diff identifies corresponding items by a meaningful key (like `id`) rather than by array position. This way, reordering items in a list is reported correctly as a move rather than a set of deletions and insertions.
+
+```json
+// Before
+[{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}]
+
+// After (order swapped)
+[{"id": 2, "name": "Bob"}, {"id": 1, "name": "Alice"}]
+```
+
+A positional diff reports two changes. An ID-aware diff reports no changes.
+
+## Practical Tips for JSON Diff in Development
+
+### Normalize Before Comparing
+
+Always normalize both documents before diffing: sort keys, normalize number formatting, and strip cosmetic whitespace. This eliminates noise and makes the diff output meaningful.
+
+### JSON Diff in CI/CD Pipelines
+
+Automating JSON comparison in your CI pipeline helps catch unintended changes to API contracts or configuration files before they merge.
+
+```bash
+# Compare API response snapshots in a shell script
+npx json-diff expected.json actual.json
+if [ $? -ne 0 ]; then
+  echo "API response changed unexpectedly"
+  exit 1
+fi
+```
+
+### Snapshot Testing
+
+Frameworks like Jest use JSON serialization for snapshot tests. When a snapshot test fails, the output is effectively a JSON diff. Reading it structurally — noting which keys changed, not just that lines changed — makes fixing failing snapshots much faster.
+
+```javascript
+// Jest snapshot test — failure output is a readable JSON diff
+expect(apiResponse).toMatchSnapshot();
+```
+
+### Tracking Config Drift Between Environments
+
+If you have staging and production configs that should be nearly identical, diffing them regularly reveals environment-specific overrides that were not intentional.
+
+### Redacting Sensitive Fields Before Diffing
+
+When sharing diffs for debugging or logging, redact sensitive fields before comparison. Build a normalization step that replaces tokens, passwords, and PII with placeholder values.
+
+```javascript
+function redact(obj, keys) {
+  const result = { ...obj };
+  for (const key of keys) {
+    if (key in result) result[key] = '[REDACTED]';
+  }
+  return result;
+}
+```
+
+## Reading a JSON Diff Output
+
+A standard JSON diff uses color and symbols to indicate changes:
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol / Color</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>+</code> Green
+      </td>
+      <td>Added — present in the new document, absent in the old</td>
+    </tr>
+    <tr>
+      <td>
+        <code>-</code> Red
+      </td>
+      <td>Removed — present in the old document, absent in the new</td>
+    </tr>
+    <tr>
+      <td>
+        <code>~</code> Yellow
+      </td>
+      <td>Modified — key exists in both, but the value changed</td>
+    </tr>
+    <tr>
+      <td>No symbol</td>
+      <td>Unchanged — identical in both documents</td>
+    </tr>
+  </tbody>
+</table>
+
+When reading a diff, start with the modified fields (`~`), since these are usually the most interesting. Additions and deletions are clearer — something was explicitly added or removed.
+
+## Conclusion
+
+JSON diff is an essential tool for API development, configuration management, and data auditing. Text-based diff is quick but generates noise from key reordering and formatting changes. Structural diff is the right tool for comparing JSON data — it parses the documents first and compares their actual values.
+
+[JSONKit's Compare tool](https://jsonkit.org/compare) provides a side-by-side structural JSON diff in the browser. Paste two JSON documents, and the differences are highlighted inline with no setup required. All comparison is done client-side — your data stays in the browser.

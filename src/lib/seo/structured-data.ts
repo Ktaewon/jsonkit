@@ -21,6 +21,46 @@ export function getOrganizationSchema() {
   };
 }
 
+export function getArticleSchema({
+  title,
+  description,
+  slug,
+  date,
+  locale,
+}: {
+  title: string;
+  description: string;
+  slug: string;
+  date: string;
+  locale: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: date,
+    author: {
+      '@type': 'Organization',
+      name: 'JSONKit',
+      url: BASE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'JSONKit',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${BASE_URL}/icon.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${BASE_URL}/${locale}/blog/${slug}`,
+    },
+  };
+}
+
 export function getWebApplicationSchema(name: string, description: string, url: string) {
   return {
     '@context': 'https://schema.org',

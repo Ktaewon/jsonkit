@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { BASE_URL } from '@/lib/constants';
+import { getAllPosts } from '@/lib/blog/posts';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -16,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/graph',
     '/json-to-code',
     '/privacy',
+    '/blog',
   ];
 
   const locales = ['en', 'ko', 'ja', 'zh', 'ru'];
@@ -28,14 +30,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${BASE_URL}/${locale}${route}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
-        priority: route === '' ? 1 : route === '/privacy' ? 0.5 : 0.8,
+        priority: route === '' ? 1 : route === '/privacy' ? 0.5 : route === '/blog' ? 0.7 : 0.8,
       });
     });
   });
 
-  // Also add root redirect (optional, but good for completeness if we want to show it exists)
-  // But usually sitemap lists the direct accessible pages.
-  // We'll stick to the localized pages.
+  const posts = getAllPosts();
+  posts.forEach((post) => {
+    post.locales.forEach((locale) => {
+      sitemap.push({
+        url: `${BASE_URL}/${locale}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      });
+    });
+  });
 
   return sitemap;
 }

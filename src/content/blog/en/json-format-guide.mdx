@@ -1,0 +1,135 @@
+# The Complete JSON Format Guide: Structure, Syntax & Best Practices
+
+JSON (JavaScript Object Notation) is the most widely used data interchange format in modern web development. From API communication to configuration files and data storage, JSON is everywhere. This guide covers everything from basic JSON structure to practical tips for working with JSON effectively.
+
+## What is JSON?
+
+JSON is a lightweight data interchange format proposed by Douglas Crockford in 2001. It's designed to be easy for humans to read and write, and easy for machines to parse and generate. It's standardized as RFC 8259 and is language-independent.
+
+## JSON Data Types
+
+JSON supports six data types:
+
+### 1. String
+
+Must be wrapped in double quotes (`"`). Single quotes are not allowed.
+
+```json
+{
+  "name": "John Doe",
+  "message": "Line breaks use \\n"
+}
+```
+
+### 2. Number
+
+Supports both integers and floating-point numbers. Written without quotes.
+
+```json
+{
+  "age": 30,
+  "pi": 3.14159,
+  "scientific": 1.5e10
+}
+```
+
+### 3. Boolean
+
+Only `true` or `false` are allowed, written in lowercase without quotes.
+
+```json
+{
+  "isActive": true,
+  "isDeleted": false
+}
+```
+
+### 4. null
+
+Represents an empty value. Only lowercase `null` is valid.
+
+```json
+{
+  "middleName": null
+}
+```
+
+### 5. Object
+
+Wrapped in curly braces `{}`, with key-value pairs separated by commas. Keys must be strings.
+
+```json
+{
+  "user": {
+    "id": 1,
+    "name": "Jane Dev",
+    "email": "jane@example.com"
+  }
+}
+```
+
+### 6. Array
+
+Wrapped in square brackets `[]`, with elements separated by commas. Different types can be mixed.
+
+```json
+{
+  "tags": ["javascript", "json", "web"],
+  "mixed": [1, "two", true, null]
+}
+```
+
+## Common Mistakes
+
+### Trailing Commas
+
+Allowed in JavaScript but **forbidden** in JSON.
+
+```json
+// Wrong
+{ "a": 1, "b": 2, }
+
+// Correct
+{ "a": 1, "b": 2 }
+```
+
+### Comments
+
+JSON does not support comments. Neither `//` nor `/* */` can be used.
+
+### Single Quotes
+
+Both keys and string values must use double quotes.
+
+```json
+// Wrong
+{ 'name': 'test' }
+
+// Correct
+{ "name": "test" }
+```
+
+## Why JSON Formatting Matters
+
+### Readability
+
+JSON with proper indentation and line breaks makes the structure immediately visible. This dramatically reduces debugging time.
+
+### File Size Optimization
+
+In production, minified JSON (with whitespace removed) reduces network transfer size. For large API responses, this can mean 30-50% size reduction.
+
+### Consistency
+
+In team projects, standardizing indentation rules (2 spaces vs 4 spaces) helps with code reviews and version control.
+
+## Practical Tips
+
+1. **API Response Debugging**: Use a beautifier to format API responses for quick data structure analysis.
+2. **Config File Management**: Keep configuration files like `package.json` and `tsconfig.json` properly formatted.
+3. **Data Validation**: Always validate JSON before passing it to other systems.
+4. **Large File Navigation**: Use a tree viewer for large JSON files to easily explore the structure.
+
+## Conclusion
+
+JSON is simple, but using it correctly requires knowing the rules. JSONKit's Beautify tool lets you format, minify, and validate JSON all in one place.

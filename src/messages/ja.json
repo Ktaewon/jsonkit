@@ -86,7 +86,9 @@
     "download": "ダウンロード",
     "input": "入力",
     "output": "出力",
-    "error": "エラー"
+    "error": "エラー",
+    "contact": "お問い合わせ",
+    "contactDescription": "バグ報告、機能リクエスト、ご質問がありますか？GitHub Issuesでお知らせください。"
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
@@ -244,7 +246,60 @@
       "paragraph": "JSON Schemaは、JSONデータの構造、内容、セマンティクスを定義するための語彙です。JSONスキーマバリデーターは、データが指定されたスキーマ定義に準拠しているかどうかをチェックします。JSONKitはAjvライブラリを使用して高速かつ仕様準拠の検証を行い、違反箇所を正確に指し示す詳細なエラーメッセージを提供します。"
     }
   },
+  "Blog": {
+    "title": "ブログ",
+    "description": "開発者のためのJSONチュートリアル、ガイド、ベストプラクティス。",
+    "metaTitle": "JSONブログ - チュートリアル & ガイド | JSONKit",
+    "metaDescription": "JSONのベストプラクティス、データ形式の比較、JSONPathクエリの習得。開発者のための無料チュートリアルとガイド。",
+    "posts": {
+      "json-format-guide": {
+        "title": "JSON完全フォーマットガイド",
+        "summary": "JSONの構造、構文ルール、データ型、よくある間違い、フォーマットのベストプラクティスを学びます。"
+      },
+      "json-vs-yaml": {
+        "title": "JSON vs YAML 完全比較",
+        "summary": "JSONとYAMLの構文の違い、長所と短所、各形式の適切な使用ケースを詳しく比較します。"
+      },
+      "jsonpath-tutorial": {
+        "title": "JSONPath使い方ガイド",
+        "summary": "複雑なJSON構造からデータを抽出するJSONPath構文 — ワイルドカード、フィルター、再帰探索、実践例。"
+      },
+      "json-validation-guide": {
+        "title": "JSON検証完全ガイド",
+        "summary": "JSON構文ルール、一般的なエラーの種類、JSON Schemaによる構造検証の方法を学びます。"
+      },
+      "json-tree-viewer": {
+        "title": "JSONツリービューアー活用ガイド",
+        "summary": "複雑なネストされたJSONデータをツリー構造で可視化し、効率的に探索する方法を紹介します。"
+      },
+      "json-diff-comparison": {
+        "title": "JSON比較(Diff)完全ガイド",
+        "summary": "2つのJSONドキュメントの差分を見つける方法 — テキストベースvs構造ベースの比較。"
+      },
+      "json-escape-unescape": {
+        "title": "JSONエスケープ完全ガイド",
+        "summary": "JSONエスケープ文字、Unicode処理、二重エスケープ問題の解決法を扱います。"
+      },
+      "json-repair-guide": {
+        "title": "壊れたJSON修復ガイド",
+        "summary": "末尾カンマ、シングルクォート、コメントなど一般的なJSONエラーパターンと自動修正方法。"
+      },
+      "json-schema-intro": {
+        "title": "JSON Schema入門ガイド",
+        "summary": "JSON Schemaでデータ構造を定義・検証する方法 — 型、必須フィールド、高度な機能。"
+      },
+      "json-to-type-codegen": {
+        "title": "JSONから型コード自動生成",
+        "summary": "JSONデータからTypeScript interfaceとPython dataclassを自動生成する方法。"
+      },
+      "json-visualization": {
+        "title": "JSONデータ可視化ガイド",
+        "summary": "JSONデータをグラフで可視化し、複雑な構造を一目で把握する方法を紹介します。"
+      }
+    }
+  },
   "Footer": {
+    "blog": "ブログ",
     "privacyPolicy": "プライバシーポリシー"
   },
   "Privacy": {
@@ -252,7 +307,7 @@
     "metaTitle": "プライバシーポリシー | JSONKit",
     "metaDescription": "JSONKitプライバシーポリシー。すべてのJSON処理はブラウザ内で行われ、サーバーへのデータ送信はありません。",
     "lastUpdated": "最終更新日",
-    "lastUpdatedDate": "2025年1月",
+    "lastUpdatedDate": "2025-03-14",
     "sections": {
       "dataCollection": {
         "title": "データ収集",
@@ -266,7 +321,7 @@
         "title": "Cookieとサードパーティサービス",
         "content": "以下のサードパーティサービスを使用しており、Cookieを設定する場合があります：",
         "googleAdsense": "Google AdSense：広告の表示に使用されます。Googleは、お客様の閲覧履歴に基づいて広告をパーソナライズするためにCookieを使用する場合があります。",
-        "googleAnalytics": "Google Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。これにより、ユーザーエクスペリエンスの向上に役立てています。"
+        "vercelAnalytics": "Vercel Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。Vercel AnalyticsはCookieを使用せず、個人データを収集しません。"
       },
       "thirdParty": {
         "title": "サードパーティリンク",

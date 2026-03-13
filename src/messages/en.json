@@ -88,7 +88,9 @@
     "download": "Download",
     "input": "Input",
     "output": "Output",
-    "error": "Error"
+    "error": "Error",
+    "contact": "Contact Us",
+    "contactDescription": "Have a bug report, feature request, or question? Let us know on GitHub Issues."
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
@@ -246,7 +248,60 @@
       "paragraph": "JSON Schema is a vocabulary for defining the structure, content, and semantics of JSON data. A JSON Schema validator checks whether your data conforms to a given schema definition. JSONKit uses the Ajv library for fast, spec-compliant validation with detailed error messages pointing to exact locations of violations."
     }
   },
+  "Blog": {
+    "title": "Blog",
+    "description": "JSON tutorials, guides, and best practices for developers.",
+    "metaTitle": "JSON Blog - Tutorials & Guides | JSONKit",
+    "metaDescription": "Learn JSON best practices, compare data formats, and master JSONPath queries. Free tutorials and guides for developers.",
+    "posts": {
+      "json-format-guide": {
+        "title": "The Complete JSON Format Guide",
+        "summary": "Learn JSON structure, syntax rules, data types, common mistakes, and formatting best practices."
+      },
+      "json-vs-yaml": {
+        "title": "JSON vs YAML: A Complete Comparison",
+        "summary": "Compare JSON and YAML in detail — syntax differences, pros and cons, and when to use each format."
+      },
+      "jsonpath-tutorial": {
+        "title": "JSONPath Tutorial: Extract Data from JSON",
+        "summary": "Master JSONPath syntax for querying complex JSON structures — wildcards, filters, recursive descent, and practical examples."
+      },
+      "json-validation-guide": {
+        "title": "Complete Guide to JSON Validation",
+        "summary": "Learn JSON syntax rules, common error types, and how to validate structure with JSON Schema."
+      },
+      "json-tree-viewer": {
+        "title": "Understanding Complex Data with JSON Tree Viewer",
+        "summary": "Visualize deeply nested JSON data as a tree structure for efficient exploration and debugging."
+      },
+      "json-diff-comparison": {
+        "title": "JSON Diff Guide: Comparing JSON Documents",
+        "summary": "Find differences between two JSON documents — text-based vs structural comparison, array diff strategies."
+      },
+      "json-escape-unescape": {
+        "title": "JSON Escape and Unescape Guide",
+        "summary": "Master JSON escape sequences, Unicode handling, and solving double-escaping issues."
+      },
+      "json-repair-guide": {
+        "title": "Repairing Broken JSON",
+        "summary": "Fix common JSON errors like trailing commas, single quotes, and comments with auto-repair techniques."
+      },
+      "json-schema-intro": {
+        "title": "Introduction to JSON Schema",
+        "summary": "Define and validate data structures with JSON Schema — types, required fields, and advanced features."
+      },
+      "json-to-type-codegen": {
+        "title": "Auto-Generate Types from JSON",
+        "summary": "Generate TypeScript interfaces and Python dataclasses automatically from JSON data."
+      },
+      "json-visualization": {
+        "title": "JSON Data Visualization Guide",
+        "summary": "Visualize JSON data as graphs to understand complex structures at a glance."
+      }
+    }
+  },
   "Footer": {
+    "blog": "Blog",
     "privacyPolicy": "Privacy Policy"
   },
   "Privacy": {
@@ -254,7 +309,7 @@
     "metaTitle": "Privacy Policy | JSONKit",
     "metaDescription": "JSONKit privacy policy. Learn how we handle your data - all JSON processing happens in your browser with no server transmission.",
     "lastUpdated": "Last Updated",
-    "lastUpdatedDate": "January 2025",
+    "lastUpdatedDate": "2025-03-14",
     "sections": {
       "dataCollection": {
         "title": "Data Collection",
@@ -268,7 +323,7 @@
         "title": "Cookies and Third-Party Services",
         "content": "We use the following third-party services that may set cookies:",
         "googleAdsense": "Google AdSense: Used to display advertisements. Google may use cookies to personalize ads based on your browsing history.",
-        "googleAnalytics": "Google Analytics: Used to understand how visitors use our site. This helps us improve the user experience."
+        "vercelAnalytics": "Vercel Analytics: Used to understand how visitors use our site. Vercel Analytics does not use cookies and collects no personal data."
       },
       "thirdParty": {
         "title": "Third-Party Links",
