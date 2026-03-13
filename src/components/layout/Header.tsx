@@ -96,6 +96,7 @@ export function Header() {
             >
               {t('schema')}
             </Link>
+            <span className="h-4 w-px bg-border" />
             <Link
               href="/blog"
               className="transition-colors hover:text-foreground/80 text-foreground/60"

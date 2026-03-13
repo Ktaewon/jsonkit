@@ -166,6 +166,7 @@ export function MobileNav() {
           >
             {t('schema')}
           </Link>
+          <div className="border-t border-border my-2" />
           <Link
             href="/blog"
             className={cn(
