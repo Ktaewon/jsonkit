@@ -42,11 +42,11 @@ We'll use this JSON data as our example:
 
 Every JSONPath expression starts with `$` (root).
 
-| Expression | Result |
-|-----------|--------|
-| `$` | Entire JSON document |
-| `$.store` | Complete store object |
-| `$.store.location` | `"online"` |
+| Expression         | Result                |
+| ------------------ | --------------------- |
+| `$`                | Entire JSON document  |
+| `$.store`          | Complete store object |
+| `$.store.location` | `"online"`            |
 
 ### Dot Notation vs Bracket Notation
 
@@ -59,12 +59,12 @@ Both return the same result. Dot notation is more concise, but bracket notation 
 
 ### Array Access
 
-| Expression | Description |
-|-----------|-------------|
-| `$.store.books[0]` | First book |
-| `$.store.books[-1]` | Last book |
+| Expression           | Description           |
+| -------------------- | --------------------- |
+| `$.store.books[0]`   | First book            |
+| `$.store.books[-1]`  | Last book             |
 | `$.store.books[0,2]` | First and third books |
-| `$.store.books[0:2]` | Index 0-1 (slice) |
+| `$.store.books[0:2]` | Index 0-1 (slice)     |
 
 ## Wildcards and Recursive Descent
 
@@ -160,12 +160,12 @@ $.logs[-10:]
 
 ## JSONPath vs JavaScript
 
-| Task | JavaScript | JSONPath |
-|------|-----------|----------|
-| First book title | `data.store.books[0].title` | `$.store.books[0].title` |
-| All prices | `data.store.books.map(b => b.price)` | `$.store.books[*].price` |
-| Price filter | `data.store.books.filter(b => b.price > 40)` | `$.store.books[?(@.price > 40)]` |
-| All titles (recursive) | Requires recursive function | `$..title` |
+| Task                   | JavaScript                                   | JSONPath                         |
+| ---------------------- | -------------------------------------------- | -------------------------------- |
+| First book title       | `data.store.books[0].title`                  | `$.store.books[0].title`         |
+| All prices             | `data.store.books.map(b => b.price)`         | `$.store.books[*].price`         |
+| Price filter           | `data.store.books.filter(b => b.price > 40)` | `$.store.books[?(@.price > 40)]` |
+| All titles (recursive) | Requires recursive function                  | `$..title`                       |
 
 JSONPath extracts data declaratively without code, making it especially useful for debugging and data exploration.
 

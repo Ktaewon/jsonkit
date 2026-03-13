@@ -12,7 +12,10 @@ export function FloatingContactButton() {
     <>
       {/* Modal overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-[55] bg-background/80 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+        <div
+          className="fixed inset-0 z-[55] bg-background/80 backdrop-blur-sm"
+          onClick={() => setIsOpen(false)}
+        />
       )}
 
       {/* Modal */}
@@ -28,9 +31,7 @@ export function FloatingContactButton() {
               <X className="h-4 w-4" />
             </button>
           </div>
-          <p className="text-sm text-muted-foreground mb-4">
-            {t('contactDescription')}
-          </p>
+          <p className="text-sm text-muted-foreground mb-4">{t('contactDescription')}</p>
           <a
             href="https://github.com/Ktaewon/jsonkit/issues"
             target="_blank"

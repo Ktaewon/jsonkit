@@ -27,9 +27,7 @@ export default function BlogPage() {
                 <h2 className="text-xl font-semibold group-hover:text-primary transition-colors mb-2">
                   {t(`posts.${post.slug}.title`)}
                 </h2>
-                <p className="text-muted-foreground mb-3">
-                  {t(`posts.${post.slug}.summary`)}
-                </p>
+                <p className="text-muted-foreground mb-3">{t(`posts.${post.slug}.summary`)}</p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground">
                   <time dateTime={post.date}>{post.date}</time>
                   <span className="rounded-full bg-primary/10 px-3 py-0.5 text-primary text-xs font-medium">
