@@ -87,7 +87,8 @@
     "input": "输入",
     "output": "输出",
     "error": "错误",
-    "contact": "联系我们"
+    "contact": "联系我们",
+    "contactDescription": "有 Bug 反馈、功能建议或疑问？请在 GitHub Issues 上告诉我们。"
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",

@@ -74,7 +74,8 @@
     "input": "Ввод",
     "output": "Вывод",
     "error": "Ошибка",
-    "contact": "Связаться с нами"
+    "contact": "Связаться с нами",
+    "contactDescription": "Нашли баг, есть запрос на функцию или вопрос? Сообщите нам через GitHub Issues."
   },
   "Graph": {
     "title": "JSON Graph Visualizer",

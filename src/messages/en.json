@@ -89,7 +89,8 @@
     "input": "Input",
     "output": "Output",
     "error": "Error",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "contactDescription": "Have a bug report, feature request, or question? Let us know on GitHub Issues."
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",

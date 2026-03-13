@@ -166,6 +166,15 @@ export function MobileNav() {
           >
             {t('schema')}
           </Link>
+          <Link
+            href="/blog"
+            className={cn(
+              'text-lg font-medium transition-colors hover:text-primary',
+              pathname === '/blog' ? 'text-primary' : 'text-muted-foreground'
+            )}
+          >
+            Blog
+          </Link>
         </nav>
 
         <div className="absolute bottom-8 left-6 right-6 text-sm text-muted-foreground">

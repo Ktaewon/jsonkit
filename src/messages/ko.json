@@ -76,7 +76,8 @@
     "input": "입력",
     "output": "출력",
     "error": "오류",
-    "contact": "문의하기"
+    "contact": "문의하기",
+    "contactDescription": "버그 제보, 기능 요청, 또는 질문이 있으신가요? GitHub Issues에서 알려주세요."
   },
   "Graph": {
     "title": "JSON Graph Visualizer",

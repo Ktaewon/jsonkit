@@ -1,11 +1,8 @@
-import { getPostBySlug, getPostSlugs } from '@/lib/blog/posts';
+import { getPostBySlug } from '@/lib/blog/posts';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
-
-export function generateStaticParams() {
-  return getPostSlugs().map((slug) => ({ slug }));
-}
+import { BlogPostContent } from './content';
 
 export default async function BlogPostPage({
   params,
@@ -15,13 +12,6 @@ export default async function BlogPostPage({
   const { locale, slug } = await params;
   const post = getPostBySlug(slug);
   if (!post || !post.locales.includes(locale)) notFound();
-
-  let MDXContent;
-  try {
-    MDXContent = (await import(`@/content/blog/${locale}/${slug}.mdx`)).default;
-  } catch {
-    notFound();
-  }
 
   return (
     <div className="container py-8 max-w-3xl">
@@ -33,7 +23,7 @@ export default async function BlogPostPage({
         Blog
       </Link>
       <article className="prose prose-neutral dark:prose-invert max-w-none">
-        <MDXContent />
+        <BlogPostContent slug={slug} locale={locale} />
       </article>
       <div className="mt-12 pt-6 border-t">
         <Link
