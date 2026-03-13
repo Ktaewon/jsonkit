@@ -1,0 +1,312 @@
+# JSON 유효성 검사 완벽 가이드
+
+JSON(JavaScript Object Notation)은 단순해 보이지만 엄격한 문법 규칙을 가지고 있습니다. API 통신이나 설정 파일에서 단 하나의 쉼표 오류로 전체 파싱이 실패하는 경험을 해본 적 있으신가요? 이 가이드에서는 JSON 유효성 검사의 모든 것을 다룹니다.
+
+## JSON 문법 규칙 핵심 정리
+
+JSON 사양(RFC 8259)은 매우 엄격합니다. 다음 규칙을 반드시 지켜야 합니다.
+
+### 문자열은 반드시 큰따옴표
+
+JSON에서 문자열은 반드시 큰따옴표(`"`)로 감싸야 합니다. 작은따옴표는 유효하지 않습니다.
+
+```json
+// 유효하지 않음
+{ 'name': 'JSONKit' }
+
+// 유효함
+{ "name": "JSONKit" }
+```
+
+키 이름도 예외 없이 큰따옴표가 필요합니다.
+
+```json
+// 유효하지 않음
+{ name: "JSONKit" }
+
+// 유효함
+{ "name": "JSONKit" }
+```
+
+### 후행 쉼표 금지
+
+배열이나 객체의 마지막 요소 뒤에 쉼표를 붙이면 유효하지 않습니다. JavaScript나 Python에서는 허용되지만 JSON에서는 파싱 오류를 유발합니다.
+
+```json
+// 유효하지 않음
+{
+  "a": 1,
+  "b": 2,
+}
+
+// 유효함
+{
+  "a": 1,
+  "b": 2
+}
+```
+
+### 주석 사용 불가
+
+JSON은 주석을 지원하지 않습니다. `//`와 `/* */` 모두 파싱 오류를 일으킵니다.
+
+```json
+// 유효하지 않음
+{
+  // 사용자 정보
+  "name": "홍길동",
+  "age": 30 /* 나이 */
+}
+```
+
+주석이 필요한 경우 별도의 `_comment` 키를 활용하거나 JSONC(JSON with Comments) 형식을 고려하세요.
+
+### null, true, false는 소문자
+
+불리언과 null 값은 반드시 소문자로 작성해야 합니다.
+
+```json
+// 유효하지 않음
+{ "active": True, "data": NULL }
+
+// 유효함
+{ "active": true, "data": null }
+```
+
+## 흔한 JSON 오류 유형과 해결법
+
+### 따옴표 누락 오류
+
+오류 메시지: `Unexpected token x in JSON at position N`
+
+원인은 키나 문자열 값에 따옴표가 빠진 경우입니다.
+
+```json
+// 문제
+{ name: "홍길동" }
+
+// 해결
+{ "name": "홍길동" }
+```
+
+### 쉼표 오류
+
+오류 메시지: `Expected ',' or '}'`
+
+마지막 요소 뒤에 쉼표가 있거나, 요소 사이에 쉼표가 빠진 경우입니다.
+
+```json
+// 문제 1: 후행 쉼표
+{ "a": 1, "b": 2, }
+
+// 문제 2: 쉼표 누락
+{ "a": 1 "b": 2 }
+
+// 해결
+{ "a": 1, "b": 2 }
+```
+
+### 인코딩 문제
+
+한국어 등 비ASCII 문자를 포함한 JSON이 깨지는 경우입니다. JSON은 UTF-8 인코딩을 권장합니다.
+
+```json
+// 유니코드 이스케이프 사용 가능
+{ "greeting": "\uC548\uB155\uD558\uC138\uC694" }
+
+// UTF-8로 직접 작성 권장
+{ "greeting": "안녕하세요" }
+```
+
+파일을 저장할 때 BOM(Byte Order Mark)이 포함된 UTF-8은 일부 파서에서 오류를 유발합니다. BOM 없는 UTF-8로 저장하세요.
+
+### 중첩 구조 불일치
+
+여는 괄호와 닫는 괄호의 수가 맞지 않는 경우입니다.
+
+```json
+// 문제
+{
+  "user": {
+    "name": "홍길동"
+
+}
+
+// 해결
+{
+  "user": {
+    "name": "홍길동"
+  }
+}
+```
+
+## JSON Schema를 활용한 구조 검증
+
+JSON Schema는 JSON 데이터의 구조와 타입을 정의하는 표준입니다. 단순 문법 검사를 넘어, 값의 범위나 필수 필드 여부까지 검증할 수 있습니다.
+
+### 기본 JSON Schema 예시
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "name", "email"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "age": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 150
+    }
+  }
+}
+```
+
+### 주요 검증 키워드
+
+<table>
+  <thead>
+    <tr>
+      <th>키워드</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>type</code>
+      </td>
+      <td>데이터 타입 지정</td>
+      <td>
+        <code>"type": "string"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>required</code>
+      </td>
+      <td>필수 필드 목록</td>
+      <td>
+        <code>"required": ["id", "name"]</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>minimum</code> / <code>maximum</code>
+      </td>
+      <td>숫자 범위 제한</td>
+      <td>
+        <code>"minimum": 0</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>minLength</code> / <code>maxLength</code>
+      </td>
+      <td>문자열 길이 제한</td>
+      <td>
+        <code>"maxLength": 100</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>pattern</code>
+      </td>
+      <td>정규식 패턴 검증</td>
+      <td>
+        <code>"pattern": "^[a-z]+"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>enum</code>
+      </td>
+      <td>허용 값 목록</td>
+      <td>
+        <code>"enum": ["active", "inactive"]</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 배열 스키마 정의
+
+```json
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name"],
+    "properties": {
+      "id": { "type": "integer" },
+      "name": { "type": "string" }
+    }
+  },
+  "minItems": 1,
+  "maxItems": 100
+}
+```
+
+## 실전 팁
+
+### API 응답 검증
+
+서드파티 API를 사용할 때 응답 형식이 갑자기 변경되는 경우가 있습니다. JSON Schema로 응답을 검증하면 예상치 못한 필드 누락이나 타입 변경을 조기에 감지할 수 있습니다.
+
+```javascript
+// JavaScript에서 ajv 라이브러리 활용
+import Ajv from 'ajv';
+
+const ajv = new Ajv();
+const validate = ajv.compile(schema);
+const valid = validate(apiResponse);
+
+if (!valid) {
+  console.error('API 응답 검증 실패:', validate.errors);
+}
+```
+
+### 설정 파일 검증
+
+`package.json`, `tsconfig.json` 같은 설정 파일은 잘못된 값 하나가 빌드 오류로 이어집니다. CI/CD 파이프라인에서 배포 전 자동으로 검증하는 것을 권장합니다.
+
+```bash
+# Python으로 간단한 문법 검증
+python3 -c "import json; json.load(open('config.json'))"
+echo "JSON 유효성 검사 통과"
+```
+
+### 중첩 깊이 제한
+
+악의적인 입력으로 인한 스택 오버플로를 방지하기 위해 중첩 깊이를 제한하는 것이 좋습니다.
+
+```javascript
+function parseWithDepthLimit(jsonString, maxDepth = 10) {
+  const parsed = JSON.parse(jsonString);
+  // 중첩 깊이 검사 로직 적용
+  return parsed;
+}
+```
+
+## JSONKit으로 빠르게 검증하기
+
+[JSONKit의 Validate 도구](https://jsonkit.org/validate)를 사용하면 JSON을 붙여넣기만 해도 즉시 유효성 검사 결과를 확인할 수 있습니다. 오류가 있으면 정확한 줄 번호와 오류 위치를 표시해 주어 빠른 수정이 가능합니다.
+
+모든 처리는 브라우저에서 이루어지므로 민감한 데이터가 서버로 전송되지 않습니다.
+
+## 마무리
+
+JSON 유효성 검사는 단순한 문법 확인을 넘어 데이터 품질을 보장하는 중요한 단계입니다. 문법 규칙을 숙지하고, JSON Schema로 구조 검증을 추가하면 런타임 오류를 크게 줄일 수 있습니다. 개발 초기에 검증 로직을 적용하는 것이 나중에 디버깅하는 것보다 훨씬 효율적입니다.

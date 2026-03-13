@@ -1,0 +1,277 @@
+# JSON 비교(Diff) 완벽 가이드: 두 JSON의 차이점 찾기
+
+두 개의 JSON이 같은지 확인해야 할 때, 단순히 눈으로 비교하는 것은 오류가 생기기 쉽습니다. JSON Diff 도구를 사용하면 수백 줄의 JSON에서도 정확하게 차이점을 찾아낼 수 있습니다. 이 가이드에서는 JSON 비교의 원리와 실전 활용법을 알아봅니다.
+
+## JSON 비교가 필요한 상황
+
+### API 버전 차이 추적
+
+API가 버전업되면 응답 구조가 바뀌는 경우가 많습니다. v1과 v2의 응답을 비교해서 어떤 필드가 추가되고 삭제되었는지 파악해야 합니다.
+
+```json
+// API v1 응답
+{
+  "user": {
+    "id": 1,
+    "name": "홍길동",
+    "email": "hong@example.com"
+  }
+}
+
+// API v2 응답
+{
+  "user": {
+    "id": 1,
+    "username": "hong",
+    "email": "hong@example.com",
+    "profile": {
+      "displayName": "홍길동",
+      "avatar": null
+    }
+  }
+}
+```
+
+`name` 필드가 `username`과 `profile.displayName`으로 분리된 것을 diff로 즉시 확인할 수 있습니다.
+
+### 설정 변경 추적
+
+`package.json`, `tsconfig.json`, 인프라 설정 파일 등을 수정한 경우 변경 전후를 비교해서 의도하지 않은 변경이 없었는지 검증할 수 있습니다.
+
+### 테스트 검증
+
+단위 테스트에서 실제 출력과 기대값을 비교할 때 JSON Diff를 활용하면 어떤 필드가 다른지 정확하게 확인할 수 있습니다.
+
+```javascript
+// Jest에서 깊은 동등성 비교
+expect(actualResponse).toEqual(expectedResponse);
+// 실패 시 diff가 출력됨
+```
+
+### 데이터 마이그레이션 검증
+
+데이터베이스 마이그레이션 후 데이터가 올바르게 이전되었는지 확인할 때 마이그레이션 전후 JSON 덤프를 비교합니다.
+
+## 비교 방식: 텍스트 기반 vs 구조 기반
+
+### 텍스트 기반 비교
+
+일반적인 `diff` 도구처럼 JSON을 문자열로 취급해서 줄 단위로 비교합니다.
+
+**장점:**
+
+- 구현이 단순하고 빠름
+- 들여쓰기 변경도 감지
+
+**단점:**
+
+- 키 순서가 다르면 동일한 내용임에도 차이로 판정
+- 배열 내 요소 이동을 감지하지 못함
+- 포맷 차이(공백, 들여쓰기)가 내용 차이로 오인됨
+
+### 구조 기반 비교
+
+JSON을 파싱한 후 데이터 구조를 재귀적으로 비교합니다.
+
+**장점:**
+
+- 키 순서 무관하게 의미적 동등성 비교
+- 포맷 차이를 무시하고 실제 값만 비교
+- 변경 유형(추가/삭제/수정)을 명확히 구분
+
+**단점:**
+
+- 텍스트 기반보다 느릴 수 있음
+- 배열 비교 전략 선택이 필요
+
+실무에서는 **구조 기반 비교**가 훨씬 유용합니다. JSON의 본질은 텍스트가 아닌 데이터 구조이기 때문입니다.
+
+## 키 순서가 다른 JSON 비교하기
+
+JSON 사양(RFC 8259)에서 객체의 키 순서는 의미가 없습니다. 하지만 텍스트 기반 비교 도구는 이를 차이로 인식합니다.
+
+```json
+// JSON A
+{
+  "name": "홍길동",
+  "age": 30,
+  "email": "hong@example.com"
+}
+
+// JSON B
+{
+  "email": "hong@example.com",
+  "name": "홍길동",
+  "age": 30
+}
+```
+
+위 두 JSON은 의미적으로 동일하지만 텍스트 비교를 하면 모든 줄이 다르게 나옵니다. 구조 기반 비교를 사용해야 "차이 없음"이라는 올바른 결과를 얻을 수 있습니다.
+
+JavaScript에서 직접 구현한다면:
+
+```javascript
+function deepEqual(a, b) {
+  if (typeof a !== typeof b) return false;
+  if (typeof a !== 'object' || a === null) return a === b;
+
+  const keysA = Object.keys(a).sort();
+  const keysB = Object.keys(b).sort();
+
+  if (keysA.join(',') !== keysB.join(',')) return false;
+
+  return keysA.every((key) => deepEqual(a[key], b[key]));
+}
+```
+
+## 배열 비교의 어려움과 해결법
+
+배열 비교는 JSON Diff에서 가장 까다로운 부분입니다.
+
+### 순서 있는 배열 vs 순서 없는 배열
+
+배열에는 두 종류가 있습니다. 순서가 의미 있는 배열(예: 정렬된 검색 결과)과 순서가 의미 없는 배열(예: 태그 목록)입니다.
+
+```json
+// 순서 있는 배열: 순서가 다르면 다른 것
+["first", "second", "third"]
+
+// 순서 없는 배열: 순서가 달라도 같은 것
+["tag1", "tag2", "tag3"]
+```
+
+### 요소 이동 감지
+
+배열의 요소가 삭제 후 다른 위치에 추가된 건지, 아니면 이동한 건지 구분하는 것은 어렵습니다.
+
+```json
+// 이전
+[{"id": 1}, {"id": 2}, {"id": 3}]
+
+// 이후
+[{"id": 1}, {"id": 3}, {"id": 2}]
+```
+
+단순 비교는 인덱스 1, 2의 값이 바뀌었다고 보고하지만, 실제로는 `id: 2`와 `id: 3`의 순서가 바뀐 것입니다.
+
+### 해결 전략
+
+<table>
+  <thead>
+    <tr>
+      <th>전략</th>
+      <th>적합한 경우</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>인덱스 기반 비교</td>
+      <td>순서가 중요한 배열</td>
+      <td>같은 위치의 요소끼리 비교</td>
+    </tr>
+    <tr>
+      <td>식별자 기반 비교</td>
+      <td>고유 ID가 있는 객체 배열</td>
+      <td>
+        <code>id</code> 필드로 매핑 후 비교
+      </td>
+    </tr>
+    <tr>
+      <td>집합 비교</td>
+      <td>순서 없는 원시값 배열</td>
+      <td>정렬 후 비교</td>
+    </tr>
+    <tr>
+      <td>LCS 알고리즘</td>
+      <td>일반적인 경우</td>
+      <td>최장 공통 부분 수열로 최소 변경 감지</td>
+    </tr>
+  </tbody>
+</table>
+
+## 실전 팁: CI/CD에서 JSON 비교 활용
+
+### 스냅샷 테스트
+
+API 응답을 스냅샷으로 저장해두고, 코드 변경 시 스냅샷과 비교해서 예상치 못한 변경을 감지합니다.
+
+```bash
+# 현재 API 응답을 스냅샷으로 저장
+curl https://api.example.com/users/1 | python3 -m json.tool > snapshot.json
+
+# CI에서 현재 응답과 스냅샷 비교
+curl https://api.example.com/users/1 | python3 -m json.tool > current.json
+diff snapshot.json current.json
+```
+
+### GitHub Actions에서 설정 파일 변경 감지
+
+```yaml
+- name: Check config changes
+  run: |
+    git diff HEAD~1 HEAD -- config.json > config_diff.txt
+    if [ -s config_diff.txt ]; then
+      echo "설정 파일이 변경되었습니다"
+      cat config_diff.txt
+    fi
+```
+
+### Node.js에서 구조적 JSON 비교
+
+```javascript
+const deepDiff = require('deep-diff');
+
+const diff = deepDiff(previousConfig, currentConfig);
+
+if (diff) {
+  diff.forEach((change) => {
+    const path = change.path.join('.');
+    switch (change.kind) {
+      case 'N':
+        console.log(`추가됨: ${path} = ${change.rhs}`);
+        break;
+      case 'D':
+        console.log(`삭제됨: ${path}`);
+        break;
+      case 'E':
+        console.log(`변경됨: ${path}: ${change.lhs} → ${change.rhs}`);
+        break;
+      case 'A':
+        console.log(`배열 변경: ${path}[${change.index}]`);
+        break;
+    }
+  });
+}
+```
+
+### Python에서 JSON 비교
+
+```python
+import json
+
+def json_diff(a, b, path=""):
+    diffs = []
+    if isinstance(a, dict) and isinstance(b, dict):
+        for key in set(a.keys()) | set(b.keys()):
+            child_path = f"{path}.{key}" if path else key
+            if key not in a:
+                diffs.append(f"추가됨: {child_path}")
+            elif key not in b:
+                diffs.append(f"삭제됨: {child_path}")
+            else:
+                diffs.extend(json_diff(a[key], b[key], child_path))
+    elif a != b:
+        diffs.append(f"변경됨: {path}: {a!r} → {b!r}")
+    return diffs
+```
+
+## JSONKit Compare로 빠르게 비교하기
+
+[JSONKit의 Compare 도구](https://jsonkit.org/compare)는 두 JSON을 나란히 놓고 차이점을 시각적으로 강조 표시해 줍니다. 추가된 키는 초록색, 삭제된 키는 빨간색, 변경된 값은 노란색으로 구분됩니다.
+
+사용 방법은 간단합니다. 왼쪽 패널에 기존 JSON, 오른쪽 패널에 새 JSON을 붙여넣으면 즉시 비교 결과를 볼 수 있습니다. 모든 처리는 브라우저 내에서 이루어져 민감한 데이터를 안전하게 비교할 수 있습니다.
+
+## 마무리
+
+JSON 비교는 API 개발, 설정 관리, 테스트 자동화 등 다양한 상황에서 필요합니다. 텍스트 기반 비교의 한계를 이해하고 구조 기반 비교를 활용하면 훨씬 정확한 결과를 얻을 수 있습니다. 특히 키 순서와 배열 비교의 특성을 파악하면 잘못된 diff 결과에 혼란을 겪지 않을 수 있습니다.

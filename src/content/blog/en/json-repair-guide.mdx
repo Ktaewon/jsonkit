@@ -1,0 +1,222 @@
+# Repairing Broken JSON: Common Errors and Auto-Fix Solutions
+
+JSON is strict by design. Unlike JavaScript, there is no forgiveness for missing quotes, trailing commas, or stray comments. When JSON breaks, parsers throw cryptic errors and your application stops working. This guide covers why JSON breaks, the most common error patterns, and how to repair it — manually or automatically.
+
+## Why JSON Breaks
+
+JSON corruption rarely happens in production-generated data. It almost always stems from human interaction:
+
+### Manual Editing
+
+Developers frequently hand-edit JSON config files, mock data, or API payloads. A single missed quote or an extra comma is enough to invalidate the entire document. Text editors without JSON-aware linting offer no safety net.
+
+### Incomplete Copy-Paste
+
+Copying a JSON snippet from a browser console, log file, or chat message often captures only part of the structure. You end up with unclosed brackets, missing keys, or orphaned values.
+
+### Truncated Logs
+
+Log aggregation systems impose line or byte limits. A JSON object that exceeds the limit gets cut mid-stream, leaving a structurally invalid fragment that must be reconstructed before it can be parsed.
+
+### Format Confusion
+
+Developers sometimes write JSON using JavaScript syntax — single quotes, unquoted keys, comments — and then try to parse it with a strict JSON parser. The result is always a parse error.
+
+## Common Error Patterns
+
+### Trailing Commas
+
+The most frequent JSON mistake. JSON does not allow a comma after the last element in an object or array.
+
+```json
+// Invalid
+{
+  "name": "Alice",
+  "age": 30,
+}
+
+// Valid
+{
+  "name": "Alice",
+  "age": 30
+}
+```
+
+Arrays have the same rule:
+
+```json
+// Invalid
+["red", "green", "blue",]
+
+// Valid
+["red", "green", "blue"]
+```
+
+### Single Quotes
+
+JSON strings require double quotes. Single quotes are a JavaScript convention, not a JSON standard.
+
+```json
+// Invalid
+{ 'host': 'localhost', 'port': 5432 }
+
+// Valid
+{ "host": "localhost", "port": 5432 }
+```
+
+### Comments
+
+JSON has no comment syntax. Neither `//` nor `/* */` are part of the spec.
+
+```json
+// Invalid
+{
+  // Database connection
+  "host": "localhost",
+  "port": 5432 /* default port */
+}
+
+// Valid
+{
+  "host": "localhost",
+  "port": 5432
+}
+```
+
+If you need comments in config files, consider JSONC (JSON with Comments) or YAML instead, and convert to plain JSON before passing to parsers.
+
+### Unquoted Keys
+
+Object keys must always be quoted strings. Bare identifiers are not allowed.
+
+```json
+// Invalid
+{ host: "localhost", port: 5432 }
+
+// Valid
+{ "host": "localhost", "port": 5432 }
+```
+
+### Missing or Extra Brackets
+
+Incomplete copy-paste often leaves dangling open brackets or braces.
+
+```json
+// Invalid — array never closed
+[
+  { "id": 1, "name": "Alice" },
+  { "id": 2, "name": "Bob"
+
+// Valid
+[
+  { "id": 1, "name": "Alice" },
+  { "id": 2, "name": "Bob" }
+]
+```
+
+### Escaped Characters
+
+Special characters inside strings must be properly escaped. Unescaped control characters, raw newlines, or invalid Unicode sequences will cause parse failures.
+
+```json
+// Invalid — raw tab character in string
+{ "query": "SELECT *	FROM users" }
+
+// Valid — escaped tab
+{ "query": "SELECT *\tFROM users" }
+```
+
+## Manual Repair Strategies
+
+For small JSON documents, manual repair is straightforward:
+
+1. **Read the error message carefully.** Most parsers report a line and column number. Go directly to that position.
+2. **Check bracket balance.** Count opening `{` and `[` against closing `}` and `]`. They must match.
+3. **Scan for trailing commas.** Look at the last element before every `}` and `]`.
+4. **Replace single quotes.** A global find-and-replace from `'` to `"` catches most quote issues, but be careful not to replace apostrophes inside string values.
+5. **Strip comments.** Remove all `//` and `/* */` lines before parsing.
+
+For larger documents, manual repair becomes error-prone and time-consuming.
+
+## Automated Repair
+
+Auto-repair tools apply heuristic rules to reconstruct valid JSON from broken input. They handle the most common patterns reliably:
+
+<table>
+  <thead>
+    <tr>
+      <th>Error Type</th>
+      <th>Auto-Repair Approach</th>
+      <th>Reliability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Trailing commas</td>
+      <td>Remove comma before <code>}</code> or <code>]</code></td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Single quotes</td>
+      <td>Replace with double quotes</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Unquoted keys</td>
+      <td>Wrap bare identifiers in double quotes</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Comments</td>
+      <td>Strip <code>//</code> and <code>/* */</code> blocks</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Missing closing brackets</td>
+      <td>Append inferred closing tokens</td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Truncated values</td>
+      <td>Close open strings, infer missing values</td>
+      <td>Low</td>
+    </tr>
+  </tbody>
+</table>
+
+## When Auto-Repair Works
+
+Auto-repair is reliable when the structure of the document is mostly intact and only syntactic issues need fixing. Ideal cases:
+
+- A config file accidentally saved with trailing commas
+- A log snippet pasted from a JavaScript console (which uses single quotes in output)
+- A JSON object written by a developer who forgot to quote keys
+- A document with developer comments that needs to become valid JSON
+
+In these scenarios, repair tools can reconstruct perfectly valid JSON without any data loss.
+
+## When Auto-Repair Fails
+
+Repair tools cannot recover semantic intent. They will fail or produce incorrect output when:
+
+- **Severe truncation.** If half the document is missing, the tool can close open brackets, but the resulting JSON will be incomplete and may not represent what the author intended.
+- **Ambiguous structure.** A bare value like `hello` with no surrounding context cannot be reliably classified as a key, string value, or identifier.
+- **Encoding corruption.** Binary data injected into a JSON stream or charset encoding mismatches require a different class of fix entirely.
+- **Nested quote conflicts.** A string value containing unescaped double quotes creates ambiguity that heuristic repair cannot resolve safely.
+
+Always inspect auto-repaired output before using it in production.
+
+## Using JSONKit's Repair Tool
+
+[JSONKit's Repair tool](https://jsonkit.org/repair) applies a layered repair pipeline to broken JSON input:
+
+1. Paste or upload your broken JSON
+2. The tool identifies error patterns and applies appropriate fixes
+3. Review the repaired output in a diff view to see exactly what changed
+4. Copy the fixed JSON or download it as a file
+
+The diff view is particularly useful — it lets you confirm that the repair only changed syntax and did not alter your data values.
+
+## Conclusion
+
+JSON errors are inevitable when humans are in the loop. Understanding the common failure modes — trailing commas, single quotes, unquoted keys, comments, and truncation — gives you a clear mental model for diagnosing issues quickly. For simple syntactic problems, auto-repair tools handle the fix in seconds. For severely corrupted data, understanding the underlying structure is the only reliable path to recovery.

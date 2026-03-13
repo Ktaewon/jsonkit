@@ -263,6 +263,38 @@
       "jsonpath-tutorial": {
         "title": "JSONPath使い方ガイド",
         "summary": "複雑なJSON構造からデータを抽出するJSONPath構文 — ワイルドカード、フィルター、再帰探索、実践例。"
+      },
+      "json-validation-guide": {
+        "title": "JSON検証完全ガイド",
+        "summary": "JSON構文ルール、一般的なエラーの種類、JSON Schemaによる構造検証の方法を学びます。"
+      },
+      "json-tree-viewer": {
+        "title": "JSONツリービューアー活用ガイド",
+        "summary": "複雑なネストされたJSONデータをツリー構造で可視化し、効率的に探索する方法を紹介します。"
+      },
+      "json-diff-comparison": {
+        "title": "JSON比較(Diff)完全ガイド",
+        "summary": "2つのJSONドキュメントの差分を見つける方法 — テキストベースvs構造ベースの比較。"
+      },
+      "json-escape-unescape": {
+        "title": "JSONエスケープ完全ガイド",
+        "summary": "JSONエスケープ文字、Unicode処理、二重エスケープ問題の解決法を扱います。"
+      },
+      "json-repair-guide": {
+        "title": "壊れたJSON修復ガイド",
+        "summary": "末尾カンマ、シングルクォート、コメントなど一般的なJSONエラーパターンと自動修正方法。"
+      },
+      "json-schema-intro": {
+        "title": "JSON Schema入門ガイド",
+        "summary": "JSON Schemaでデータ構造を定義・検証する方法 — 型、必須フィールド、高度な機能。"
+      },
+      "json-to-type-codegen": {
+        "title": "JSONから型コード自動生成",
+        "summary": "JSONデータからTypeScript interfaceとPython dataclassを自動生成する方法。"
+      },
+      "json-visualization": {
+        "title": "JSONデータ可視化ガイド",
+        "summary": "JSONデータをグラフで可視化し、複雑な構造を一目で把握する方法を紹介します。"
       }
     }
   },

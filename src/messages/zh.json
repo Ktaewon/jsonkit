@@ -263,6 +263,38 @@
       "jsonpath-tutorial": {
         "title": "JSONPath 使用指南",
         "summary": "掌握从复杂 JSON 结构中提取数据的 JSONPath 语法 — 通配符、过滤器、递归搜索和实际示例。"
+      },
+      "json-validation-guide": {
+        "title": "JSON验证完全指南",
+        "summary": "了解JSON语法规则、常见错误类型以及使用JSON Schema进行结构验证的方法。"
+      },
+      "json-tree-viewer": {
+        "title": "JSON树形查看器使用指南",
+        "summary": "将复杂的嵌套JSON数据以树形结构可视化，实现高效的数据探索和调试。"
+      },
+      "json-diff-comparison": {
+        "title": "JSON比较(Diff)完全指南",
+        "summary": "查找两个JSON文档之间的差异 — 基于文本vs基于结构的比较策略。"
+      },
+      "json-escape-unescape": {
+        "title": "JSON转义完全指南",
+        "summary": "掌握JSON转义字符、Unicode处理以及双重转义问题的解决方法。"
+      },
+      "json-repair-guide": {
+        "title": "修复损坏的JSON指南",
+        "summary": "修复尾随逗号、单引号、注释等常见JSON错误模式和自动修复方法。"
+      },
+      "json-schema-intro": {
+        "title": "JSON Schema入门指南",
+        "summary": "使用JSON Schema定义和验证数据结构 — 类型、必填字段和高级功能。"
+      },
+      "json-to-type-codegen": {
+        "title": "从JSON自动生成类型代码",
+        "summary": "从JSON数据自动生成TypeScript接口和Python数据类。"
+      },
+      "json-visualization": {
+        "title": "JSON数据可视化指南",
+        "summary": "将JSON数据以图形方式可视化，一目了然地理解复杂结构。"
       }
     }
   },

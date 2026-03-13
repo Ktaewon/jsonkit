@@ -1,0 +1,269 @@
+# JSON Escape and Unescape: A Complete Guide
+
+Escaping is one of those topics that every developer eventually hits, usually when something breaks in a frustrating and non-obvious way. A JSON string that looks correct is rejected by the parser; a string that should contain a newline displays a literal `\n`; a value that was stored correctly comes back garbled after a round-trip through an API. Almost every one of these issues traces back to escaping. This guide explains why escaping exists, what characters require it, and how to handle it correctly across different languages and contexts.
+
+## Why Escaping Is Needed
+
+JSON strings are delimited by double-quote characters. This creates an immediate problem: what if the string itself contains a double quote? Without escaping, the parser would interpret the inner double quote as the end of the string.
+
+```json
+// Invalid — the inner quote ends the string prematurely
+{ "message": "She said "hello" and left" }
+
+// Valid — the inner quotes are escaped
+{ "message": "She said \"hello\" and left" }
+```
+
+Beyond double quotes, other characters require escaping for structural or safety reasons:
+
+- **Control characters** like newline, tab, and carriage return would break the single-line representation of a JSON value
+- **Backslash itself** is the escape character, so a literal backslash must be escaped to distinguish it from an escape sequence
+- **Non-ASCII Unicode** can be escaped to ensure safe transmission through systems that may not handle Unicode correctly
+
+## JSON Escape Sequence Reference
+
+<table>
+  <thead>
+    <tr>
+      <th>Escape Sequence</th>
+      <th>Character</th>
+      <th>Unicode Code Point</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>\"</code>
+      </td>
+      <td>Double quote</td>
+      <td>U+0022</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\\</code>
+      </td>
+      <td>Backslash</td>
+      <td>U+005C</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\/</code>
+      </td>
+      <td>Forward slash (optional)</td>
+      <td>U+002F</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\b</code>
+      </td>
+      <td>Backspace</td>
+      <td>U+0008</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\f</code>
+      </td>
+      <td>Form feed</td>
+      <td>U+000C</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\n</code>
+      </td>
+      <td>Newline (line feed)</td>
+      <td>U+000A</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\r</code>
+      </td>
+      <td>Carriage return</td>
+      <td>U+000D</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\t</code>
+      </td>
+      <td>Horizontal tab</td>
+      <td>U+0009</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\uXXXX</code>
+      </td>
+      <td>Unicode character (4 hex digits)</td>
+      <td>Any BMP code point</td>
+    </tr>
+  </tbody>
+</table>
+
+Note that forward slash (`/`) is optionally escapable — `\/` and `/` are both valid in JSON. This exists for historical reasons related to embedding JSON inside HTML `<script>` tags, where `</` would end the script block.
+
+## Unicode Escaping
+
+Any Unicode character can be represented in JSON using the `\uXXXX` escape sequence, where `XXXX` is a four-digit hexadecimal code point.
+
+```json
+{
+  "greeting": "\u0048\u0065\u006C\u006C\u006F",
+  "copyright": "\u00A9 2024",
+  "checkmark": "\u2713"
+}
+```
+
+After parsing, `"\u0048\u0065\u006C\u006C\u006F"` becomes the string `"Hello"`. Unicode escaping is useful when you need to ensure a JSON document contains only ASCII characters for transmission through systems that may corrupt high-byte characters.
+
+### Surrogate Pairs for Characters Beyond U+FFFF
+
+Characters outside the Basic Multilingual Plane (code points above U+FFFF) — such as emoji and rare CJK characters — require surrogate pairs in JSON's `\uXXXX` notation.
+
+```json
+{
+  "emoji": "\uD83D\uDE00"
+}
+```
+
+The two `\u` sequences together represent the single character `😀` (U+1F600). Most JSON serializers handle this automatically, but if you are constructing JSON manually, be aware that a single high code point requires two `\u` escape sequences.
+
+Modern JSON parsers also accept the raw UTF-8 encoded character directly in the string, so `"emoji": "😀"` is valid JSON as long as the file is UTF-8 encoded.
+
+## Common Escaping Pitfalls
+
+### Double Escaping
+
+Double escaping happens when you escape a string that is already escaped, or when you apply escaping at multiple layers of a system. The classic example is storing JSON inside a JSON string field.
+
+```json
+// Outer JSON with a value that is itself a JSON string
+{
+  "payload": "{\"key\": \"value\"}"
+}
+```
+
+If the system that receives this value then tries to escape it again before storing it, the backslashes get escaped:
+
+```json
+{
+  "payload": "{\\\"key\\\": \\\"value\\\"}"
+}
+```
+
+After two rounds of unescaping you get back the original value, but after one round you get a broken string. The fix is to escape at exactly one layer and unescape at exactly one layer. Never escape a value that is already escaped.
+
+### Confusing JSON Escaping with URL Encoding
+
+JSON escaping and URL (percent) encoding are completely different mechanisms. A space is `%20` in a URL and `" "` (no escaping needed) in a JSON string. A forward slash is `%2F` in a URL path segment and `/` (or optionally `\/`) in JSON.
+
+Applying URL encoding to a value before embedding it in JSON produces double-encoded garbage:
+
+```javascript
+// Wrong: URL-encoding a value before JSON serialization
+const value = 'hello world';
+const wrong = JSON.stringify(encodeURIComponent(value));
+// Result: "\"hello%20world\"" — the %20 is literal text in the JSON
+
+// Right: let JSON.stringify handle escaping
+const correct = JSON.stringify(value);
+// Result: "\"hello world\"" — space is valid in JSON strings
+```
+
+### Unescaped Control Characters
+
+JSON requires that control characters (U+0000 through U+001F) be escaped. A raw newline or tab character embedded directly in a JSON string is technically invalid, even though some parsers tolerate it.
+
+```json
+// Invalid — raw newline in string value
+{ "note": "line one
+line two" }
+
+// Valid — escaped newline
+{ "note": "line one\nline two" }
+```
+
+## Language-Specific Escaping
+
+### JavaScript
+
+JavaScript's `JSON.stringify()` handles all required escaping automatically. You should never construct JSON strings manually in JavaScript.
+
+```javascript
+const data = {
+  message: 'She said "hello"',
+  path: 'C:\\Users\\alice',
+  multiline: 'line one\nline two',
+};
+
+const json = JSON.stringify(data, null, 2);
+// Produces correctly escaped JSON automatically
+```
+
+`JSON.parse()` unescapes automatically as well:
+
+```javascript
+const parsed = JSON.parse('{"path": "C:\\\\Users\\\\alice"}');
+console.log(parsed.path); // C:\Users\alice
+```
+
+Note the extra level of escaping in the JavaScript string literal itself: `"\\\\"` is a four-character JavaScript string containing two backslashes, which represents a single escaped backslash in JSON, which parses to a single backslash.
+
+### Python
+
+Python's `json` module works the same way — use `json.dumps()` and `json.loads()`, never construct JSON by hand.
+
+```python
+import json
+
+data = {
+    "message": 'She said "hello"',
+    "path": r"C:\Users\alice",
+    "multiline": "line one\nline two"
+}
+
+json_string = json.dumps(data, ensure_ascii=False)
+# ensure_ascii=False preserves Unicode characters as-is rather than
+# escaping them to \uXXXX sequences
+```
+
+```python
+# Unescaping
+parsed = json.loads('{"path": "C:\\\\Users\\\\alice"}')
+print(parsed["path"])  # C:\Users\alice
+```
+
+The `ensure_ascii=False` parameter is worth knowing: by default, Python's `json.dumps()` escapes all non-ASCII characters to `\uXXXX` sequences. Setting `ensure_ascii=False` produces more readable output if you are certain the target system handles UTF-8.
+
+### Escaping in Template Strings
+
+When embedding JSON inside HTML, SQL, or shell scripts, you need to escape for both JSON and the outer context. The safest approach is to use the outer language's escaping mechanism on the already-serialized JSON:
+
+```javascript
+// Embedding JSON in an HTML data attribute
+const jsonValue = JSON.stringify({ key: 'value with "quotes"' });
+const htmlAttribute = `data-config="${jsonValue.replace(/"/g, '&quot;')}"`;
+```
+
+## Practical Escaping Tips
+
+1. **Always use a library serializer** — never build JSON strings by concatenation. Every major language has a standard JSON library that handles escaping correctly.
+
+2. **Check the encoding layer** — when a value looks double-escaped, trace each layer of serialization and deserialization to find where escaping is applied more than once.
+
+3. **Use raw string literals for paths** — in Python, use raw strings (`r"C:\Users\alice"`) or forward slashes (`"C:/Users/alice"`) to avoid accidental escape sequences in Windows paths.
+
+4. **Validate after manual construction** — if you must construct JSON manually (in a shell script, for example), validate the result with a parser before using it.
+
+5. **Be explicit about encoding** — when serializing to a file, specify UTF-8 encoding explicitly rather than relying on the system default, to ensure Unicode characters are handled consistently.
+
+## Using an Escape/Unescape Tool
+
+Sometimes you receive a JSON string that has been serialized twice — a JSON value that is itself a quoted, escaped JSON string — and you need to unescape it to a readable form. Or you have a raw string with special characters that you need to embed safely in a JSON document.
+
+An escape/unescape tool handles these conversions instantly without requiring you to write parsing code.
+
+[JSONKit's Escape tool](https://jsonkit.org) lets you paste raw text and get the correctly escaped JSON string representation, or paste an escaped JSON string and get the unescaped original. All processing happens in the browser — no data is sent to any server.
+
+## Conclusion
+
+JSON escaping is handled automatically by every standard JSON library, which is the most important takeaway: use `JSON.stringify` / `json.dumps` / `JsonSerializer.Serialize` and let the library do the escaping. Manual JSON construction is the root cause of most escaping bugs.
+
+When escaping issues do occur — double escaping, raw control characters, encoding layer confusion — trace each serialization step systematically. The escape sequence reference in this guide covers every sequence the JSON specification defines.

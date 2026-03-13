@@ -265,6 +265,38 @@
       "jsonpath-tutorial": {
         "title": "JSONPath Tutorial: Extract Data from JSON",
         "summary": "Master JSONPath syntax for querying complex JSON structures — wildcards, filters, recursive descent, and practical examples."
+      },
+      "json-validation-guide": {
+        "title": "Complete Guide to JSON Validation",
+        "summary": "Learn JSON syntax rules, common error types, and how to validate structure with JSON Schema."
+      },
+      "json-tree-viewer": {
+        "title": "Understanding Complex Data with JSON Tree Viewer",
+        "summary": "Visualize deeply nested JSON data as a tree structure for efficient exploration and debugging."
+      },
+      "json-diff-comparison": {
+        "title": "JSON Diff Guide: Comparing JSON Documents",
+        "summary": "Find differences between two JSON documents — text-based vs structural comparison, array diff strategies."
+      },
+      "json-escape-unescape": {
+        "title": "JSON Escape and Unescape Guide",
+        "summary": "Master JSON escape sequences, Unicode handling, and solving double-escaping issues."
+      },
+      "json-repair-guide": {
+        "title": "Repairing Broken JSON",
+        "summary": "Fix common JSON errors like trailing commas, single quotes, and comments with auto-repair techniques."
+      },
+      "json-schema-intro": {
+        "title": "Introduction to JSON Schema",
+        "summary": "Define and validate data structures with JSON Schema — types, required fields, and advanced features."
+      },
+      "json-to-type-codegen": {
+        "title": "Auto-Generate Types from JSON",
+        "summary": "Generate TypeScript interfaces and Python dataclasses automatically from JSON data."
+      },
+      "json-visualization": {
+        "title": "JSON Data Visualization Guide",
+        "summary": "Visualize JSON data as graphs to understand complex structures at a glance."
       }
     }
   },

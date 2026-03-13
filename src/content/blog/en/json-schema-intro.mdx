@@ -1,0 +1,303 @@
+# Introduction to JSON Schema: Define and Validate Data Structures
+
+JSON is flexible by nature — any key can hold any value, and there is no built-in enforcement of structure. This flexibility is convenient for prototyping but dangerous in production systems where you expect specific fields, specific types, and specific constraints. JSON Schema solves this by giving you a declarative language for describing exactly what valid JSON looks like.
+
+## What is JSON Schema?
+
+JSON Schema is a vocabulary for annotating and validating JSON documents. It is itself written in JSON, making it easy to read, write, and toolchain. The current stable specification is Draft 2020-12, maintained at [json-schema.org](https://json-schema.org).
+
+A schema describes the expected shape of a JSON value. Validators use the schema to check whether a given document conforms — and if not, they report exactly which constraints were violated and where.
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "integer", "minimum": 0 }
+  },
+  "required": ["name"]
+}
+```
+
+This schema accepts any object that has a `name` string. The `age` field is optional, but if present, it must be a non-negative integer.
+
+## Basic Type Definitions
+
+JSON Schema maps directly onto JSON's six native types.
+
+### String
+
+```json
+{ "type": "string" }
+```
+
+Matches any JSON string value. You can add constraints like minimum and maximum length:
+
+```json
+{
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 100
+}
+```
+
+### Number and Integer
+
+```json
+{ "type": "number" }
+{ "type": "integer" }
+```
+
+`number` accepts both integers and floats. `integer` accepts only whole numbers. Add range constraints with `minimum`, `maximum`, `exclusiveMinimum`, and `exclusiveMaximum`.
+
+```json
+{
+  "type": "number",
+  "minimum": 0,
+  "maximum": 1
+}
+```
+
+### Boolean
+
+```json
+{ "type": "boolean" }
+```
+
+Matches only `true` or `false`.
+
+### Null
+
+```json
+{ "type": "null" }
+```
+
+Matches only the JSON `null` value. Often combined with another type using an array:
+
+```json
+{ "type": ["string", "null"] }
+```
+
+### Object
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string" }
+  }
+}
+```
+
+The `properties` keyword defines named fields. By default all properties are optional.
+
+### Array
+
+```json
+{
+  "type": "array",
+  "items": { "type": "string" }
+}
+```
+
+The `items` keyword constrains the type of every element. Add `minItems` and `maxItems` to control length.
+
+## Required vs Optional Fields
+
+By default, all properties in an object schema are optional. Use the `required` keyword to enforce presence:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "username": { "type": "string" },
+    "email": { "type": "string" },
+    "bio": { "type": "string" }
+  },
+  "required": ["username", "email"]
+}
+```
+
+Here `username` and `email` must be present. `bio` is optional. Note that `required` is a sibling of `properties`, not nested inside it.
+
+To disallow unknown properties entirely, add `"additionalProperties": false`:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "name": { "type": "string" }
+  },
+  "required": ["id", "name"],
+  "additionalProperties": false
+}
+```
+
+## Advanced Features
+
+### enum
+
+Restricts a value to a fixed set of allowed options:
+
+```json
+{
+  "type": "string",
+  "enum": ["draft", "published", "archived"]
+}
+```
+
+`enum` can also work across types — you can enumerate specific values of any JSON type in the same list.
+
+### pattern
+
+Validates strings against a regular expression:
+
+```json
+{
+  "type": "string",
+  "pattern": "^[a-z0-9_-]{3,30}$"
+}
+```
+
+Useful for slugs, usernames, identifiers, and any string with a predictable format.
+
+### format
+
+Provides semantic validation for common string formats:
+
+```json
+{ "type": "string", "format": "email" }
+{ "type": "string", "format": "date" }
+{ "type": "string", "format": "uri" }
+{ "type": "string", "format": "uuid" }
+```
+
+Note: `format` validation is optional in the spec. Some validators enforce it by default; others require explicit configuration.
+
+### minimum and maximum
+
+Already covered for numbers, but worth noting these apply to `integer` as well:
+
+```json
+{
+  "type": "integer",
+  "minimum": 1,
+  "maximum": 100
+}
+```
+
+### $ref and Schema Composition
+
+`$ref` allows you to reference another schema definition, enabling reuse and avoiding duplication:
+
+```json
+{
+  "$defs": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "country": { "type": "string" }
+      },
+      "required": ["street", "city", "country"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "billing": { "$ref": "#/$defs/address" },
+    "shipping": { "$ref": "#/$defs/address" }
+  }
+}
+```
+
+For combining schemas, use `allOf`, `anyOf`, `oneOf`, and `not`:
+
+<table>
+  <thead>
+    <tr>
+      <th>Keyword</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>allOf</code>
+      </td>
+      <td>Must be valid against all listed schemas</td>
+    </tr>
+    <tr>
+      <td>
+        <code>anyOf</code>
+      </td>
+      <td>Must be valid against at least one schema</td>
+    </tr>
+    <tr>
+      <td>
+        <code>oneOf</code>
+      </td>
+      <td>Must be valid against exactly one schema</td>
+    </tr>
+    <tr>
+      <td>
+        <code>not</code>
+      </td>
+      <td>Must not be valid against the given schema</td>
+    </tr>
+  </tbody>
+</table>
+
+## Practical Usage
+
+### API Documentation
+
+JSON Schema is the foundation of OpenAPI (formerly Swagger). Every request body and response body in an OpenAPI spec is described with a JSON Schema. Writing schemas forces you to make implicit assumptions explicit, which improves both documentation quality and client code reliability.
+
+### Form Generation
+
+Libraries like `react-jsonschema-form` and `jsonforms` read a JSON Schema and automatically generate form UI with built-in validation. One schema definition drives both backend validation and frontend rendering.
+
+### Data Validation in Code
+
+Most languages have mature JSON Schema validator libraries:
+
+```javascript
+// JavaScript — ajv
+import Ajv from 'ajv';
+const ajv = new Ajv();
+const validate = ajv.compile(schema);
+const valid = validate(data);
+if (!valid) console.log(validate.errors);
+```
+
+```python
+# Python — jsonschema
+from jsonschema import validate, ValidationError
+try:
+    validate(instance=data, schema=schema)
+except ValidationError as e:
+    print(e.message)
+```
+
+### CI Pipeline Validation
+
+Commit hooks or CI steps can validate JSON config files against a schema automatically, catching structural errors before they reach production.
+
+## Using JSONKit's Schema Tool
+
+[JSONKit's Schema tool](https://jsonkit.org/schema) provides an interactive environment for working with JSON Schema:
+
+- Paste a JSON Schema and a JSON document side by side
+- Run validation instantly and see per-field error messages
+- Generate a starter schema from an existing JSON document
+- Explore schema composition with `allOf`, `anyOf`, and `$ref`
+
+The schema-from-JSON generation feature is especially useful when you have an existing dataset and want to quickly produce a schema that describes it.
+
+## Conclusion
+
+JSON Schema brings type safety and structural contracts to JSON data without requiring a compile step or a specific programming language. It works at the protocol level — between services, between teams, and between frontend and backend — making it one of the most broadly applicable tools in a developer's data validation toolkit. Start with simple type definitions and required fields, then layer in constraints like `pattern`, `enum`, and `$ref` as your data model matures.
