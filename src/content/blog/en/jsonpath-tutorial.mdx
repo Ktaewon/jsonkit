@@ -42,11 +42,36 @@ We'll use this JSON data as our example:
 
 Every JSONPath expression starts with `$` (root).
 
-| Expression         | Result                |
-| ------------------ | --------------------- |
-| `$`                | Entire JSON document  |
-| `$.store`          | Complete store object |
-| `$.store.location` | `"online"`            |
+<table>
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$</code>
+      </td>
+      <td>Entire JSON document</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store</code>
+      </td>
+      <td>Complete store object</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.location</code>
+      </td>
+      <td>
+        <code>"online"</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Dot Notation vs Bracket Notation
 
@@ -59,12 +84,40 @@ Both return the same result. Dot notation is more concise, but bracket notation 
 
 ### Array Access
 
-| Expression           | Description           |
-| -------------------- | --------------------- |
-| `$.store.books[0]`   | First book            |
-| `$.store.books[-1]`  | Last book             |
-| `$.store.books[0,2]` | First and third books |
-| `$.store.books[0:2]` | Index 0-1 (slice)     |
+<table>
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$.store.books[0]</code>
+      </td>
+      <td>First book</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[-1]</code>
+      </td>
+      <td>Last book</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0,2]</code>
+      </td>
+      <td>First and third books</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0:2]</code>
+      </td>
+      <td>Index 0-1 (slice)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Wildcards and Recursive Descent
 
@@ -160,12 +213,51 @@ $.logs[-10:]
 
 ## JSONPath vs JavaScript
 
-| Task                   | JavaScript                                   | JSONPath                         |
-| ---------------------- | -------------------------------------------- | -------------------------------- |
-| First book title       | `data.store.books[0].title`                  | `$.store.books[0].title`         |
-| All prices             | `data.store.books.map(b => b.price)`         | `$.store.books[*].price`         |
-| Price filter           | `data.store.books.filter(b => b.price > 40)` | `$.store.books[?(@.price > 40)]` |
-| All titles (recursive) | Requires recursive function                  | `$..title`                       |
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>JavaScript</th>
+      <th>JSONPath</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>First book title</td>
+      <td>
+        <code>data.store.books[0].title</code>
+      </td>
+      <td>
+        <code>$.store.books[0].title</code>
+      </td>
+    </tr>
+    <tr>
+      <td>All prices</td>
+      <td>
+        <code>data.store.books.map(b =&gt; b.price)</code>
+      </td>
+      <td>
+        <code>$.store.books[*].price</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Price filter</td>
+      <td>
+        <code>data.store.books.filter(b =&gt; b.price &gt; 40)</code>
+      </td>
+      <td>
+        <code>$.store.books[?(@.price &gt; 40)]</code>
+      </td>
+    </tr>
+    <tr>
+      <td>All titles (recursive)</td>
+      <td>Requires recursive function</td>
+      <td>
+        <code>$..title</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 JSONPath extracts data declaratively without code, making it especially useful for debugging and data exploration.
 
