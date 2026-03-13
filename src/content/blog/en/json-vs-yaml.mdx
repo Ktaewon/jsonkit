@@ -1,0 +1,158 @@
+# JSON vs YAML: A Complete Comparison Guide
+
+As a developer, you encounter JSON and YAML daily. Docker Compose uses YAML, API responses use JSON. What are the pros and cons of each format, and when should you choose one over the other? This guide provides a detailed comparison.
+
+## Syntax Comparison
+
+Let's represent the same data in both JSON and YAML.
+
+### JSON
+
+```json
+{
+  "server": {
+    "host": "localhost",
+    "port": 8080,
+    "debug": true,
+    "databases": ["postgres", "redis"],
+    "cors": {
+      "origins": ["https://example.com"],
+      "credentials": true
+    }
+  }
+}
+```
+
+### YAML
+
+```yaml
+server:
+  host: localhost
+  port: 8080
+  debug: true
+  databases:
+    - postgres
+    - redis
+  cors:
+    origins:
+      - https://example.com
+    credentials: true
+```
+
+## Key Differences
+
+| Feature | JSON | YAML |
+|---------|------|------|
+| Readability | Good | Excellent |
+| Comments | Not supported | `#` comments |
+| File size | Larger (brackets, quotes) | Smaller |
+| Parse speed | Fast | Relatively slower |
+| Data types | 6 types | More (dates, binary, etc.) |
+| Indentation | Not significant | Defines structure |
+| Standard | RFC 8259 | YAML 1.2 |
+
+## Advantages of JSON
+
+### 1. Universal Compatibility
+
+Nearly every programming language has a built-in JSON parser. Browsers provide `JSON.parse()` and `JSON.stringify()` natively without any additional libraries.
+
+### 2. Parsing Performance
+
+JSON's simple grammar makes it fast to parse. This is advantageous when processing large datasets.
+
+### 3. Strict Syntax
+
+The strict syntax makes parsing errors easy to detect. There's no room for ambiguous interpretation.
+
+### 4. API Standard
+
+Most web APIs (REST, GraphQL) use JSON as their default format.
+
+## Advantages of YAML
+
+### 1. Readability
+
+The indentation-based structure is very easy for humans to read. This makes it particularly well-suited for configuration files.
+
+### 2. Comment Support
+
+You can write comments using the `#` symbol, adding explanations to configuration files.
+
+```yaml
+# Database configuration
+database:
+  host: localhost  # For development
+  port: 5432
+```
+
+### 3. Multi-line Strings
+
+Long text can be written cleanly.
+
+```yaml
+description: |
+  This is a long description
+  spanning multiple lines.
+  Line breaks are preserved.
+```
+
+### 4. Anchors and Aliases
+
+Repeated values can be reused via references.
+
+```yaml
+defaults: &defaults
+  timeout: 30
+  retries: 3
+
+development:
+  <<: *defaults
+  debug: true
+
+production:
+  <<: *defaults
+  debug: false
+```
+
+## When to Choose Which Format?
+
+### Choose JSON when:
+
+- **API Communication**: Data exchange between client and server
+- **Browser Environment**: Processing data in web frontends
+- **Programmatic Data**: Data generated/consumed directly by code
+- **Performance Matters**: Fast parsing of large datasets
+
+### Choose YAML when:
+
+- **Configuration Files**: Docker Compose, Kubernetes, GitHub Actions
+- **Human-Edited Files**: When comments and readability matter
+- **CI/CD Pipelines**: Workflow definitions
+- **Documented Settings**: When each option needs explanation
+
+## YAML Pitfalls
+
+### Indentation Errors
+
+The most common YAML mistake. Always use spaces, never tabs.
+
+### Implicit Type Conversion
+
+YAML automatically converts `yes`, `no`, `on`, `off` to booleans. Use quotes for string values.
+
+```yaml
+# Warning: country becomes boolean true
+country: NO
+
+# Correct approach
+country: "NO"
+```
+
+### Security Concerns
+
+Some YAML implementations may have arbitrary code execution vulnerabilities. Always use safe loaders when processing untrusted YAML input.
+
+## Conclusion
+
+JSON and YAML are complementary, not competing formats. Choose appropriately based on your use case, and use JSONKit's Convert tool to instantly switch between the two formats when needed.

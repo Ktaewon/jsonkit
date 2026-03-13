@@ -86,7 +86,8 @@
     "download": "ダウンロード",
     "input": "入力",
     "output": "出力",
-    "error": "エラー"
+    "error": "エラー",
+    "contact": "お問い合わせ"
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
@@ -244,7 +245,28 @@
       "paragraph": "JSON Schemaは、JSONデータの構造、内容、セマンティクスを定義するための語彙です。JSONスキーマバリデーターは、データが指定されたスキーマ定義に準拠しているかどうかをチェックします。JSONKitはAjvライブラリを使用して高速かつ仕様準拠の検証を行い、違反箇所を正確に指し示す詳細なエラーメッセージを提供します。"
     }
   },
+  "Blog": {
+    "title": "ブログ",
+    "description": "開発者のためのJSONチュートリアル、ガイド、ベストプラクティス。",
+    "metaTitle": "JSONブログ - チュートリアル & ガイド | JSONKit",
+    "metaDescription": "JSONのベストプラクティス、データ形式の比較、JSONPathクエリの習得。開発者のための無料チュートリアルとガイド。",
+    "posts": {
+      "json-format-guide": {
+        "title": "JSON完全フォーマットガイド",
+        "summary": "JSONの構造、構文ルール、データ型、よくある間違い、フォーマットのベストプラクティスを学びます。"
+      },
+      "json-vs-yaml": {
+        "title": "JSON vs YAML 完全比較",
+        "summary": "JSONとYAMLの構文の違い、長所と短所、各形式の適切な使用ケースを詳しく比較します。"
+      },
+      "jsonpath-tutorial": {
+        "title": "JSONPath使い方ガイド",
+        "summary": "複雑なJSON構造からデータを抽出するJSONPath構文 — ワイルドカード、フィルター、再帰探索、実践例。"
+      }
+    }
+  },
   "Footer": {
+    "blog": "ブログ",
     "privacyPolicy": "プライバシーポリシー"
   },
   "Privacy": {
@@ -252,7 +274,7 @@
     "metaTitle": "プライバシーポリシー | JSONKit",
     "metaDescription": "JSONKitプライバシーポリシー。すべてのJSON処理はブラウザ内で行われ、サーバーへのデータ送信はありません。",
     "lastUpdated": "最終更新日",
-    "lastUpdatedDate": "2025年1月",
+    "lastUpdatedDate": "2025-03-14",
     "sections": {
       "dataCollection": {
         "title": "データ収集",
@@ -266,7 +288,7 @@
         "title": "Cookieとサードパーティサービス",
         "content": "以下のサードパーティサービスを使用しており、Cookieを設定する場合があります：",
         "googleAdsense": "Google AdSense：広告の表示に使用されます。Googleは、お客様の閲覧履歴に基づいて広告をパーソナライズするためにCookieを使用する場合があります。",
-        "googleAnalytics": "Google Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。これにより、ユーザーエクスペリエンスの向上に役立てています。"
+        "vercelAnalytics": "Vercel Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。Vercel AnalyticsはCookieを使用せず、個人データを収集しません。"
       },
       "thirdParty": {
         "title": "サードパーティリンク",

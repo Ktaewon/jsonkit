@@ -1,0 +1,181 @@
+# JSONPath Tutorial: Extracting Data from Complex JSON
+
+Sometimes you need to extract specific values from API responses or large JSON datasets. Instead of manually navigating through the entire data structure, JSONPath lets you precisely locate and extract the data you need. This guide covers JSONPath syntax and practical usage patterns.
+
+## What is JSONPath?
+
+JSONPath is a query language for selecting specific elements from JSON data. Inspired by XPath for XML, it enables efficient data extraction from complex JSON structures.
+
+## Basic Syntax
+
+We'll use this JSON data as our example:
+
+```json
+{
+  "store": {
+    "books": [
+      {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "price": 35.99,
+        "tags": ["programming", "best-practices"]
+      },
+      {
+        "title": "The Pragmatic Programmer",
+        "author": "David Thomas",
+        "price": 49.99,
+        "tags": ["programming", "career"]
+      },
+      {
+        "title": "Design Patterns",
+        "author": "Gang of Four",
+        "price": 54.99,
+        "tags": ["programming", "architecture"]
+      }
+    ],
+    "location": "online"
+  }
+}
+```
+
+### Root Element: `$`
+
+Every JSONPath expression starts with `$` (root).
+
+| Expression | Result |
+|-----------|--------|
+| `$` | Entire JSON document |
+| `$.store` | Complete store object |
+| `$.store.location` | `"online"` |
+
+### Dot Notation vs Bracket Notation
+
+```
+$.store.books[0].title          → Dot notation
+$['store']['books'][0]['title'] → Bracket notation
+```
+
+Both return the same result. Dot notation is more concise, but bracket notation is required when keys contain special characters or spaces.
+
+### Array Access
+
+| Expression | Description |
+|-----------|-------------|
+| `$.store.books[0]` | First book |
+| `$.store.books[-1]` | Last book |
+| `$.store.books[0,2]` | First and third books |
+| `$.store.books[0:2]` | Index 0-1 (slice) |
+
+## Wildcards and Recursive Descent
+
+### Wildcard: `*`
+
+Selects all elements.
+
+```
+$.store.books[*].title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$.store.books[*].price
+→ [35.99, 49.99, 54.99]
+```
+
+### Recursive Descent: `..`
+
+Searches at all depth levels.
+
+```
+$..title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$..price
+→ [35.99, 49.99, 54.99]
+```
+
+Recursive descent is useful when you don't know the nesting depth, but be mindful of performance with large datasets.
+
+## Filter Expressions
+
+Use `?()` syntax for conditional selection.
+
+### Comparison Operators
+
+```
+$.store.books[?(@.price > 40)]
+→ Books priced over 40
+
+$.store.books[?(@.price < 50)]
+→ Books priced under 50
+
+$.store.books[?(@.author == "David Thomas")]
+→ Books by "David Thomas"
+```
+
+Here, `@` refers to the current element.
+
+### Logical Operators
+
+```
+$.store.books[?(@.price > 40 && @.price < 55)]
+→ Books priced between 40 and 55
+```
+
+## Practical Examples
+
+### Extracting Specific Fields from API Responses
+
+Extract only emails from a user list API:
+
+```
+$.users[*].email
+```
+
+### Finding Values in Nested Objects
+
+Extract all port numbers from a config file:
+
+```
+$..port
+```
+
+### Conditional Data Filtering
+
+Extract only active users:
+
+```
+$.users[?(@.status == "active")]
+```
+
+### Selecting Array Ranges
+
+Last 10 log entries:
+
+```
+$.logs[-10:]
+```
+
+## JSONPath vs JavaScript
+
+| Task | JavaScript | JSONPath |
+|------|-----------|----------|
+| First book title | `data.store.books[0].title` | `$.store.books[0].title` |
+| All prices | `data.store.books.map(b => b.price)` | `$.store.books[*].price` |
+| Price filter | `data.store.books.filter(b => b.price > 40)` | `$.store.books[?(@.price > 40)]` |
+| All titles (recursive) | Requires recursive function | `$..title` |
+
+JSONPath extracts data declaratively without code, making it especially useful for debugging and data exploration.
+
+## Tips and Caveats
+
+1. **Test Your Paths**: Test complex JSONPath expressions in real-time using JSONKit's Query tool.
+2. **Performance**: `..` (recursive descent) can be slow on large JSON. Use explicit paths when possible.
+3. **Implementation Differences**: JSONPath syntax may vary slightly between implementations. JSONKit uses the `jsonpath-plus` library.
+4. **Result Type**: JSONPath results are always returned as arrays. Even when expecting a single value, you'll need to extract it from the array.
+
+## Conclusion
+
+Mastering JSONPath enables fast and precise data extraction from complex JSON structures. Use JSONKit's JSONPath Query tool to test queries in real-time and see results instantly.

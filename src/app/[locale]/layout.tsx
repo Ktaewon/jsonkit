@@ -14,6 +14,7 @@ import { JsonLd } from '@/components/common/JsonLd';
 import { getWebsiteSchema, getOrganizationSchema } from '@/lib/seo/structured-data';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { FloatingContactButton } from '@/components/common/FloatingContactButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -72,6 +73,7 @@ export default async function RootLayout({
               <MobileNav />
               <Header />
               <main className="flex-1">{children}</main>
+              <FloatingContactButton />
               <Footer />
             </div>
             <Toaster position="bottom-right" richColors closeButton />
