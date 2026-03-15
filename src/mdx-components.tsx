@@ -1,5 +1,6 @@
 import type { MDXComponents } from 'mdx/types';
 import React from 'react';
+import { CodeBlock } from '@/components/blog/CodeBlock';
 
 function slugify(text: string): string {
   return text
@@ -46,9 +47,18 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     code: ({ children }) => (
       <code className="rounded bg-muted px-1.5 py-0.5 text-sm font-mono">{children}</code>
     ),
-    pre: ({ children }) => (
-      <pre className="rounded-lg bg-muted p-4 overflow-x-auto mb-4 text-sm">{children}</pre>
-    ),
+    pre: ({ children }) => {
+      // Extract language and code from the code element
+      const codeElement = children as React.ReactElement<{
+        className?: string;
+        children?: string;
+      }>;
+      const className = codeElement?.props?.className || '';
+      const language = className.replace('language-', '');
+      const code = codeElement?.props?.children || '';
+
+      return <CodeBlock language={language}>{typeof code === 'string' ? code : ''}</CodeBlock>;
+    },
     blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-primary pl-4 italic my-4">{children}</blockquote>
     ),
