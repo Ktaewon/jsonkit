@@ -1,0 +1,273 @@
+# JSONPathチュートリアル：複雑なJSONからデータを取り出す
+
+APIレスポンスや大規模なJSONデータセットから特定の値を抽出したい場面は多いはずです。データ構造全体を手動でたどる代わりに、JSONPathを使えば必要なデータを正確に指定して取り出せます。このガイドではJSONPathの構文と実践的な使い方を解説します。
+
+## JSONPathとは？
+
+JSONPathは、JSONデータから特定の要素を選択するためのクエリ言語です。XMLに対するXPathを参考に設計されており、複雑なJSON構造から効率的にデータを抽出できます。
+
+## 基本構文
+
+以下のJSONデータをサンプルとして使います。
+
+```json
+{
+  "store": {
+    "books": [
+      {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "price": 35.99,
+        "tags": ["programming", "best-practices"]
+      },
+      {
+        "title": "The Pragmatic Programmer",
+        "author": "David Thomas",
+        "price": 49.99,
+        "tags": ["programming", "career"]
+      },
+      {
+        "title": "Design Patterns",
+        "author": "Gang of Four",
+        "price": 54.99,
+        "tags": ["programming", "architecture"]
+      }
+    ],
+    "location": "online"
+  }
+}
+```
+
+### ルート要素：`$`
+
+すべてのJSONPath式は `$`（ルート）から始まります。
+
+<table>
+  <thead>
+    <tr>
+      <th>式</th>
+      <th>結果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$</code>
+      </td>
+      <td>JSONドキュメント全体</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store</code>
+      </td>
+      <td>storeオブジェクト全体</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.location</code>
+      </td>
+      <td>
+        <code>"online"</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### ドット記法 vs ブラケット記法
+
+```
+$.store.books[0].title          → ドット記法
+$['store']['books'][0]['title'] → ブラケット記法
+```
+
+どちらも同じ結果を返します。ドット記法の方が簡潔ですが、キーに特殊文字やスペースが含まれる場合はブラケット記法が必要です。
+
+### 配列へのアクセス
+
+<table>
+  <thead>
+    <tr>
+      <th>式</th>
+      <th>説明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$.store.books[0]</code>
+      </td>
+      <td>最初の本</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[-1]</code>
+      </td>
+      <td>最後の本</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0,2]</code>
+      </td>
+      <td>1冊目と3冊目</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0:2]</code>
+      </td>
+      <td>インデックス0〜1（スライス）</td>
+    </tr>
+  </tbody>
+</table>
+
+## ワイルドカードと再帰探索
+
+### ワイルドカード：`*`
+
+すべての要素を選択します。
+
+```
+$.store.books[*].title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$.store.books[*].price
+→ [35.99, 49.99, 54.99]
+```
+
+### 再帰探索：`..`
+
+すべての深さレベルで検索します。
+
+```
+$..title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$..price
+→ [35.99, 49.99, 54.99]
+```
+
+ネストの深さが不明な場合に再帰探索は便利ですが、大規模なデータセットではパフォーマンスに注意が必要です。
+
+## フィルター式
+
+条件付き選択には `?()` 構文を使います。
+
+### 比較演算子
+
+```
+$.store.books[?(@.price > 40)]
+→ 価格が40より高い本
+
+$.store.books[?(@.price < 50)]
+→ 価格が50未満の本
+
+$.store.books[?(@.author == "David Thomas")]
+→ "David Thomas" 著の本
+```
+
+ここで `@` は現在の要素を指します。
+
+### 論理演算子
+
+```
+$.store.books[?(@.price > 40 && @.price < 55)]
+→ 価格が40〜55の間の本
+```
+
+## 実践的な使用例
+
+### APIレスポンスから特定フィールドを抽出
+
+ユーザー一覧APIからメールアドレスのみを取り出す：
+
+```
+$.users[*].email
+```
+
+### ネストされたオブジェクトから値を検索
+
+設定ファイルからすべてのポート番号を取り出す：
+
+```
+$..port
+```
+
+### 条件によるデータフィルタリング
+
+アクティブなユーザーのみを抽出する：
+
+```
+$.users[?(@.status == "active")]
+```
+
+### 配列の範囲選択
+
+最新10件のログエントリを取得する：
+
+```
+$.logs[-10:]
+```
+
+## JSONPath vs JavaScript
+
+<table>
+  <thead>
+    <tr>
+      <th>タスク</th>
+      <th>JavaScript</th>
+      <th>JSONPath</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>最初の本のタイトル</td>
+      <td>
+        <code>data.store.books[0].title</code>
+      </td>
+      <td>
+        <code>$.store.books[0].title</code>
+      </td>
+    </tr>
+    <tr>
+      <td>全価格</td>
+      <td>
+        <code>data.store.books.map(b =&gt; b.price)</code>
+      </td>
+      <td>
+        <code>$.store.books[*].price</code>
+      </td>
+    </tr>
+    <tr>
+      <td>価格フィルター</td>
+      <td>
+        <code>data.store.books.filter(b =&gt; b.price &gt; 40)</code>
+      </td>
+      <td>
+        <code>$.store.books[?(@.price &gt; 40)]</code>
+      </td>
+    </tr>
+    <tr>
+      <td>全タイトル（再帰）</td>
+      <td>再帰関数が必要</td>
+      <td>
+        <code>$..title</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+JSONPathはコードを書かず宣言的にデータを抽出できるため、デバッグやデータ探索に特に役立ちます。
+
+## Tips と注意点
+
+1. **パスをテストする**: 複雑なJSONPath式は、JSONKitのQueryツールを使ってリアルタイムにテストしましょう。
+2. **パフォーマンス**: `..`（再帰探索）は大きなJSONでは低速になることがあります。可能であれば明示的なパスを使いましょう。
+3. **実装の違い**: JSONPathの構文は実装によって若干異なる場合があります。JSONKitは `jsonpath-plus` ライブラリを使用しています。
+4. **結果の型**: JSONPathの結果は常に配列として返されます。単一の値を期待している場合でも、配列から取り出す処理が必要です。
+
+## まとめ
+
+JSONPathをマスターすることで、複雑なJSON構造から高速かつ正確にデータを抽出できるようになります。JSONKitのJSONPath Queryツールを使って、クエリをリアルタイムでテストしながら結果をすぐに確認してみましょう。

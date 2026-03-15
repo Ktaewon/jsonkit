@@ -1,0 +1,317 @@
+# JSONバリデーション完全ガイド：構文・スキーマ・ベストプラクティス
+
+JSONバリデーションは、信頼性の高いAPI、設定パイプライン、データ駆動型アプリケーションを構築する上で最も重要なステップのひとつです。たったひとつの不正なJSONペイロードが、サービスのクラッシュ、気づきにくいデータ破損、あるいはセキュリティ脆弱性を引き起こす可能性があります。このガイドでは、基本的な構文ルールから構造的なスキーマ検証まで、JSONバリデーションのあらゆる側面を解説し、実際のシナリオへの適用方法を示します。
+
+## JSONバリデーションが重要な理由
+
+JSONは一見シンプルに見えます。6種類のデータ型と最小限の構文で書きやすい反面、間違いも起こりやすいです。バリデーションはエラーを早期に、データがシステムに入ってくる境界で検出することで、下流に伝播して発見困難なバグになる前に問題を捉えます。
+
+アプリケーションを守る3つのバリデーション層：
+
+- **構文バリデーション** — JSONとしてパースできるか？
+- **型バリデーション** — 値が期待するデータ型か？
+- **スキーマバリデーション** — 構造がアプリケーションの期待する形と一致しているか？
+
+## JSONの構文ルール
+
+### 1. キーはダブルクォートで囲む
+
+すべてのオブジェクトのキーはダブルクォートで囲む必要があります。シングルクォート、クォートなしの識別子、数値キーはすべて無効です。
+
+```json
+// 無効
+{ name: "Alice", 'age': 30 }
+
+// 有効
+{ "name": "Alice", "age": 30 }
+```
+
+### 2. 末尾のカンマは禁止
+
+オブジェクトや配列の最後の要素の後に末尾カンマを付けることはJSONでは禁止されています。JavaScriptでは許可されていますが、JSONでは認められません。
+
+```json
+// 無効
+{
+  "host": "localhost",
+  "port": 5432,
+}
+
+// 有効
+{
+  "host": "localhost",
+  "port": 5432
+}
+```
+
+### 3. コメントは使用不可
+
+JSONにはコメント構文がありません。`//` も `/* */` も有効ではありません。
+
+コメント付きの設定ファイルが必要な場合は、JSONCやJSON5（JSONのスーパーセット）の使用を検討してください。ただし、標準のJSONパーサーはこれらを拒否することに注意が必要です。
+
+### 4. 文字列は適切にエスケープする
+
+文字列内の特殊文字はバックスラッシュでエスケープする必要があります。
+
+```json
+{
+  "path": "C:\\Users\\alice\\documents",
+  "message": "彼女は \"hello\" と言いました",
+  "newline": "1行目\n2行目"
+}
+```
+
+### 5. 数値は厳格なルールに従う
+
+JSON数値は先頭にゼロを付けられません（`0` 自体は除く）。`NaN` や `Infinity` も使用できません。また、数値を表す場合はクォートで囲んではいけません。
+
+```json
+// 無効
+{ "value": 0123, "ratio": Infinity }
+
+// 有効
+{ "value": 123, "ratio": 1e308 }
+```
+
+### 6. トップレベルの値は有効なJSON値であること
+
+JSONドキュメントのルートには、オブジェクト、配列、文字列、数値、真偽値、nullのいずれかを置くことができます。空ファイルや識別子はJSONとして無効です。
+
+## よくあるJSONエラーと修正方法
+
+<table>
+  <thead>
+    <tr>
+      <th>エラー</th>
+      <th>原因</th>
+      <th>修正方法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Unexpected token</td>
+      <td>シングルクォート、末尾カンマ、クォートなしキー</td>
+      <td>ダブルクォートの文字列に置き換え、末尾カンマを削除</td>
+    </tr>
+    <tr>
+      <td>Unexpected end of input</td>
+      <td>閉じ括弧や閉じ角括弧の不足</td>
+      <td>
+        <code>{`{}`}</code> と <code>[]</code> の対応を確認して揃える
+      </td>
+    </tr>
+    <tr>
+      <td>Invalid escape sequence</td>
+      <td>
+        エスケープされていないバックスラッシュ、または無効な <code>\u</code> シーケンス
+      </td>
+      <td>
+        バックスラッシュを <code>\\</code> にエスケープし、<code>\uXXXX</code>{' '}
+        には有効な4桁の16進数を使用
+      </td>
+    </tr>
+    <tr>
+      <td>Duplicate keys</td>
+      <td>同じキーがオブジェクト内に複数存在する</td>
+      <td>重複しているキーを削除するか名前を変更する</td>
+    </tr>
+    <tr>
+      <td>Wrong value type</td>
+      <td>
+        <code>true</code> の代わりに <code>"true"</code> を使用
+      </td>
+      <td>真偽値とnullリテラルを囲むクォートを削除する</td>
+    </tr>
+  </tbody>
+</table>
+
+## JSON Schemaによる構造バリデーション
+
+構文バリデーションはJSONがパース可能かどうかを確認するだけです。スキーマバリデーションは「正しい」かどうかを確認します——データがアプリケーションの期待する形に一致しているかどうかです。
+
+JSON Schema（[json-schema.org](https://json-schema.org) で定義）は、JSONドキュメントの構造・型・制約を記述するための標準仕様です。
+
+### JSON Schemaの基本例
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "name", "email"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["admin", "editor", "viewer"]
+    }
+  },
+  "additionalProperties": false
+}
+```
+
+このスキーマが強制するルール：
+
+- ドキュメントは `id`、`name`、`email` を必須フィールドとして持つオブジェクトであること
+- `id` は正の整数であること
+- `name` は1文字以上100文字以内の文字列であること
+- `email` はemailフォーマットに一致すること
+- `role` は存在する場合、3つの許可された値のいずれかであること
+- 追加のフィールドは許可されない
+
+### JSON Schemaの主要キーワード
+
+<table>
+  <thead>
+    <tr>
+      <th>キーワード</th>
+      <th>適用対象</th>
+      <th>説明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>type</code>
+      </td>
+      <td>すべて</td>
+      <td>期待するJSONの型を指定する</td>
+    </tr>
+    <tr>
+      <td>
+        <code>required</code>
+      </td>
+      <td>オブジェクト</td>
+      <td>必須のキーをリストアップする</td>
+    </tr>
+    <tr>
+      <td>
+        <code>properties</code>
+      </td>
+      <td>オブジェクト</td>
+      <td>名前付きキーのスキーマを定義する</td>
+    </tr>
+    <tr>
+      <td>
+        <code>enum</code>
+      </td>
+      <td>すべて</td>
+      <td>値を固定された集合に制限する</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minimum</code> / <code>maximum</code>
+      </td>
+      <td>数値</td>
+      <td>数値の範囲制約</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minLength</code> / <code>maxLength</code>
+      </td>
+      <td>文字列</td>
+      <td>文字列の長さ制約</td>
+    </tr>
+    <tr>
+      <td>
+        <code>pattern</code>
+      </td>
+      <td>文字列</td>
+      <td>文字列が一致すべき正規表現パターン</td>
+    </tr>
+    <tr>
+      <td>
+        <code>items</code>
+      </td>
+      <td>配列</td>
+      <td>配列要素のスキーマ</td>
+    </tr>
+    <tr>
+      <td>
+        <code>additionalProperties</code>
+      </td>
+      <td>オブジェクト</td>
+      <td>追加のキーを許可するかどうか</td>
+    </tr>
+  </tbody>
+</table>
+
+## 実践的なバリデーションシナリオ
+
+### APIレスポンスのバリデーション
+
+サードパーティのAPIを利用する場合、レスポンスの形が予告なく変わることがあります。クライアント境界でレスポンスをバリデーションすることで、そのような変更をアプリケーションロジックの深部でわかりにくいランタイムエラーとして現れる前に、即座に検出できます。
+
+```javascript
+async function fetchUser(id) {
+  const response = await fetch(`/api/users/${id}`);
+  const data = await response.json();
+
+  // 使用前にバリデーション
+  const valid = ajv.validate(userSchema, data);
+  if (!valid) {
+    throw new Error(`無効なAPIレスポンス: ${ajv.errorsText()}`);
+  }
+
+  return data;
+}
+```
+
+### 設定ファイルのバリデーション
+
+`appsettings.json` やカスタムの `config.json` のような設定ファイルは手書きされることが多く、何かが壊れるまでテストされないことがよくあります。CIパイプラインの一部としてスキーマバリデーションを実行することで、設定ミスによるデプロイを本番環境に届く前に検出できます。
+
+```bash
+# ajv-cli を使用
+npx ajv validate -s config.schema.json -d config.json
+```
+
+### APIのリクエストボディバリデーション
+
+サーバー側では、受け取ったリクエストボディをバリデーションすることで、不正な入力や悪意のある入力からアプリケーションを保護できます。`ajv`、`zod`、`joi` などのライブラリはNode.jsフレームワークとクリーンに統合できます。
+
+```javascript
+// ajv を使った Express ミドルウェア
+app.post('/users', (req, res) => {
+  const valid = ajv.validate(createUserSchema, req.body);
+  if (!valid) {
+    return res.status(400).json({ errors: ajv.errors });
+  }
+  // 有効なリクエストを処理
+});
+```
+
+## バリデーションツール
+
+JSONバリデーションを手軽に行うツールがいくつかあります：
+
+- **[JSONKit Validate](https://jsonkit.org/validate)** — JSONを貼り付けると行番号付きで即座に構文エラーを報告。インストール不要
+- **ajv** — JavaScript/Node.js向けの最速JSON Schemaバリデーター
+- **jsonschema** — Pythonの標準的なJSON Schemaライブラリ
+- **json-schema-validator** — Java向けの広く使われているライブラリ
+
+## 効果的なJSONバリデーションのTips
+
+1. **境界でバリデーションする** — ビジネスロジックの深部ではなく、データがシステムに入る・出る境界でバリデーションを行いましょう。
+2. **厳格なスキーマを使う** — `additionalProperties: false` を設定し、必須フィールドを明示的にマークしましょう。緩いスキーマは本物のバグを見逃します。
+3. **フォーマットバリデーションを含める** — `format` キーワード（`email`、`uri`、`date-time`）を使って、意味的に無効な文字列を検出しましょう。
+4. **構造化されたエラーを返す** — バリデーション失敗時は「無効なJSON」だけでなく、失敗したフィールドのパスと制約を返しましょう。
+5. **無効なデータでテストする** — 意図的に不正なデータを渡すテストを書いて、バリデーション層が正しく拒否することを確認しましょう。
+
+## まとめ
+
+本番システムにおいてJSONバリデーションはオプションではありません。構文バリデーションはパース可能性を保証し、スキーマバリデーションは正確性を保証します。両者を合わせることで、データの生成者と消費者の間に信頼できる契約が成立します。
+
+[JSONKitのValidateツール](https://jsonkit.org/validate)を使えば、任意のJSONの構文エラーを即座に確認できます——JSONを貼り付けるだけで行番号付きの明確なエラーレポートが表示され、コードに到達する前に問題を修正できます。サインアップ不要、サーバーへのアップロードなし。

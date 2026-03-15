@@ -1,0 +1,316 @@
+# JSON验证完全指南：语法、Schema与最佳实践
+
+JSON验证是构建可靠API、配置管道和数据驱动应用程序中最关键的步骤之一。一个格式错误的JSON负载可能导致服务崩溃、数据被静默损坏，或暴露安全漏洞。本指南涵盖JSON验证的每一层——从基本语法规则到结构化Schema强制执行——并展示如何在实际场景中应用。
+
+## 为什么JSON验证很重要
+
+JSON表面上看起来很简单。它的六种数据类型和最简语法使其易于编写，但也容易出错。验证在数据进入系统的边界处尽早捕获错误，防止其向下游传播并变得难以调试。
+
+三类验证可以保护你的应用程序：
+
+- **语法验证** — JSON是否可以被解析？
+- **类型验证** — 值是否是预期的数据类型？
+- **Schema验证** — 结构是否符合预期的约定？
+
+## JSON语法规则
+
+### 1. 键必须是双引号字符串
+
+每个对象键都必须用双引号包裹。单引号、裸标识符和数字键都是无效的。
+
+```json
+// 无效
+{ name: "Alice", 'age': 30 }
+
+// 有效
+{ "name": "Alice", "age": 30 }
+```
+
+### 2. 不允许尾部逗号
+
+对象或数组最后一个元素后面的尾部逗号在JSON中是禁止的，尽管JavaScript允许这样写。
+
+```json
+// 无效
+{
+  "host": "localhost",
+  "port": 5432,
+}
+
+// 有效
+{
+  "host": "localhost",
+  "port": 5432
+}
+```
+
+### 3. 不支持注释
+
+JSON没有注释语法。`//` 和 `/* */` 都是无效的。
+
+如果你需要带注释的配置文件，可以考虑使用JSONC（带注释的JSON）或JSON5作为超集，但请注意标准JSON解析器会拒绝这些格式。
+
+### 4. 字符串必须正确转义
+
+字符串内部的特殊字符必须用反斜杠转义。
+
+```json
+{
+  "path": "C:\\Users\\alice\\documents",
+  "message": "她说 \"你好\"",
+  "newline": "第一行\n第二行"
+}
+```
+
+### 5. 数字遵循严格规则
+
+JSON数字不能有前导零（`0` 本身除外），不能使用 `NaN` 或 `Infinity`，表示数值的数字不能用引号包裹。
+
+```json
+// 无效
+{ "value": 0123, "ratio": Infinity }
+
+// 有效
+{ "value": 123, "ratio": 1e308 }
+```
+
+### 6. 顶层值必须有效
+
+JSON文档的根可以是任何有效的JSON值——对象、数组、字符串、数字、布尔值或null。空文件或裸标识符不是有效的JSON。
+
+## 常见JSON错误及修复方法
+
+<table>
+  <thead>
+    <tr>
+      <th>错误</th>
+      <th>原因</th>
+      <th>修复方法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>意外的标记</td>
+      <td>单引号、尾部逗号或裸键</td>
+      <td>替换为双引号字符串，删除尾部逗号</td>
+    </tr>
+    <tr>
+      <td>意外的输入结束</td>
+      <td>缺少闭合花括号或方括号</td>
+      <td>
+        平衡所有 <code>{`{}`}</code> 和 <code>[]</code> 对
+      </td>
+    </tr>
+    <tr>
+      <td>无效转义序列</td>
+      <td>
+        未转义的反斜杠或无效的 <code>\u</code> 序列
+      </td>
+      <td>
+        将反斜杠转义为 <code>\\</code>，为 <code>\uXXXX</code> 使用有效的4位十六进制
+      </td>
+    </tr>
+    <tr>
+      <td>重复键</td>
+      <td>同一键在对象中出现两次</td>
+      <td>删除或重命名重复键</td>
+    </tr>
+    <tr>
+      <td>值类型错误</td>
+      <td>
+        <code>"true"</code> 而不是 <code>true</code>
+      </td>
+      <td>删除布尔值和null字面量周围的引号</td>
+    </tr>
+  </tbody>
+</table>
+
+## 使用JSON Schema进行结构验证
+
+语法验证只能告诉你JSON是否可解析。Schema验证则告诉你它是否*正确*——数据是否符合应用程序期望的形状？
+
+JSON Schema（定义于 [json-schema.org](https://json-schema.org)）是描述JSON文档结构、类型和约束的标准。
+
+### 基本JSON Schema示例
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "name", "email"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["admin", "editor", "viewer"]
+    }
+  },
+  "additionalProperties": false
+}
+```
+
+该Schema强制要求：
+
+- 文档是包含必填字段 `id`、`name` 和 `email` 的对象
+- `id` 是正整数
+- `name` 是长度不超过100个字符的非空字符串
+- `email` 符合邮箱格式
+- `role` 如果存在，必须是三个允许值之一
+- 不允许额外字段
+
+### 关键JSON Schema关键字
+
+<table>
+  <thead>
+    <tr>
+      <th>关键字</th>
+      <th>适用于</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>type</code>
+      </td>
+      <td>任意</td>
+      <td>指定预期的JSON类型</td>
+    </tr>
+    <tr>
+      <td>
+        <code>required</code>
+      </td>
+      <td>对象</td>
+      <td>列出必须存在的键</td>
+    </tr>
+    <tr>
+      <td>
+        <code>properties</code>
+      </td>
+      <td>对象</td>
+      <td>定义命名键的Schema</td>
+    </tr>
+    <tr>
+      <td>
+        <code>enum</code>
+      </td>
+      <td>任意</td>
+      <td>将值限制为固定集合</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minimum</code> / <code>maximum</code>
+      </td>
+      <td>数字</td>
+      <td>数值范围约束</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minLength</code> / <code>maxLength</code>
+      </td>
+      <td>字符串</td>
+      <td>字符串长度约束</td>
+    </tr>
+    <tr>
+      <td>
+        <code>pattern</code>
+      </td>
+      <td>字符串</td>
+      <td>字符串必须匹配的正则表达式</td>
+    </tr>
+    <tr>
+      <td>
+        <code>items</code>
+      </td>
+      <td>数组</td>
+      <td>数组元素的Schema</td>
+    </tr>
+    <tr>
+      <td>
+        <code>additionalProperties</code>
+      </td>
+      <td>对象</td>
+      <td>是否允许额外键</td>
+    </tr>
+  </tbody>
+</table>
+
+## 实际验证场景
+
+### API响应验证
+
+在调用第三方API时，响应的形状可能在没有通知的情况下发生变化。在客户端边界处验证响应，可以立即发现这些变化，而不是在应用程序逻辑深处以难以理解的运行时错误形式出现。
+
+```javascript
+async function fetchUser(id) {
+  const response = await fetch(`/api/users/${id}`);
+  const data = await response.json();
+
+  // 使用前先验证
+  const valid = ajv.validate(userSchema, data);
+  if (!valid) {
+    throw new Error(`无效的API响应: ${ajv.errorsText()}`);
+  }
+
+  return data;
+}
+```
+
+### 配置文件验证
+
+`appsettings.json` 或自定义 `config.json` 等配置文件通常由人工编写，很少被测试，直到出现问题。将Schema验证作为CI流水线的一部分运行，可以在配置错误的部署到达生产环境之前捕获它们。
+
+```bash
+# 使用 ajv-cli
+npx ajv validate -s config.schema.json -d config.json
+```
+
+### API中的请求体验证
+
+在服务器端，验证传入的请求体可以保护应用程序免受格式错误或恶意输入的影响。`ajv`、`zod` 和 `joi` 等库都能与Node.js框架无缝集成。
+
+```javascript
+// 使用ajv的Express中间件
+app.post('/users', (req, res) => {
+  const valid = ajv.validate(createUserSchema, req.body);
+  if (!valid) {
+    return res.status(400).json({ errors: ajv.errors });
+  }
+  // 处理有效请求
+});
+```
+
+## 验证工具
+
+以下工具使JSON验证变得简单直接：
+
+- **[JSONKit验证工具](https://jsonkit.org/validate)** — 粘贴任何JSON，立即获得带行号的语法错误报告，无需安装
+- **ajv** — JavaScript/Node.js最快的JSON Schema验证器
+- **jsonschema** — 标准Python JSON Schema库
+- **json-schema-validator** — 广泛使用的Java库
+
+## 有效JSON验证的技巧
+
+1. **在边界处验证** — 在数据进入或离开系统时验证，而不是在业务逻辑深处。
+2. **使用严格Schema** — 设置 `additionalProperties: false` 并明确标记所有必填字段；宽松的Schema会遗漏真正的错误。
+3. **包含格式验证** — 使用 `format` 关键字（`email`、`uri`、`date-time`）捕获语义上无效的字符串。
+4. **返回结构化错误** — 验证失败时，返回失败的字段路径和约束，而不仅仅是"无效JSON"。
+5. **使用无效数据测试** — 编写故意传入错误数据的测试，确认验证层能够正确拒绝它们。
+
+## 结语
+
+在生产系统中，JSON验证不是可选项。语法验证确保可解析性；Schema验证确保正确性。两者共同在数据生产者和消费者之间形成可靠的约定。
+
+[JSONKit的验证工具](https://jsonkit.org/validate)让你即时检查任何JSON的语法错误——粘贴JSON，获得带行号的清晰错误报告，在代码运行之前修复问题。无需注册，无需上传到服务器。

@@ -1,0 +1,273 @@
+# JSONPath使用教程：从复杂JSON中提取数据
+
+有时你需要从API响应或大型JSON数据集中提取特定值。与其手动遍历整个数据结构，不如使用JSONPath精确定位并提取所需数据。本教程介绍JSONPath语法和实用使用模式。
+
+## 什么是JSONPath？
+
+JSONPath是一种用于从JSON数据中选取特定元素的查询语言。它受XML的XPath启发，能够高效地从复杂JSON结构中提取数据。
+
+## 基本语法
+
+我们将使用以下JSON数据作为示例：
+
+```json
+{
+  "store": {
+    "books": [
+      {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "price": 35.99,
+        "tags": ["programming", "best-practices"]
+      },
+      {
+        "title": "The Pragmatic Programmer",
+        "author": "David Thomas",
+        "price": 49.99,
+        "tags": ["programming", "career"]
+      },
+      {
+        "title": "Design Patterns",
+        "author": "Gang of Four",
+        "price": 54.99,
+        "tags": ["programming", "architecture"]
+      }
+    ],
+    "location": "online"
+  }
+}
+```
+
+### 根元素：`$`
+
+每个JSONPath表达式都以 `$`（根）开头。
+
+<table>
+  <thead>
+    <tr>
+      <th>表达式</th>
+      <th>结果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$</code>
+      </td>
+      <td>整个JSON文档</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store</code>
+      </td>
+      <td>完整的store对象</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.location</code>
+      </td>
+      <td>
+        <code>"online"</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 点标记法与括号标记法
+
+```
+$.store.books[0].title          → 点标记法
+$['store']['books'][0]['title'] → 括号标记法
+```
+
+两者返回相同结果。点标记法更简洁，但当键包含特殊字符或空格时，必须使用括号标记法。
+
+### 数组访问
+
+<table>
+  <thead>
+    <tr>
+      <th>表达式</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$.store.books[0]</code>
+      </td>
+      <td>第一本书</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[-1]</code>
+      </td>
+      <td>最后一本书</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0,2]</code>
+      </td>
+      <td>第一本和第三本书</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0:2]</code>
+      </td>
+      <td>索引0-1（切片）</td>
+    </tr>
+  </tbody>
+</table>
+
+## 通配符与递归下降
+
+### 通配符：`*`
+
+选取所有元素。
+
+```
+$.store.books[*].title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$.store.books[*].price
+→ [35.99, 49.99, 54.99]
+```
+
+### 递归下降：`..`
+
+在所有深度层级进行搜索。
+
+```
+$..title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$..price
+→ [35.99, 49.99, 54.99]
+```
+
+递归下降在你不知道嵌套深度时非常有用，但处理大型数据集时要注意性能问题。
+
+## 过滤表达式
+
+使用 `?()` 语法进行条件选取。
+
+### 比较运算符
+
+```
+$.store.books[?(@.price > 40)]
+→ 价格超过40的书
+
+$.store.books[?(@.price < 50)]
+→ 价格低于50的书
+
+$.store.books[?(@.author == "David Thomas")]
+→ "David Thomas"著的书
+```
+
+这里，`@` 指代当前元素。
+
+### 逻辑运算符
+
+```
+$.store.books[?(@.price > 40 && @.price < 55)]
+→ 价格在40到55之间的书
+```
+
+## 实际应用示例
+
+### 从API响应中提取特定字段
+
+从用户列表API中只提取邮箱：
+
+```
+$.users[*].email
+```
+
+### 在嵌套对象中查找值
+
+从配置文件中提取所有端口号：
+
+```
+$..port
+```
+
+### 条件数据过滤
+
+只提取活跃用户：
+
+```
+$.users[?(@.status == "active")]
+```
+
+### 选取数组范围
+
+最近10条日志记录：
+
+```
+$.logs[-10:]
+```
+
+## JSONPath与JavaScript对比
+
+<table>
+  <thead>
+    <tr>
+      <th>任务</th>
+      <th>JavaScript</th>
+      <th>JSONPath</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>第一本书的标题</td>
+      <td>
+        <code>data.store.books[0].title</code>
+      </td>
+      <td>
+        <code>$.store.books[0].title</code>
+      </td>
+    </tr>
+    <tr>
+      <td>所有价格</td>
+      <td>
+        <code>data.store.books.map(b =&gt; b.price)</code>
+      </td>
+      <td>
+        <code>$.store.books[*].price</code>
+      </td>
+    </tr>
+    <tr>
+      <td>价格过滤</td>
+      <td>
+        <code>data.store.books.filter(b =&gt; b.price &gt; 40)</code>
+      </td>
+      <td>
+        <code>$.store.books[?(@.price &gt; 40)]</code>
+      </td>
+    </tr>
+    <tr>
+      <td>所有标题（递归）</td>
+      <td>需要递归函数</td>
+      <td>
+        <code>$..title</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+JSONPath以声明式方式提取数据，无需编写代码，在调试和数据探索时尤为实用。
+
+## 技巧与注意事项
+
+1. **测试路径**：使用JSONKit的查询工具实时测试复杂的JSONPath表达式。
+2. **性能**：`..`（递归下降）在大型JSON上可能很慢。尽量使用明确的路径。
+3. **实现差异**：不同实现之间的JSONPath语法可能略有差异。JSONKit使用 `jsonpath-plus` 库。
+4. **结果类型**：JSONPath结果始终以数组形式返回。即使期望单个值，也需要从数组中提取。
+
+## 结语
+
+掌握JSONPath能让你从复杂JSON结构中快速精确地提取数据。使用JSONKit的JSONPath查询工具实时测试查询，即时查看结果。

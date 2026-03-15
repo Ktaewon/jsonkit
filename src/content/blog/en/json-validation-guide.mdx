@@ -1,0 +1,316 @@
+# Complete Guide to JSON Validation: Syntax, Schema, and Best Practices
+
+JSON validation is one of the most critical steps in building reliable APIs, configuration pipelines, and data-driven applications. A single malformed JSON payload can crash a service, silently corrupt data, or expose security vulnerabilities. This guide walks through every layer of JSON validation — from basic syntax rules to structural schema enforcement — and shows you how to apply it in real-world scenarios.
+
+## Why JSON Validation Matters
+
+JSON is deceptively simple. Its six data types and minimal syntax make it easy to write, but also easy to get wrong. Validation catches errors early, at the boundary where data enters your system, before it propagates downstream and becomes hard to debug.
+
+Three categories of validation protect your application:
+
+- **Syntax validation** — is the JSON parseable at all?
+- **Type validation** — are values the expected data types?
+- **Schema validation** — does the structure match the expected contract?
+
+## JSON Syntax Rules
+
+### 1. Keys Must Be Double-Quoted Strings
+
+Every object key must be wrapped in double quotes. Single quotes, bare identifiers, and numeric keys are all invalid.
+
+```json
+// Invalid
+{ name: "Alice", 'age': 30 }
+
+// Valid
+{ "name": "Alice", "age": 30 }
+```
+
+### 2. No Trailing Commas
+
+Trailing commas after the last element in an object or array are forbidden in JSON, even though JavaScript allows them.
+
+```json
+// Invalid
+{
+  "host": "localhost",
+  "port": 5432,
+}
+
+// Valid
+{
+  "host": "localhost",
+  "port": 5432
+}
+```
+
+### 3. No Comments
+
+JSON has no comment syntax. Neither `//` nor `/* */` are valid.
+
+If you need annotated config files, consider JSONC (JSON with Comments) or JSON5 as a superset, but be aware that standard JSON parsers will reject them.
+
+### 4. Strings Must Be Properly Escaped
+
+Special characters inside strings must be escaped with a backslash.
+
+```json
+{
+  "path": "C:\\Users\\alice\\documents",
+  "message": "She said \"hello\"",
+  "newline": "line one\nline two"
+}
+```
+
+### 5. Numbers Follow Strict Rules
+
+JSON numbers cannot have leading zeros (except `0` itself), cannot use `NaN` or `Infinity`, and must not be wrapped in quotes if they represent numeric values.
+
+```json
+// Invalid
+{ "value": 0123, "ratio": Infinity }
+
+// Valid
+{ "value": 123, "ratio": 1e308 }
+```
+
+### 6. The Top-Level Value Must Be Valid
+
+A JSON document can be any valid JSON value at its root — an object, array, string, number, boolean, or null. An empty file or a bare identifier is not valid JSON.
+
+## Common JSON Errors and How to Fix Them
+
+<table>
+  <thead>
+    <tr>
+      <th>Error</th>
+      <th>Cause</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Unexpected token</td>
+      <td>Single quotes, trailing comma, or bare key</td>
+      <td>Replace with double-quoted strings, remove trailing comma</td>
+    </tr>
+    <tr>
+      <td>Unexpected end of input</td>
+      <td>Missing closing brace or bracket</td>
+      <td>
+        Balance all <code>{`{}`}</code> and <code>[]</code> pairs
+      </td>
+    </tr>
+    <tr>
+      <td>Invalid escape sequence</td>
+      <td>
+        Unescaped backslash or invalid <code>\u</code> sequence
+      </td>
+      <td>
+        Escape backslashes as <code>\\</code>, use valid 4-digit hex for <code>\uXXXX</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Duplicate keys</td>
+      <td>Same key appears twice in an object</td>
+      <td>Remove or rename the duplicate key</td>
+    </tr>
+    <tr>
+      <td>Wrong value type</td>
+      <td>
+        <code>"true"</code> instead of <code>true</code>
+      </td>
+      <td>Remove quotes around boolean and null literals</td>
+    </tr>
+  </tbody>
+</table>
+
+## Structural Validation with JSON Schema
+
+Syntax validation only tells you if JSON is parseable. Schema validation tells you if it's _correct_ — does the data match the shape your application expects?
+
+JSON Schema (defined at [json-schema.org](https://json-schema.org)) is the standard for describing the structure, types, and constraints of JSON documents.
+
+### A Basic JSON Schema Example
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "name", "email"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["admin", "editor", "viewer"]
+    }
+  },
+  "additionalProperties": false
+}
+```
+
+This schema enforces that:
+
+- The document is an object with required fields `id`, `name`, and `email`
+- `id` is a positive integer
+- `name` is a non-empty string up to 100 characters
+- `email` matches the email format
+- `role`, if present, must be one of three allowed values
+- No extra fields are permitted
+
+### Key JSON Schema Keywords
+
+<table>
+  <thead>
+    <tr>
+      <th>Keyword</th>
+      <th>Applies To</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>type</code>
+      </td>
+      <td>Any</td>
+      <td>Specifies the expected JSON type</td>
+    </tr>
+    <tr>
+      <td>
+        <code>required</code>
+      </td>
+      <td>Object</td>
+      <td>Lists keys that must be present</td>
+    </tr>
+    <tr>
+      <td>
+        <code>properties</code>
+      </td>
+      <td>Object</td>
+      <td>Defines schemas for named keys</td>
+    </tr>
+    <tr>
+      <td>
+        <code>enum</code>
+      </td>
+      <td>Any</td>
+      <td>Restricts value to a fixed set</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minimum</code> / <code>maximum</code>
+      </td>
+      <td>Number</td>
+      <td>Numeric range constraints</td>
+    </tr>
+    <tr>
+      <td>
+        <code>minLength</code> / <code>maxLength</code>
+      </td>
+      <td>String</td>
+      <td>String length constraints</td>
+    </tr>
+    <tr>
+      <td>
+        <code>pattern</code>
+      </td>
+      <td>String</td>
+      <td>Regex pattern the string must match</td>
+    </tr>
+    <tr>
+      <td>
+        <code>items</code>
+      </td>
+      <td>Array</td>
+      <td>Schema for array elements</td>
+    </tr>
+    <tr>
+      <td>
+        <code>additionalProperties</code>
+      </td>
+      <td>Object</td>
+      <td>Whether extra keys are allowed</td>
+    </tr>
+  </tbody>
+</table>
+
+## Practical Validation Scenarios
+
+### API Response Validation
+
+When consuming a third-party API, the shape of the response can change without notice. Validating responses at the client boundary makes those changes visible immediately rather than surfacing as cryptic runtime errors deep in your application logic.
+
+```javascript
+async function fetchUser(id) {
+  const response = await fetch(`/api/users/${id}`);
+  const data = await response.json();
+
+  // Validate before using
+  const valid = ajv.validate(userSchema, data);
+  if (!valid) {
+    throw new Error(`Invalid API response: ${ajv.errorsText()}`);
+  }
+
+  return data;
+}
+```
+
+### Configuration File Validation
+
+Config files like `appsettings.json` or custom `config.json` files are often written by hand and rarely tested until something breaks. Running schema validation as part of your CI pipeline catches misconfigured deployments before they reach production.
+
+```bash
+# Using ajv-cli
+npx ajv validate -s config.schema.json -d config.json
+```
+
+### Request Body Validation in APIs
+
+On the server side, validating incoming request bodies protects your application from malformed or malicious input. Libraries like `ajv`, `zod`, and `joi` all integrate cleanly with Node.js frameworks.
+
+```javascript
+// Express middleware using ajv
+app.post('/users', (req, res) => {
+  const valid = ajv.validate(createUserSchema, req.body);
+  if (!valid) {
+    return res.status(400).json({ errors: ajv.errors });
+  }
+  // process valid request
+});
+```
+
+## Validation Tools
+
+Several tools make JSON validation straightforward:
+
+- **[JSONKit Validate](https://jsonkit.org/validate)** — paste any JSON and get instant syntax error reporting with line numbers, no installation required
+- **ajv** — the fastest JSON Schema validator for JavaScript/Node.js
+- **jsonschema** — the standard Python JSON Schema library
+- **json-schema-validator** — widely used Java library
+
+## Tips for Effective JSON Validation
+
+1. **Validate at boundaries** — validate when data enters or leaves your system, not deep inside business logic.
+2. **Use strict schemas** — set `additionalProperties: false` and mark all required fields explicitly; loose schemas miss real bugs.
+3. **Include format validation** — use `format` keywords (`email`, `uri`, `date-time`) to catch semantically invalid strings.
+4. **Return structured errors** — when validation fails, return the field path and constraint that failed, not just "invalid JSON."
+5. **Test with invalid data** — write tests that pass intentionally bad data to confirm your validation layer rejects it correctly.
+
+## Conclusion
+
+JSON validation is not optional in production systems. Syntax validation ensures parseability; schema validation ensures correctness. Together they form a reliable contract between data producers and consumers.
+
+[JSONKit's Validate tool](https://jsonkit.org/validate) lets you instantly check any JSON for syntax errors — paste your JSON, get a clear error report with line numbers, and fix issues before they reach your code. No sign-up, no server uploads.

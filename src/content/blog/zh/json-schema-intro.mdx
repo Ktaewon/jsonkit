@@ -1,0 +1,303 @@
+# JSON Schema 入门指南：定义与验证数据结构
+
+JSON 天生灵活——任何键都可以持有任意类型的值，结构本身没有强制约束。这种灵活性在原型阶段很方便，但在生产系统中却暗藏风险，因为你通常期望特定的字段、特定的类型和特定的约束条件。JSON Schema 通过提供一种声明式语言来解决这个问题，让你能够精确描述合法 JSON 的样子。
+
+## 什么是 JSON Schema？
+
+JSON Schema 是用于标注和验证 JSON 文档的一套词汇规范。它本身也是用 JSON 编写的，易于阅读、编写和工具链集成。当前稳定规范为 Draft 2020-12，由 [json-schema.org](https://json-schema.org) 维护。
+
+Schema 描述了一个 JSON 值的预期结构。验证器使用 schema 来检查给定文档是否符合要求——如果不符合，则精确报告哪些约束被违反以及位置所在。
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "integer", "minimum": 0 }
+  },
+  "required": ["name"]
+}
+```
+
+这个 schema 接受任何包含 `name` 字符串字段的对象。`age` 字段是可选的，但如果存在，它必须是非负整数。
+
+## 基本类型定义
+
+JSON Schema 直接映射到 JSON 的六种原生类型。
+
+### 字符串（string）
+
+```json
+{ "type": "string" }
+```
+
+匹配任何 JSON 字符串值。你可以添加最小长度和最大长度约束：
+
+```json
+{
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 100
+}
+```
+
+### 数字（number）与整数（integer）
+
+```json
+{ "type": "number" }
+{ "type": "integer" }
+```
+
+`number` 同时接受整数和浮点数。`integer` 只接受整数。使用 `minimum`、`maximum`、`exclusiveMinimum` 和 `exclusiveMaximum` 添加范围约束。
+
+```json
+{
+  "type": "number",
+  "minimum": 0,
+  "maximum": 1
+}
+```
+
+### 布尔值（boolean）
+
+```json
+{ "type": "boolean" }
+```
+
+只匹配 `true` 或 `false`。
+
+### 空值（null）
+
+```json
+{ "type": "null" }
+```
+
+只匹配 JSON 的 `null` 值。通常通过数组与其他类型组合使用：
+
+```json
+{ "type": ["string", "null"] }
+```
+
+### 对象（object）
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string" }
+  }
+}
+```
+
+`properties` 关键字定义命名字段。默认情况下所有属性都是可选的。
+
+### 数组（array）
+
+```json
+{
+  "type": "array",
+  "items": { "type": "string" }
+}
+```
+
+`items` 关键字约束每个元素的类型。添加 `minItems` 和 `maxItems` 来控制数组长度。
+
+## 必填字段与可选字段
+
+默认情况下，对象 schema 中的所有属性都是可选的。使用 `required` 关键字强制要求字段存在：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "username": { "type": "string" },
+    "email": { "type": "string" },
+    "bio": { "type": "string" }
+  },
+  "required": ["username", "email"]
+}
+```
+
+这里 `username` 和 `email` 必须存在，`bio` 是可选的。注意 `required` 是 `properties` 的兄弟节点，而不是嵌套在其内部。
+
+如果要完全禁止未知属性，添加 `"additionalProperties": false`：
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "name": { "type": "string" }
+  },
+  "required": ["id", "name"],
+  "additionalProperties": false
+}
+```
+
+## 高级特性
+
+### enum
+
+将值限制为一组固定的允许选项：
+
+```json
+{
+  "type": "string",
+  "enum": ["draft", "published", "archived"]
+}
+```
+
+`enum` 也可以跨类型使用——你可以在同一个列表中枚举任意 JSON 类型的特定值。
+
+### pattern
+
+用正则表达式验证字符串：
+
+```json
+{
+  "type": "string",
+  "pattern": "^[a-z0-9_-]{3,30}$"
+}
+```
+
+适用于 slug、用户名、标识符以及任何格式可预期的字符串。
+
+### format
+
+为常见字符串格式提供语义验证：
+
+```json
+{ "type": "string", "format": "email" }
+{ "type": "string", "format": "date" }
+{ "type": "string", "format": "uri" }
+{ "type": "string", "format": "uuid" }
+```
+
+注意：`format` 验证在规范中是可选的。部分验证器默认启用它，其他验证器需要显式配置。
+
+### minimum 与 maximum
+
+前面已介绍过数字的用法，同样适用于 `integer`：
+
+```json
+{
+  "type": "integer",
+  "minimum": 1,
+  "maximum": 100
+}
+```
+
+### $ref 与 Schema 组合
+
+`$ref` 允许你引用另一个 schema 定义，从而实现复用并避免重复：
+
+```json
+{
+  "$defs": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "country": { "type": "string" }
+      },
+      "required": ["street", "city", "country"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "billing": { "$ref": "#/$defs/address" },
+    "shipping": { "$ref": "#/$defs/address" }
+  }
+}
+```
+
+用于组合 schema 的关键字包括 `allOf`、`anyOf`、`oneOf` 和 `not`：
+
+<table>
+  <thead>
+    <tr>
+      <th>关键字</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>allOf</code>
+      </td>
+      <td>必须对列出的所有 schema 均有效</td>
+    </tr>
+    <tr>
+      <td>
+        <code>anyOf</code>
+      </td>
+      <td>必须对至少一个 schema 有效</td>
+    </tr>
+    <tr>
+      <td>
+        <code>oneOf</code>
+      </td>
+      <td>必须对恰好一个 schema 有效</td>
+    </tr>
+    <tr>
+      <td>
+        <code>not</code>
+      </td>
+      <td>不能对给定 schema 有效</td>
+    </tr>
+  </tbody>
+</table>
+
+## 实际应用场景
+
+### API 文档
+
+JSON Schema 是 OpenAPI（前身为 Swagger）的基础。OpenAPI 规范中每个请求体和响应体都用 JSON Schema 来描述。编写 schema 迫使你将隐式假设显式化，从而提升文档质量和客户端代码的可靠性。
+
+### 表单生成
+
+`react-jsonschema-form` 和 `jsonforms` 等库读取 JSON Schema 并自动生成带有内置验证的表单 UI。一份 schema 定义同时驱动后端验证和前端渲染。
+
+### 代码中的数据验证
+
+大多数语言都有成熟的 JSON Schema 验证库：
+
+```javascript
+// JavaScript — ajv
+import Ajv from 'ajv';
+const ajv = new Ajv();
+const validate = ajv.compile(schema);
+const valid = validate(data);
+if (!valid) console.log(validate.errors);
+```
+
+```python
+# Python — jsonschema
+from jsonschema import validate, ValidationError
+try:
+    validate(instance=data, schema=schema)
+except ValidationError as e:
+    print(e.message)
+```
+
+### CI 流水线验证
+
+提交钩子或 CI 步骤可以自动对照 schema 验证 JSON 配置文件，在结构性错误进入生产环境之前就将其拦截。
+
+## 使用 JSONKit 的 Schema 工具
+
+[JSONKit 的 Schema 工具](https://jsonkit.org/schema)提供了一个交互式环境，用于处理 JSON Schema：
+
+- 并排粘贴 JSON Schema 和 JSON 文档
+- 即时运行验证，查看每个字段的错误信息
+- 从现有 JSON 文档生成初始 schema
+- 探索使用 `allOf`、`anyOf` 和 `$ref` 进行 schema 组合
+
+从 JSON 生成 schema 的功能特别实用——当你已有现成的数据集，希望快速生成描述其结构的 schema 时，这个功能能大幅节省时间。
+
+## 总结
+
+JSON Schema 为 JSON 数据带来了类型安全和结构契约，无需编译步骤，也不依赖特定编程语言。它工作在协议层面——服务之间、团队之间、前端与后端之间——使其成为开发者数据验证工具箱中适用范围最广的工具之一。从简单的类型定义和必填字段开始，随着数据模型的成熟，逐步加入 `pattern`、`enum` 和 `$ref` 等约束条件。

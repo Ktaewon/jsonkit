@@ -1,0 +1,273 @@
+# JSONPath 사용법 완벽 가이드: 복잡한 JSON에서 데이터 추출하기
+
+API 응답이나 대규모 JSON 데이터에서 특정 값만 추출해야 할 때가 있습니다. 전체 데이터를 수동으로 탐색하는 대신 JSONPath를 사용하면 원하는 데이터를 정확히 찾아낼 수 있습니다. 이 가이드에서 JSONPath 문법과 실전 활용법을 알아봅니다.
+
+## JSONPath란?
+
+JSONPath는 JSON 데이터에서 특정 요소를 선택하기 위한 쿼리 언어입니다. XML의 XPath에서 영감을 받아 만들어졌으며, 복잡한 JSON 구조에서 데이터를 효율적으로 추출할 수 있습니다.
+
+## 기본 문법
+
+다음 JSON 데이터를 예제로 사용하겠습니다:
+
+```json
+{
+  "store": {
+    "books": [
+      {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "price": 35.99,
+        "tags": ["programming", "best-practices"]
+      },
+      {
+        "title": "The Pragmatic Programmer",
+        "author": "David Thomas",
+        "price": 49.99,
+        "tags": ["programming", "career"]
+      },
+      {
+        "title": "Design Patterns",
+        "author": "Gang of Four",
+        "price": 54.99,
+        "tags": ["programming", "architecture"]
+      }
+    ],
+    "location": "online"
+  }
+}
+```
+
+### 루트 요소: `$`
+
+모든 JSONPath 표현식은 `$`(루트)에서 시작합니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>표현식</th>
+      <th>결과</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$</code>
+      </td>
+      <td>전체 JSON 문서</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store</code>
+      </td>
+      <td>store 객체 전체</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.location</code>
+      </td>
+      <td>
+        <code>"online"</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 점 표기법과 괄호 표기법
+
+```
+$.store.books[0].title     → 점 표기법
+$['store']['books'][0]['title']  → 괄호 표기법
+```
+
+두 방법 모두 같은 결과를 반환합니다. 점 표기법이 더 간결하지만, 키에 특수문자나 공백이 포함된 경우 괄호 표기법을 사용해야 합니다.
+
+### 배열 접근
+
+<table>
+  <thead>
+    <tr>
+      <th>표현식</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>$.store.books[0]</code>
+      </td>
+      <td>첫 번째 책</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[-1]</code>
+      </td>
+      <td>마지막 책</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0,2]</code>
+      </td>
+      <td>첫 번째와 세 번째 책</td>
+    </tr>
+    <tr>
+      <td>
+        <code>$.store.books[0:2]</code>
+      </td>
+      <td>인덱스 0~1 (슬라이스)</td>
+    </tr>
+  </tbody>
+</table>
+
+## 와일드카드와 재귀 탐색
+
+### 와일드카드: `*`
+
+모든 요소를 선택합니다.
+
+```
+$.store.books[*].title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$.store.books[*].price
+→ [35.99, 49.99, 54.99]
+```
+
+### 재귀 탐색: `..`
+
+모든 깊이에서 요소를 탐색합니다.
+
+```
+$..title
+→ ["Clean Code", "The Pragmatic Programmer", "Design Patterns"]
+```
+
+```
+$..price
+→ [35.99, 49.99, 54.99]
+```
+
+재귀 탐색은 중첩 깊이를 모를 때 유용하지만, 대규모 데이터에서는 성능에 주의해야 합니다.
+
+## 필터 표현식
+
+`?()` 구문으로 조건부 선택이 가능합니다.
+
+### 비교 연산자
+
+```
+$.store.books[?(@.price > 40)]
+→ 가격이 40 초과인 책들
+
+$.store.books[?(@.price < 50)]
+→ 가격이 50 미만인 책들
+
+$.store.books[?(@.author == "David Thomas")]
+→ 저자가 "David Thomas"인 책
+```
+
+여기서 `@`는 현재 요소를 나타냅니다.
+
+### 논리 연산자
+
+```
+$.store.books[?(@.price > 40 && @.price < 55)]
+→ 가격이 40~55 사이인 책들
+```
+
+## 실전 활용 예시
+
+### API 응답에서 특정 필드 추출
+
+사용자 목록 API에서 이메일만 추출:
+
+```
+$.users[*].email
+```
+
+### 중첩 객체에서 특정 값 찾기
+
+설정 파일에서 모든 포트 번호 추출:
+
+```
+$..port
+```
+
+### 조건부 데이터 필터링
+
+활성 사용자만 추출:
+
+```
+$.users[?(@.status == "active")]
+```
+
+### 배열 내 특정 범위 선택
+
+최근 10개 로그 항목:
+
+```
+$.logs[-10:]
+```
+
+## JSONPath vs JavaScript 접근법
+
+<table>
+  <thead>
+    <tr>
+      <th>작업</th>
+      <th>JavaScript</th>
+      <th>JSONPath</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>첫 번째 책 제목</td>
+      <td>
+        <code>data.store.books[0].title</code>
+      </td>
+      <td>
+        <code>$.store.books[0].title</code>
+      </td>
+    </tr>
+    <tr>
+      <td>모든 가격</td>
+      <td>
+        <code>data.store.books.map(b =&gt; b.price)</code>
+      </td>
+      <td>
+        <code>$.store.books[*].price</code>
+      </td>
+    </tr>
+    <tr>
+      <td>가격 필터</td>
+      <td>
+        <code>data.store.books.filter(b =&gt; b.price &gt; 40)</code>
+      </td>
+      <td>
+        <code>$.store.books[?(@.price &gt; 40)]</code>
+      </td>
+    </tr>
+    <tr>
+      <td>모든 제목 (재귀)</td>
+      <td>재귀 함수 필요</td>
+      <td>
+        <code>$..title</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+JSONPath는 코드 없이 선언적으로 데이터를 추출할 수 있어, 디버깅이나 데이터 탐색에 특히 유용합니다.
+
+## 팁과 주의사항
+
+1. **경로 테스트**: 복잡한 JSONPath는 JSONKit의 Query 도구에서 실시간으로 테스트하세요.
+2. **성능 고려**: `..` (재귀 탐색)은 대규모 JSON에서 느릴 수 있습니다. 가능하면 정확한 경로를 사용하세요.
+3. **구현 차이**: JSONPath 구현체마다 약간의 문법 차이가 있을 수 있습니다. JSONKit은 `jsonpath-plus` 라이브러리를 사용합니다.
+4. **결과 타입**: JSONPath 결과는 항상 배열로 반환됩니다. 단일 값을 기대하더라도 배열에서 꺼내야 합니다.
+
+## 마무리
+
+JSONPath를 익히면 복잡한 JSON 데이터에서 원하는 정보를 빠르고 정확하게 추출할 수 있습니다. JSONKit의 JSONPath Query 도구를 활용하면 실시간으로 쿼리를 테스트하고 결과를 확인할 수 있습니다.

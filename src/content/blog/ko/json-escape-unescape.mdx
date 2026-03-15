@@ -1,0 +1,295 @@
+# JSON 이스케이프/언이스케이프 완벽 가이드
+
+JSON 문자열 안에 큰따옴표나 백슬래시를 넣으려다 파싱 오류가 난 경험이 있으신가요? JSON 이스케이프는 특수문자를 안전하게 문자열에 포함시키는 방법입니다. 이 가이드에서는 JSON 이스케이프의 원리부터 실전에서 자주 겪는 문제까지 모두 다룹니다.
+
+## 이스케이프가 필요한 이유
+
+JSON 문자열은 큰따옴표로 시작하고 끝납니다. 그래서 문자열 내부에 큰따옴표가 등장하면 파서가 문자열의 끝으로 잘못 인식합니다.
+
+```json
+// 파싱 오류: 두 번째 "가 문자열 종료로 인식됨
+{ "message": "그는 "안녕"이라고 말했다" }
+
+// 올바른 이스케이프 처리
+{ "message": "그는 \"안녕\"이라고 말했다" }
+```
+
+백슬래시(`\`)도 마찬가지입니다. `\`는 이스케이프 시퀀스의 시작 문자이므로, 실제 백슬래시를 나타내려면 `\\`로 이스케이프해야 합니다.
+
+```json
+// 파싱 오류
+{ "path": "C:\Users\홍길동\Documents" }
+
+// 올바른 처리
+{ "path": "C:\\Users\\홍길동\\Documents" }
+```
+
+## JSON 이스케이프 문자 목록
+
+JSON 사양(RFC 8259)에서 정의한 이스케이프 시퀀스는 다음과 같습니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>이스케이프 시퀀스</th>
+      <th>의미</th>
+      <th>사용 예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>\"</code>
+      </td>
+      <td>큰따옴표</td>
+      <td>
+        <code>"그는 \"안녕\"이라고 했다"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>\\</code>
+      </td>
+      <td>백슬래시</td>
+      <td>
+        <code>"C:\\Users\\파일"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>\/</code>
+      </td>
+      <td>슬래시 (선택적)</td>
+      <td>
+        <code>"https:\/\/example.com"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>\b</code>
+      </td>
+      <td>백스페이스</td>
+      <td>거의 사용 안 함</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\f</code>
+      </td>
+      <td>폼 피드</td>
+      <td>거의 사용 안 함</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\n</code>
+      </td>
+      <td>줄바꿈 (LF)</td>
+      <td>
+        <code>"첫 번째 줄\n두 번째 줄"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>\r</code>
+      </td>
+      <td>캐리지 리턴 (CR)</td>
+      <td>
+        Windows 줄바꿈에서 <code>\r\n</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>\t</code>
+      </td>
+      <td>탭</td>
+      <td>
+        <code>"열1\t열2\t열3"</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>\uXXXX</code>
+      </td>
+      <td>유니코드 코드 포인트</td>
+      <td>
+        <code>"\uC548\uB155"</code> (안녕)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 유니코드 이스케이프
+
+`\uXXXX` 형식으로 유니코드 문자를 표현할 수 있습니다. `XXXX`는 4자리 16진수입니다.
+
+```json
+{
+  "korean": "\uC548\uB155\uD558\uC138\uC694",
+  "emoji": "\uD83D\uDE00",
+  "copyright": "\u00A9 2024"
+}
+```
+
+한국어는 UTF-8로 직접 작성하는 것이 훨씬 가독성이 좋습니다. `\uXXXX`는 ASCII만 허용하는 환경이나 특수한 문자 전달 목적으로 사용합니다.
+
+이모지처럼 U+FFFF를 넘는 문자(서로게이트 페어)는 두 개의 `\uXXXX`로 표현합니다.
+
+```json
+{ "emoji": "\uD83D\uDE00" }
+```
+
+## 흔한 이스케이프 문제
+
+### 이중 이스케이프
+
+JSON을 문자열로 저장하거나 전달할 때 이스케이프가 두 번 적용되는 문제입니다.
+
+```javascript
+// 문제: JSON 문자열을 또 다른 JSON의 값으로 사용
+const innerJson = '{"name": "홍길동"}';
+const outerJson = JSON.stringify({ data: innerJson });
+// 결과: {"data":"{\"name\": \"홍길동\"}"}
+// 파싱 시 data 값은 문자열 '{"name": "홍길동"}'이며, 별도로 파싱 필요
+```
+
+이중 이스케이프된 JSON을 언이스케이프하려면 두 번 파싱해야 합니다.
+
+```javascript
+const parsed = JSON.parse(outerJson);
+const innerParsed = JSON.parse(parsed.data);
+```
+
+이 상황은 가능하면 피하는 것이 좋습니다. 중첩 데이터는 문자열이 아닌 중첩 객체로 표현하세요.
+
+### URL 인코딩과의 혼동
+
+URL 인코딩(`%20`, `%2F` 등)은 JSON 이스케이프와 다릅니다. JSON API에서 URL을 값으로 전달할 때 혼동하기 쉽습니다.
+
+```json
+// URL 인코딩된 값을 JSON에 그대로 넣는 경우
+{
+  "url": "https://example.com/search?q=%ED%95%9C%EA%B5%AD%EC%96%B4"
+}
+
+// JSON 이스케이프가 필요한 문자는 따로 처리
+{
+  "url": "https://example.com/path?key=value&other=test"
+}
+```
+
+JSON 이스케이프는 JSON 파싱을 위한 것이고, URL 인코딩은 URL 전달을 위한 것입니다. 두 가지를 독립적으로 처리해야 합니다.
+
+### 줄바꿈 문자 처리
+
+JSON 문자열 내에 실제 줄바꿈(엔터)을 넣으면 파싱 오류가 발생합니다. 반드시 `\n`으로 이스케이프해야 합니다.
+
+```json
+// 파싱 오류: 실제 줄바꿈 문자 포함
+{
+  "message": "첫 번째 줄
+두 번째 줄"
+}
+
+// 올바른 처리
+{
+  "message": "첫 번째 줄\n두 번째 줄"
+}
+```
+
+## 프로그래밍 언어별 이스케이프 처리
+
+### JavaScript
+
+`JSON.stringify()`와 `JSON.parse()`가 이스케이프를 자동으로 처리합니다.
+
+```javascript
+// 이스케이프: 객체 → JSON 문자열
+const obj = {
+  message: '그는 "안녕"이라고 했다',
+  path: 'C:\\Users\\test',
+  multiline: '첫 번째 줄\n두 번째 줄',
+};
+const jsonString = JSON.stringify(obj);
+// {"message":"그는 \"안녕\"이라고 했다","path":"C:\\Users\\test","multiline":"첫 번째 줄\n두 번째 줄"}
+
+// 언이스케이프: JSON 문자열 → 객체
+const parsed = JSON.parse(jsonString);
+console.log(parsed.message); // 그는 "안녕"이라고 했다
+console.log(parsed.path); // C:\Users\test
+```
+
+수동으로 이스케이프 처리하는 것은 오류가 생기기 쉬우므로 항상 `JSON.stringify()`를 사용하세요.
+
+### Python
+
+`json` 모듈이 이스케이프를 자동으로 처리합니다.
+
+```python
+import json
+
+# 이스케이프: 딕셔너리 → JSON 문자열
+data = {
+    "message": '그는 "안녕"이라고 했다',
+    "path": "C:\\Users\\test",
+    "multiline": "첫 번째 줄\n두 번째 줄"
+}
+json_string = json.dumps(data, ensure_ascii=False)
+# {"message": "그는 \"안녕\"이라고 했다", "path": "C:\\Users\\test", ...}
+
+# 언이스케이프: JSON 문자열 → 딕셔너리
+parsed = json.loads(json_string)
+print(parsed["message"])  # 그는 "안녕"이라고 했다
+```
+
+`ensure_ascii=False`를 사용하면 한국어 등 비ASCII 문자가 `\uXXXX` 형태 대신 원래 문자로 출력됩니다.
+
+```python
+# ensure_ascii=True (기본값)
+json.dumps({"name": "홍길동"})
+# {"name": "\ud64d\uae38\ub3d9"}
+
+# ensure_ascii=False
+json.dumps({"name": "홍길동"}, ensure_ascii=False)
+# {"name": "홍길동"}
+```
+
+### Java
+
+```java
+// Gson 라이브러리 사용
+import com.google.gson.Gson;
+
+Gson gson = new Gson();
+
+// 이스케이프
+String json = gson.toJson(myObject);
+
+// 언이스케이프
+MyObject obj = gson.fromJson(json, MyObject.class);
+```
+
+## 언이스케이프 처리 시 주의사항
+
+언이스케이프(이스케이프된 JSON을 원래 값으로 되돌리기)는 `JSON.parse()`가 자동으로 처리합니다. 하지만 이미 파싱된 문자열에서 `\n`을 줄바꿈으로 변환하고 싶을 때는 별도 처리가 필요합니다.
+
+```javascript
+// JSON 파싱 후에도 \n이 그대로인 경우 (이미 파싱된 데이터)
+const str = '첫 번째 줄\\n두 번째 줄'; // 리터럴 \n
+const unescaped = str.replace(/\\n/g, '\n');
+
+// 주의: JSON.parse로 감싸서 처리하는 방법도 있음
+const unescaped2 = JSON.parse(`"${str}"`);
+```
+
+## JSONKit Escape 도구 활용하기
+
+[JSONKit의 Escape 도구](https://jsonkit.org)를 사용하면 복잡한 이스케이프 처리를 자동으로 해결할 수 있습니다.
+
+- **이스케이프**: 일반 텍스트나 JSON 문자열에 이스케이프 적용
+- **언이스케이프**: 이스케이프된 JSON 문자열을 읽기 쉬운 형태로 변환
+- **이중 이스케이프 감지**: 중복 이스케이프 문제 자동 감지
+
+모든 처리는 브라우저에서 이루어지므로 민감한 데이터가 서버로 전송되지 않습니다.
+
+## 마무리
+
+JSON 이스케이프는 처음에는 헷갈릴 수 있지만, 핵심 규칙은 간단합니다. 큰따옴표와 백슬래시는 반드시 이스케이프하고, 줄바꿈과 탭은 `\n`, `\t`로 표현합니다. 실무에서는 `JSON.stringify()`나 `json.dumps()` 같은 표준 라이브러리 함수를 사용하면 이스케이프를 직접 처리할 필요가 거의 없습니다. 이스케이프 문제가 생기면 수동으로 처리하기보다 도구를 활용하는 것이 훨씬 안전합니다.

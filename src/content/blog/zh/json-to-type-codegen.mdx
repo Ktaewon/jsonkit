@@ -1,0 +1,283 @@
+# 从 JSON 自动生成 TypeScript 和 Python 类型代码
+
+每次在没有类型定义的情况下消费 JSON API，你就像在黑暗中飞行。字段名只是字符串，响应结构在代码中没有文档记录，拼写错误只在运行时才会暴露。直接从 JSON 样本生成类型定义能消除这一隐患——无需手动编写，就能获得准确且立即可用的类型定义。
+
+## 为什么类型定义如此重要
+
+### 类型安全
+
+有了类型化的 API 响应，你的编辑器和编译器能在代码运行前就捕获类型不匹配问题。访问类型上不存在的字段会产生编译时错误，而不是运行时悄无声息的 `undefined`。
+
+### 自动补全与 IntelliSense
+
+类型定义为编辑器自动补全提供支撑。当你输入 `response.user.` 时，编辑器会显示每个可用字段及其类型。仅凭这一点，就能在处理陌生 API 时显著加速开发效率。
+
+### 始终准确的文档
+
+手写文档会随时间产生偏差。从真实 API 响应生成的类型定义能准确反映实际数据结构，而且每当 API 变化时，工具可以重新生成它们。
+
+### 重构信心
+
+当一个字段名需要在整个代码库中变更时，有类型的语言让你能自信地一次性完成重命名。没有类型的话，你只能靠 grep 然后祈祷。
+
+## JSON 转 TypeScript 接口
+
+TypeScript 接口天然映射到 JSON 对象。给定以下 API 响应：
+
+```json
+{
+  "id": 42,
+  "username": "alice",
+  "email": "alice@example.com",
+  "role": "admin",
+  "createdAt": "2024-01-15T09:30:00Z",
+  "profile": {
+    "displayName": "Alice Smith",
+    "avatarUrl": "https://cdn.example.com/avatars/42.png",
+    "bio": null
+  },
+  "tags": ["typescript", "open-source"]
+}
+```
+
+代码生成器会产出：
+
+```typescript
+export interface Profile {
+  displayName: string;
+  avatarUrl: string;
+  bio: string | null;
+}
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  createdAt: string;
+  profile: Profile;
+  tags: string[];
+}
+```
+
+嵌套对象变成各自命名的接口，数组变成类型化数组，`null` 值则产生与 `null` 的联合类型。
+
+### 优化生成的类型
+
+生成的类型只是起点。生成之后，考虑进行以下优化：
+
+- 将已知枚举值的 `string` 替换为字符串字面量联合类型：`role: "admin" | "editor" | "viewer"`
+- 为 ID 和日期使用品牌类型替代普通 `string`：`createdAt: ISODateString`
+- 添加描述字段语义的 JSDoc 注释
+- 对 API 可能省略的字段，用 `?` 显式标记为可选
+
+## JSON 转 Python 类型
+
+Python 对类型化 JSON 数据有两种主要方式：`dataclass` 和 `TypedDict`，各自适合不同的使用场景。
+
+### TypedDict
+
+`TypedDict` 是最轻量的选项。它描述普通字典的结构，无需实例化。适合接收后直接传递的数据：
+
+```python
+from typing import TypedDict
+
+class Profile(TypedDict):
+    displayName: str
+    avatarUrl: str
+    bio: str | None
+
+class User(TypedDict):
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+```
+
+你可以在任何期望 dict 的地方将 `User` 用作类型提示，mypy 和 pyright 等类型检查器会验证字段访问。
+
+### Dataclass
+
+`dataclass` 更适合需要方法或默认值的实例：
+
+```python
+from dataclasses import dataclass
+from typing import Optional
+
+@dataclass
+class Profile:
+    displayName: str
+    avatarUrl: str
+    bio: Optional[str]
+
+@dataclass
+class User:
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+```
+
+Dataclass 开箱即支持 `__post_init__` 用于验证、默认值，以及 `__eq__` / `__repr__`。反序列化时，可搭配 `dacite` 或 `cattrs` 等库使用。
+
+### Pydantic 模型
+
+对于有严格验证需求的 API，Pydantic 模型提供最完整的解决方案：
+
+```python
+from pydantic import BaseModel
+from typing import Optional
+
+class Profile(BaseModel):
+    displayName: str
+    avatarUrl: str
+    bio: Optional[str]
+
+class User(BaseModel):
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+
+# 直接从 dict 反序列化
+user = User(**response_json)
+```
+
+Pydantic 在实例化时验证字段类型，当数据不匹配时抛出详细的错误信息。
+
+## 嵌套对象与数组的类型推断
+
+优秀的代码生成器能自动处理复杂结构。
+
+### 嵌套对象
+
+每个嵌套对象都变成独立的命名类型。生成器从父键推断名称：
+
+```json
+{
+  "order": {
+    "lineItems": [
+      {
+        "productId": "SKU-001",
+        "quantity": 2,
+        "unitPrice": 9.99
+      }
+    ]
+  }
+}
+```
+
+生成结果：
+
+```typescript
+export interface LineItem {
+  productId: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+export interface Order {
+  lineItems: LineItem[];
+}
+
+export interface Root {
+  order: Order;
+}
+```
+
+### 混合类型数组
+
+当数组包含多种类型时，生成器产生联合类型：
+
+```json
+{ "values": [1, "two", true] }
+```
+
+```typescript
+interface Root {
+  values: (number | string | boolean)[];
+}
+```
+
+### 可选字段
+
+当某个字段在部分样本对象中存在而在其他样本中不存在时，优秀的生成器会将其标记为可选：
+
+```typescript
+interface Item {
+  id: number;
+  name: string;
+  description?: string; // 部分样本中不存在
+}
+```
+
+## 实战工作流：自动生成 API 响应类型
+
+一套可靠的类型化 API 集成工作流：
+
+<table>
+  <thead>
+    <tr>
+      <th>步骤</th>
+      <th>操作</th>
+      <th>工具</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>抓取真实的 API 响应样本</td>
+      <td>浏览器 DevTools、Postman、curl</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>从样本生成类型定义</td>
+      <td>JSONKit JSON to Code</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>审查并优化生成的类型</td>
+      <td>你的编辑器</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>将生成的类型添加到代码库</td>
+      <td>版本控制</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>API 变更时重新生成</td>
+      <td>JSONKit JSON to Code</td>
+    </tr>
+  </tbody>
+</table>
+
+对于处于活跃开发阶段的 API，每次重大 API 变更时都对最新样本运行生成器，并将输出结果与当前类型进行 diff 对比。这样能在破坏性变更影响你的应用代码之前就将其发现。
+
+### 多个样本
+
+如果你有来自同一接口的多个 JSON 样本——比如不同可选字段被填充的响应——对所有样本运行生成器并合并结果。所有观察到的字段的并集能给出最完整的类型定义。
+
+## 使用 JSONKit 的 JSON to Code 工具
+
+[JSONKit 的 JSON to Code 工具](https://jsonkit.org/json-to-code)一键将 JSON 样本转换为类型定义：
+
+- 粘贴任意 JSON 对象或数组
+- 选择目标语言和类型风格（TypeScript 接口、Python TypedDict、dataclass 或 Pydantic）
+- 即时获得自动处理嵌套结构的生成类型
+- 将输出直接复制到你的项目中
+
+该工具无需手动干预即可处理深层嵌套结构、对象数组、可空字段和混合类型数组。
+
+## 总结
+
+手动为 JSON API 编写类型定义既繁琐又容易出错。从真实响应样本自动生成更快、更准确，并能让类型与实际情况保持同步。无论你使用 TypeScript 还是 Python，生成的类型都能给你提供类型化语言的安全网，而无需承担手动维护定义的开销。生成一次，按需优化，API 演进时重新生成。

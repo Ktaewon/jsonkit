@@ -1,0 +1,330 @@
+# JSON에서 TypeScript/Python 타입 코드 자동 생성하기
+
+API 응답을 처음 다룰 때 가장 귀찮은 작업 중 하나가 타입 정의를 손으로 작성하는 일입니다. 필드가 수십 개인 응답 객체를 일일이 타이핑하다 보면 오탈자가 생기거나, 나중에 API가 바뀌어도 타입이 업데이트되지 않는 문제가 생깁니다. JSON으로부터 타입 코드를 자동 생성하면 이런 문제를 깔끔하게 해결할 수 있습니다.
+
+## 왜 타입 정의가 필요한가
+
+### 타입 안전성
+
+타입 없이 API 응답을 `any`로 받으면 잘못된 필드명 참조, 타입 불일치 등의 버그가 런타임에야 발견됩니다.
+
+```typescript
+// 타입 없이 사용 - 위험
+const data: any = await fetchUser();
+console.log(data.usr_name); // 오탈자인데 컴파일 에러 없음
+
+// 타입 정의 후 - 안전
+const data: User = await fetchUser();
+console.log(data.usr_name); // 컴파일 에러 즉시 발견
+```
+
+### 자동완성과 개발 생산성
+
+타입이 정의되어 있으면 에디터가 필드명을 자동완성해 줍니다. 문서를 따로 열어볼 필요 없이 객체 구조를 바로 확인할 수 있습니다.
+
+### 팀 협업
+
+타입 정의 파일은 API 계약의 역할을 합니다. 백엔드가 응답 구조를 바꾸면 프론트엔드 타입 파일을 업데이트해야 하므로, 변경 사항이 코드에 명시적으로 반영됩니다.
+
+## JSON → TypeScript interface 변환 원리
+
+변환 도구는 JSON 값을 분석해 각 필드의 타입을 추론합니다.
+
+<table>
+  <thead>
+    <tr>
+      <th>JSON 값 예시</th>
+      <th>추론되는 TypeScript 타입</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>"홍길동"</code>
+      </td>
+      <td>
+        <code>string</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>42</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>3.14</code>
+      </td>
+      <td>
+        <code>number</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>true</code>
+      </td>
+      <td>
+        <code>boolean</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>null</code>
+      </td>
+      <td>
+        <code>null</code> 또는 <code>T | null</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>["a", "b"]</code>
+      </td>
+      <td>
+        <code>string[]</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>
+          {'{'}...{'}'}
+        </code>
+      </td>
+      <td>
+        중첩 <code>interface</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+예를 들어 아래 JSON이 있을 때:
+
+```json
+{
+  "id": 1,
+  "name": "Alice",
+  "email": "alice@example.com",
+  "isPremium": true,
+  "score": 98.5,
+  "tags": ["admin", "editor"],
+  "address": {
+    "city": "Seoul",
+    "zipCode": "04524"
+  }
+}
+```
+
+자동 생성된 TypeScript 인터페이스는 다음과 같습니다:
+
+```typescript
+interface Address {
+  city: string;
+  zipCode: string;
+}
+
+interface RootObject {
+  id: number;
+  name: string;
+  email: string;
+  isPremium: boolean;
+  score: number;
+  tags: string[];
+  address: Address;
+}
+```
+
+## JSON → Python 타입 변환
+
+Python에서는 `dataclass`와 `TypedDict` 두 가지 방식이 주로 사용됩니다.
+
+### dataclass 방식
+
+```python
+from dataclasses import dataclass
+from typing import List
+
+@dataclass
+class Address:
+    city: str
+    zip_code: str
+
+@dataclass
+class RootObject:
+    id: int
+    name: str
+    email: str
+    is_premium: bool
+    score: float
+    tags: List[str]
+    address: Address
+```
+
+`dataclass`는 `__init__`, `__repr__`, `__eq__` 등을 자동 생성해 줘서 편리합니다.
+
+### TypedDict 방식
+
+```python
+from typing import TypedDict, List
+
+class Address(TypedDict):
+    city: str
+    zip_code: str
+
+class RootObject(TypedDict):
+    id: int
+    name: str
+    email: str
+    is_premium: bool
+    score: float
+    tags: List[str]
+    address: Address
+```
+
+`TypedDict`는 딕셔너리를 그대로 사용하면서 타입 힌트의 이점을 얻을 수 있습니다. `mypy`와 잘 통합됩니다.
+
+## 중첩 객체와 배열의 타입 추론
+
+### 중첩 객체
+
+변환 도구는 중첩 객체를 별도의 인터페이스/클래스로 추출합니다. 이름은 보통 부모 필드명을 파스칼케이스로 변환합니다.
+
+```json
+{
+  "user": {
+    "profile": {
+      "avatar": "https://..."
+    }
+  }
+}
+```
+
+```typescript
+interface Profile {
+  avatar: string;
+}
+
+interface User {
+  profile: Profile;
+}
+
+interface RootObject {
+  user: User;
+}
+```
+
+### 혼합 타입 배열
+
+배열 원소가 여러 타입이면 유니온 타입으로 표현합니다.
+
+```json
+{ "values": [1, "two", true] }
+```
+
+```typescript
+interface RootObject {
+  values: (number | string | boolean)[];
+}
+```
+
+### null 가능 필드
+
+값이 `null`이면 도구에 따라 `T | null` 또는 `Optional[T]`로 표현합니다.
+
+```json
+{ "deletedAt": null }
+```
+
+```typescript
+// TypeScript
+interface RootObject {
+  deletedAt: string | null;
+}
+```
+
+```python
+# Python
+from typing import Optional
+
+class RootObject(TypedDict):
+    deleted_at: Optional[str]
+```
+
+## CLI 도구로 자동화하기
+
+### quicktype
+
+가장 범용적인 JSON-to-types 도구입니다. TypeScript, Python, Go, Rust 등 20개 이상의 언어를 지원합니다.
+
+```bash
+# 설치
+npm install -g quicktype
+
+# JSON 파일에서 TypeScript 생성
+quicktype response.json -o types.ts --lang typescript
+
+# URL에서 직접 생성
+quicktype https://api.example.com/users/1 -o User.ts
+
+# Python dataclass 생성
+quicktype response.json -o models.py --lang python
+```
+
+### json-to-ts (Node.js)
+
+```bash
+npm install -g json-to-ts
+json-to-ts < response.json
+```
+
+## 실전 팁: API 응답 타입 자동 생성 워크플로우
+
+### 1단계: 응답 수집
+
+브라우저 개발자 도구 또는 Postman에서 API 응답을 복사합니다.
+
+### 2단계: 타입 생성
+
+JSONKit의 JSON to Code 도구에 붙여넣거나, `quicktype` CLI를 사용합니다.
+
+### 3단계: 타입 파일 저장
+
+```
+src/
+  types/
+    api/
+      user.ts       # User 관련 타입
+      product.ts    # Product 관련 타입
+      common.ts     # 공통 타입 (Pagination, Error 등)
+```
+
+### 4단계: API 호출 함수에 적용
+
+```typescript
+import { User } from '@/types/api/user';
+
+async function fetchUser(id: number): Promise<User> {
+  const res = await fetch(`/api/users/${id}`);
+  if (!res.ok) throw new Error('Failed to fetch user');
+  return res.json() as Promise<User>;
+}
+```
+
+### 5단계: API 변경 시 업데이트
+
+API 응답이 바뀌면 새 응답으로 타입을 재생성하고, 컴파일 에러가 나는 부분을 수정합니다. 변경 영향 범위가 즉시 파악됩니다.
+
+## 자동 생성의 한계와 주의사항
+
+- **샘플 데이터에 의존**: 생성 시점의 응답만 보므로, `null`일 수 있는 필드가 항상 값이 있으면 `| null`이 누락됩니다. 직접 검토가 필요합니다.
+- **의미적 타입 부재**: `"2024-01-01"` 같은 날짜 문자열은 `string`으로만 추론됩니다. `Date` 또는 커스텀 타입으로 수동 보완하세요.
+- **camelCase 변환**: Python은 snake_case 컨벤션이므로, 도구가 자동 변환하더라도 확인이 필요합니다.
+
+## JSONKit JSON to Code 도구 활용
+
+[JSONKit의 JSON to Code 도구](https://jsonkit.org)는 JSON을 붙여넣으면 TypeScript interface, Python dataclass/TypedDict를 즉시 생성합니다. 중첩 구조를 자동으로 분리하고, null 가능 필드를 별도 표시해 줍니다. 생성된 코드는 바로 복사해 프로젝트에 붙여넣을 수 있습니다.
+
+## 마무리
+
+JSON에서 타입 코드를 자동 생성하는 습관은 초기 설정 시간을 아주 조금 늘리지만, 이후 디버깅과 유지보수 비용을 크게 줄여줍니다. API 응답을 받을 때마다 타입을 생성하는 것을 팀 컨벤션으로 정해두면, 코드베이스 전체의 타입 안전성이 점진적으로 향상됩니다.

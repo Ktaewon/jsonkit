@@ -1,0 +1,283 @@
+# Auto-Generate TypeScript and Python Types from JSON
+
+Every time you consume a JSON API without type definitions, you are flying blind. Field names are strings, response shapes are undocumented in code, and typos only surface at runtime. Generating types directly from JSON samples eliminates this gap — you get accurate, immediately usable type definitions without writing them by hand.
+
+## Why Type Definitions Matter
+
+### Type Safety
+
+With typed API responses, your editor and compiler catch mismatches before the code runs. Accessing a field that does not exist on the type produces a compile-time error, not a silent `undefined` at runtime.
+
+### Autocomplete and IntelliSense
+
+Type definitions power editor autocomplete. When you type `response.user.`, your editor shows every available field with its type. This alone dramatically accelerates development on unfamiliar APIs.
+
+### Documentation That Stays Accurate
+
+Hand-written documentation drifts. Type definitions generated from real API responses accurately reflect the actual data structure, and tools can regenerate them whenever the API changes.
+
+### Refactoring Confidence
+
+When a field name changes across the entire codebase, a typed language lets you rename it everywhere with confidence. Without types, you grep and hope.
+
+## JSON to TypeScript Interface Conversion
+
+TypeScript interfaces map naturally onto JSON objects. Given this API response:
+
+```json
+{
+  "id": 42,
+  "username": "alice",
+  "email": "alice@example.com",
+  "role": "admin",
+  "createdAt": "2024-01-15T09:30:00Z",
+  "profile": {
+    "displayName": "Alice Smith",
+    "avatarUrl": "https://cdn.example.com/avatars/42.png",
+    "bio": null
+  },
+  "tags": ["typescript", "open-source"]
+}
+```
+
+A code generator produces:
+
+```typescript
+export interface Profile {
+  displayName: string;
+  avatarUrl: string;
+  bio: string | null;
+}
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  createdAt: string;
+  profile: Profile;
+  tags: string[];
+}
+```
+
+Nested objects become their own named interfaces, arrays become typed arrays, and `null` values produce union types with `null`.
+
+### Improving Generated Types
+
+Generated types are a starting point. After generation, consider refining:
+
+- Replace `string` with a string literal union for known enum values: `role: "admin" | "editor" | "viewer"`
+- Replace `string` with a branded type for IDs and dates: `createdAt: ISODateString`
+- Add JSDoc comments describing field semantics
+- Make optional fields explicit with `?` where the API may omit them
+
+## JSON to Python Type Conversion
+
+Python has two primary approaches for typed JSON data: `dataclass` and `TypedDict`. Each suits different use cases.
+
+### TypedDict
+
+`TypedDict` is the lightest option. It describes the shape of a plain dictionary without requiring instantiation. Ideal for data you receive and pass through:
+
+```python
+from typing import TypedDict
+
+class Profile(TypedDict):
+    displayName: str
+    avatarUrl: str
+    bio: str | None
+
+class User(TypedDict):
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+```
+
+You can use `User` as a type hint anywhere a dict is expected, and type checkers like mypy and pyright will validate field access.
+
+### Dataclass
+
+`dataclass` is better when you need instances with methods or default values:
+
+```python
+from dataclasses import dataclass
+from typing import Optional
+
+@dataclass
+class Profile:
+    displayName: str
+    avatarUrl: str
+    bio: Optional[str]
+
+@dataclass
+class User:
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+```
+
+Dataclasses support `__post_init__` for validation, default values, and `__eq__` / `__repr__` out of the box. For deserialization, pair them with a library like `dacite` or `cattrs`.
+
+### Pydantic Model
+
+For APIs with strict validation requirements, Pydantic models offer the most complete solution:
+
+```python
+from pydantic import BaseModel
+from typing import Optional
+
+class Profile(BaseModel):
+    displayName: str
+    avatarUrl: str
+    bio: Optional[str]
+
+class User(BaseModel):
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+
+# Deserialize directly from a dict
+user = User(**response_json)
+```
+
+Pydantic validates field types on instantiation and raises detailed errors when the data does not match.
+
+## Type Inference for Nested Objects and Arrays
+
+Good code generators handle complex structures automatically.
+
+### Nested Objects
+
+Each nested object becomes a separate named type. The generator infers names from the parent key:
+
+```json
+{
+  "order": {
+    "lineItems": [
+      {
+        "productId": "SKU-001",
+        "quantity": 2,
+        "unitPrice": 9.99
+      }
+    ]
+  }
+}
+```
+
+Generated output:
+
+```typescript
+export interface LineItem {
+  productId: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+export interface Order {
+  lineItems: LineItem[];
+}
+
+export interface Root {
+  order: Order;
+}
+```
+
+### Arrays of Mixed Types
+
+When an array contains multiple types, generators produce a union:
+
+```json
+{ "values": [1, "two", true] }
+```
+
+```typescript
+interface Root {
+  values: (number | string | boolean)[];
+}
+```
+
+### Optional Fields
+
+When a field is present in some sample objects but absent in others, a good generator marks it optional:
+
+```typescript
+interface Item {
+  id: number;
+  name: string;
+  description?: string; // absent in some samples
+}
+```
+
+## Practical Workflow: Auto-Generating API Response Types
+
+A reliable workflow for typed API integration:
+
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Action</th>
+      <th>Tool</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Capture a real API response sample</td>
+      <td>Browser DevTools, Postman, curl</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Generate type definitions from the sample</td>
+      <td>JSONKit JSON to Code</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Review and refine the generated types</td>
+      <td>Your editor</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Add generated types to your codebase</td>
+      <td>Version control</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Regenerate when the API changes</td>
+      <td>JSONKit JSON to Code</td>
+    </tr>
+  </tbody>
+</table>
+
+For APIs under active development, run the generator against the latest sample on each significant API change and diff the output against your current types. This surfaces breaking changes before they reach your application code.
+
+### Multiple Samples
+
+If you have multiple JSON samples from the same endpoint — say, responses with different optional fields populated — run the generator against all of them and merge the results. The union of all observed fields gives the most complete type definition.
+
+## Using JSONKit's JSON to Code Tool
+
+[JSONKit's JSON to Code tool](https://jsonkit.org/json-to-code) converts JSON samples into type definitions with a single click:
+
+- Paste any JSON object or array
+- Select the target language and type style (TypeScript interface, Python TypedDict, dataclass, or Pydantic)
+- Get instant generated types with nested structures handled automatically
+- Copy the output directly into your project
+
+The tool handles deeply nested structures, arrays of objects, nullable fields, and mixed-type arrays without manual intervention.
+
+## Conclusion
+
+Manually writing type definitions for JSON APIs is tedious and error-prone. Auto-generation from real response samples is faster, more accurate, and keeps your types in sync with reality. Whether you are working in TypeScript or Python, generated types give you the safety net of a typed language without the overhead of maintaining definitions by hand. Generate once, refine as needed, and regenerate when the API evolves.

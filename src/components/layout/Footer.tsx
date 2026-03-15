@@ -34,6 +34,12 @@ export function Footer() {
         </div>
         <div className="flex items-center gap-4">
           <Link
+            href="/blog"
+            className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
+          >
+            {t('blog')}
+          </Link>
+          <Link
             href="/privacy"
             className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
           >
