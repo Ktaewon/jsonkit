@@ -13,8 +13,9 @@ export default async function BlogPostPage({
 }) {
   const { locale, slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post || !post.locales.includes(locale)) notFound();
+  if (!post) notFound();
 
+  const contentLocale = post.locales.includes(locale) ? locale : 'en';
   const t = await getTranslations({ locale, namespace: 'Blog' });
 
   return (
@@ -29,7 +30,7 @@ export default async function BlogPostPage({
       <div className="flex gap-8">
         <div className="min-w-0 flex-1">
           <article className="prose prose-neutral dark:prose-invert max-w-none">
-            <BlogPostContent slug={slug} locale={locale} />
+            <BlogPostContent slug={slug} locale={contentLocale} />
           </article>
           <div className="mt-12 pt-6 border-t">
             <Link
