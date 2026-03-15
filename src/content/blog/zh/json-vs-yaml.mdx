@@ -1,0 +1,197 @@
+# JSON与YAML完全比较指南
+
+作为开发者，你每天都会遇到JSON和YAML。Docker Compose使用YAML，API响应使用JSON。这两种格式各有什么优缺点，应该在什么时候选择哪种格式？本指南提供详细比较。
+
+## 语法对比
+
+让我们用JSON和YAML分别表示相同的数据。
+
+### JSON
+
+```json
+{
+  "server": {
+    "host": "localhost",
+    "port": 8080,
+    "debug": true,
+    "databases": ["postgres", "redis"],
+    "cors": {
+      "origins": ["https://example.com"],
+      "credentials": true
+    }
+  }
+}
+```
+
+### YAML
+
+```yaml
+server:
+  host: localhost
+  port: 8080
+  debug: true
+  databases:
+    - postgres
+    - redis
+  cors:
+    origins:
+      - https://example.com
+    credentials: true
+```
+
+## 主要区别
+
+<table>
+  <thead>
+    <tr>
+      <th>特性</th>
+      <th>JSON</th>
+      <th>YAML</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>可读性</td>
+      <td>良好</td>
+      <td>优秀</td>
+    </tr>
+    <tr>
+      <td>注释</td>
+      <td>不支持</td>
+      <td>
+        支持 <code>#</code> 注释
+      </td>
+    </tr>
+    <tr>
+      <td>文件大小</td>
+      <td>较大（括号、引号）</td>
+      <td>较小</td>
+    </tr>
+    <tr>
+      <td>解析速度</td>
+      <td>快</td>
+      <td>相对较慢</td>
+    </tr>
+    <tr>
+      <td>数据类型</td>
+      <td>6种类型</td>
+      <td>更多（日期、二进制等）</td>
+    </tr>
+    <tr>
+      <td>缩进</td>
+      <td>不影响结构</td>
+      <td>定义结构</td>
+    </tr>
+    <tr>
+      <td>标准</td>
+      <td>RFC 8259</td>
+      <td>YAML 1.2</td>
+    </tr>
+  </tbody>
+</table>
+
+## JSON的优势
+
+### 1. 通用兼容性
+
+几乎每种编程语言都内置了JSON解析器。浏览器原生提供 `JSON.parse()` 和 `JSON.stringify()`，无需任何额外库。
+
+### 2. 解析性能
+
+JSON的简单语法使其解析速度很快。在处理大型数据集时具有明显优势。
+
+### 3. 严格语法
+
+严格的语法使解析错误易于检测，不存在模糊解释的空间。
+
+### 4. API标准
+
+大多数Web API（REST、GraphQL）默认使用JSON格式。
+
+## YAML的优势
+
+### 1. 可读性
+
+基于缩进的结构非常便于人类阅读，特别适合配置文件。
+
+### 2. 注释支持
+
+可以使用 `#` 符号编写注释，为配置文件添加说明。
+
+```yaml
+# 数据库配置
+database:
+  host: localhost # 开发环境
+  port: 5432
+```
+
+### 3. 多行字符串
+
+长文本可以写得很清晰。
+
+```yaml
+description: |
+  这是一段很长的描述
+  跨越多行。
+  换行符会被保留。
+```
+
+### 4. 锚点与别名
+
+可以通过引用来复用重复的值。
+
+```yaml
+defaults: &defaults
+  timeout: 30
+  retries: 3
+
+development:
+  <<: *defaults
+  debug: true
+
+production:
+  <<: *defaults
+  debug: false
+```
+
+## 如何选择格式？
+
+### 选择JSON的情况：
+
+- **API通信**：客户端与服务器之间的数据交换
+- **浏览器环境**：在Web前端处理数据
+- **程序化数据**：由代码直接生成/消费的数据
+- **性能敏感**：需要快速解析大型数据集
+
+### 选择YAML的情况：
+
+- **配置文件**：Docker Compose、Kubernetes、GitHub Actions
+- **人工编辑的文件**：注释和可读性很重要时
+- **CI/CD流水线**：工作流定义
+- **需要文档说明的配置**：每个选项都需要解释时
+
+## YAML的陷阱
+
+### 缩进错误
+
+最常见的YAML错误。始终使用空格，不要使用Tab。
+
+### 隐式类型转换
+
+YAML会自动将 `yes`、`no`、`on`、`off` 转换为布尔值。字符串值需要加引号。
+
+```yaml
+# 警告：country会变成布尔值 true
+country: NO
+
+# 正确做法
+country: "NO"
+```
+
+### 安全问题
+
+某些YAML实现可能存在任意代码执行漏洞。处理不受信任的YAML输入时，始终使用安全加载器。
+
+## 结语
+
+JSON和YAML是互补的格式，而非竞争关系。根据使用场景合理选择，需要在两种格式之间转换时，使用JSONKit的转换工具可以即时完成。

@@ -1,0 +1,283 @@
+# JSONからTypeScript・Python型を自動生成する
+
+型定義なしでJSON APIを利用するたびに、あなたは手探りで作業しています。フィールド名は文字列で、レスポンスの形はコード上でドキュメント化されておらず、タイポは実行時にしか現れません。JSONサンプルから型を直接生成することでこのギャップを埋められます。手書きなしで、正確ですぐに使える型定義が手に入ります。
+
+## 型定義が重要な理由
+
+### 型安全性
+
+型付きAPIレスポンスがあれば、エディタとコンパイラがコードの実行前に不一致を検出します。型に存在しないフィールドへのアクセスは、実行時のサイレントな`undefined`ではなくコンパイルエラーになります。
+
+### オートコンプリートとIntelliSense
+
+型定義はエディタのオートコンプリートを支えます。`response.user.`と入力すると、エディタが利用可能なすべてのフィールドとその型を表示します。これだけで、慣れていないAPIでの開発速度が劇的に向上します。
+
+### 常に正確なドキュメント
+
+手書きのドキュメントはズレていきます。実際のAPIレスポンスから生成された型定義は実際のデータ構造を正確に反映し、APIが変わるたびにツールで再生成できます。
+
+### リファクタリングへの自信
+
+コードベース全体でフィールド名が変わったとき、型付き言語なら自信を持ってすべての箇所を一括リネームできます。型がなければ、grepして願うしかありません。
+
+## JSONからTypeScriptインターフェースへの変換
+
+TypeScriptのインターフェースはJSONオブジェクトに自然にマッピングされます。次のAPIレスポンスを例に取ります。
+
+```json
+{
+  "id": 42,
+  "username": "alice",
+  "email": "alice@example.com",
+  "role": "admin",
+  "createdAt": "2024-01-15T09:30:00Z",
+  "profile": {
+    "displayName": "Alice Smith",
+    "avatarUrl": "https://cdn.example.com/avatars/42.png",
+    "bio": null
+  },
+  "tags": ["typescript", "open-source"]
+}
+```
+
+コードジェネレーターは次のコードを生成します。
+
+```typescript
+export interface Profile {
+  displayName: string;
+  avatarUrl: string;
+  bio: string | null;
+}
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  createdAt: string;
+  profile: Profile;
+  tags: string[];
+}
+```
+
+ネストされたオブジェクトはそれぞれ独自の名前付きインターフェースになり、配列は型付き配列になり、`null`値は`null`とのユニオン型になります。
+
+### 生成された型の改善
+
+生成された型はあくまで出発点です。生成後は以下の改善を検討してください。
+
+- 既知のenum値には`string`をstring literalユニオンに置き換える：`role: "admin" | "editor" | "viewer"`
+- IDや日付にはブランド型を使う：`createdAt: ISODateString`
+- フィールドのセマンティクスを説明するJSDocコメントを追加する
+- APIが省略することがある省略可能なフィールドには`?`を明示する
+
+## JSONからPython型への変換
+
+Pythonには型付きJSONデータを扱う主なアプローチが2つあります：`dataclass`と`TypedDict`です。それぞれ異なるユースケースに適しています。
+
+### TypedDict
+
+`TypedDict`は最も軽量なオプションです。インスタンス化を必要とせずに、プレーンな辞書の形を記述します。受け取ってそのまま渡すデータに最適です。
+
+```python
+from typing import TypedDict
+
+class Profile(TypedDict):
+    displayName: str
+    avatarUrl: str
+    bio: str | None
+
+class User(TypedDict):
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+```
+
+`User`をdictが期待される場所での型ヒントとして使用でき、mypyやpyrightのような型チェッカーがフィールドアクセスをバリデーションします。
+
+### Dataclass
+
+`dataclass`はメソッドやデフォルト値を持つインスタンスが必要な場合に適しています。
+
+```python
+from dataclasses import dataclass
+from typing import Optional
+
+@dataclass
+class Profile:
+    displayName: str
+    avatarUrl: str
+    bio: Optional[str]
+
+@dataclass
+class User:
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+```
+
+データクラスはバリデーション用の`__post_init__`、デフォルト値、`__eq__`/`__repr__`をすぐに使えます。デシリアライゼーションには`dacite`や`cattrs`などのライブラリと組み合わせます。
+
+### Pydanticモデル
+
+厳格なバリデーション要件を持つAPIには、Pydanticモデルが最も完全なソリューションを提供します。
+
+```python
+from pydantic import BaseModel
+from typing import Optional
+
+class Profile(BaseModel):
+    displayName: str
+    avatarUrl: str
+    bio: Optional[str]
+
+class User(BaseModel):
+    id: int
+    username: str
+    email: str
+    role: str
+    createdAt: str
+    profile: Profile
+    tags: list[str]
+
+# dictから直接デシリアライズ
+user = User(**response_json)
+```
+
+Pydanticはインスタンス化時にフィールド型をバリデーションし、データが一致しない場合は詳細なエラーを発生させます。
+
+## ネストされたオブジェクトと配列の型推論
+
+優れたコードジェネレーターは複雑な構造を自動で処理します。
+
+### ネストされたオブジェクト
+
+各ネストされたオブジェクトは別個の名前付き型になります。ジェネレーターは親キーから名前を推論します。
+
+```json
+{
+  "order": {
+    "lineItems": [
+      {
+        "productId": "SKU-001",
+        "quantity": 2,
+        "unitPrice": 9.99
+      }
+    ]
+  }
+}
+```
+
+生成される出力：
+
+```typescript
+export interface LineItem {
+  productId: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+export interface Order {
+  lineItems: LineItem[];
+}
+
+export interface Root {
+  order: Order;
+}
+```
+
+### 混合型の配列
+
+配列に複数の型が含まれる場合、ジェネレーターはユニオン型を生成します。
+
+```json
+{ "values": [1, "two", true] }
+```
+
+```typescript
+interface Root {
+  values: (number | string | boolean)[];
+}
+```
+
+### 省略可能なフィールド
+
+フィールドがサンプルオブジェクトの一部には存在するが他には存在しない場合、優れたジェネレーターはそれをオプショナルとしてマークします。
+
+```typescript
+interface Item {
+  id: number;
+  name: string;
+  description?: string; // 一部のサンプルには存在しない
+}
+```
+
+## 実践的なワークフロー：APIレスポンス型の自動生成
+
+型付きAPI統合のための信頼性の高いワークフローです。
+
+<table>
+  <thead>
+    <tr>
+      <th>ステップ</th>
+      <th>アクション</th>
+      <th>ツール</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>実際のAPIレスポンスのサンプルを取得する</td>
+      <td>ブラウザのDevTools、Postman、curl</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>サンプルから型定義を生成する</td>
+      <td>JSONKit JSON to Code</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>生成された型をレビューして改善する</td>
+      <td>エディタ</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>生成した型をコードベースに追加する</td>
+      <td>バージョン管理</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>APIが変わったら再生成する</td>
+      <td>JSONKit JSON to Code</td>
+    </tr>
+  </tbody>
+</table>
+
+活発に開発中のAPIに対しては、APIに重要な変更があるたびに最新のサンプルに対してジェネレーターを実行し、その出力を現在の型と差分比較しましょう。これにより、破壊的変更がアプリケーションコードに届く前に検出できます。
+
+### 複数のサンプル
+
+同じエンドポイントから複数のJSONサンプルがある場合（例えば、異なる省略可能フィールドが含まれるレスポンスなど）、すべてに対してジェネレーターを実行して結果をマージしましょう。観察されたすべてのフィールドの和集合が最も完全な型定義を提供します。
+
+## JSONKitのJSON to Codeツールを使う
+
+[JSONKitのJSON to Codeツール](https://jsonkit.org/json-to-code)はワンクリックでJSONサンプルを型定義に変換します。
+
+- 任意のJSONオブジェクトまたは配列を貼り付ける
+- ターゲット言語と型スタイルを選択（TypeScriptインターフェース、Python TypedDict、dataclass、またはPydantic）
+- ネスト構造が自動処理された型定義が即座に生成される
+- 出力をそのままプロジェクトにコピーする
+
+このツールは深くネストされた構造、オブジェクトの配列、nullable なフィールド、混合型の配列を手動操作なしで処理します。
+
+## まとめ
+
+JSON APIの型定義を手書きするのは手間がかかり、エラーも起きやすいです。実際のレスポンスサンプルからの自動生成はより速く、より正確で、型を現実と同期した状態に保ちます。TypeScriptでもPythonでも、生成された型は定義を手動でメンテナンスするオーバーヘッドなしに、型付き言語の安全網を提供します。一度生成して、必要に応じて改善し、APIが進化したら再生成しましょう。

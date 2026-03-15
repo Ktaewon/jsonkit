@@ -1,0 +1,303 @@
+# JSON Schema入門：データ構造の定義とバリデーション
+
+JSONは本質的に柔軟です。どのキーにどんな値でも入れられ、構造を強制する仕組みが組み込まれていません。この柔軟性はプロトタイピングには便利ですが、特定のフィールド・型・制約を期待する本番システムでは危険です。JSON Schemaは、有効なJSONの形を宣言的な言語で記述することでこの問題を解決します。
+
+## JSON Schemaとは？
+
+JSON Schemaは、JSONドキュメントにアノテーションを付けてバリデーションするためのボキャブラリです。スキーマ自体もJSONで書かれているため、読み書きしやすく、ツールチェインへの組み込みも容易です。現在の安定した仕様はDraft 2020-12で、[json-schema.org](https://json-schema.org)でメンテナンスされています。
+
+スキーマはJSON値の期待される形を記述します。バリデーターはスキーマを使って、指定されたドキュメントが準拠しているかを確認し、準拠していない場合はどの制約がどこで違反されたかを正確に報告します。
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "integer", "minimum": 0 }
+  },
+  "required": ["name"]
+}
+```
+
+このスキーマは、`name`という文字列フィールドを持つすべてのオブジェクトを受け入れます。`age`フィールドは省略可能ですが、存在する場合は非負の整数でなければなりません。
+
+## 基本的な型定義
+
+JSON SchemaはJSONの6つのネイティブ型に直接対応しています。
+
+### string
+
+```json
+{ "type": "string" }
+```
+
+任意のJSON文字列値にマッチします。最小・最大長の制約を追加できます。
+
+```json
+{
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 100
+}
+```
+
+### numberとinteger
+
+```json
+{ "type": "number" }
+{ "type": "integer" }
+```
+
+`number`は整数と浮動小数点数の両方を受け入れます。`integer`は整数のみを受け入れます。`minimum`、`maximum`、`exclusiveMinimum`、`exclusiveMaximum`で範囲制約を追加できます。
+
+```json
+{
+  "type": "number",
+  "minimum": 0,
+  "maximum": 1
+}
+```
+
+### boolean
+
+```json
+{ "type": "boolean" }
+```
+
+`true`または`false`のみにマッチします。
+
+### null
+
+```json
+{ "type": "null" }
+```
+
+JSONの`null`値のみにマッチします。配列を使って別の型と組み合わせることが多いです。
+
+```json
+{ "type": ["string", "null"] }
+```
+
+### object
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "email": { "type": "string" }
+  }
+}
+```
+
+`properties`キーワードは名前付きフィールドを定義します。デフォルトではすべてのプロパティは省略可能です。
+
+### array
+
+```json
+{
+  "type": "array",
+  "items": { "type": "string" }
+}
+```
+
+`items`キーワードはすべての要素の型を制約します。`minItems`と`maxItems`で長さを制御できます。
+
+## 必須フィールドと省略可能フィールド
+
+オブジェクトスキーマのすべてのプロパティはデフォルトで省略可能です。`required`キーワードを使って存在を強制します。
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "username": { "type": "string" },
+    "email": { "type": "string" },
+    "bio": { "type": "string" }
+  },
+  "required": ["username", "email"]
+}
+```
+
+ここでは`username`と`email`が必須です。`bio`は省略可能です。`required`は`properties`の中ではなく、その兄弟として配置することに注意してください。
+
+未知のプロパティを完全に禁止するには、`"additionalProperties": false`を追加します。
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer" },
+    "name": { "type": "string" }
+  },
+  "required": ["id", "name"],
+  "additionalProperties": false
+}
+```
+
+## 高度な機能
+
+### enum
+
+値を固定された許可オプションのセットに制限します。
+
+```json
+{
+  "type": "string",
+  "enum": ["draft", "published", "archived"]
+}
+```
+
+`enum`は型をまたいで機能します。同じリストに任意のJSON型の特定の値を列挙できます。
+
+### pattern
+
+正規表現で文字列をバリデーションします。
+
+```json
+{
+  "type": "string",
+  "pattern": "^[a-z0-9_-]{3,30}$"
+}
+```
+
+スラッグ、ユーザー名、識別子、予測可能なフォーマットを持つ任意の文字列に便利です。
+
+### format
+
+一般的な文字列フォーマットのセマンティックバリデーションを提供します。
+
+```json
+{ "type": "string", "format": "email" }
+{ "type": "string", "format": "date" }
+{ "type": "string", "format": "uri" }
+{ "type": "string", "format": "uuid" }
+```
+
+注意：`format`バリデーションは仕様ではオプションです。デフォルトで強制するバリデーターもあれば、明示的な設定が必要なものもあります。
+
+### minimumとmaximum
+
+数値について説明しましたが、`integer`にも適用されることは特筆に値します。
+
+```json
+{
+  "type": "integer",
+  "minimum": 1,
+  "maximum": 100
+}
+```
+
+### $refとスキーマ合成
+
+`$ref`は別のスキーマ定義を参照でき、再利用と重複回避を可能にします。
+
+```json
+{
+  "$defs": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "country": { "type": "string" }
+      },
+      "required": ["street", "city", "country"]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "billing": { "$ref": "#/$defs/address" },
+    "shipping": { "$ref": "#/$defs/address" }
+  }
+}
+```
+
+スキーマの合成には`allOf`、`anyOf`、`oneOf`、`not`を使用します。
+
+<table>
+  <thead>
+    <tr>
+      <th>キーワード</th>
+      <th>意味</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>allOf</code>
+      </td>
+      <td>列挙されたすべてのスキーマに対して有効でなければならない</td>
+    </tr>
+    <tr>
+      <td>
+        <code>anyOf</code>
+      </td>
+      <td>少なくとも1つのスキーマに対して有効でなければならない</td>
+    </tr>
+    <tr>
+      <td>
+        <code>oneOf</code>
+      </td>
+      <td>正確に1つのスキーマに対して有効でなければならない</td>
+    </tr>
+    <tr>
+      <td>
+        <code>not</code>
+      </td>
+      <td>指定されたスキーマに対して有効であってはならない</td>
+    </tr>
+  </tbody>
+</table>
+
+## 実践的な活用方法
+
+### APIドキュメント
+
+JSON SchemaはOpenAPI（旧Swagger）の基盤です。OpenAPI仕様のすべてのリクエストボディとレスポンスボディはJSON Schemaで記述されます。スキーマを書くことで暗黙的な前提を明示化でき、ドキュメントの品質とクライアントコードの信頼性が向上します。
+
+### フォーム生成
+
+`react-jsonschema-form`や`jsonforms`などのライブラリはJSON Schemaを読み込み、組み込みバリデーション付きのフォームUIを自動生成します。1つのスキーマ定義がバックエンドのバリデーションとフロントエンドのレンダリング両方を駆動します。
+
+### コードでのデータバリデーション
+
+ほとんどの言語に成熟したJSON Schemaバリデーターライブラリがあります。
+
+```javascript
+// JavaScript — ajv
+import Ajv from 'ajv';
+const ajv = new Ajv();
+const validate = ajv.compile(schema);
+const valid = validate(data);
+if (!valid) console.log(validate.errors);
+```
+
+```python
+# Python — jsonschema
+from jsonschema import validate, ValidationError
+try:
+    validate(instance=data, schema=schema)
+except ValidationError as e:
+    print(e.message)
+```
+
+### CIパイプラインでのバリデーション
+
+コミットフックやCIステップでJSONの設定ファイルをスキーマに対して自動バリデーションすることで、構造的なエラーが本番に届く前に検出できます。
+
+## JSONKitのスキーマツールを使う
+
+[JSONKitのSchemaツール](https://jsonkit.org/schema)はJSON Schemaを操作するためのインタラクティブな環境を提供します。
+
+- JSONスキーマとJSONドキュメントを並べて貼り付け
+- バリデーションを即座に実行し、フィールドごとのエラーメッセージを確認
+- 既存のJSONドキュメントからスターターとなるスキーマを生成
+- `allOf`、`anyOf`、`$ref`を使ったスキーマ合成を探索
+
+JSONからスキーマを生成する機能は、既存のデータセットがあってそれを記述するスキーマを素早く作りたい場合に特に便利です。
+
+## まとめ
+
+JSON Schemaは、コンパイル手順や特定のプログラミング言語を必要とせずに、JSONデータに型安全性と構造的な契約をもたらします。サービス間、チーム間、フロントエンドとバックエンドの間というプロトコルレベルで機能するため、開発者のデータバリデーションツールキットの中で最も広く適用できるツールの1つです。まずシンプルな型定義と必須フィールドから始め、データモデルが成熟するにつれて`pattern`、`enum`、`$ref`などの制約を重ねていきましょう。

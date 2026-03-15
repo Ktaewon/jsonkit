@@ -1,0 +1,269 @@
+# JSON转义完全指南
+
+转义是每个开发者迟早都会遇到的话题，通常是在某些东西以令人沮丧且不明显的方式出错时。一个看起来正确的JSON字符串被解析器拒绝；一个应该包含换行符的字符串却显示了字面量 `\n`；一个正确存储的值在经过API往返后变得乱码。这几乎都可以追溯到转义问题。本指南解释转义存在的原因、哪些字符需要转义，以及如何在不同语言和场景中正确处理转义。
+
+## 为什么需要转义
+
+JSON字符串以双引号字符作为分隔符。这立即带来一个问题：如果字符串本身包含双引号怎么办？如果不转义，解析器会将内部双引号解释为字符串的结束。
+
+```json
+// 无效 — 内部引号提前结束了字符串
+{ "message": "She said "hello" and left" }
+
+// 有效 — 内部引号已转义
+{ "message": "She said \"hello\" and left" }
+```
+
+除了双引号，其他字符也需要出于结构或安全原因进行转义：
+
+- **控制字符**，如换行符、制表符和回车符，会破坏JSON值的单行表示
+- **反斜杠本身**是转义字符，因此字面量反斜杠必须转义，以区别于转义序列
+- **非ASCII Unicode字符**可以被转义，以确保在可能无法正确处理Unicode的系统中安全传输
+
+## JSON转义序列参考
+
+<table>
+  <thead>
+    <tr>
+      <th>转义序列</th>
+      <th>字符</th>
+      <th>Unicode码点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>\"</code>
+      </td>
+      <td>双引号</td>
+      <td>U+0022</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\\</code>
+      </td>
+      <td>反斜杠</td>
+      <td>U+005C</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\/</code>
+      </td>
+      <td>正斜杠（可选）</td>
+      <td>U+002F</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\b</code>
+      </td>
+      <td>退格符</td>
+      <td>U+0008</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\f</code>
+      </td>
+      <td>换页符</td>
+      <td>U+000C</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\n</code>
+      </td>
+      <td>换行符（line feed）</td>
+      <td>U+000A</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\r</code>
+      </td>
+      <td>回车符</td>
+      <td>U+000D</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\t</code>
+      </td>
+      <td>水平制表符</td>
+      <td>U+0009</td>
+    </tr>
+    <tr>
+      <td>
+        <code>\uXXXX</code>
+      </td>
+      <td>Unicode字符（4位十六进制数字）</td>
+      <td>任意BMP码点</td>
+    </tr>
+  </tbody>
+</table>
+
+注意，正斜杠（`/`）是可选转义的——`\/` 和 `/` 在JSON中都有效。这出于历史原因，与在HTML的 `<script>` 标签内嵌入JSON有关，在那里 `</` 会结束脚本块。
+
+## Unicode转义
+
+JSON中任何Unicode字符都可以使用 `\uXXXX` 转义序列表示，其中 `XXXX` 是四位十六进制码点。
+
+```json
+{
+  "greeting": "\u0048\u0065\u006C\u006C\u006F",
+  "copyright": "\u00A9 2024",
+  "checkmark": "\u2713"
+}
+```
+
+解析后，`"\u0048\u0065\u006C\u006C\u006F"` 变为字符串 `"Hello"`。当你需要确保JSON文档只包含ASCII字符，以便在可能损坏高字节字符的系统中传输时，Unicode转义非常有用。
+
+### 超出U+FFFF字符的代理对
+
+基本多文种平面（BMP）之外的字符（码点超过U+FFFF）——如表情符号和生僻汉字——在JSON的 `\uXXXX` 表示法中需要代理对。
+
+```json
+{
+  "emoji": "\uD83D\uDE00"
+}
+```
+
+两个 `\u` 序列合在一起表示单个字符 `😀`（U+1F600）。大多数JSON序列化器会自动处理这个问题，但如果你手动构建JSON，需要注意一个高码点字符需要两个 `\u` 转义序列。
+
+现代JSON解析器也接受字符串中直接嵌入的原始UTF-8编码字符，所以只要文件是UTF-8编码，`"emoji": "😀"` 就是有效的JSON。
+
+## 常见转义陷阱
+
+### 双重转义
+
+双重转义发生在你对已经转义的字符串再次转义，或者在系统的多个层次上应用转义时。典型例子是在JSON字符串字段内存储JSON。
+
+```json
+// 外层JSON中有一个值本身是JSON字符串
+{
+  "payload": "{\"key\": \"value\"}"
+}
+```
+
+如果接收此值的系统在存储前再次尝试转义，反斜杠就会被转义：
+
+```json
+{
+  "payload": "{\\\"key\\\": \\\"value\\\"}"
+}
+```
+
+经过两轮反转义后你能得到原始值，但经过一轮后会得到一个损坏的字符串。解决方法是在恰好一个层次转义，在恰好一个层次反转义。永远不要对已经转义的值再次转义。
+
+### 混淆JSON转义与URL编码
+
+JSON转义和URL（百分比）编码是完全不同的机制。空格在URL中是 `%20`，在JSON字符串中是 `" "`（无需转义）。正斜杠在URL路径段中是 `%2F`，在JSON中是 `/`（或可选的 `\/`）。
+
+在嵌入JSON之前对值进行URL编码会产生双重编码的乱码：
+
+```javascript
+// 错误：在JSON序列化前对值进行URL编码
+const value = 'hello world';
+const wrong = JSON.stringify(encodeURIComponent(value));
+// 结果："\"hello%20world\"" — %20在JSON中是字面量文本
+
+// 正确：让JSON.stringify处理转义
+const correct = JSON.stringify(value);
+// 结果："\"hello world\"" — 空格在JSON字符串中是合法的
+```
+
+### 未转义的控制字符
+
+JSON要求控制字符（U+0000到U+001F）必须被转义。直接嵌入JSON字符串中的原始换行符或制表符在技术上是无效的，尽管某些解析器会容忍这种情况。
+
+```json
+// 无效 — 字符串值中包含原始换行符
+{ "note": "第一行
+第二行" }
+
+// 有效 — 已转义的换行符
+{ "note": "第一行\n第二行" }
+```
+
+## 各语言的转义处理
+
+### JavaScript
+
+JavaScript的 `JSON.stringify()` 自动处理所有必要的转义。永远不要在JavaScript中手动构建JSON字符串。
+
+```javascript
+const data = {
+  message: 'She said "hello"',
+  path: 'C:\\Users\\alice',
+  multiline: 'line one\nline two',
+};
+
+const json = JSON.stringify(data, null, 2);
+// 自动生成正确转义的JSON
+```
+
+`JSON.parse()` 同样自动反转义：
+
+```javascript
+const parsed = JSON.parse('{"path": "C:\\\\Users\\\\alice"}');
+console.log(parsed.path); // C:\Users\alice
+```
+
+注意JavaScript字符串字面量本身的额外转义层：`"\\\\"` 是一个包含两个反斜杠的四字符JavaScript字符串，代表JSON中一个已转义的反斜杠，解析后得到单个反斜杠。
+
+### Python
+
+Python的 `json` 模块工作方式相同——使用 `json.dumps()` 和 `json.loads()`，永远不要手动构建JSON。
+
+```python
+import json
+
+data = {
+    "message": 'She said "hello"',
+    "path": r"C:\Users\alice",
+    "multiline": "line one\nline two"
+}
+
+json_string = json.dumps(data, ensure_ascii=False)
+# ensure_ascii=False保留Unicode字符原样，而非
+# 将其转义为\uXXXX序列
+```
+
+```python
+# 反转义
+parsed = json.loads('{"path": "C:\\\\Users\\\\alice"}')
+print(parsed["path"])  # C:\Users\alice
+```
+
+`ensure_ascii=False` 参数值得了解：默认情况下，Python的 `json.dumps()` 会将所有非ASCII字符转义为 `\uXXXX` 序列。如果你确定目标系统能处理UTF-8，设置 `ensure_ascii=False` 会产生更可读的输出。
+
+### 模板字符串中的转义
+
+在HTML、SQL或Shell脚本中嵌入JSON时，需要同时为JSON和外层上下文进行转义。最安全的方法是使用外层语言的转义机制处理已序列化的JSON：
+
+```javascript
+// 在HTML数据属性中嵌入JSON
+const jsonValue = JSON.stringify({ key: 'value with "quotes"' });
+const htmlAttribute = `data-config="${jsonValue.replace(/"/g, '&quot;')}"`;
+```
+
+## 实用转义技巧
+
+1. **始终使用库序列化器** — 永远不要通过字符串拼接构建JSON。所有主流语言都有标准JSON库，能正确处理转义。
+
+2. **检查编码层次** — 当一个值看起来被双重转义时，追踪每个序列化和反序列化层次，找出哪里进行了多次转义。
+
+3. **路径使用原始字符串字面量** — 在Python中，使用原始字符串（`r"C:\Users\alice"`）或正斜杠（`"C:/Users/alice"`），避免Windows路径中意外产生转义序列。
+
+4. **手动构建后进行验证** — 如果必须手动构建JSON（例如在Shell脚本中），在使用前先用解析器验证结果。
+
+5. **明确指定编码** — 序列化到文件时，明确指定UTF-8编码，而不是依赖系统默认值，以确保Unicode字符被一致处理。
+
+## 使用转义/反转义工具
+
+有时你收到一个被序列化了两次的JSON字符串——一个JSON值本身是一个带引号的转义JSON字符串——你需要将其反转义为可读形式。或者你有一个包含特殊字符的原始字符串，需要安全地嵌入到JSON文档中。
+
+转义/反转义工具能即时处理这些转换，无需编写解析代码。
+
+[JSONKit的转义工具](https://jsonkit.org)让你粘贴原始文本并获得正确转义的JSON字符串表示，或者粘贴已转义的JSON字符串并获得未转义的原始内容。所有处理都在浏览器中进行——数据不会发送到任何服务器。
+
+## 总结
+
+JSON转义由每个标准JSON库自动处理，这是最重要的收获：使用 `JSON.stringify` / `json.dumps` / `JsonSerializer.Serialize`，让库来完成转义。手动构建JSON是大多数转义错误的根源。
+
+当确实出现转义问题时——双重转义、原始控制字符、编码层混淆——系统地追踪每个序列化步骤。本指南中的转义序列参考表涵盖了JSON规范定义的每个序列。
