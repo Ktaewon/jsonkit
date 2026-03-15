@@ -251,6 +251,7 @@
     "description": "開発者のためのJSONチュートリアル、ガイド、ベストプラクティス。",
     "metaTitle": "JSONブログ - チュートリアル & ガイド | JSONKit",
     "metaDescription": "JSONのベストプラクティス、データ形式の比較、JSONPathクエリの習得。開発者のための無料チュートリアルとガイド。",
+    "tryTool": "{tool}ツールを試す",
     "posts": {
       "json-format-guide": {
         "title": "JSON完全フォーマットガイド",

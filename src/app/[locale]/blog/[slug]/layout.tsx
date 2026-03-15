@@ -16,8 +16,15 @@ export async function generateMetadata({
   if (!post) return {};
 
   const t = await getTranslations({ locale, namespace: 'Blog' });
-  const title = t(`posts.${slug}.title`);
-  const description = t(`posts.${slug}.summary`);
+  const titleKey = `posts.${slug}.title`;
+  const summaryKey = `posts.${slug}.summary`;
+  const title = t(titleKey);
+  const description = t(summaryKey);
+
+  if (title === titleKey || description === summaryKey) {
+    return {};
+  }
+
   const url = `${BASE_URL}/${locale}/blog/${slug}`;
 
   return {
@@ -52,8 +59,14 @@ export default async function BlogPostLayout({
   if (!post) notFound();
 
   const t = await getTranslations({ locale, namespace: 'Blog' });
-  const title = t(`posts.${slug}.title`);
-  const description = t(`posts.${slug}.summary`);
+  const titleKey = `posts.${slug}.title`;
+  const summaryKey = `posts.${slug}.summary`;
+  const title = t(titleKey);
+  const description = t(summaryKey);
+
+  if (title === titleKey || description === summaryKey) {
+    notFound();
+  }
 
   const articleSchema = getArticleSchema({
     title,

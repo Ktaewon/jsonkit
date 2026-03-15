@@ -253,6 +253,7 @@
     "description": "JSON tutorials, guides, and best practices for developers.",
     "metaTitle": "JSON Blog - Tutorials & Guides | JSONKit",
     "metaDescription": "Learn JSON best practices, compare data formats, and master JSONPath queries. Free tutorials and guides for developers.",
+    "tryTool": "Try {tool} tool",
     "posts": {
       "json-format-guide": {
         "title": "The Complete JSON Format Guide",

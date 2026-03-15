@@ -251,6 +251,7 @@
     "description": "为开发者提供的 JSON 教程、指南和最佳实践。",
     "metaTitle": "JSON 博客 - 教程与指南 | JSONKit",
     "metaDescription": "学习 JSON 最佳实践、比较数据格式、掌握 JSONPath 查询。为开发者提供的免费教程和指南。",
+    "tryTool": "试用{tool}工具",
     "posts": {
       "json-format-guide": {
         "title": "JSON 格式完全指南",

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { generatePageMetadata } from '@/lib/seo/metadata';
+import { getTranslations } from 'next-intl/server';
 import { JsonLd } from '@/components/common/JsonLd';
 import { BASE_URL } from '@/lib/constants';
 
@@ -16,13 +17,22 @@ export async function generateMetadata({
   });
 }
 
-export default async function BlogLayout({ children }: { children: React.ReactNode }) {
+export default async function BlogLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Blog' });
+
   const blogSchema = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     name: 'JSONKit Blog',
-    url: `${BASE_URL}/en/blog`,
-    description: 'JSON tutorials, guides, and best practices',
+    url: `${BASE_URL}/${locale}/blog`,
+    description: t('metaDescription'),
   };
 
   return (
