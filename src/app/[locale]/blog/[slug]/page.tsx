@@ -34,7 +34,7 @@ export default async function BlogPostPage({
               <div className="mb-8 rounded-xl overflow-hidden shadow-lg border relative aspect-[2/1]">
                 <Image
                   src={post.image}
-                  alt={t('title')}
+                  alt={t(`posts.${slug}.title`)}
                   fill
                   className="object-cover m-0"
                   priority
