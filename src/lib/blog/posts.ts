@@ -4,6 +4,7 @@ export interface BlogPost {
   date: string;
   relatedTool: string;
   relatedToolPath: string;
+  image?: string;
 }
 
 const posts: BlogPost[] = [
@@ -87,11 +88,19 @@ const posts: BlogPost[] = [
 ];
 
 export function getAllPosts(): BlogPost[] {
-  return posts;
+  return posts.map(post => ({
+    ...post,
+    image: `/images/blog/${post.slug}.png`
+  }));
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return posts.find((p) => p.slug === slug);
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) return undefined;
+  return {
+    ...post,
+    image: `/images/blog/${post.slug}.png`
+  };
 }
 
 export function getPostSlugs(): string[] {

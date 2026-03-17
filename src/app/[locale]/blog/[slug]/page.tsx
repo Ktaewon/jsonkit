@@ -29,6 +29,15 @@ export default async function BlogPostPage({
       <div className="flex gap-8">
         <div className="min-w-0 flex-1">
           <article className="prose prose-neutral dark:prose-invert max-w-none">
+            {post.image && (
+              <div className="mb-8 rounded-xl overflow-hidden shadow-lg border">
+                <img
+                  src={post.image}
+                  alt={t('title')}
+                  className="w-full h-auto object-cover aspect-[2/1] m-0"
+                />
+              </div>
+            )}
             <BlogPostContent slug={slug} locale={locale} />
           </article>
           <div className="mt-12 pt-6 border-t">
