@@ -35,6 +35,15 @@ const securityHeaders: Array<{ key: string; value: string }> = [
 const nextConfig: NextConfig = {
   output: 'standalone',
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'pdohaq5b0usqo1wk.public.blob.vercel-storage.com',
+        pathname: '/blog/**',
+      },
+    ],
+  },
   async headers() {
     return [
       {

@@ -43,6 +43,13 @@ export async function generateMetadata({
       siteName: 'JSONKit',
       type: 'article',
       publishedTime: post.date,
+      images: post.image ? [{ url: post.image }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: post.image ? [post.image] : undefined,
     },
   };
 }
@@ -74,6 +81,7 @@ export default async function BlogPostLayout({
     slug,
     date: post.date,
     locale,
+    image: post.image,
   });
 
   return (

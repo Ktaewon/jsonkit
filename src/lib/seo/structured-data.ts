@@ -27,18 +27,21 @@ export function getArticleSchema({
   slug,
   date,
   locale,
+  image,
 }: {
   title: string;
   description: string;
   slug: string;
   date: string;
   locale: string;
+  image?: string;
 }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
     description,
+    image: image || `${BASE_URL}/icon.png`,
     datePublished: date,
     dateModified: date,
     author: {

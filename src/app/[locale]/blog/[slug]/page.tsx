@@ -1,6 +1,7 @@
 import { getPostBySlug } from '@/lib/blog/posts';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { BlogPostContent } from './content';
 import { TableOfContents } from '@/components/blog/TableOfContents';
@@ -29,6 +30,17 @@ export default async function BlogPostPage({
       <div className="flex gap-8">
         <div className="min-w-0 flex-1">
           <article className="prose prose-neutral dark:prose-invert max-w-none">
+            {post.image && (
+              <div className="mb-8 rounded-xl overflow-hidden shadow-lg border relative aspect-[2/1]">
+                <Image
+                  src={post.image}
+                  alt={t(`posts.${slug}.title`)}
+                  fill
+                  className="object-cover m-0"
+                  priority
+                />
+              </div>
+            )}
             <BlogPostContent slug={slug} locale={locale} />
           </article>
           <div className="mt-12 pt-6 border-t">

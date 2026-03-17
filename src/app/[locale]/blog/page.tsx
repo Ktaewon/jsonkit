@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getAllPosts } from '@/lib/blog/posts';
 import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
 import { BookOpen, ArrowRight } from 'lucide-react';
 
 export default function BlogPage() {
@@ -20,9 +21,20 @@ export default function BlogPage() {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group block rounded-lg border p-6 transition-colors hover:bg-muted/50"
+            className="group block rounded-lg border overflow-hidden transition-colors hover:bg-muted/50"
           >
-            <div className="flex items-start justify-between gap-4">
+            {post.image && (
+              <div className="aspect-[3/1] overflow-hidden relative">
+                <Image
+                  src={post.image}
+                  alt={t(`posts.${post.slug}.title`)}
+                  fill
+                  className="object-cover transition-transform group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 768px"
+                />
+              </div>
+            )}
+            <div className="flex items-start justify-between gap-4 p-6">
               <div className="flex-1">
                 <h2 className="text-xl font-semibold group-hover:text-primary transition-colors mb-2">
                   {t(`posts.${post.slug}.title`)}

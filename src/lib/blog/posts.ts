@@ -1,9 +1,12 @@
+const BLOB_BASE = 'https://pdohaq5b0usqo1wk.public.blob.vercel-storage.com/blog';
+
 export interface BlogPost {
   slug: string;
   locales: string[];
   date: string;
   relatedTool: string;
   relatedToolPath: string;
+  image?: string;
 }
 
 const posts: BlogPost[] = [
@@ -87,11 +90,19 @@ const posts: BlogPost[] = [
 ];
 
 export function getAllPosts(): BlogPost[] {
-  return posts;
+  return posts.map((post) => ({
+    ...post,
+    image: `${BLOB_BASE}/${post.slug}.png`,
+  }));
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return posts.find((p) => p.slug === slug);
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) return undefined;
+  return {
+    ...post,
+    image: `${BLOB_BASE}/${post.slug}.png`,
+  };
 }
 
 export function getPostSlugs(): string[] {
