@@ -5,7 +5,7 @@ import { config } from 'dotenv';
 config({ path: '.env.local' });
 
 const BLOG_IMAGES_DIR = join(process.cwd(), 'public/images/blog');
-const files = readdirSync(BLOG_IMAGES_DIR).filter(f => f.endsWith('.png'));
+const files = readdirSync(BLOG_IMAGES_DIR).filter((f) => f.endsWith('.png'));
 
 console.log(`Uploading ${files.length} images to Vercel Blob...\n`);
 

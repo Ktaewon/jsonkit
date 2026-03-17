@@ -109,7 +109,9 @@ Navigation 번역 파일에 `"blog": "Blog"` 키 추가 후 `t('blog')` 사용. 
 
 ```tsx
 // Header.tsx / MobileNav.tsx
-{t('blog')}
+{
+  t('blog');
+}
 ```
 
 ```json
@@ -132,6 +134,7 @@ Navigation 번역 파일에 `"blog": "Blog"` 키 추가 후 `t('blog')` 사용. 
 **파일:** `src/components/blog/TableOfContents.tsx`
 
 **현상:**
+
 - `<nav>`에 `aria-label` 없음
 - 활성 항목에 `aria-current` 없음
 - "On this page" 텍스트 하드코딩 (미번역)
@@ -199,7 +202,7 @@ toolPaths.map((path) => ({
   url: `${BASE_URL}/${locale}${path}`,
   lastModified: TOOLS_LAST_MODIFIED,
   // ...
-}))
+}));
 
 // 블로그 포스트 — 이미 post.date 사용 중 (정상)
 ```
@@ -258,8 +261,8 @@ export interface BlogPost {
   date: string;
   relatedTool: string;
   relatedToolPath: string;
-  readingTime?: number;    // 분 단위
-  tags?: string[];         // e.g. ['beginner', 'json-syntax']
+  readingTime?: number; // 분 단위
+  tags?: string[]; // e.g. ['beginner', 'json-syntax']
 }
 ```
 
@@ -270,16 +273,16 @@ export interface BlogPost {
 
 ## 작업 우선순위 권장
 
-| 순서 | 항목 | 난이도 | 비고 |
-|------|------|--------|------|
-| 1 | #3 Article 스키마 image 추가 | 낮음 | 즉시 가능, SEO 필수 |
-| 2 | #4 useTranslations → getTranslations | 낮음 | 즉시 가능 |
-| 3 | #5 Blog 링크 번역 | 낮음 | 즉시 가능 |
-| 4 | #7 날짜 포맷 개선 | 낮음 | 즉시 가능 |
-| 5 | #9 Blog 스키마 inLanguage | 낮음 | 즉시 가능 |
-| 6 | #10 copyright 연도 | 낮음 | 즉시 가능 |
-| 7 | #8 sitemap lastModified | 낮음 | 즉시 가능 |
-| 8 | #6 TableOfContents 접근성/번역 | 중간 | 번역 키 추가 필요 |
-| 9 | #2 generateStaticParams 복구 | 중간 | 이전 충돌 이력 주의 |
-| 10 | #1 동적 import 전환 | 높음 | Turbopack 호환성 테스트 필요 |
-| 11 | #11 readingTime/tags | 중간 | 데이터 입력 + UI 작업 |
+| 순서 | 항목                                 | 난이도 | 비고                         |
+| ---- | ------------------------------------ | ------ | ---------------------------- |
+| 1    | #3 Article 스키마 image 추가         | 낮음   | 즉시 가능, SEO 필수          |
+| 2    | #4 useTranslations → getTranslations | 낮음   | 즉시 가능                    |
+| 3    | #5 Blog 링크 번역                    | 낮음   | 즉시 가능                    |
+| 4    | #7 날짜 포맷 개선                    | 낮음   | 즉시 가능                    |
+| 5    | #9 Blog 스키마 inLanguage            | 낮음   | 즉시 가능                    |
+| 6    | #10 copyright 연도                   | 낮음   | 즉시 가능                    |
+| 7    | #8 sitemap lastModified              | 낮음   | 즉시 가능                    |
+| 8    | #6 TableOfContents 접근성/번역       | 중간   | 번역 키 추가 필요            |
+| 9    | #2 generateStaticParams 복구         | 중간   | 이전 충돌 이력 주의          |
+| 10   | #1 동적 import 전환                  | 높음   | Turbopack 호환성 테스트 필요 |
+| 11   | #11 readingTime/tags                 | 중간   | 데이터 입력 + UI 작업        |

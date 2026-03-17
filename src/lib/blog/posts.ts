@@ -90,7 +90,7 @@ const posts: BlogPost[] = [
 ];
 
 export function getAllPosts(): BlogPost[] {
-  return posts.map(post => ({
+  return posts.map((post) => ({
     ...post,
     image: `${BLOB_BASE}/${post.slug}.png`,
   }));
