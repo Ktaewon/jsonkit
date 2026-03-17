@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { getAllPosts } from '@/lib/blog/posts';
 import { Link } from '@/i18n/navigation';
+import Image from 'next/image';
 import { BookOpen, ArrowRight } from 'lucide-react';
 
 export default function BlogPage() {
@@ -23,12 +24,13 @@ export default function BlogPage() {
             className="group block rounded-lg border overflow-hidden transition-colors hover:bg-muted/50"
           >
             {post.image && (
-              <div className="aspect-[3/1] overflow-hidden">
-                <img
+              <div className="aspect-[3/1] overflow-hidden relative">
+                <Image
                   src={post.image}
                   alt={t(`posts.${post.slug}.title`)}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                  loading="lazy"
+                  fill
+                  className="object-cover transition-transform group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 768px"
                 />
               </div>
             )}
