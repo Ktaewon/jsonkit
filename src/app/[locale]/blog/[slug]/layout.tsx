@@ -43,13 +43,13 @@ export async function generateMetadata({
       siteName: 'JSONKit',
       type: 'article',
       publishedTime: post.date,
-      images: post.image ? [{ url: `${BASE_URL}${post.image}` }] : undefined,
+      images: post.image ? [{ url: post.image }] : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: post.image ? [`${BASE_URL}${post.image}`] : undefined,
+      images: post.image ? [post.image] : undefined,
     },
   };
 }

@@ -1,3 +1,5 @@
+const BLOB_BASE = 'https://pdohaq5b0usqo1wk.public.blob.vercel-storage.com/blog';
+
 export interface BlogPost {
   slug: string;
   locales: string[];
@@ -90,7 +92,7 @@ const posts: BlogPost[] = [
 export function getAllPosts(): BlogPost[] {
   return posts.map(post => ({
     ...post,
-    image: `/images/blog/${post.slug}.png`
+    image: `${BLOB_BASE}/${post.slug}.png`,
   }));
 }
 
@@ -99,7 +101,7 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
   if (!post) return undefined;
   return {
     ...post,
-    image: `/images/blog/${post.slug}.png`
+    image: `${BLOB_BASE}/${post.slug}.png`,
   };
 }
 

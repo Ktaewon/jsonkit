@@ -41,7 +41,7 @@ export function getArticleSchema({
     '@type': 'Article',
     headline: title,
     description,
-    image: image ? `${BASE_URL}${image}` : `${BASE_URL}/icon.png`,
+    image: image || `${BASE_URL}/icon.png`,
     datePublished: date,
     dateModified: date,
     author: {
