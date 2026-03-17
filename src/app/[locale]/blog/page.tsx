@@ -20,9 +20,19 @@ export default function BlogPage() {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group block rounded-lg border p-6 transition-colors hover:bg-muted/50"
+            className="group block rounded-lg border overflow-hidden transition-colors hover:bg-muted/50"
           >
-            <div className="flex items-start justify-between gap-4">
+            {post.image && (
+              <div className="aspect-[3/1] overflow-hidden">
+                <img
+                  src={post.image}
+                  alt={t(`posts.${post.slug}.title`)}
+                  className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            )}
+            <div className="flex items-start justify-between gap-4 p-6">
               <div className="flex-1">
                 <h2 className="text-xl font-semibold group-hover:text-primary transition-colors mb-2">
                   {t(`posts.${post.slug}.title`)}
