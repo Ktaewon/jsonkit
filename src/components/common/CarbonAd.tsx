@@ -1,6 +1,5 @@
 'use client';
 
-import Script from 'next/script';
 import { usePathname } from '@/i18n/navigation';
 
 const serve = process.env.NEXT_PUBLIC_CARBONADS_SERVE?.trim() ?? '';
@@ -26,14 +25,8 @@ export function CarbonAd() {
       data-nosnippet
     >
       <div id="carbonads" />
-      <Script
-        key={pathname}
-        id="_carbonads_js"
-        src={scriptSrc}
-        strategy="afterInteractive"
-        type="text/javascript"
-        async
-      />
+      {/* Native script so each pathname remount re-runs Carbon (next/script dedupes by id). */}
+      <script key={pathname} id="_carbonads_js" src={scriptSrc} async type="text/javascript" />
     </div>
   );
 }

@@ -11,13 +11,15 @@ export function isCarbonAdsConfigured(): boolean {
   return Boolean(serve && placement);
 }
 
-export function shouldLoadGoogleAdsense(): boolean {
+/** Publisher ID to pass to `GoogleAdsense`, or null when AdSense must not load. */
+export function getGoogleAdsensePublisherId(): string | null {
   const id = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID?.trim();
-  if (!id) {
-    return false;
+  if (!id || isCarbonAdsConfigured()) {
+    return null;
   }
-  if (isCarbonAdsConfigured()) {
-    return false;
-  }
-  return true;
+  return id;
+}
+
+export function shouldLoadGoogleAdsense(): boolean {
+  return getGoogleAdsensePublisherId() !== null;
 }
