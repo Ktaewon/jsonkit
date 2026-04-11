@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
+import { CarbonAd } from '@/components/common/CarbonAd';
 import { FileJson } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { ChangeEvent, useTransition } from 'react';
@@ -105,9 +106,11 @@ export function Header() {
             </Link>
           </nav>
         </div>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none"></div>
-          <div className="flex items-center gap-2">
+        <div className="flex flex-1 items-center justify-end gap-2 md:gap-3 min-w-0">
+          <div className="hidden min-[960px]:flex min-w-0 flex-1 items-center justify-end pr-2">
+            <CarbonAd />
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
             <div className="relative">
               <select
                 onChange={onSelectChange}

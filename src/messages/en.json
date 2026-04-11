@@ -310,7 +310,7 @@
     "metaTitle": "Privacy Policy | JSONKit",
     "metaDescription": "JSONKit privacy policy. Learn how we handle your data - all JSON processing happens in your browser with no server transmission.",
     "lastUpdated": "Last Updated",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-04-11",
     "sections": {
       "dataCollection": {
         "title": "Data Collection",
@@ -324,6 +324,7 @@
         "title": "Cookies and Third-Party Services",
         "content": "We use the following third-party services that may set cookies:",
         "googleAdsense": "Google AdSense: Used to display advertisements. Google may use cookies to personalize ads based on your browsing history.",
+        "carbonAds": "Carbon Ads (operated through BuySellAds): Used to display advertisements. BuySellAds may use cookies or similar technologies for ad delivery and measurement.",
         "vercelAnalytics": "Vercel Analytics: Used to understand how visitors use our site. Vercel Analytics does not use cookies and collects no personal data."
       },
       "thirdParty": {

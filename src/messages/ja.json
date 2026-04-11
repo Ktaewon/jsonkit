@@ -308,7 +308,7 @@
     "metaTitle": "プライバシーポリシー | JSONKit",
     "metaDescription": "JSONKitプライバシーポリシー。すべてのJSON処理はブラウザ内で行われ、サーバーへのデータ送信はありません。",
     "lastUpdated": "最終更新日",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-04-11",
     "sections": {
       "dataCollection": {
         "title": "データ収集",
@@ -322,6 +322,7 @@
         "title": "Cookieとサードパーティサービス",
         "content": "以下のサードパーティサービスを使用しており、Cookieを設定する場合があります：",
         "googleAdsense": "Google AdSense：広告の表示に使用されます。Googleは、お客様の閲覧履歴に基づいて広告をパーソナライズするためにCookieを使用する場合があります。",
+        "carbonAds": "Carbon Ads（BuySellAdsが運営）：広告の表示に使用されます。BuySellAdsは広告の配信および測定のためにCookieまたは類似の技術を使用する場合があります。",
         "vercelAnalytics": "Vercel Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。Vercel AnalyticsはCookieを使用せず、個人データを収集しません。"
       },
       "thirdParty": {
