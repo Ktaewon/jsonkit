@@ -8,6 +8,7 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import GoogleAdsense from '@/components/common/GoogleAdsense';
+import { getGoogleAdsensePublisherId } from '@/lib/ads/config';
 import { Toaster } from 'sonner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/common/JsonLd';
@@ -53,13 +54,14 @@ export default async function RootLayout({
   const { locale } = await params;
   const messages = await getMessages();
   const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const adsensePublisherId = getGoogleAdsensePublisherId();
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
         <JsonLd data={getWebsiteSchema(t('metaDescription'))} />
         <JsonLd data={getOrganizationSchema()} />
-        <GoogleAdsense pId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID || ''} />
+        {adsensePublisherId ? <GoogleAdsense pId={adsensePublisherId} /> : null}
       </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>

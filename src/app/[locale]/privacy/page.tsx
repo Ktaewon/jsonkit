@@ -11,7 +11,7 @@ interface Section {
 const sections: Section[] = [
   { key: 'dataCollection' },
   { key: 'localStorage' },
-  { key: 'cookies', listItems: ['googleAdsense', 'vercelAnalytics'] },
+  { key: 'cookies', listItems: ['googleAdsense', 'carbonAds', 'vercelAnalytics'] },
   { key: 'thirdParty' },
   { key: 'contact' },
 ];
