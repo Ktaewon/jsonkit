@@ -301,7 +301,9 @@
   },
   "Footer": {
     "blog": "博客",
-    "privacyPolicy": "隐私政策"
+    "privacyPolicy": "隐私政策",
+    "about": "关于",
+    "contact": "联系我们"
   },
   "Privacy": {
     "title": "隐私政策",
@@ -333,5 +335,61 @@
         "content": "如果您对本隐私政策有任何疑问，请通过我们的 GitHub 仓库与我们联系。"
       }
     }
+  },
+  "About": {
+    "title": "关于 JSONKit",
+    "metaTitle": "关于 JSONKit - 免费在线 JSON 工具集",
+    "metaDescription": "了解 JSONKit：一套面向开发者的免费开源 JSON 工具集。介绍开发者、数据处理方式以及项目的运营方式。",
+    "intro": "JSONKit 是一套面向开发者的免费开源在线 JSON 工具集。它将格式化、校验、对比、转换、查询和代码生成整合在一个快速、简洁的界面中，让你无需在多个网站之间来回切换。",
+    "toolsTitle": "提供的工具",
+    "sections": {
+      "mission": {
+        "title": "为什么做 JSONKit",
+        "content": "JSON 无处不在：API 响应、配置文件、日志和数据库。但大多数在线 JSON 工具要么只有单一功能，要么充斥弹窗，要么悄悄把你的数据上传到服务器。JSONKit 的目标是成为开发者日常处理 JSON 时唯一需要的书签——加载迅速、支持五种语言，并且尊重你的数据。"
+      },
+      "privacy": {
+        "title": "数据如何处理",
+        "content": "JSONKit 上几乎所有工具都完全在浏览器中运行：你粘贴的 JSON 在你自己的设备上完成解析、格式化、校验和对比，不会发送到任何地方。唯一的例外是 JSON to Code，它会把 JSON 示例发送到我们的服务器以生成类型定义，并立即返回结果；输入内容不会被记录或保存。有关 Cookie 和统计分析的详细信息，请参阅隐私政策。"
+      },
+      "maintainer": {
+        "title": "开发者",
+        "content": "JSONKit 由独立软件开发者 Ktaewon 设计、开发和维护，他每天都在与 JSON API 打交道。用户提交的问题反馈、功能建议和翻译修正会直接影响接下来的开发方向。"
+      },
+      "openSource": {
+        "title": "开源",
+        "content": "全部源代码以 MIT 许可证在 GitHub 上公开。你可以查看每个工具的实现方式、提交问题、提出改进建议，或直接发起 Pull Request。"
+      },
+      "funding": {
+        "title": "JSONKit 如何保持免费",
+        "content": "所有工具均可免费使用，无需注册账号。托管和开发成本由少量不打扰使用的广告来承担。广告无法访问你正在处理的 JSON 数据。"
+      }
+    },
+    "contactPrompt": "有问题或发现了 Bug？",
+    "contactLink": "联系我们"
+  },
+  "Contact": {
+    "title": "联系我们",
+    "metaTitle": "联系 JSONKit - 问题反馈与功能请求",
+    "metaDescription": "联系 JSONKit 维护者。通过 GitHub 反馈 Bug、请求新的 JSON 工具或功能，或提出问题。",
+    "intro": "JSONKit 在 GitHub 上公开维护。无论你发现了 Bug、需要新功能，还是看到了翻译错误，提交 Issue 都是联系维护者最快的方式。",
+    "channels": {
+      "issues": {
+        "title": "反馈 Bug 或请求功能",
+        "content": "请在 GitHub Issue 中描述发生了什么，或你希望看到的功能。Issue 是公开的，其他用户也可以关注进展并补充反馈。",
+        "cta": "提交 Issue"
+      },
+      "repo": {
+        "title": "源代码",
+        "content": "浏览源代码、查看更新记录，或通过 Pull Request 直接贡献修复。欢迎任何规模的贡献。",
+        "cta": "在 GitHub 上查看"
+      }
+    },
+    "tipsTitle": "如何写一份有用的反馈",
+    "tips": {
+      "bug": "反馈 Bug 时，请注明使用的工具、浏览器以及复现问题的步骤。",
+      "feature": "请求功能时，请描述你想完成的任务，而不仅仅是你设想的解决方案。",
+      "privacy": "请勿在公开 Issue 中粘贴机密数据、API 密钥或个人信息。一个经过匿名处理的小示例就足够了。"
+    },
+    "responseTime": "Issue 通常会在几天内得到处理。"
   }
 }

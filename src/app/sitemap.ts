@@ -17,8 +17,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/graph',
     '/json-to-code',
     '/privacy',
+    '/about',
+    '/contact',
     '/blog',
   ];
+  const lowPriorityRoutes = ['/privacy', '/about', '/contact'];
 
   const locales = ['en', 'ko', 'ja', 'zh', 'ru'];
 
@@ -30,7 +33,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${BASE_URL}/${locale}${route}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
-        priority: route === '' ? 1 : route === '/privacy' ? 0.5 : route === '/blog' ? 0.7 : 0.8,
+        priority:
+          route === ''
+            ? 1
+            : lowPriorityRoutes.includes(route)
+              ? 0.5
+              : route === '/blog'
+                ? 0.7
+                : 0.8,
       });
     });
   });
