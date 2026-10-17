@@ -308,7 +308,7 @@
     "metaTitle": "隐私政策 | JSONKit",
     "metaDescription": "JSONKit 隐私政策。所有 JSON 处理在浏览器中完成，不向服务器传输数据。",
     "lastUpdated": "最后更新",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-04-11",
     "sections": {
       "dataCollection": {
         "title": "数据收集",
@@ -322,6 +322,7 @@
         "title": "Cookie 和第三方服务",
         "content": "我们使用以下可能设置 Cookie 的第三方服务：",
         "googleAdsense": "Google AdSense：用于显示广告。Google 可能会使用 Cookie 根据您的浏览历史个性化广告。",
+        "carbonAds": "Carbon Ads（由 BuySellAds 运营）：用于显示广告。BuySellAds 可能会使用 Cookie 或类似技术进行广告投放与衡量。",
         "vercelAnalytics": "Vercel Analytics：用于了解访问者如何使用我们的网站。Vercel Analytics 不使用 Cookie，也不收集个人数据。"
       },
       "thirdParty": {

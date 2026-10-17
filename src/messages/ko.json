@@ -310,7 +310,7 @@
     "metaTitle": "개인정보 처리방침 | JSONKit",
     "metaDescription": "JSONKit 개인정보 처리방침. 모든 JSON 처리는 브라우저에서 이루어지며 서버로 데이터가 전송되지 않습니다.",
     "lastUpdated": "최종 업데이트",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-04-11",
     "sections": {
       "dataCollection": {
         "title": "데이터 수집",
@@ -324,6 +324,7 @@
         "title": "쿠키 및 제3자 서비스",
         "content": "쿠키를 설정할 수 있는 다음 제3자 서비스를 사용합니다:",
         "googleAdsense": "Google AdSense: 광고 표시에 사용됩니다. Google은 귀하의 브라우징 기록을 기반으로 광고를 개인화하기 위해 쿠키를 사용할 수 있습니다.",
+        "carbonAds": "Carbon Ads(BuySellAds 운영): 광고 표시에 사용됩니다. BuySellAds는 광고 전달 및 측정을 위해 쿠키 또는 이와 유사한 기술을 사용할 수 있습니다.",
         "vercelAnalytics": "Vercel Analytics: 방문자가 사이트를 어떻게 사용하는지 이해하는 데 사용됩니다. Vercel Analytics는 쿠키를 사용하지 않으며 개인 데이터를 수집하지 않습니다."
       },
       "thirdParty": {
