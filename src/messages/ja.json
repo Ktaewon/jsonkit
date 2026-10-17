@@ -69,7 +69,7 @@
       "fastReactiveTitle": "高速 & リアクティブ",
       "fastReactiveDesc": "入力と同時に即座に結果が表示されます。サーバーの応答を待つ必要はありません。",
       "privacyFirstTitle": "プライバシー第一",
-      "privacyFirstDesc": "すべての処理はブラウザ内で行われます。データがデバイスから離れることはありません。"
+      "privacyFirstDesc": "ほぼすべてのツールがブラウザ内だけで動作します。唯一の例外であるJSON to Codeは、コード生成のためにのみサンプルをサーバーへ送信し、記録・保存はしません。"
     }
   },
   "Common": {
@@ -306,13 +306,13 @@
   "Privacy": {
     "title": "プライバシーポリシー",
     "metaTitle": "プライバシーポリシー | JSONKit",
-    "metaDescription": "JSONKitプライバシーポリシー。すべてのJSON処理はブラウザ内で行われ、サーバーへのデータ送信はありません。",
+    "metaDescription": "JSONKitプライバシーポリシー。ほぼすべてのツールはブラウザ内で動作し、JSON to Codeのみコード生成のためにサンプルをサーバーへ送信しますが、記録・保存はしません。",
     "lastUpdated": "最終更新日",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-10-18",
     "sections": {
       "dataCollection": {
         "title": "データ収集",
-        "content": "JSONKitは、お客様のJSONデータを収集、保存、送信しません。すべてのJSON処理は完全にブラウザ内で行われます。お客様のデータがデバイスから離れることはありません。"
+        "content": "JSONKitは、お客様のJSONデータを収集・保存しません。JSONKitのほぼすべてのツールはブラウザ内だけで動作します。貼り付けたJSONはお使いの端末上で解析・整形・検証・変換・比較され、外部へ送信されることはありません。唯一の例外はJSON to Codeで、型定義を生成するためにJSONサンプルをサーバーへ送り、結果をすぐに返します。入力内容が記録・保存されることはありません。"
       },
       "localStorage": {
         "title": "ローカルストレージ",
