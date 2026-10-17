@@ -5,8 +5,10 @@ import { ThemeProvider } from '@/components/common/ThemeProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { MobileNav } from '@/components/layout/MobileNav';
-import { NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
 import GoogleAdsense from '@/components/common/GoogleAdsense';
 import { Toaster } from 'sonner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
@@ -18,12 +20,19 @@ import { FloatingContactButton } from '@/components/common/FloatingContactButton
 
 const inter = Inter({ subsets: ['latin'] });
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    return {};
+  }
   const metadata = await generatePageMetadata({
     translationNamespace: 'Metadata',
     path: '',
@@ -51,6 +60,10 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+  // Unknown segments (e.g. /foo, /ads.txt) must 404 instead of rendering a duplicate home page
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   const messages = await getMessages();
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 

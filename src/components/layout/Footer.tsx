@@ -32,7 +32,19 @@ export function Footer() {
             .
           </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/about"
+            className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
+          >
+            {t('about')}
+          </Link>
+          <Link
+            href="/contact"
+            className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
+          >
+            {t('contact')}
+          </Link>
           <Link
             href="/blog"
             className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"

@@ -28,7 +28,34 @@
     "layoutTB": "Layout: Vertical",
     "seoContent": {
       "heading": "What is a JSON Graph Visualizer?",
-      "paragraph": "A JSON graph visualizer renders JSON data as an interactive node graph, making it easy to explore complex hierarchical structures. JSONKit's graph tool supports both horizontal and vertical layouts with automatic node positioning, helping you understand object and array relationships at a glance."
+      "paragraph": "A JSON graph visualizer renders JSON data as an interactive node graph, making it easy to explore complex hierarchical structures. JSONKit's graph tool supports both horizontal and vertical layouts with automatic node positioning, helping you understand object and array relationships at a glance.",
+      "howTo": [
+        "Paste your JSON into the input editor.",
+        "The graph is generated automatically, with each object and array shown as a node.",
+        "Switch between horizontal and vertical layouts to fit the shape of your data.",
+        "Zoom and pan to explore large structures."
+      ],
+      "features": [
+        "Interactive node graph of objects, arrays and their values.",
+        "Automatic hierarchical layout powered by the ELK layout engine.",
+        "Horizontal and vertical layout options.",
+        "Zoom, pan and fit-to-screen controls.",
+        "Rendered entirely in your browser."
+      ],
+      "faq": [
+        {
+          "q": "When is a graph more useful than a tree?",
+          "a": "A graph shows the whole structure at once, which makes it easier to explain a data model to teammates or to spot unexpected nesting. A tree is better for drilling into one specific branch."
+        },
+        {
+          "q": "Can it handle large JSON files?",
+          "a": "Yes, but very large documents produce very large graphs. For files with thousands of nodes, the tree viewer or a JSONPath query is often the faster way to find specific data."
+        },
+        {
+          "q": "Is my data uploaded to generate the graph?",
+          "a": "No. The layout is computed in your browser, and your JSON is never sent to a server."
+        }
+      ]
     }
   },
   "Landing": {
@@ -90,7 +117,10 @@
     "output": "Output",
     "error": "Error",
     "contact": "Contact Us",
-    "contactDescription": "Have a bug report, feature request, or question? Let us know on GitHub Issues."
+    "contactDescription": "Have a bug report, feature request, or question? Let us know on GitHub Issues.",
+    "seoHowToTitle": "How to use",
+    "seoFeaturesTitle": "Features",
+    "seoFaqTitle": "Frequently asked questions"
   },
   "Beautify": {
     "title": "JSON Beautifier & Minifier",
@@ -102,7 +132,38 @@
     "invalidJson": "Invalid JSON",
     "seoContent": {
       "heading": "What is a JSON Beautifier?",
-      "paragraph": "A JSON beautifier (also known as JSON formatter or JSON pretty-printer) takes raw, compact JSON data and formats it with proper indentation, line breaks, and spacing to make it human-readable. JSONKit's beautifier processes everything in your browser — your data never leaves your device. You can also minify JSON to remove whitespace, reducing file size for production use."
+      "paragraph": "A JSON beautifier (also known as JSON formatter or JSON pretty-printer) takes raw, compact JSON data and formats it with proper indentation, line breaks, and spacing to make it human-readable. JSONKit's beautifier processes everything in your browser — your data never leaves your device. You can also minify JSON to remove whitespace, reducing file size for production use.",
+      "howTo": [
+        "Paste or type your JSON into the input editor on the left.",
+        "Click Beautify to pretty-print it with 2-space indentation, or Minify to strip all unnecessary whitespace.",
+        "Review the result in the output editor. If the input is not valid JSON, an error message tells you what went wrong.",
+        "Copy the result to your clipboard with one click."
+      ],
+      "features": [
+        "Pretty-print JSON with consistent indentation and line breaks.",
+        "Minify JSON into a single line to reduce payload size.",
+        "Syntax highlighting, code folding and bracket matching powered by the Monaco editor (the editor used in VS Code).",
+        "Handles large documents quickly because everything runs locally in your browser.",
+        "No sign-up, no upload: your data never leaves your device."
+      ],
+      "faq": [
+        {
+          "q": "Does beautifying or minifying change my data?",
+          "a": "No. Both operations only change whitespace. Keys, values, and the order of properties stay exactly the same, so the formatted and minified versions are equivalent JSON."
+        },
+        {
+          "q": "Is my JSON sent to a server?",
+          "a": "No. JSONKit parses and formats the JSON with JavaScript running in your browser. Nothing is uploaded, which makes it safe to use with API responses or configuration that contain internal data."
+        },
+        {
+          "q": "Why do I get an \"Invalid JSON\" error?",
+          "a": "The beautifier requires strictly valid JSON. Common causes are trailing commas, single-quoted strings, unquoted keys and comments. Use the JSON Repair tool to fix these automatically, or the JSON Validator to find the exact line of the error."
+        },
+        {
+          "q": "When should I minify JSON?",
+          "a": "Minify JSON when size matters more than readability, for example when embedding JSON in a URL or HTML attribute, storing it in a database column, or sending it over the network. Keep the beautified version for code reviews and debugging."
+        }
+      ]
     }
   },
   "Validate": {
@@ -116,7 +177,33 @@
     "errorFound": "Error found:",
     "seoContent": {
       "heading": "What is a JSON Validator?",
-      "paragraph": "A JSON validator checks your JSON data against the official JSON specification (RFC 8259) to detect syntax errors. JSONKit's validator provides precise line numbers and descriptive error messages so you can quickly locate and fix issues like missing commas, unclosed brackets, or invalid escape sequences."
+      "paragraph": "A JSON validator checks your JSON data against the official JSON specification (RFC 8259) to detect syntax errors. JSONKit's validator provides precise line numbers and descriptive error messages so you can quickly locate and fix issues like missing commas, unclosed brackets, or invalid escape sequences.",
+      "howTo": [
+        "Paste the JSON you want to check into the editor.",
+        "Click Validate JSON.",
+        "If the JSON is valid, you will see a confirmation. If not, the error message shows the line and the reason, such as an unexpected token or a missing comma.",
+        "Fix the reported problem and validate again until the document passes."
+      ],
+      "features": [
+        "Strict validation against the JSON specification (RFC 8259).",
+        "Precise error messages with line numbers to locate problems fast.",
+        "Detects common mistakes such as trailing commas, single quotes, unquoted keys and unclosed brackets.",
+        "Runs entirely in your browser, so private data stays on your machine."
+      ],
+      "faq": [
+        {
+          "q": "What is the difference between JSON validation and JSON Schema validation?",
+          "a": "This validator checks syntax: whether the text is well-formed JSON. JSON Schema validation goes further and checks whether the data has the expected structure, such as required fields and value types. Use the JSON Schema Validator for that."
+        },
+        {
+          "q": "Why is JSON with comments reported as invalid?",
+          "a": "Standard JSON does not allow comments. Formats like JSONC or JSON5 do, but most parsers and APIs reject them. The JSON Repair tool can strip comments and fix other non-standard syntax for you."
+        },
+        {
+          "q": "Can I validate very large files?",
+          "a": "Yes. Validation happens locally, so the limit is your browser's memory rather than an upload size. Documents of several megabytes validate in well under a second on a modern computer."
+        }
+      ]
     }
   },
   "Viewer": {
@@ -129,7 +216,34 @@
     "enterValid": "Enter valid JSON to view tree",
     "seoContent": {
       "heading": "What is a JSON Tree Viewer?",
-      "paragraph": "A JSON tree viewer renders JSON data as an interactive, hierarchical tree structure. You can expand and collapse nodes to explore deeply nested objects and arrays. JSONKit's tree viewer supports JSONPath copying, type-based color coding, and auto-expands the first two levels for quick overview."
+      "paragraph": "A JSON tree viewer renders JSON data as an interactive, hierarchical tree structure. You can expand and collapse nodes to explore deeply nested objects and arrays. JSONKit's tree viewer supports JSONPath copying, type-based color coding, and auto-expands the first two levels for quick overview.",
+      "howTo": [
+        "Paste your JSON into the input panel.",
+        "The tree view on the right updates automatically as soon as the JSON is valid.",
+        "Click the arrows next to objects and arrays to expand or collapse them.",
+        "Hover over any node and click the copy icon to copy its JSONPath, then use it in the JSONPath Query tool."
+      ],
+      "features": [
+        "Interactive, collapsible tree for objects and arrays.",
+        "Shows the type of each value and the number of items in every object and array.",
+        "Makes deeply nested API responses easy to navigate.",
+        "Copy the JSONPath of any node with one click.",
+        "Updates live as you edit the input."
+      ],
+      "faq": [
+        {
+          "q": "When is a tree view better than formatted text?",
+          "a": "For large or deeply nested JSON, a tree lets you collapse the parts you do not care about and focus on one branch. Formatted text is better when you need to copy or edit the raw document."
+        },
+        {
+          "q": "Can I see my JSON as a diagram instead?",
+          "a": "Yes. The JSON Graph Visualizer renders the same data as a node graph, which is useful for understanding relationships between objects at a glance."
+        },
+        {
+          "q": "Is there a size limit?",
+          "a": "There is no fixed limit. Very large documents with tens of thousands of nodes may render more slowly, so collapse branches you are not inspecting."
+        }
+      ]
     }
   },
   "Compare": {
@@ -141,7 +255,34 @@
     "instruction": "Edit directly in the left (Original) and right (Modified) panels to compare.",
     "seoContent": {
       "heading": "What is a JSON Diff Tool?",
-      "paragraph": "A JSON diff tool compares two JSON documents and highlights the differences between them. JSONKit's diff tool offers side-by-side and inline views powered by Monaco Editor's diff engine, with color-coded additions, deletions, and modifications. Perfect for debugging API responses, config changes, or data migrations."
+      "paragraph": "A JSON diff tool compares two JSON documents and highlights the differences between them. JSONKit's diff tool offers side-by-side and inline views powered by Monaco Editor's diff engine, with color-coded additions, deletions, and modifications. Perfect for debugging API responses, config changes, or data migrations.",
+      "howTo": [
+        "Paste the original JSON into the left panel.",
+        "Paste the modified JSON into the right panel.",
+        "Differences are highlighted immediately: added lines, removed lines and changed values are marked in different colors.",
+        "Switch between split view and inline view, and edit either side directly to see the diff update."
+      ],
+      "features": [
+        "Side-by-side and inline diff views.",
+        "Line-level and character-level highlighting of changes.",
+        "Edit both documents in place with full syntax highlighting.",
+        "Useful for comparing API responses, configuration versions and test fixtures.",
+        "Both documents stay in your browser; nothing is uploaded."
+      ],
+      "faq": [
+        {
+          "q": "Does the order of keys matter when comparing?",
+          "a": "The diff compares the text of the two documents, so reordered keys show up as changes. For the cleanest comparison, format both sides the same way first, for example with the JSON Beautifier."
+        },
+        {
+          "q": "Can I compare two API responses?",
+          "a": "Yes. Copy each response into one side of the editor. This is a quick way to see what changed between two environments, two API versions, or before and after a code change."
+        },
+        {
+          "q": "Is it safe to compare confidential data?",
+          "a": "Yes. The comparison runs entirely in your browser, and neither document is sent to a server."
+        }
+      ]
     }
   },
   "Convert": {
@@ -156,7 +297,33 @@
     "formatOutput": "{format} Output",
     "seoContent": {
       "heading": "What is a JSON Converter?",
-      "paragraph": "A JSON converter transforms JSON data to and from other popular data formats. JSONKit supports bidirectional conversion between JSON and YAML, XML, and CSV. The conversion happens instantly in your browser with live preview, making it ideal for data migration, API testing, and format interoperability."
+      "paragraph": "A JSON converter transforms JSON data to and from other popular data formats. JSONKit supports bidirectional conversion between JSON and YAML, XML, and CSV. The conversion happens instantly in your browser with live preview, making it ideal for data migration, API testing, and format interoperability.",
+      "howTo": [
+        "Choose the target format: YAML, XML or CSV.",
+        "Paste your JSON into the input editor; the converted output appears in the output editor.",
+        "Click Swap to reverse the direction and convert YAML, XML or CSV back into JSON.",
+        "Copy the result."
+      ],
+      "features": [
+        "Two-way conversion between JSON and YAML, XML and CSV.",
+        "CSV conversion turns an array of objects into rows, using the object keys as column headers.",
+        "Great for moving data between configuration files, spreadsheets and APIs.",
+        "Conversion runs locally in your browser."
+      ],
+      "faq": [
+        {
+          "q": "What JSON structure works best for CSV?",
+          "a": "An array of flat objects with the same keys, for example [{\"name\":\"Alice\",\"age\":30},{\"name\":\"Bob\",\"age\":25}]. Each object becomes a row and each key becomes a column. Deeply nested objects do not map naturally to a table."
+        },
+        {
+          "q": "Is JSON to YAML conversion lossless?",
+          "a": "For standard JSON data, yes. YAML is a superset of JSON, so objects, arrays, strings, numbers, booleans and null all convert cleanly. YAML-only features such as anchors and comments have no JSON equivalent when converting back."
+        },
+        {
+          "q": "Why would I convert JSON to XML?",
+          "a": "Some older systems, SOAP services and enterprise integrations still expect XML. Converting lets you reuse JSON data with those systems without writing a custom script."
+        }
+      ]
     }
   },
   "Type": {
@@ -170,7 +337,33 @@
     "generating": "Generating...",
     "seoContent": {
       "heading": "Convert JSON to Code Instantly",
-      "paragraph": "Stop manually writing type definitions. JSONKit's JSON to Code tool automatically generates type-safe interfaces, structs, and classes for various programming languages including TypeScript, Go, Python, C#, and more. Just paste your JSON and get ready-to-use code instantly."
+      "paragraph": "Stop manually writing type definitions. JSONKit's JSON to Code tool automatically generates type-safe interfaces, structs, and classes for various programming languages including TypeScript, Go, Python, C#, and more. Just paste your JSON and get ready-to-use code instantly.",
+      "howTo": [
+        "Paste a representative JSON sample, such as a real API response, into the input editor.",
+        "Choose the target language and enter a name for the root type.",
+        "Click Generate.",
+        "Copy the generated types or classes into your project."
+      ],
+      "features": [
+        "Generates code for TypeScript, Go, Python, C#, Rust, Swift, Java, C++ and Kotlin.",
+        "Infers nested types, arrays and optional fields from the sample.",
+        "Powered by quicktype, a widely used open-source type generator.",
+        "Saves time when integrating a new API or third-party data source."
+      ],
+      "faq": [
+        {
+          "q": "How accurate are the generated types?",
+          "a": "Types are inferred from the sample you provide. If a field can be null or missing, include an example of that in the sample so the generator marks it as optional. Review the result just as you would hand-written code."
+        },
+        {
+          "q": "Is my JSON sent to a server?",
+          "a": "Yes, this is the one JSONKit tool that uses a server: the sample is sent to generate the code and the result is returned immediately. The input is not logged or stored. Avoid pasting secrets; a sample with dummy values works just as well."
+        },
+        {
+          "q": "Should I use generated TypeScript interfaces for runtime validation?",
+          "a": "Interfaces only exist at compile time. If you also need to validate data at runtime, combine them with a JSON Schema and the JSON Schema Validator, or a runtime validation library."
+        }
+      ]
     }
   },
   "Query": {
@@ -189,7 +382,33 @@
     "emptyQuery": "Please enter a JSONPath query",
     "seoContent": {
       "heading": "What is JSONPath Query?",
-      "paragraph": "JSONPath is a query language for JSON, similar to XPath for XML. It lets you extract specific data from complex JSON structures using path expressions like $.store.book[*].author. JSONKit's query tool supports the full JSONPath specification with instant results, match counting, and built-in example queries to get you started."
+      "paragraph": "JSONPath is a query language for JSON, similar to XPath for XML. It lets you extract specific data from complex JSON structures using path expressions like $.store.book[*].author. JSONKit's query tool supports the full JSONPath specification with instant results, match counting, and built-in example queries to get you started.",
+      "howTo": [
+        "Paste your JSON into the input editor.",
+        "Type a JSONPath expression, such as $.store.book[*].author, into the query field.",
+        "Click Execute to see every matching value and the number of matches.",
+        "Use the Examples menu to try common patterns like filters and recursive search."
+      ],
+      "features": [
+        "Full JSONPath support, including wildcards, array slices, recursive descent (..) and filter expressions.",
+        "Shows the number of matches together with the results.",
+        "Built-in examples to learn the syntax quickly.",
+        "Runs in your browser with no data upload."
+      ],
+      "faq": [
+        {
+          "q": "What is JSONPath?",
+          "a": "JSONPath is a query language for JSON, similar to XPath for XML. An expression starts at the root ($) and walks through keys and array indexes to select one or more values."
+        },
+        {
+          "q": "How do I filter an array by a value?",
+          "a": "Use a filter expression. For example, $.store.book[?(@.price < 10)] selects every book whose price is below 10, and $..book[?(@.isbn)] selects books that have an isbn field."
+        },
+        {
+          "q": "How do I find a key anywhere in the document?",
+          "a": "Use recursive descent with two dots. For example, $..author returns every author value no matter how deeply it is nested."
+        }
+      ]
     }
   },
   "Escape": {
@@ -203,7 +422,33 @@
     "invalidEscaped": "Invalid escaped string",
     "seoContent": {
       "heading": "What is JSON Escape & Unescape?",
-      "paragraph": "JSON escaping converts special characters in strings (like quotes, backslashes, and newlines) into escape sequences so they can be safely embedded in JSON or source code. Unescaping reverses this process. JSONKit handles both directions instantly, useful when working with nested JSON strings or embedding JSON in code."
+      "paragraph": "JSON escaping converts special characters in strings (like quotes, backslashes, and newlines) into escape sequences so they can be safely embedded in JSON or source code. Unescaping reverses this process. JSONKit handles both directions instantly, useful when working with nested JSON strings or embedding JSON in code.",
+      "howTo": [
+        "Paste the text or JSON you want to process into the input editor.",
+        "Click Escape to turn it into a JSON string literal, with quotes, backslashes and line breaks escaped.",
+        "Click Unescape to turn an escaped string back into readable JSON.",
+        "Copy the result into your code, configuration file or API request."
+      ],
+      "features": [
+        "Escapes double quotes, backslashes, newlines, tabs and other control characters.",
+        "Unescapes strings copied from logs, databases or nested JSON fields.",
+        "Useful for embedding JSON inside another JSON value, an environment variable or source code.",
+        "Processing happens locally in your browser."
+      ],
+      "faq": [
+        {
+          "q": "Why do I need to escape JSON?",
+          "a": "When JSON is stored as a string inside another JSON document or a programming language string, its quotes and backslashes would end the string early. Escaping prefixes them with backslashes so the outer document stays valid."
+        },
+        {
+          "q": "My log shows JSON full of \\\" characters. How do I read it?",
+          "a": "That JSON was escaped, often more than once. Paste it into the input and click Unescape. If the result still contains escaped quotes, unescape it again."
+        },
+        {
+          "q": "Is escaping the same as URL encoding?",
+          "a": "No. JSON escaping uses backslash sequences such as \\\" and \\n, while URL encoding uses percent sequences such as %22. Use the method that matches where the text will be placed."
+        }
+      ]
     }
   },
   "Repair": {
@@ -225,7 +470,33 @@
     },
     "seoContent": {
       "heading": "What is JSON Repair?",
-      "paragraph": "JSON repair automatically fixes common syntax errors in malformed JSON, such as trailing commas, missing or mismatched quotes, single quotes instead of double quotes, JavaScript-style comments, and unquoted property keys. JSONKit's repair tool can often recover data from broken JSON that standard parsers reject."
+      "paragraph": "JSON repair automatically fixes common syntax errors in malformed JSON, such as trailing commas, missing or mismatched quotes, single quotes instead of double quotes, JavaScript-style comments, and unquoted property keys. JSONKit's repair tool can often recover data from broken JSON that standard parsers reject.",
+      "howTo": [
+        "Paste the broken JSON into the input editor.",
+        "Click Repair.",
+        "Review the repaired, valid JSON in the output editor. If the input was already valid, you will be told so.",
+        "Copy the result or continue working with it in the other tools."
+      ],
+      "features": [
+        "Removes trailing commas and JavaScript-style comments.",
+        "Adds missing quotes around keys and converts single quotes to double quotes.",
+        "Fixes common issues in JSON copied from JavaScript code, logs or LLM output.",
+        "Runs entirely in your browser."
+      ],
+      "faq": [
+        {
+          "q": "What kinds of errors can be repaired?",
+          "a": "Trailing commas, comments, single-quoted strings, unquoted property names and similar mistakes that are common when JSON is written by hand or copied from JavaScript. Severely truncated or ambiguous input may not be recoverable."
+        },
+        {
+          "q": "Can repair change the meaning of my data?",
+          "a": "The repair only fixes syntax, but when the input is ambiguous it has to make a best guess. Always review the result before using it in production."
+        },
+        {
+          "q": "Why does JSON from an AI model or a log fail to parse?",
+          "a": "Output from language models and log lines often contains comments, trailing commas, single quotes or text cut off mid-way. Running it through JSON Repair is usually the fastest way to make it parseable."
+        }
+      ]
     }
   },
   "Schema": {
@@ -245,7 +516,33 @@
     "validationFailed": "Validation failed",
     "seoContent": {
       "heading": "What is JSON Schema Validation?",
-      "paragraph": "JSON Schema is a vocabulary for defining the structure, content, and semantics of JSON data. A JSON Schema validator checks whether your data conforms to a given schema definition. JSONKit uses the Ajv library for fast, spec-compliant validation with detailed error messages pointing to exact locations of violations."
+      "paragraph": "JSON Schema is a vocabulary for defining the structure, content, and semantics of JSON data. A JSON Schema validator checks whether your data conforms to a given schema definition. JSONKit uses the Ajv library for fast, spec-compliant validation with detailed error messages pointing to exact locations of violations.",
+      "howTo": [
+        "Paste your JSON data into the data editor, or click Load Example to start with a sample.",
+        "Paste the JSON Schema that describes the expected structure into the schema editor.",
+        "Click Validate.",
+        "Read the list of errors. Each one shows where in the data the problem is and which schema rule failed."
+      ],
+      "features": [
+        "Validation powered by Ajv, one of the most widely used JSON Schema validators.",
+        "Supports JSON Schema draft-07, including common formats such as email, date-time, uri and uuid.",
+        "Reports all errors at once instead of stopping at the first one.",
+        "Data and schema stay in your browser."
+      ],
+      "faq": [
+        {
+          "q": "What is JSON Schema?",
+          "a": "JSON Schema is a vocabulary for describing the structure of JSON data: which properties are required, what type each value must be, allowed ranges, string patterns and more. It is widely used for API contracts and configuration validation."
+        },
+        {
+          "q": "Which JSON Schema version is supported?",
+          "a": "The validator uses the draft-07 specification, which is compatible with most schemas in use today, including those generated by many tools and the OpenAPI ecosystem."
+        },
+        {
+          "q": "Why does my data fail with \"must have required property\"?",
+          "a": "The schema lists that property under required, but it is missing from the data. Either add the property to the data or remove it from the required array in the schema."
+        }
+      ]
     }
   },
   "Blog": {
@@ -303,7 +600,9 @@
   },
   "Footer": {
     "blog": "Blog",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "about": "About",
+    "contact": "Contact"
   },
   "Privacy": {
     "title": "Privacy Policy",
@@ -335,5 +634,61 @@
         "content": "If you have any questions about this Privacy Policy, please contact us through our GitHub repository."
       }
     }
+  },
+  "About": {
+    "title": "About JSONKit",
+    "metaTitle": "About JSONKit - Free Online JSON Toolkit",
+    "metaDescription": "Learn about JSONKit, a free and open-source collection of JSON tools for developers: who builds it, how your data is handled, and how the project is funded.",
+    "intro": "JSONKit is a free, open-source collection of online JSON tools for developers. It brings formatting, validation, comparison, conversion, querying and code generation together in one fast, ad-light interface, so you do not have to jump between a dozen different sites.",
+    "toolsTitle": "Tools available",
+    "sections": {
+      "mission": {
+        "title": "Why JSONKit exists",
+        "content": "JSON is everywhere: API responses, configuration files, logs and databases. Most online JSON tools do just one thing, are cluttered with pop-ups, or quietly upload your data to a server. JSONKit was built to be the single bookmark a developer needs for everyday JSON work — quick to load, keyboard friendly, available in five languages, and respectful of your data."
+      },
+      "privacy": {
+        "title": "How your data is handled",
+        "content": "Almost every tool on JSONKit runs entirely in your browser: the JSON you paste is parsed, formatted, validated and compared on your own device and is never sent anywhere. The one exception is JSON to Code, which sends your JSON sample to our server to generate type definitions and returns the result immediately; the input is not logged or stored. See the Privacy Policy for details about cookies and analytics."
+      },
+      "maintainer": {
+        "title": "Who builds it",
+        "content": "JSONKit is designed, built and maintained by Ktaewon, an independent software developer who works with JSON APIs every day. Bug reports, feature ideas and translation fixes from users directly shape what gets built next."
+      },
+      "openSource": {
+        "title": "Open source",
+        "content": "The complete source code is available on GitHub under the MIT license. You can read exactly how each tool works, report issues, suggest improvements or open a pull request."
+      },
+      "funding": {
+        "title": "How JSONKit stays free",
+        "content": "All tools are free to use with no account required. Hosting and development costs are covered by a small number of non-intrusive advertisements. Ads never have access to the JSON you work with."
+      }
+    },
+    "contactPrompt": "Have a question or found a bug?",
+    "contactLink": "Get in touch"
+  },
+  "Contact": {
+    "title": "Contact",
+    "metaTitle": "Contact JSONKit - Bug Reports & Feature Requests",
+    "metaDescription": "Contact the JSONKit maintainer. Report bugs, request new JSON tools or features, and ask questions through GitHub.",
+    "intro": "JSONKit is maintained in the open on GitHub. The fastest way to reach the maintainer — whether you found a bug, want a new feature, or spotted a translation error — is to open an issue.",
+    "channels": {
+      "issues": {
+        "title": "Report a bug or request a feature",
+        "content": "Open a GitHub issue describing what happened or what you would like to see. Issues are public, so other users can follow progress and add their own feedback.",
+        "cta": "Open an issue"
+      },
+      "repo": {
+        "title": "Source code",
+        "content": "Browse the source, read the changelog, or contribute a fix directly with a pull request. Contributions of all sizes are welcome.",
+        "cta": "View on GitHub"
+      }
+    },
+    "tipsTitle": "Tips for a helpful report",
+    "tips": {
+      "bug": "For bugs, include the tool you were using, your browser, and the steps to reproduce the problem.",
+      "feature": "For feature requests, describe the task you are trying to accomplish, not only the solution you have in mind.",
+      "privacy": "Never paste confidential data, API keys or personal information into a public issue. A small anonymized sample is enough."
+    },
+    "responseTime": "Issues are usually reviewed within a few days."
   }
 }
