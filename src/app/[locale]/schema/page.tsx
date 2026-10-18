@@ -8,6 +8,7 @@ import { validateJsonSchema, getExampleSchema, getExampleData } from '@/lib/json
 import { Trash2, Shield, CheckCircle, XCircle, FileText } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 
 export default function SchemaPage() {
   const t = useTranslations('Schema');
@@ -29,6 +30,12 @@ export default function SchemaPage() {
 
   const handleValidate = () => {
     const result = validateJsonSchema(data, schema);
+    trackToolUse({
+      tool: 'schema',
+      action: 'validate',
+      result: result.success && result.isValid ? 'success' : 'error',
+      size_bucket: getSizeBucket(data),
+    });
     if (result.success) {
       setIsValid(result.isValid);
       setErrors(result.errors);

@@ -10,6 +10,8 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import GoogleAdsense from '@/components/common/GoogleAdsense';
+import GoogleAnalytics from '@/components/common/GoogleAnalytics';
+import { getGaMeasurementId } from '@/lib/analytics';
 import { Toaster } from 'sonner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/common/JsonLd';
@@ -94,6 +96,7 @@ export default async function RootLayout({
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
+        <GoogleAnalytics measurementId={getGaMeasurementId()} />
       </body>
     </html>
   );
