@@ -364,6 +364,277 @@
       ]
     }
   },
+  "JsonToCodeLanguage": {
+    "popularTitle": "热门转换",
+    "otherConversionsTitle": "将 JSON 转换为其他语言",
+    "linkLabel": "JSON 转 {language}",
+    "exampleTitle": "示例：JSON 转 {language}",
+    "exampleInput": "输入 JSON",
+    "exampleOutput": "生成的 {language} 代码（{typeName}）",
+    "languages": {
+      "typescript": {
+        "title": "JSON 转 TypeScript 工具",
+        "description": "粘贴 JSON，即可为每个嵌套对象生成 TypeScript 接口，直接放进项目中使用。",
+        "metaTitle": "JSON 转 TypeScript 在线工具 - 生成接口定义 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 TypeScript 接口（interface）。粘贴 API 响应，即可为嵌套对象和数组生成类型定义，直接复制到 .ts 文件中使用。",
+        "seoContent": {
+          "heading": "从 JSON 生成 TypeScript 接口",
+          "paragraph": "手动为 API 响应编写类型既耗时又容易出错。本工具读取 JSON 样例，为每种对象结构生成一个导出的 interface：嵌套对象会生成独立命名的接口，数组会生成 string[] 这样的类型化数组，数字、字符串和布尔值分别映射为 number、string 和 boolean。输出只包含类型声明，没有任何运行时代码，不会增加打包体积。",
+          "howTo": [
+            "粘贴你要对接的 API 的真实响应，例如从浏览器开发者工具的 Network 面板中复制。",
+            "将类型名称设置为根对象所代表的含义，例如 User 或 ApiResponse。",
+            "把接口复制到 types.ts 文件中，并为 fetch 的结果添加类型注解，例如 const user: User = await res.json()。"
+          ],
+          "faq": [
+            {
+              "q": "生成的是 interface 还是 type 别名？",
+              "a": "生成的是导出的 interface。用于描述 API 数据时，它与对象类型别名的效果相同，复制后可以随意重命名或改写为 type。"
+            },
+            {
+              "q": "如何生成可选属性（field?: string）？",
+              "a": "生成器只能根据样例推断类型。在数组中放入多个对象，并让其中一部分省略该字段，这个属性就会被生成为可选。如果某个字段在样例中始终为 null，它会被推断为 null 类型，所以如果你知道它的实际类型，请在样例中填入真实值。"
+            },
+            {
+              "q": "这些接口会在运行时校验数据吗？",
+              "a": "不会。TypeScript 类型在编译时会被擦除，格式错误的响应并不会抛出异常。如果需要运行时校验，可以用 JSON Schema 工具生成 Schema 并据此校验，或者使用专门的校验库。"
+            }
+          ]
+        }
+      },
+      "go": {
+        "title": "JSON 转 Go 结构体工具",
+        "description": "将 JSON 转换为带 json tag 的 Go 结构体，并附带基于 encoding/json 的 Unmarshal 和 Marshal 辅助函数。",
+        "metaTitle": "JSON 转 Go 结构体在线工具 - 自动生成 json tag | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 Go struct。生成带 json tag 的导出字段、嵌套结构体类型以及 encoding/json 辅助函数，可直接粘贴到你的包中。",
+        "seoContent": {
+          "heading": "从 JSON 生成带 json tag 的 Go 结构体",
+          "paragraph": "在 Go 中，每个需要解码的 JSON 对象都要对应一个 struct，而当键名与 Go 字段名不一致时，每个字段还需要写 json tag。本工具会替你完成这些工作：allowed_origins 这样的 snake_case 键会变成 AllowedOrigins 这样的导出字段，并带上对应的 json tag；嵌套对象会生成独立的结构体类型；整数映射为 int64，小数映射为 float64。它还会基于标准库 encoding/json 生成一个 Unmarshal 函数和一个 Marshal 方法，无需任何第三方依赖。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如配置文件或 API 响应。",
+            "输入根结构体的名称，例如 ServerConfig。",
+            "将代码复制到 .go 文件中，把 package main 改成你自己的包名，然后用 json.Unmarshal 或生成的 Unmarshal 函数进行解码。"
+          ],
+          "faq": [
+            {
+              "q": "为什么数字生成为 int64 而不是 int？",
+              "a": "JSON 对整数大小没有限制，因此 int64 在所有平台上都是安全的选择。如果你清楚取值范围，复制后可以把字段改为 int。"
+            },
+            {
+              "q": "如何在 json tag 中添加 omitempty？",
+              "a": "生成器只会写出与样例键名对应的普通 tag。对于希望在 Marshal 时为空就省略的字段，请手动加上 ,omitempty；它不会影响解码行为。"
+            },
+            {
+              "q": "可为 null 或缺失的字段如何处理？",
+              "a": "如果样例中某个字段为 null，或在部分数组元素中缺失，它会被生成为 *string 这样的指针类型，这样你就能区分值不存在和值为空。"
+            }
+          ]
+        }
+      },
+      "python": {
+        "title": "JSON 转 Python 类工具",
+        "description": "从 JSON 生成带类型注解的 Python 类，并附带用于解析和序列化的 from_dict 与 to_dict 方法。",
+        "metaTitle": "JSON 转 Python 类在线工具 - 生成带类型注解的类 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为带类型注解的 Python 类。每个对象生成一个类，并附带 from_dict 和 to_dict 辅助方法，只依赖标准库。",
+        "seoContent": {
+          "heading": "从 JSON 生成带类型注解的 Python 类",
+          "paragraph": "json.loads 返回的是层层嵌套的 dict，键名拼错只有在运行时才会暴露，编辑器也无法提供自动补全。本工具会为 JSON 中的每个对象生成一个类，属性带有类型注解（str、int、float、bool、List[...]），并提供一个在解析时检查每个值类型的 from_dict 静态方法，以及一个将对象转换回 dict 以便输出 JSON 的 to_dict 方法。代码只用到标准库中的 typing 模块。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如 webhook 推送内容或 API 响应。",
+            "为根类命名，例如 Order。",
+            "将代码保存为模块，使用 Order.from_dict(json.loads(text)) 解析数据；需要回传时，先调用 to_dict() 再交给 json.dumps。"
+          ],
+          "faq": [
+            {
+              "q": "生成的是 dataclass 还是 Pydantic 模型？",
+              "a": "都不是。它们是带类型注解和显式 from_dict/to_dict 方法的普通类，不需要任何第三方包。如果项目中已经在用 dataclass 或 Pydantic，可以自行加上 @dataclass，或把字段迁移到 Pydantic 模型中。"
+            },
+            {
+              "q": "如果数据与类型不匹配会怎样？",
+              "a": "生成的辅助函数使用 assert isinstance 进行检查，因此当某个值的类型不符合预期时，from_dict 会抛出 AssertionError。注意，使用 -O 参数运行 Python 时 assert 会被跳过。"
+            },
+            {
+              "q": "需要哪个 Python 版本？",
+              "a": "代码使用 typing 模块中的类型注解，支持 Python 3.7 及以上版本。"
+            }
+          ]
+        }
+      },
+      "csharp": {
+        "title": "JSON 转 C# 类工具",
+        "description": "从 JSON 生成带属性和 JsonProperty 特性的 C# 类，可直接配合 Newtonsoft.Json 使用。",
+        "metaTitle": "JSON 转 C# 实体类在线工具 - 生成 POCO 类 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 C# 实体类。生成带 JsonProperty 特性的 PascalCase 属性、嵌套类，以及基于 Newtonsoft.Json 的 FromJson/ToJson 辅助方法。",
+        "seoContent": {
+          "heading": "从 JSON 生成 C# 类",
+          "paragraph": "在 .NET 中反序列化 JSON，第一步是编写一个属性与数据结构相对应的模型类。本工具会替你生成这些类：camelCase 键会变成 PascalCase 属性，并通过 [JsonProperty] 特性保留原始键名；嵌套对象会生成独立的 partial 类；数组会生成类型化数组；整数映射为 long，小数映射为 double。它还会为 Newtonsoft.Json（Json.NET）生成一个静态 FromJson 方法和一个 ToJson 扩展方法，并附带转换器设置。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如你的服务所调用 API 的响应。",
+            "输入根类名称，例如 Product。",
+            "安装 Newtonsoft.Json NuGet 包，将文件添加到项目中，把 QuickType 命名空间改成你自己的，然后调用 Product.FromJson(json)。"
+          ],
+          "faq": [
+            {
+              "q": "可以配合 System.Text.Json 使用吗？",
+              "a": "生成的特性和辅助方法面向 Newtonsoft.Json。如果使用 System.Text.Json，可以保留属性，把 [JsonProperty] 替换为 System.Text.Json.Serialization 中的 [JsonPropertyName]，再用 JsonSerializer.Deserialize<Product>(json) 进行反序列化。"
+            },
+            {
+              "q": "为什么数字生成为 long 和 double？",
+              "a": "JSON 数字没有固定大小，使用 long 和 double 可以避免意外溢出。如果业务需要，复制后可以改为 int 或 decimal，例如金额通常使用 decimal。"
+            },
+            {
+              "q": "为什么类被声明为 partial？",
+              "a": "partial 类可以让生成的属性和 FromJson 辅助方法分布在不同的声明中，也方便你在另一个文件中添加自己的成员，而无需修改生成的代码。"
+            }
+          ]
+        }
+      },
+      "rust": {
+        "title": "JSON 转 Rust 结构体工具",
+        "description": "根据 JSON 样例生成派生 serde Serialize 和 Deserialize 的 Rust 结构体。",
+        "metaTitle": "JSON 转 Rust 结构体在线工具 - 生成 Serde 结构体 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为带 serde derive 的 Rust struct。为嵌套对象和数组生成类型化字段，可直接配合 serde_json::from_str 使用。",
+        "seoContent": {
+          "heading": "从 JSON 生成 serde 结构体",
+          "paragraph": "在 Rust 中读取 JSON，通常的做法是借助 serde 和 serde_json 将其反序列化为结构体。本工具会根据样例生成这些结构体：每个对象生成一个带 #[derive(Serialize, Deserialize)] 的 struct，嵌套对象生成独立的结构体，数组映射为 Vec<T>，整数映射为 i64，小数映射为 f64，字符串映射为 String。字段名保持 snake_case，当某个 JSON 键不是合法的 snake_case 标识符时，会自动添加 #[serde(rename = \"...\")] 属性。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如事件数据或配置文件。",
+            "输入根结构体名称，例如 Event。",
+            "在 Cargo.toml 中添加 serde（启用 derive 特性）和 serde_json，将结构体粘贴到模块中，然后用 serde_json::from_str::<Event>(&text) 解析。"
+          ],
+          "faq": [
+            {
+              "q": "为什么字段是私有的？",
+              "a": "生成器不会给字段加 pub，这对于模块内部的 serde 使用已经足够。如果需要在其他模块中读取某些字段，请为它们加上 pub。"
+            },
+            {
+              "q": "可选字段如何表示？",
+              "a": "如果某个字段在部分样例数据中为 null 或缺失，它会被生成为 Option<T>，这样 serde 两种情况都能接受。始终存在的字段使用普通类型，缺失时会导致反序列化错误。"
+            },
+            {
+              "q": "需要哪些 crate？",
+              "a": "添加 serde（features = [\"derive\"]）和 serde_json 即可。输出顶部的注释中还展示了旧式的 extern crate 写法，当前的 Rust edition 已不再需要。"
+            }
+          ]
+        }
+      },
+      "swift": {
+        "title": "JSON 转 Swift Codable 工具",
+        "description": "从 JSON 生成遵循 Codable 的 Swift 结构体，并附带便于解码的便捷初始化方法。",
+        "metaTitle": "JSON 转 Swift 在线工具 - 生成 Codable 结构体 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 Swift Codable 结构体。生成不可变结构体、嵌套类型、CodingKeys，以及可从 Data、String 或 URL 解码的便捷初始化方法。",
+        "seoContent": {
+          "heading": "从 JSON 生成 Swift Codable 结构体",
+          "paragraph": "Codable 是 Swift 中解码 JSON 的标准方式，但为庞大的数据结构手写模型非常繁琐。本工具会为每个对象生成一个遵循 Codable 的 struct，使用 let 属性，类型包括 Int、Double、String、Bool、嵌套结构体和数组。当 JSON 键名与 Swift 属性名不同时，会添加 CodingKeys 枚举；同时生成的扩展还提供可从 Data、JSON 字符串或 URL 解码的初始化方法、用于创建修改副本的 with(...) 方法，以及用于重新编码的 jsonData()/jsonString()。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如你的 iOS 或 macOS 应用收到的响应。",
+            "输入根类型名称，例如 Article。",
+            "将文件添加到 Xcode 项目中，使用 try Article(jsonString) 或 JSONDecoder().decode(Article.self, from: data) 进行解码。"
+          ],
+          "faq": [
+            {
+              "q": "可以配合 SwiftUI 和 URLSession 使用吗？",
+              "a": "可以。这些结构体是普通的 Codable 值类型，你可以解码 URLSession 返回的 Data，并像使用其他模型一样把结果传给 SwiftUI 视图。"
+            },
+            {
+              "q": "snake_case 键名如何处理？",
+              "a": "属性会使用 Swift 风格的 camelCase 命名（is_featured 变为 isFeatured），并由 CodingKeys 枚举将其映射回原始 JSON 键，因此无需设置 keyDecodingStrategy。"
+            },
+            {
+              "q": "可以删除那些便捷扩展吗？",
+              "a": "可以。Codable 只需要结构体声明和 CodingKeys。扩展以及 newJSONDecoder/newJSONEncoder 辅助函数都是可选的便捷功能，可以删除。"
+            }
+          ]
+        }
+      },
+      "java": {
+        "title": "JSON 转 Java 类工具",
+        "description": "从 JSON 生成带 getter 和 setter 的 Java 类，并附带基于 Jackson 的 Converter。",
+        "metaTitle": "JSON 转 Java 实体类在线工具 - 生成 Jackson POJO | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 Java 实体类。生成带 getter、setter 和 Jackson 注解的 POJO，以及用于读写 JSON 的 Converter 类。",
+        "seoContent": {
+          "heading": "从 JSON 生成 Java POJO",
+          "paragraph": "在 Java 中映射 JSON，通常需要为每个对象编写一个 POJO，包含私有字段、getter、setter 和注解。本工具会根据样例自动生成：每个对象生成一个类，访问器上带有 Jackson 的 @JsonProperty 注解；嵌套对象生成独立的类；数组生成类型化数组；整数映射为 long。另外还会生成一个提供 fromJsonString 和 toJsonString 方法的 Converter 类，封装了 Jackson ObjectMapper 的配置，并包含日期和时间解析的辅助方法。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如你的 Spring 或 Android 应用所使用的 REST 响应。",
+            "输入根类名称，例如 Customer。",
+            "在 Maven 或 Gradle 构建中添加 jackson-databind，把每个类移到包中各自的 .java 文件里，然后调用 Converter.fromJsonString(json)。"
+          ],
+          "faq": [
+            {
+              "q": "为什么输出这么长？",
+              "a": "Java 需要显式声明字段、getter 和 setter，生成的 Converter 还包含面向 java.time API 的日期时间辅助方法。如果只需要模型，复制数据类并使用你现有的 ObjectMapper 即可。"
+            },
+            {
+              "q": "可以改用 Java record 或 Lombok 吗？",
+              "a": "为了获得最大的兼容性，生成器输出的是传统类。复制后你可以将它们改写为 record（Java 16+），或加上 Lombok 的 @Data 注解；Jackson 两者都支持。"
+            },
+            {
+              "q": "可以在 Spring Boot 中使用吗？",
+              "a": "可以。Spring Boot 默认使用 Jackson，因此这些带注解的类可以直接用作 @RequestBody 或响应类型，无需 Converter 类。"
+            }
+          ]
+        }
+      },
+      "cpp": {
+        "title": "JSON 转 C++ 工具",
+        "description": "根据 JSON 样例生成带 nlohmann/json 序列化函数的 C++ 类。",
+        "metaTitle": "JSON 转 C++ 在线工具 - 生成 nlohmann/json 类 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 C++ 类。生成带 getter 和 setter 的类，以及适用于 nlohmann/json 库的 from_json/to_json 函数。",
+        "seoContent": {
+          "heading": "从 JSON 生成适用于 nlohmann/json 的 C++ 类",
+          "paragraph": "C++ 没有内置的 JSON 支持，而流行的 nlohmann/json 库要实现自动转换，需要为每个类型提供 from_json 和 to_json 函数。本工具会生成一个头文件，为每个对象声明一个类，包含私有成员、getter 和 setter，以及对应的 from_json/to_json 函数，这样 json.get<SensorReading>() 和把对象赋值回 json 都能直接工作。整数映射为 int64_t，小数映射为 double，字符串映射为 std::string。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如设备消息或配置文件。",
+            "输入根类名称，例如 SensorReading。",
+            "将输出保存为头文件，把 nlohmann/json 的 json.hpp 加入 include 路径，然后用 nlohmann::json::parse(text).get<quicktype::SensorReading>() 解析。"
+          ],
+          "faq": [
+            {
+              "q": "生成的代码需要哪些库？",
+              "a": "需要单头文件的 nlohmann/json 库（json.hpp）。头文件中还引入了 boost/optional.hpp，用于可选字段；如果你的 JSON 中没有可选字段，可以删除这条 include。"
+            },
+            {
+              "q": "需要哪个 C++ 标准？",
+              "a": "nlohmann/json 需要 C++11 或更高版本。除上述库之外，生成的头文件只使用标准库类型。"
+            },
+            {
+              "q": "可以修改 quicktype 命名空间吗？",
+              "a": "可以。把 namespace quicktype 改成你自己的命名空间即可；只要 from_json 和 to_json 与类处于同一命名空间，就能通过参数依赖查找（ADL）找到它们。"
+            }
+          ]
+        }
+      },
+      "kotlin": {
+        "title": "JSON 转 Kotlin 数据类工具",
+        "description": "从 JSON 生成 Kotlin data class，并附带 toJson 和 fromJson 辅助方法。",
+        "metaTitle": "JSON 转 Kotlin 在线工具 - 生成 data class 数据类 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 Kotlin data class。生成不可变的 val 属性、嵌套类、List 类型以及 fromJson/toJson 辅助方法，适用于 Android 和 JVM 项目。",
+        "seoContent": {
+          "heading": "从 JSON 生成 Kotlin 数据类",
+          "paragraph": "在 Android 和 JVM 上，Kotlin data class 是承载 JSON 数据的天然模型类型。本工具会为每个对象生成一个 data class，使用不可变的 val 属性：整数映射为 Long，小数映射为 Double，数组映射为 List<T>，嵌套对象生成独立的 data class。生成的代码使用 Klaxon 库，并添加 toJson 方法和伴生对象中的 fromJson 函数，一次调用即可把 JSON 字符串转换为类型化对象。",
+          "howTo": [
+            "粘贴一段 JSON 样例，例如你的 Android 应用收到的响应。",
+            "输入根类名称，例如 Movie。",
+            "添加 Klaxon 依赖，将类粘贴到包中的 .kt 文件里，然后调用 Movie.fromJson(jsonString)。"
+          ],
+          "faq": [
+            {
+              "q": "这些类可以配合 kotlinx.serialization、Moshi 或 Gson 使用吗？",
+              "a": "可以。data class 声明本身是纯 Kotlin 代码。删除 Klaxon 辅助方法，并为每个类加上所用库的注解即可，例如 kotlinx.serialization 的 @Serializable。"
+            },
+            {
+              "q": "可空字段如何生成？",
+              "a": "在部分样例中为 null 或缺失的字段会生成为 String? 这样的可空类型，Kotlin 的空安全机制会强制你处理这些情况。"
+            },
+            {
+              "q": "为什么用 Long 而不是 Int？",
+              "a": "JSON 整数没有大小限制，使用 Long 可以避免溢出。如果你确定取值较小，例如年份或计数，可以把属性改为 Int。"
+            }
+          ]
+        }
+      }
+    }
+  },
   "Query": {
     "title": "JSONPath Query",
     "description": "使用 JSONPath 表达式从 JSON 中提取数据。使用强大的路径语法查询嵌套对象和数组。",

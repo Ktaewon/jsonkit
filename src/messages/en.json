@@ -366,6 +366,277 @@
       ]
     }
   },
+  "JsonToCodeLanguage": {
+    "popularTitle": "Popular conversions",
+    "otherConversionsTitle": "Convert JSON to other languages",
+    "linkLabel": "JSON to {language}",
+    "exampleTitle": "Example: JSON to {language}",
+    "exampleInput": "Input JSON",
+    "exampleOutput": "Generated {language} ({typeName})",
+    "languages": {
+      "typescript": {
+        "title": "JSON to TypeScript Converter",
+        "description": "Paste JSON and get TypeScript interfaces for every nested object, ready to drop into your project.",
+        "metaTitle": "JSON to TypeScript Converter - Generate Interfaces Online | JSONKit",
+        "metaDescription": "Convert JSON to TypeScript interfaces online. Paste an API response and get typed interfaces for nested objects and arrays, ready to copy into your .ts files.",
+        "seoContent": {
+          "heading": "Generate TypeScript interfaces from JSON",
+          "paragraph": "Typing API responses by hand is slow and easy to get wrong. This converter reads a JSON sample and produces one exported interface per object shape: nested objects become their own named interfaces, arrays become typed arrays such as string[], and numbers, strings and booleans map to number, string and boolean. The output contains only type declarations, with no runtime code, so it adds nothing to your bundle.",
+          "howTo": [
+            "Paste a real response from the API you are integrating, for example from your browser's network tab.",
+            "Set the type name to what the root object represents, such as User or ApiResponse.",
+            "Copy the interfaces into a types.ts file and annotate your fetch result, for example const user: User = await res.json()."
+          ],
+          "faq": [
+            {
+              "q": "Does it generate interfaces or type aliases?",
+              "a": "It generates exported interfaces. For typing API data they behave the same as object type aliases, and you can rename or convert them freely after copying."
+            },
+            {
+              "q": "How do I get optional properties (field?: string)?",
+              "a": "The generator only knows what the sample shows. Put several objects in an array where some of them omit the field, and that property is generated as optional. A field that is always null in the sample is typed as null, so give it a real value if you know its type."
+            },
+            {
+              "q": "Do the interfaces validate data at runtime?",
+              "a": "No. TypeScript types are erased at compile time, so a malformed response will not throw. If you need runtime checks, generate a JSON Schema with the JSON Schema tool and validate against it, or use a validation library."
+            }
+          ]
+        }
+      },
+      "go": {
+        "title": "JSON to Go Struct Converter",
+        "description": "Turn JSON into Go structs with json tags, plus Unmarshal and Marshal helpers for encoding/json.",
+        "metaTitle": "JSON to Go Struct Converter - Generate Structs with JSON Tags | JSONKit",
+        "metaDescription": "Convert JSON to Go structs online. Get exported fields with json tags, nested struct types and encoding/json helpers, ready to paste into your package.",
+        "seoContent": {
+          "heading": "Generate Go structs with json tags from JSON",
+          "paragraph": "Go needs a struct for every JSON object you want to decode, and every field needs a json tag when the key does not match the Go name. This converter writes those structs for you: snake_case keys such as allowed_origins become exported fields such as AllowedOrigins with the matching json tag, nested objects become separate struct types, whole numbers become int64 and decimals float64. It also adds an Unmarshal function and a Marshal method built on the standard encoding/json package, so there are no third-party dependencies.",
+          "howTo": [
+            "Paste a JSON sample, such as a config file or an API response.",
+            "Enter the root struct name, for example ServerConfig.",
+            "Copy the code into a .go file, change package main to your own package name, and decode with json.Unmarshal or the generated Unmarshal function."
+          ],
+          "faq": [
+            {
+              "q": "Why are numbers generated as int64 instead of int?",
+              "a": "JSON has no size limit for integers, so int64 is the safe choice on every platform. You can change a field to int after copying if you know the value range."
+            },
+            {
+              "q": "How do I add omitempty to the json tags?",
+              "a": "The generator writes plain tags that match the keys in your sample. Add ,omitempty by hand to fields that should be left out when empty during Marshal; decoding works the same either way."
+            },
+            {
+              "q": "How are nullable or missing fields handled?",
+              "a": "If the sample shows a field as null, or missing in some array items, it is generated as a pointer type such as *string, so you can tell an absent value from an empty one."
+            }
+          ]
+        }
+      },
+      "python": {
+        "title": "JSON to Python Class Converter",
+        "description": "Generate typed Python classes from JSON, with from_dict and to_dict methods for parsing and serializing.",
+        "metaTitle": "JSON to Python Class Converter - Generate Typed Classes Online | JSONKit",
+        "metaDescription": "Convert JSON to Python classes with type hints. Get one class per object plus from_dict and to_dict helpers, using only the standard library.",
+        "seoContent": {
+          "heading": "Generate typed Python classes from JSON",
+          "paragraph": "json.loads gives you nested dicts, so typos in keys only show up at runtime and your editor cannot autocomplete anything. This converter produces a class for each object in your JSON, with type-annotated attributes (str, int, float, bool, List[...]), a from_dict static method that checks each value's type while parsing, and a to_dict method for turning the object back into a dict for JSON. It uses only the typing module from the standard library.",
+          "howTo": [
+            "Paste a JSON sample, for example a webhook payload or an API response.",
+            "Name the root class, for example Order.",
+            "Save the code as a module and parse data with Order.from_dict(json.loads(text)); call to_dict() before json.dumps when sending it back."
+          ],
+          "faq": [
+            {
+              "q": "Are these dataclasses or Pydantic models?",
+              "a": "Neither. They are plain classes with type hints and explicit from_dict/to_dict methods, so they need no third-party packages. You can add @dataclass or port the fields to Pydantic if your project already uses it."
+            },
+            {
+              "q": "What happens if the data does not match the types?",
+              "a": "The generated helper functions use assert isinstance checks, so from_dict raises an AssertionError when a value has an unexpected type. Note that asserts are skipped when Python runs with -O."
+            },
+            {
+              "q": "Which Python version is required?",
+              "a": "The code uses annotations from the typing module and works on Python 3.7 and later."
+            }
+          ]
+        }
+      },
+      "csharp": {
+        "title": "JSON to C# Class Converter",
+        "description": "Generate C# classes with properties and JsonProperty attributes from JSON, ready for Newtonsoft.Json.",
+        "metaTitle": "JSON to C# Class Converter - Generate POCO Classes Online | JSONKit",
+        "metaDescription": "Convert JSON to C# classes online. Get PascalCase properties with JsonProperty attributes, nested classes and FromJson/ToJson helpers for Newtonsoft.Json.",
+        "seoContent": {
+          "heading": "Generate C# classes from JSON",
+          "paragraph": "Deserializing JSON in .NET starts with a model class whose properties match the payload. This converter writes those classes for you: camelCase keys become PascalCase properties with a [JsonProperty] attribute holding the original key, nested objects become their own partial classes, arrays become typed arrays, whole numbers become long and decimals double. It also adds a static FromJson method and a ToJson extension method with converter settings for Newtonsoft.Json (Json.NET).",
+          "howTo": [
+            "Paste a JSON sample, such as a response from the API your service calls.",
+            "Enter the root class name, for example Product.",
+            "Install the Newtonsoft.Json NuGet package, add the file to your project, rename the QuickType namespace to your own, and call Product.FromJson(json)."
+          ],
+          "faq": [
+            {
+              "q": "Does it work with System.Text.Json?",
+              "a": "The attributes and helpers target Newtonsoft.Json. For System.Text.Json, keep the properties, replace [JsonProperty] with [JsonPropertyName] from System.Text.Json.Serialization, and deserialize with JsonSerializer.Deserialize<Product>(json)."
+            },
+            {
+              "q": "Why are numbers generated as long and double?",
+              "a": "JSON numbers have no fixed size, so long and double avoid overflow surprises. Change them to int or decimal after copying if your domain needs it, for example decimal for money."
+            },
+            {
+              "q": "Why are the classes declared as partial?",
+              "a": "Partial classes let the generated properties and the FromJson helper live in separate declarations, and let you add your own members in another file without editing the generated one."
+            }
+          ]
+        }
+      },
+      "rust": {
+        "title": "JSON to Rust Struct Converter",
+        "description": "Generate Rust structs that derive serde's Serialize and Deserialize from a JSON sample.",
+        "metaTitle": "JSON to Rust Struct Converter - Generate Serde Structs Online | JSONKit",
+        "metaDescription": "Convert JSON to Rust structs with serde derives. Get typed fields for nested objects and arrays, ready for serde_json::from_str.",
+        "seoContent": {
+          "heading": "Generate serde structs from JSON",
+          "paragraph": "In Rust, the usual way to read JSON is to deserialize it into structs with serde and serde_json. This converter writes those structs from a sample: each object becomes a struct with #[derive(Serialize, Deserialize)], nested objects get their own struct, arrays become Vec<T>, whole numbers become i64, decimals f64 and strings String. Field names are kept in snake_case, and a #[serde(rename = \"...\")] attribute is added when a JSON key is not a valid snake_case identifier.",
+          "howTo": [
+            "Paste a JSON sample, such as an event payload or a config file.",
+            "Enter the root struct name, for example Event.",
+            "Add serde (with the derive feature) and serde_json to Cargo.toml, paste the structs into a module, and parse with serde_json::from_str::<Event>(&text)."
+          ],
+          "faq": [
+            {
+              "q": "Why are the fields private?",
+              "a": "The generator leaves fields without pub, which is enough for serde inside the module. Add pub to the fields you need to read from other modules."
+            },
+            {
+              "q": "How are optional fields represented?",
+              "a": "If a field is null or missing in some of the sample items, it is generated as Option<T>, so serde accepts both cases. Fields that are always present get plain types, and a missing one is a deserialization error."
+            },
+            {
+              "q": "Which crates do I need?",
+              "a": "Add serde with features = [\"derive\"] and serde_json. The comment at the top of the output also shows the older extern crate style, which current Rust editions do not need."
+            }
+          ]
+        }
+      },
+      "swift": {
+        "title": "JSON to Swift Codable Converter",
+        "description": "Generate Swift structs conforming to Codable from JSON, with convenience initializers for decoding.",
+        "metaTitle": "JSON to Swift Converter - Generate Codable Structs Online | JSONKit",
+        "metaDescription": "Convert JSON to Swift Codable structs online. Get immutable structs, nested types, CodingKeys and convenience initializers that decode from Data, String or URL.",
+        "seoContent": {
+          "heading": "Generate Swift Codable structs from JSON",
+          "paragraph": "Codable is the standard way to decode JSON in Swift, but writing the model structs for a large payload is tedious. This converter generates a struct conforming to Codable for each object, with let properties typed as Int, Double, String, Bool, nested structs and arrays. It adds a CodingKeys enum when a JSON key differs from the Swift property name, plus extensions with initializers that decode from Data, a JSON String or a URL, a with(...) method for making modified copies, and jsonData()/jsonString() for encoding back.",
+          "howTo": [
+            "Paste a JSON sample, such as the response your iOS or macOS app receives.",
+            "Enter the root type name, for example Article.",
+            "Add the file to your Xcode project and decode with try Article(jsonString) or JSONDecoder().decode(Article.self, from: data)."
+          ],
+          "faq": [
+            {
+              "q": "Does it work with SwiftUI and URLSession?",
+              "a": "Yes. The structs are plain Codable value types, so you can decode the Data returned by URLSession and pass the result to SwiftUI views like any other model."
+            },
+            {
+              "q": "How are snake_case keys handled?",
+              "a": "Properties get Swift-style camelCase names (is_featured becomes isFeatured), and a CodingKeys enum maps each one to the original JSON key, so you do not need to set keyDecodingStrategy."
+            },
+            {
+              "q": "Can I remove the convenience extensions?",
+              "a": "Yes. Only the struct declarations and CodingKeys are needed for Codable. The extensions and the newJSONDecoder/newJSONEncoder helpers are optional conveniences you can delete."
+            }
+          ]
+        }
+      },
+      "java": {
+        "title": "JSON to Java Class Converter",
+        "description": "Generate Java classes with getters and setters from JSON, plus a Jackson-based Converter.",
+        "metaTitle": "JSON to Java Class Converter - Generate POJOs with Jackson | JSONKit",
+        "metaDescription": "Convert JSON to Java classes online. Get POJOs with getters, setters and Jackson annotations, plus a Converter class for reading and writing JSON.",
+        "seoContent": {
+          "heading": "Generate Java POJOs from JSON",
+          "paragraph": "Mapping JSON in Java usually means writing a POJO for every object, with private fields, getters, setters and annotations. This converter generates them from a sample: each object becomes a class with Jackson @JsonProperty annotations on its accessors, nested objects become separate classes, arrays become typed arrays, and whole numbers become long. A Converter class with fromJsonString and toJsonString methods wraps the Jackson ObjectMapper setup, including date and time parsing helpers.",
+          "howTo": [
+            "Paste a JSON sample, for example a REST response your Spring or Android app consumes.",
+            "Enter the root class name, for example Customer.",
+            "Add jackson-databind to your Maven or Gradle build, move each class into its own .java file in your package, and call Converter.fromJsonString(json)."
+          ],
+          "faq": [
+            {
+              "q": "Why is the output so long?",
+              "a": "Java needs explicit fields, getters and setters, and the generated Converter includes date-time helpers for the java.time API. If you only need the models, copy the data classes and use your existing ObjectMapper."
+            },
+            {
+              "q": "Can I use Java records or Lombok instead?",
+              "a": "The generator writes classic classes for maximum compatibility. You can convert them to records (Java 16+) or annotate them with Lombok's @Data after copying; Jackson supports both."
+            },
+            {
+              "q": "Does it work with Spring Boot?",
+              "a": "Yes. Spring Boot uses Jackson by default, so the annotated classes can be used directly as @RequestBody or response types without the Converter class."
+            }
+          ]
+        }
+      },
+      "cpp": {
+        "title": "JSON to C++ Converter",
+        "description": "Generate C++ classes with nlohmann/json serialization functions from a JSON sample.",
+        "metaTitle": "JSON to C++ Converter - Generate Classes for nlohmann/json | JSONKit",
+        "metaDescription": "Convert JSON to C++ classes online. Get classes with getters and setters plus from_json/to_json functions for the nlohmann/json library.",
+        "seoContent": {
+          "heading": "Generate C++ classes from JSON for nlohmann/json",
+          "paragraph": "C++ has no built-in JSON support, and the popular nlohmann/json library needs a from_json and to_json function for every type it converts automatically. This converter writes a header that declares a class per object, with private members, getters and setters, and the matching from_json/to_json functions, so json.get<SensorReading>() and assigning an object back to json just work. Whole numbers become int64_t, decimals double and strings std::string.",
+          "howTo": [
+            "Paste a JSON sample, such as a device message or a config file.",
+            "Enter the root class name, for example SensorReading.",
+            "Save the output as a header, add json.hpp from nlohmann/json to your include path, and parse with nlohmann::json::parse(text).get<quicktype::SensorReading>()."
+          ],
+          "faq": [
+            {
+              "q": "Which libraries does the generated code need?",
+              "a": "It needs the single-header nlohmann/json library (json.hpp). The header also includes boost/optional.hpp, which is used for optional fields; if your JSON has no optional fields you can remove that include."
+            },
+            {
+              "q": "Which C++ standard is required?",
+              "a": "nlohmann/json requires C++11 or later. Apart from the libraries above, the generated header uses only standard library types."
+            },
+            {
+              "q": "Can I change the quicktype namespace?",
+              "a": "Yes. Rename namespace quicktype to your own; from_json and to_json are found by argument-dependent lookup as long as they stay in the same namespace as the classes."
+            }
+          ]
+        }
+      },
+      "kotlin": {
+        "title": "JSON to Kotlin Data Class Converter",
+        "description": "Generate Kotlin data classes from JSON, with toJson and fromJson helpers.",
+        "metaTitle": "JSON to Kotlin Converter - Generate Data Classes Online | JSONKit",
+        "metaDescription": "Convert JSON to Kotlin data classes online. Get immutable val properties, nested classes, List types and fromJson/toJson helpers for Android and JVM projects.",
+        "seoContent": {
+          "heading": "Generate Kotlin data classes from JSON",
+          "paragraph": "Kotlin data classes are the natural model type for JSON on Android and the JVM. This converter produces one data class per object with immutable val properties: whole numbers become Long, decimals Double, arrays List<T> and nested objects their own data class. The generated code uses the Klaxon library and adds a toJson method and a companion fromJson function, so a single call turns a JSON string into a typed object.",
+          "howTo": [
+            "Paste a JSON sample, for example the response your Android app receives.",
+            "Enter the root class name, for example Movie.",
+            "Add the Klaxon dependency, paste the classes into a .kt file in your package, and call Movie.fromJson(jsonString)."
+          ],
+          "faq": [
+            {
+              "q": "Can I use these classes with kotlinx.serialization, Moshi or Gson?",
+              "a": "Yes. The data class declarations are plain Kotlin. Remove the Klaxon helpers and add your library's annotation, such as @Serializable for kotlinx.serialization, to each class."
+            },
+            {
+              "q": "How are nullable fields generated?",
+              "a": "Fields that are null or missing in part of the sample become nullable types such as String?, so Kotlin's null safety makes you handle them."
+            },
+            {
+              "q": "Why Long instead of Int?",
+              "a": "JSON integers have no size limit, so Long avoids overflow. Change a property to Int if you know the values are small, for example a year or a count."
+            }
+          ]
+        }
+      }
+    }
+  },
   "Query": {
     "title": "JSONPath Query",
     "description": "Extract data from JSON using JSONPath expressions. Query nested objects and arrays with powerful path syntax.",

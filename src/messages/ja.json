@@ -364,6 +364,277 @@
       ]
     }
   },
+  "JsonToCodeLanguage": {
+    "popularTitle": "人気の変換",
+    "otherConversionsTitle": "JSONを他の言語に変換",
+    "linkLabel": "JSON to {language}",
+    "exampleTitle": "例: JSONから{language}への変換",
+    "exampleInput": "入力JSON",
+    "exampleOutput": "生成された{language}（{typeName}）",
+    "languages": {
+      "typescript": {
+        "title": "JSON to TypeScript 変換ツール",
+        "description": "JSONを貼り付けるだけで、ネストしたすべてのオブジェクトに対応するTypeScriptのinterfaceを生成し、そのままプロジェクトで使えます。",
+        "metaTitle": "JSON to TypeScript 変換ツール - interface（型定義）をオンライン生成 | JSONKit",
+        "metaDescription": "JSONをTypeScriptのinterfaceにオンラインで変換。APIレスポンスを貼り付けるだけで、ネストしたオブジェクトや配列の型定義を生成し、そのまま.tsファイルにコピーできます。",
+        "seoContent": {
+          "heading": "JSONからTypeScriptのinterfaceを生成",
+          "paragraph": "APIレスポンスの型を手で書くのは時間がかかり、ミスも起きやすい作業です。このツールはJSONサンプルを読み取り、オブジェクトの形ごとにexportされたinterfaceを1つずつ生成します。ネストしたオブジェクトはそれぞれ名前付きのinterfaceになり、配列はstring[]のような型付き配列に、数値・文字列・真偽値はnumber、string、booleanにマッピングされます。出力されるのは型宣言だけで実行時のコードを含まないため、バンドルサイズは一切増えません。",
+          "howTo": [
+            "連携するAPIの実際のレスポンスを貼り付けます。たとえばブラウザのネットワークタブからコピーできます。",
+            "型名には、UserやApiResponseなど、ルートオブジェクトが表すものを指定します。",
+            "生成されたinterfaceをtypes.tsファイルにコピーし、const user: User = await res.json() のようにfetchの結果に型注釈を付けます。"
+          ],
+          "faq": [
+            {
+              "q": "生成されるのはinterfaceですか、それともtypeエイリアスですか？",
+              "a": "exportされたinterfaceを生成します。APIデータの型付けにおいてはオブジェクト型のtypeエイリアスと同じように使えるので、コピー後に自由に名前を変えたり書き換えたりできます。"
+            },
+            {
+              "q": "オプショナルなプロパティ（field?: string）にするにはどうすればよいですか？",
+              "a": "生成ツールはサンプルに含まれる情報しか把握できません。配列に複数のオブジェクトを入れ、その一部でフィールドを省略しておくと、そのプロパティはオプショナルとして生成されます。サンプル内で常にnullのフィールドはnull型になるため、型がわかっている場合は実際の値を入れてください。"
+            },
+            {
+              "q": "interfaceは実行時にデータを検証しますか？",
+              "a": "いいえ。TypeScriptの型はコンパイル時に消えるため、不正なレスポンスを受け取ってもエラーにはなりません。実行時のチェックが必要な場合は、JSON SchemaツールでJSON Schemaを生成して検証するか、バリデーションライブラリを使用してください。"
+            }
+          ]
+        }
+      },
+      "go": {
+        "title": "JSON to Go struct 変換ツール",
+        "description": "JSONをjsonタグ付きのGoのstructに変換し、encoding/json用のUnmarshal・Marshalヘルパーも生成します。",
+        "metaTitle": "JSON to Go 変換ツール - jsonタグ付きstructをオンライン生成 | JSONKit",
+        "metaDescription": "JSONをGoのstructにオンラインで変換。jsonタグ付きのエクスポートフィールド、ネストしたstruct型、encoding/jsonのヘルパーを生成し、そのままパッケージに貼り付けられます。",
+        "seoContent": {
+          "heading": "JSONからjsonタグ付きのGo structを生成",
+          "paragraph": "Goでは、デコードしたいJSONオブジェクトごとにstructが必要で、キーとGoのフィールド名が一致しない場合は各フィールドにjsonタグを付けなければなりません。このツールはそうしたstructを自動で書き出します。allowed_originsのようなsnake_caseのキーはAllowedOriginsのようなエクスポートフィールドになり、対応するjsonタグが付きます。ネストしたオブジェクトは別のstruct型になり、整数はint64、小数はfloat64になります。さらに標準のencoding/jsonパッケージを使ったUnmarshal関数とMarshalメソッドも追加されるため、サードパーティの依存関係は必要ありません。",
+          "howTo": [
+            "設定ファイルやAPIレスポンスなどのJSONサンプルを貼り付けます。",
+            "ルートstructの名前を入力します（例: ServerConfig）。",
+            "コードを.goファイルにコピーし、package mainを自分のパッケージ名に変更したうえで、json.Unmarshalまたは生成されたUnmarshal関数でデコードします。"
+          ],
+          "faq": [
+            {
+              "q": "数値がintではなくint64で生成されるのはなぜですか？",
+              "a": "JSONの整数にはサイズの上限がないため、どのプラットフォームでも安全なint64を採用しています。値の範囲がわかっている場合は、コピー後にフィールドをintに変更してかまいません。"
+            },
+            {
+              "q": "jsonタグにomitemptyを付けるにはどうすればよいですか？",
+              "a": "生成ツールはサンプルのキーに合わせたシンプルなタグを書き出します。Marshal時に空なら省略したいフィールドには、手動で,omitemptyを追加してください。デコードの動作はどちらでも変わりません。"
+            },
+            {
+              "q": "nullになり得るフィールドや欠落するフィールドはどう扱われますか？",
+              "a": "サンプルでフィールドがnullになっている場合や、配列の一部の要素で欠落している場合は、*stringのようなポインタ型として生成されます。これにより、値が存在しないのか空なのかを区別できます。"
+            }
+          ]
+        }
+      },
+      "python": {
+        "title": "JSON to Python クラス変換ツール",
+        "description": "JSONから型付きのPythonクラスを生成します。パースとシリアライズ用のfrom_dict・to_dictメソッド付きです。",
+        "metaTitle": "JSON to Python 変換ツール - 型ヒント付きクラスをオンライン生成 | JSONKit",
+        "metaDescription": "JSONを型ヒント付きのPythonクラスに変換。オブジェクトごとのクラスとfrom_dict・to_dictヘルパーを、標準ライブラリだけで生成します。",
+        "seoContent": {
+          "heading": "JSONから型付きのPythonクラスを生成",
+          "paragraph": "json.loadsで得られるのはネストしたdictなので、キーのタイプミスは実行するまで気づけず、エディタの補完も効きません。このツールはJSON内のオブジェクトごとにクラスを生成します。各クラスには型注釈付きの属性（str、int、float、bool、List[...]）、パース時に各値の型をチェックするfrom_dict静的メソッド、JSON用にdictへ戻すto_dictメソッドが含まれます。使用するのは標準ライブラリのtypingモジュールだけです。",
+          "howTo": [
+            "WebhookのペイロードやAPIレスポンスなどのJSONサンプルを貼り付けます。",
+            "ルートクラスの名前を指定します（例: Order）。",
+            "コードをモジュールとして保存し、Order.from_dict(json.loads(text)) でデータをパースします。送信するときは、json.dumpsの前にto_dict()を呼び出します。"
+          ],
+          "faq": [
+            {
+              "q": "dataclassやPydanticのモデルですか？",
+              "a": "どちらでもありません。型ヒントと明示的なfrom_dict/to_dictメソッドを持つ通常のクラスなので、サードパーティのパッケージは不要です。プロジェクトですでに使っている場合は、@dataclassを付けたり、フィールドをPydanticに移植したりできます。"
+            },
+            {
+              "q": "データが型と一致しない場合はどうなりますか？",
+              "a": "生成されるヘルパー関数はassert isinstanceによるチェックを行うため、想定外の型の値があるとfrom_dictがAssertionErrorを送出します。ただし、Pythonを-Oオプション付きで実行するとassertはスキップされる点に注意してください。"
+            },
+            {
+              "q": "必要なPythonのバージョンは？",
+              "a": "typingモジュールの型注釈を使用しており、Python 3.7以降で動作します。"
+            }
+          ]
+        }
+      },
+      "csharp": {
+        "title": "JSON to C# クラス変換ツール",
+        "description": "JSONから、プロパティとJsonProperty属性を備えたC#クラスを生成します。Newtonsoft.Jsonですぐに使えます。",
+        "metaTitle": "JSON to C# 変換ツール - POCOクラスをオンライン生成 | JSONKit",
+        "metaDescription": "JSONをC#クラスにオンラインで変換。JsonProperty属性付きのPascalCaseプロパティ、ネストしたクラス、Newtonsoft.Json用のFromJson/ToJsonヘルパーを生成します。",
+        "seoContent": {
+          "heading": "JSONからC#クラスを生成",
+          "paragraph": ".NETでJSONをデシリアライズするには、まずペイロードに対応するプロパティを持つモデルクラスが必要です。このツールはそのクラスを自動で書き出します。camelCaseのキーは元のキー名を保持する[JsonProperty]属性付きのPascalCaseプロパティになり、ネストしたオブジェクトはそれぞれ独立したpartialクラスに、配列は型付き配列に、整数はlong、小数はdoubleになります。さらに、Newtonsoft.Json（Json.NET）用のコンバーター設定を含む静的なFromJsonメソッドとToJson拡張メソッドも追加されます。",
+          "howTo": [
+            "サービスが呼び出すAPIのレスポンスなど、JSONサンプルを貼り付けます。",
+            "ルートクラスの名前を入力します（例: Product）。",
+            "NuGetでNewtonsoft.Jsonパッケージをインストールし、ファイルをプロジェクトに追加して、QuickType名前空間を自分のものに変更したうえでProduct.FromJson(json)を呼び出します。"
+          ],
+          "faq": [
+            {
+              "q": "System.Text.Jsonでも使えますか？",
+              "a": "属性とヘルパーはNewtonsoft.Jsonを対象としています。System.Text.Jsonで使う場合は、プロパティはそのままにして、[JsonProperty]をSystem.Text.Json.Serializationの[JsonPropertyName]に置き換え、JsonSerializer.Deserialize<Product>(json)でデシリアライズしてください。"
+            },
+            {
+              "q": "数値がlongとdoubleで生成されるのはなぜですか？",
+              "a": "JSONの数値には固定のサイズがないため、オーバーフローを避けられるlongとdoubleを使っています。金額にはdecimalを使うなど、ドメインに合わせてコピー後にintやdecimalへ変更してください。"
+            },
+            {
+              "q": "クラスがpartialで宣言されているのはなぜですか？",
+              "a": "partialクラスにすることで、生成されたプロパティとFromJsonヘルパーを別々の宣言に分けられます。また、生成されたファイルを編集せずに、別ファイルに独自のメンバーを追加できます。"
+            }
+          ]
+        }
+      },
+      "rust": {
+        "title": "JSON to Rust struct 変換ツール",
+        "description": "JSONサンプルから、serdeのSerializeとDeserializeをderiveしたRustのstructを生成します。",
+        "metaTitle": "JSON to Rust 変換ツール - serde対応structをオンライン生成 | JSONKit",
+        "metaDescription": "JSONをserdeのderive付きRust structに変換。ネストしたオブジェクトや配列に対応した型付きフィールドを生成し、serde_json::from_strですぐに使えます。",
+        "seoContent": {
+          "heading": "JSONからserde対応のstructを生成",
+          "paragraph": "RustでJSONを読み込む一般的な方法は、serdeとserde_jsonを使ってstructにデシリアライズすることです。このツールはサンプルからそのstructを書き出します。各オブジェクトは#[derive(Serialize, Deserialize)]付きのstructになり、ネストしたオブジェクトには専用のstructが作られ、配列はVec<T>、整数はi64、小数はf64、文字列はStringになります。フィールド名はsnake_caseのまま保たれ、JSONのキーが有効なsnake_caseの識別子でない場合は#[serde(rename = \"...\")]属性が追加されます。",
+          "howTo": [
+            "イベントのペイロードや設定ファイルなどのJSONサンプルを貼り付けます。",
+            "ルートstructの名前を入力します（例: Event）。",
+            "Cargo.tomlにserde（deriveフィーチャー付き）とserde_jsonを追加し、structをモジュールに貼り付けて、serde_json::from_str::<Event>(&text)でパースします。"
+          ],
+          "faq": [
+            {
+              "q": "フィールドがprivateになっているのはなぜですか？",
+              "a": "生成ツールはフィールドにpubを付けません。モジュール内でserdeを使う分にはこれで十分です。他のモジュールから読み取る必要があるフィールドにはpubを追加してください。"
+            },
+            {
+              "q": "オプショナルなフィールドはどう表現されますか？",
+              "a": "サンプルの一部の要素でフィールドがnullまたは欠落している場合は、Option<T>として生成されるため、serdeはどちらのケースも受け付けます。常に存在するフィールドは通常の型になり、欠落しているとデシリアライズエラーになります。"
+            },
+            {
+              "q": "必要なクレートは？",
+              "a": "features = [\"derive\"]を指定したserdeとserde_jsonを追加してください。出力の先頭のコメントには古いextern crate形式も記載されていますが、現在のRustエディションでは不要です。"
+            }
+          ]
+        }
+      },
+      "swift": {
+        "title": "JSON to Swift Codable 変換ツール",
+        "description": "JSONから、Codableに準拠したSwiftのstructを生成します。デコード用のイニシャライザも付いています。",
+        "metaTitle": "JSON to Swift 変換ツール - Codable structをオンライン生成 | JSONKit",
+        "metaDescription": "JSONをSwiftのCodable structにオンラインで変換。イミュータブルなstruct、ネストした型、CodingKeys、Data・String・URLからデコードできるイニシャライザを生成します。",
+        "seoContent": {
+          "heading": "JSONからSwiftのCodable structを生成",
+          "paragraph": "CodableはSwiftでJSONをデコードする標準的な方法ですが、大きなペイロードのモデルstructを手で書くのは面倒です。このツールはオブジェクトごとにCodableに準拠したstructを生成し、Int、Double、String、Bool、ネストしたstruct、配列で型付けされたletプロパティを持たせます。JSONのキーとSwiftのプロパティ名が異なる場合はCodingKeys enumを追加し、さらにData、JSON文字列、URLからデコードするイニシャライザを備えたextension、変更したコピーを作るwith(...)メソッド、エンコードし直すためのjsonData()/jsonString()も生成します。",
+          "howTo": [
+            "iOSやmacOSアプリが受け取るレスポンスなど、JSONサンプルを貼り付けます。",
+            "ルート型の名前を入力します（例: Article）。",
+            "ファイルをXcodeプロジェクトに追加し、try Article(jsonString) または JSONDecoder().decode(Article.self, from: data) でデコードします。"
+          ],
+          "faq": [
+            {
+              "q": "SwiftUIやURLSessionで使えますか？",
+              "a": "はい。structはシンプルなCodableの値型なので、URLSessionが返すDataをデコードし、その結果を他のモデルと同じようにSwiftUIのビューに渡せます。"
+            },
+            {
+              "q": "snake_caseのキーはどう扱われますか？",
+              "a": "プロパティにはSwiftらしいcamelCaseの名前が付き（is_featuredはisFeaturedになります）、CodingKeys enumがそれぞれを元のJSONキーに対応付けるため、keyDecodingStrategyを設定する必要はありません。"
+            },
+            {
+              "q": "便利なextensionは削除できますか？",
+              "a": "はい。Codableに必要なのはstructの宣言とCodingKeysだけです。extensionやnewJSONDecoder/newJSONEncoderヘルパーは任意の便利機能なので、削除してかまいません。"
+            }
+          ]
+        }
+      },
+      "java": {
+        "title": "JSON to Java クラス変換ツール",
+        "description": "JSONからgetter・setter付きのJavaクラスを生成し、JacksonベースのConverterも作成します。",
+        "metaTitle": "JSON to Java 変換ツール - Jackson対応POJOをオンライン生成 | JSONKit",
+        "metaDescription": "JSONをJavaクラスにオンラインで変換。getter・setter・Jacksonアノテーション付きのPOJOと、JSONの読み書きを行うConverterクラスを生成します。",
+        "seoContent": {
+          "heading": "JSONからJavaのPOJOを生成",
+          "paragraph": "JavaでJSONをマッピングするには、オブジェクトごとにprivateフィールド、getter、setter、アノテーションを備えたPOJOを書くのが一般的です。このツールはサンプルからそれらを生成します。各オブジェクトはアクセサにJacksonの@JsonPropertyアノテーションが付いたクラスになり、ネストしたオブジェクトは別のクラスに、配列は型付き配列に、整数はlongになります。fromJsonStringとtoJsonStringメソッドを持つConverterクラスが、日付・時刻のパース用ヘルパーを含めてJacksonのObjectMapperの設定をまとめて引き受けます。",
+          "howTo": [
+            "SpringやAndroidアプリが利用するRESTレスポンスなど、JSONサンプルを貼り付けます。",
+            "ルートクラスの名前を入力します（例: Customer）。",
+            "MavenまたはGradleのビルドにjackson-databindを追加し、各クラスをパッケージ内の個別の.javaファイルに移して、Converter.fromJsonString(json)を呼び出します。"
+          ],
+          "faq": [
+            {
+              "q": "出力がこれほど長いのはなぜですか？",
+              "a": "Javaではフィールド、getter、setterを明示的に書く必要があり、生成されるConverterにはjava.time API用の日時ヘルパーも含まれるためです。モデルだけが必要なら、データクラスだけをコピーして既存のObjectMapperを使ってください。"
+            },
+            {
+              "q": "JavaのrecordやLombokを使うことはできますか？",
+              "a": "互換性を最大限に保つため、生成ツールは従来型のクラスを出力します。コピー後にrecord（Java 16以降）に書き換えたり、Lombokの@Dataを付けたりできます。Jacksonはどちらにも対応しています。"
+            },
+            {
+              "q": "Spring Bootで使えますか？",
+              "a": "はい。Spring BootはデフォルトでJacksonを使用するため、アノテーション付きのクラスはConverterクラスなしで、そのまま@RequestBodyやレスポンスの型として使えます。"
+            }
+          ]
+        }
+      },
+      "cpp": {
+        "title": "JSON to C++ 変換ツール",
+        "description": "JSONサンプルから、nlohmann/jsonのシリアライズ関数を備えたC++クラスを生成します。",
+        "metaTitle": "JSON to C++ 変換ツール - nlohmann/json対応クラスを生成 | JSONKit",
+        "metaDescription": "JSONをC++クラスにオンラインで変換。getter・setter付きのクラスと、nlohmann/jsonライブラリ用のfrom_json/to_json関数を生成します。",
+        "seoContent": {
+          "heading": "JSONからnlohmann/json対応のC++クラスを生成",
+          "paragraph": "C++には組み込みのJSONサポートがなく、広く使われているnlohmann/jsonライブラリで自動変換を行うには、型ごとにfrom_json関数とto_json関数が必要です。このツールは、オブジェクトごとにprivateメンバー、getter、setterを持つクラスと、対応するfrom_json/to_json関数を宣言したヘッダーを書き出します。これにより、json.get<SensorReading>()やオブジェクトをjsonへ代入する操作がそのまま動作します。整数はint64_t、小数はdouble、文字列はstd::stringになります。",
+          "howTo": [
+            "デバイスのメッセージや設定ファイルなどのJSONサンプルを貼り付けます。",
+            "ルートクラスの名前を入力します（例: SensorReading）。",
+            "出力をヘッダーとして保存し、nlohmann/jsonのjson.hppをインクルードパスに追加して、nlohmann::json::parse(text).get<quicktype::SensorReading>()でパースします。"
+          ],
+          "faq": [
+            {
+              "q": "生成されたコードに必要なライブラリは？",
+              "a": "シングルヘッダーのnlohmann/jsonライブラリ（json.hpp）が必要です。ヘッダーはオプショナルなフィールドのためにboost/optional.hppもインクルードしていますが、JSONにオプショナルなフィールドがなければこのincludeは削除できます。"
+            },
+            {
+              "q": "必要なC++の規格は？",
+              "a": "nlohmann/jsonにはC++11以降が必要です。上記のライブラリ以外では、生成されたヘッダーは標準ライブラリの型のみを使用します。"
+            },
+            {
+              "q": "quicktype名前空間は変更できますか？",
+              "a": "はい。namespace quicktypeを自分の名前に変更してください。from_jsonとto_jsonはクラスと同じ名前空間にある限り、実引数依存の名前探索（ADL）によって見つけられます。"
+            }
+          ]
+        }
+      },
+      "kotlin": {
+        "title": "JSON to Kotlin data class 変換ツール",
+        "description": "JSONからKotlinのdata classを生成します。toJson・fromJsonヘルパー付きです。",
+        "metaTitle": "JSON to Kotlin 変換ツール - data classをオンライン生成 | JSONKit",
+        "metaDescription": "JSONをKotlinのdata classにオンラインで変換。イミュータブルなvalプロパティ、ネストしたクラス、List型、fromJson/toJsonヘルパーを、AndroidやJVMプロジェクト向けに生成します。",
+        "seoContent": {
+          "heading": "JSONからKotlinのdata classを生成",
+          "paragraph": "Kotlinのdata classは、AndroidやJVMでJSONを扱うためのモデル型として最適です。このツールはオブジェクトごとにイミュータブルなvalプロパティを持つdata classを生成します。整数はLong、小数はDouble、配列はList<T>になり、ネストしたオブジェクトはそれぞれ独自のdata classになります。生成されるコードはKlaxonライブラリを使用し、toJsonメソッドとcompanionのfromJson関数を追加するため、1回の呼び出しでJSON文字列を型付きのオブジェクトに変換できます。",
+          "howTo": [
+            "Androidアプリが受け取るレスポンスなど、JSONサンプルを貼り付けます。",
+            "ルートクラスの名前を入力します（例: Movie）。",
+            "Klaxonの依存関係を追加し、クラスをパッケージ内の.ktファイルに貼り付けて、Movie.fromJson(jsonString)を呼び出します。"
+          ],
+          "faq": [
+            {
+              "q": "kotlinx.serialization、Moshi、Gsonでもこのクラスを使えますか？",
+              "a": "はい。data classの宣言自体は純粋なKotlinです。Klaxonのヘルパーを削除し、kotlinx.serializationなら@Serializableのように、使用するライブラリのアノテーションを各クラスに追加してください。"
+            },
+            {
+              "q": "nullになり得るフィールドはどう生成されますか？",
+              "a": "サンプルの一部でnullまたは欠落しているフィールドは、String?のようなnull許容型になるため、Kotlinのnull安全性によって適切な処理が求められます。"
+            },
+            {
+              "q": "IntではなくLongなのはなぜですか？",
+              "a": "JSONの整数にはサイズの上限がないため、オーバーフローを避けられるLongを使っています。年や件数など値が小さいとわかっている場合は、プロパティをIntに変更してください。"
+            }
+          ]
+        }
+      }
+    }
+  },
   "Query": {
     "title": "JSONPath Query",
     "description": "JSONPath式を使用してJSONからデータを抽出します。強力なパス構文でネストされたオブジェクトと配列をクエリできます。",
