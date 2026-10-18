@@ -45,6 +45,7 @@ export default async function JsonToCodeLanguagePage({ params }: { params: Param
         )}
       />
       <JsonToCodeTool
+        key={language}
         initialLanguage={language}
         title={t('title')}
         description={t('description')}

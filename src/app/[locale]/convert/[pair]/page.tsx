@@ -46,6 +46,7 @@ export default async function ConvertPairPage({ params }: { params: Params }) {
         )}
       />
       <ConverterTool
+        key={pair}
         initialFormat={format}
         initialDirection={direction}
         title={t('title')}

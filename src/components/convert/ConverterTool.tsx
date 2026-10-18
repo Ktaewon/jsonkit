@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Button } from '@/components/ui/button';
 import { CONVERSION_EXAMPLES, convert, getConversionPair } from '@/lib/json/converter';
-import type { ConversionFormat, ConversionDirection } from '@/lib/json/converter';
+import type { ConversionDirection, ConversionFormat, ConversionPair } from '@/lib/json/converter';
 import { ArrowRightLeft, Copy, Trash2, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -26,6 +26,8 @@ const Label = ({ children, className }: { children: React.ReactNode; className?:
   </label>
 );
 
+const inputStorageKey = (pair: ConversionPair) => `jsonkit-converter-input:${pair}`;
+
 interface ConverterToolProps {
   /** Direction preselected by the route (/convert or /convert/<pair>). */
   initialFormat: ConversionFormat;
@@ -44,16 +46,17 @@ export function ConverterTool({
   const tCommon = useTranslations('Common');
   const router = useRouter();
 
-  // First-time visitors get a sample in the page's source format, so a landing
-  // page such as /convert/csv-to-json does not open on a parse error.
-  const [input, setInput] = useLocalStorage<string>(
-    'jsonkit-converter-input',
-    CONVERSION_EXAMPLES[getConversionPair(initialFormat, initialDirection)]
-  );
   // The URL is the source of truth for the direction so shared links open in it.
-  // Input lives in localStorage, so it survives the route change.
   const [format, setFormat] = useState<ConversionFormat>(initialFormat);
   const [direction, setDirection] = useState<ConversionDirection>(initialDirection);
+  const pair = getConversionPair(format, direction);
+
+  // Input is stored per pair, so each page opens on input in its own source format
+  // (first-time visitors get the pair's sample instead of a parse error).
+  const [input, setInput] = useLocalStorage<string>(
+    inputStorageKey(pair),
+    CONVERSION_EXAMPLES[pair]
+  );
 
   // Derive output and error from input, format, and direction
   const { output, error } = useMemo(() => {
@@ -96,20 +99,36 @@ export function ConverterTool({
     }
   };
 
-  const changeDirection = (nextFormat: ConversionFormat, nextDirection: ConversionDirection) => {
+  /** Switches to another pair; `carriedInput` replaces that pair's stored input. */
+  const changeDirection = (
+    nextFormat: ConversionFormat,
+    nextDirection: ConversionDirection,
+    carriedInput?: string
+  ) => {
+    const nextPair = getConversionPair(nextFormat, nextDirection);
+    if (carriedInput !== undefined) {
+      try {
+        window.localStorage.setItem(inputStorageKey(nextPair), JSON.stringify(carriedInput));
+      } catch {
+        // Storage unavailable: the next pair opens on its stored input or sample.
+      }
+    }
     setFormat(nextFormat);
     setDirection(nextDirection);
-    router.replace(`/convert/${getConversionPair(nextFormat, nextDirection)}`, { scroll: false });
+    router.replace(`/convert/${nextPair}`, { scroll: false });
   };
 
-  const toggleDirection = () => {
-    if (output && !error) {
-      setInput(output);
-    } else {
-      setInput('');
-    }
-    changeDirection(format, direction === 'json-to-format' ? 'format-to-json' : 'json-to-format');
-  };
+  // JSON input stays valid when only the target format changes; a different source
+  // format would not parse, so that pair keeps its own stored input.
+  const handleFormatChange = (nextFormat: ConversionFormat) =>
+    changeDirection(nextFormat, direction, direction === 'json-to-format' ? input : undefined);
+
+  const toggleDirection = () =>
+    changeDirection(
+      format,
+      direction === 'json-to-format' ? 'format-to-json' : 'json-to-format',
+      output && !error ? output : undefined
+    );
 
   const isJsonInput = direction === 'json-to-format';
   const inputLanguage = isJsonInput ? 'json' : format === 'csv' ? 'plaintext' : format;
@@ -142,7 +161,7 @@ export function ConverterTool({
           <select
             className="h-8 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
             value={format}
-            onChange={(e) => changeDirection(e.target.value as ConversionFormat, direction)}
+            onChange={(e) => handleFormatChange(e.target.value as ConversionFormat)}
           >
             <option value="yaml">YAML</option>
             <option value="xml">XML</option>

@@ -11,6 +11,8 @@ export function MobileNav() {
   const t = useTranslations('Navigation');
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  // Sub-pages such as /convert/json-to-yaml highlight their parent tool.
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   // Close menu when route changes - intentional behavior
   useEffect(() => {
@@ -71,7 +73,7 @@ export function MobileNav() {
             href="/beautify"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/beautify' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/beautify') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('beautify')}
@@ -80,7 +82,7 @@ export function MobileNav() {
             href="/validate"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/validate' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/validate') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('validate')}
@@ -89,7 +91,7 @@ export function MobileNav() {
             href="/viewer"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/viewer' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/viewer') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('viewer')}
@@ -98,7 +100,7 @@ export function MobileNav() {
             href="/compare"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/compare' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/compare') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('compare')}
@@ -107,7 +109,7 @@ export function MobileNav() {
             href="/convert"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/convert' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/convert') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('convert')}
@@ -116,7 +118,7 @@ export function MobileNav() {
             href="/json-to-code"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/json-to-code' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/json-to-code') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('type')}
@@ -125,7 +127,7 @@ export function MobileNav() {
             href="/graph"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/graph' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/graph') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('graph')}
@@ -134,7 +136,7 @@ export function MobileNav() {
             href="/query"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/query' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/query') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('query')}
@@ -143,7 +145,7 @@ export function MobileNav() {
             href="/escape"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/escape' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/escape') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('escape')}
@@ -152,7 +154,7 @@ export function MobileNav() {
             href="/repair"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/repair' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/repair') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('repair')}
@@ -161,7 +163,7 @@ export function MobileNav() {
             href="/schema"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/schema' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/schema') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             {t('schema')}
@@ -171,7 +173,7 @@ export function MobileNav() {
             href="/blog"
             className={cn(
               'text-lg font-medium transition-colors hover:text-primary',
-              pathname === '/blog' ? 'text-primary' : 'text-muted-foreground'
+              isActive('/blog') ? 'text-primary' : 'text-muted-foreground'
             )}
           >
             Blog
