@@ -74,14 +74,19 @@ export function ConverterTool({
 
   const fromFormat = direction === 'json-to-format' ? 'json' : format;
   const toFormat = direction === 'json-to-format' ? format : 'json';
-  useTrackToolUse(`${direction}|${format}|${input}`, {
-    tool: 'convert',
-    action: 'convert',
-    result: error ? 'error' : 'success',
-    from_format: fromFormat,
-    to_format: toFormat,
-    size_bucket: getSizeBucket(input),
-  });
+  const switchTracking = useTrackToolUse(
+    `${direction}|${format}|${input}`,
+    {
+      tool: 'convert',
+      action: 'convert',
+      result: error ? 'error' : 'success',
+      from_format: fromFormat,
+      to_format: toFormat,
+      size_bucket: getSizeBucket(input),
+    },
+    // Fixed per mount: the page remounts on every pair change.
+    `convert:${getConversionPair(initialFormat, initialDirection)}`
+  );
 
   const handleCopy = async () => {
     if (!output) return;
@@ -115,6 +120,7 @@ export function ConverterTool({
     }
     setFormat(nextFormat);
     setDirection(nextDirection);
+    switchTracking(`convert:${nextPair}`);
     router.replace(`/convert/${nextPair}`, { scroll: false });
   };
 

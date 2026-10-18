@@ -94,7 +94,7 @@ export function JsonToCodeTool({ initialLanguage, title, description }: JsonToCo
     };
   }, [input, language, typeName]);
 
-  useTrackToolUse(
+  const switchTracking = useTrackToolUse(
     `${language}|${typeName}|${input}`,
     isGenerating
       ? null
@@ -104,11 +104,14 @@ export function JsonToCodeTool({ initialLanguage, title, description }: JsonToCo
           result: error ? 'error' : 'success',
           language,
           size_bucket: getSizeBucket(input),
-        }
+        },
+    // Fixed per mount: the page remounts on every language change.
+    `json-to-code:${initialLanguage}`
   );
 
   const handleLanguageChange = (next: SupportedLanguage) => {
     setLanguage(next);
+    switchTracking(`json-to-code:${next}`);
     router.replace(`/json-to-code/${next}`, { scroll: false });
   };
 
