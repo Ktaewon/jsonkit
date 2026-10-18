@@ -324,6 +324,190 @@
       ]
     }
   },
+  "ConvertPair": {
+    "popularTitle": "热门转换",
+    "otherConversionsTitle": "其他转换",
+    "linkLabel": "{from} 转 {to}",
+    "exampleTitle": "示例：{from} 转 {to}",
+    "exampleInput": "{format} 输入",
+    "exampleOutput": "{format} 输出",
+    "pairs": {
+      "json-to-yaml": {
+        "title": "JSON 转 YAML 工具",
+        "description": "粘贴 JSON，即可得到整洁、缩进规范的 YAML，适用于配置文件、Kubernetes 清单和 CI 流水线。",
+        "metaTitle": "JSON 转 YAML 在线转换工具 - 免费安全 | JSONKit",
+        "metaDescription": "在线一步将 JSON 转换为 YAML。为 Kubernetes、Docker Compose 和 CI 配置生成易读、缩进规范的 YAML。在浏览器中运行，不上传任何数据。",
+        "seoContent": {
+          "heading": "将 JSON 转换为易读的 YAML",
+          "paragraph": "YAML 是配置文件的首选格式：Kubernetes 清单、Docker Compose 文件、GitHub Actions 工作流和 Ansible playbook 都使用它编写。当你的数据最初是 JSON（例如 API 响应或自动生成的配置）时，本工具会将其改写为 YAML：使用两个空格缩进、块状列表，并在不需要时省略花括号和引号。键的顺序保持不变；对于 YAML 可能会误读为其他类型的字符串，例如 \"yes\" 或 \"1.0\"，会自动加上引号，确保含义不变。",
+          "howTo": [
+            "将 JSON 粘贴或输入到输入编辑器中。",
+            "输入的同时，YAML 会显示在输出编辑器中；JSON 中的语法错误会显示在输入框下方。",
+            "将 YAML 复制到配置文件中，或点击“交换”将 YAML 转回 JSON。"
+          ],
+          "faq": [
+            {
+              "q": "生成的 YAML 与我的 JSON 含义完全相同吗？",
+              "a": "是的。每个 JSON 值都有对应的 YAML 表示；可能被误读的值，例如字符串 \"yes\"、\"no\" 或 \"1.0\"，会用引号包裹，确保它们仍然是字符串。"
+            },
+            {
+              "q": "可以在生成的 YAML 中添加注释吗？",
+              "a": "JSON 没有注释，所以输出中也不会有注释。复制后你可以在 YAML 中添加 # 注释；如果再把文件转回 JSON，这些注释会被忽略。"
+            },
+            {
+              "q": "我的数据会被发送到服务器吗？",
+              "a": "不会。转换完全在你的浏览器中运行，配置文件中的密钥等敏感信息绝不会离开你的电脑。"
+            }
+          ]
+        }
+      },
+      "yaml-to-json": {
+        "title": "YAML 转 JSON 工具",
+        "description": "粘贴 YAML，即可得到格式化的 JSON，可直接用于 API、JavaScript 代码或 JSON Schema 校验。",
+        "metaTitle": "YAML 转 JSON 在线转换工具 - 免费安全 | JSONKit",
+        "metaDescription": "在线将 YAML 转换为 JSON。把 Kubernetes、Docker Compose 或 CI 配置文件转换为格式化的 JSON，并提供清晰的错误提示。在浏览器中运行。",
+        "seoContent": {
+          "heading": "将 YAML 配置文件转换为 JSON",
+          "paragraph": "YAML 写起来很方便，但很多工具只接受 JSON：REST API、JavaScript 代码、JSON Schema 校验器和 jq 都需要 JSON。本工具解析你的 YAML，并以两个空格缩进的 JSON 输出。锚点和别名会展开为完整副本，注释会被删除，未加引号的值按照 YAML 的定义确定类型：数字成为数字，true 和 false 成为布尔值，~ 和 null 成为 null，日期成为 ISO 8601 字符串。如果 YAML 存在缩进或语法错误，错误信息会指出对应的行和列。",
+          "howTo": [
+            "粘贴你的 YAML，例如 docker-compose.yml 或 GitHub Actions 工作流。",
+            "在输出编辑器中查看格式化后的 JSON，或根据错误信息修正报告的那一行。",
+            "复制 JSON，或点击“交换”将其转回 YAML。"
+          ],
+          "faq": [
+            {
+              "q": "YAML 的锚点和别名会怎样处理？",
+              "a": "它们会被解析。每个别名（*name）都会被替换为所引用锚点值的完整副本，因为 JSON 无法引用文档中的其他部分。"
+            },
+            {
+              "q": "为什么我的值 yes 仍然是字符串？",
+              "a": "解析器遵循 YAML 1.2 规范，其中只有 true 和 false 是布尔值。yes、no、on 和 off 会保留为字符串；如果需要布尔值，请写成 true 或 false。"
+            },
+            {
+              "q": "可以转换用 --- 分隔的多文档文件吗？",
+              "a": "每次只能转换一个文档。请分别粘贴每个文档，或先将它们合并为一个 YAML 列表。"
+            }
+          ]
+        }
+      },
+      "json-to-xml": {
+        "title": "JSON 转 XML 工具",
+        "description": "将 JSON 转换为带缩进的 XML，适用于 SOAP 服务、遗留系统集成和基于 XML 的配置文件。",
+        "metaTitle": "JSON 转 XML 在线转换工具 - 免费安全 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 XML。对象转为元素，数组转为重复元素，_attributes 键转为 XML 属性。免费，在浏览器中运行。",
+        "seoContent": {
+          "heading": "将 JSON 对象转换为 XML 元素",
+          "paragraph": "SOAP 服务、支付网关、RSS 订阅源和许多企业系统仍在使用 XML。本工具以可预测的方式将 JSON 映射为 XML：每个键成为一个元素，数组成为按项数重复的同名元素，嵌套对象成为嵌套元素。如需生成属性或混合文本，请使用特殊键 _attributes 和 _text；这也正是 XML 转 JSON 工具输出的结构，因此数据可以来回转换。输出使用两个空格缩进。",
+          "howTo": [
+            "将数据包裹在一个顶层键中，该键会成为 XML 根元素，例如 {\"order\": {...}}。",
+            "粘贴 JSON；在需要属性的元素中添加 _attributes 对象。",
+            "从输出编辑器中复制 XML。"
+          ],
+          "faq": [
+            {
+              "q": "为什么我的 XML 有多个根元素？",
+              "a": "JSON 中的每个顶层键都会成为一个顶层元素。格式良好的 XML 文档必须有且只有一个根元素，因此请将数据包裹在单个键中，例如 {\"root\": {...}}。"
+            },
+            {
+              "q": "如何创建 XML 属性？",
+              "a": "在元素中添加 _attributes 对象，例如 {\"book\": {\"_attributes\": {\"id\": \"bk101\"}, \"title\": \"Midnight Rain\"}} 会生成 <book id=\"bk101\"><title>Midnight Rain</title></book>。"
+            },
+            {
+              "q": "会添加 XML 声明吗？",
+              "a": "默认不会。在顶层添加 _declaration 键，例如 {\"_declaration\": {\"_attributes\": {\"version\": \"1.0\", \"encoding\": \"UTF-8\"}}}，即可输出 <?xml version=\"1.0\" encoding=\"UTF-8\"?>。"
+            }
+          ]
+        }
+      },
+      "xml-to-json": {
+        "title": "XML 转 JSON 工具",
+        "description": "粘贴 XML，即可得到保留元素、属性和文本的 JSON，方便在 JavaScript 或 API 中使用。",
+        "metaTitle": "XML 转 JSON 在线转换工具 - 免费安全 | JSONKit",
+        "metaDescription": "在线将 XML 转换为 JSON。以可预测的结构保留属性、文本和重复元素，非常适合处理 SOAP 响应和 RSS 订阅源。在浏览器中运行。",
+        "seoContent": {
+          "heading": "将 XML 文档转换为 JSON",
+          "paragraph": "XML 和 JSON 的数据模型不同：XML 有属性、文本节点和重复元素，而 JSON 只有对象、数组和值。本工具采用紧凑且无损的映射方式：每个元素成为一个键，属性收集在 _attributes 下，文本内容存放在 _text 下，出现多次的元素会成为数组。XML 声明保留在 _declaration 下。由于不会丢弃任何信息，你可以编辑 JSON 后再用 JSON 转 XML 工具将其转回 XML。",
+          "howTo": [
+            "粘贴 XML，例如 SOAP 响应、RSS 订阅源或 Maven pom.xml。",
+            "在输出编辑器中查看 JSON；如果解析出错，会显示 XML 格式错误所在的行。",
+            "复制 JSON，或点击“交换”将其转回 XML。"
+          ],
+          "faq": [
+            {
+              "q": "为什么 XML 中的数字被转换成了字符串？",
+              "a": "XML 没有数据类型：元素内的所有内容都是文本。转换器将值作为字符串保存在 _text 下，避免错误推断类型，例如以 0 开头的邮政编码。"
+            },
+            {
+              "q": "为什么同一个元素有时是对象，有时是数组？",
+              "a": "单个元素会成为对象，而同名的重复兄弟元素会成为数组。如果你的代码需要同时处理这两种情况，请用 Array.isArray 判断，或将该值统一规范为数组。"
+            },
+            {
+              "q": "_attributes 和 _text 是什么意思？",
+              "a": "_attributes 以键值对形式保存元素的属性，_text 保存元素的文本内容。使用固定的名称可以避免属性与子元素发生冲突。"
+            }
+          ]
+        }
+      },
+      "json-to-csv": {
+        "title": "JSON 转 CSV 工具",
+        "description": "将 JSON 对象数组转换为 CSV 表格，可在 Excel、Google Sheets 中打开，或导入数据库。",
+        "metaTitle": "JSON 转 CSV 在线转换工具 - 免费安全 | JSONKit",
+        "metaDescription": "在线将 JSON 转换为 CSV。每个对象成为一行，每个键成为一列，可直接用于 Excel 或 Google Sheets。免费，无需上传，在浏览器中运行。",
+        "seoContent": {
+          "heading": "将 JSON 数组转换为 CSV 表格",
+          "paragraph": "电子表格和数据库导入的是 CSV，而 API 返回的是 JSON。本工具接收一个对象数组，为每个对象写入一行 CSV，并根据找到的所有键生成表头行，缺少某些字段的对象对应的单元格会留空。文本值会加上引号，值中的逗号、引号和换行符按照 RFC 4180 进行转义，因此 Excel 和 Google Sheets 都能正确打开文件。单个对象会转换为只有一行的表格。",
+          "howTo": [
+            "粘贴一个 JSON 对象数组，例如从 API 获取的用户或订单列表。",
+            "在输出编辑器中检查 CSV：第一行是列名。",
+            "复制 CSV，粘贴到 .csv 文件中，或直接粘贴到电子表格里。"
+          ],
+          "faq": [
+            {
+              "q": "嵌套的对象和数组如何处理？",
+              "a": "嵌套的对象或数组会以 JSON 文本形式写入单个单元格，例如 {\"city\":\"Seoul\"}。如果希望拆分为独立的列，请先将数据扁平化，让每个值都有自己的键。"
+            },
+            {
+              "q": "如果各个对象的键不一样怎么办？",
+              "a": "表头会包含任意对象中出现过的所有键，没有某个键的行在该列中对应的单元格为空。"
+            },
+            {
+              "q": "Excel 能正确打开生成的 CSV 吗？",
+              "a": "可以。包含逗号、引号或换行符的值都会加上引号并转义，这正是 Excel 和 Google Sheets 所期望的格式。"
+            }
+          ]
+        }
+      },
+      "csv-to-json": {
+        "title": "CSV 转 JSON 工具",
+        "description": "将带表头行的 CSV 转换为 JSON 对象数组，可直接用于 API、脚本和测试数据（fixture）。",
+        "metaTitle": "CSV 转 JSON 在线转换工具 - 免费安全 | JSONKit",
+        "metaDescription": "在线将 CSV 转换为 JSON。表头行成为对象的键，每一行成为一个对象。支持带引号的字段，自动检测分隔符。在浏览器中运行。",
+        "seoContent": {
+          "heading": "将 CSV 行转换为 JSON 对象",
+          "paragraph": "从 Excel、Google Sheets 或数据库导出 CSV 很容易，但在代码中使用却不太方便。本工具将第一行读取为列名，并把之后的每一行转换为以这些列名为键的 JSON 对象，得到一个可以发送给 API 或在脚本中加载的数组。包含逗号、引号或换行符的带引号字段能被正确解析，空行会被跳过，分隔符也会自动检测，因此分号分隔和制表符分隔的文件同样适用。",
+          "howTo": [
+            "确保 CSV 的第一行包含列名。",
+            "粘贴 CSV；JSON 数组会显示在输出编辑器中，格式错误的行会在输入框下方提示。",
+            "复制 JSON，或点击“交换”将其转回 CSV。"
+          ],
+          "faq": [
+            {
+              "q": "为什么输出中的数字和布尔值都是字符串？",
+              "a": "CSV 没有数据类型，因此每个单元格都按文本保留。这样可以避免丢失数据，例如 ID 或电话号码开头的 0。如有需要，请在代码中将特定字段转换为数字。"
+            },
+            {
+              "q": "支持分号或制表符分隔的文件吗？",
+              "a": "支持。分隔符会根据内容自动检测，因此用分号导出的文件（许多欧洲地区的 Excel 默认如此）或用制表符分隔的文件，都无需额外设置即可转换。"
+            },
+            {
+              "q": "如果我的 CSV 没有表头行怎么办？",
+              "a": "第一行始终会被用作键。转换前请在顶部添加一行列名，否则第一行数据会被当作键。"
+            }
+          ]
+        }
+      }
+    }
+  },
   "Type": {
     "title": "JSON代码生成器",
     "description": "从JSON数据自动生成TypeScript、Go、Python等的类型定义和类结构。",

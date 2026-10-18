@@ -41,10 +41,11 @@ export function useLocalStorage<T>(
     }
   };
 
+  // Re-read on mount and whenever the key changes.
   useEffect(() => {
     setStoredValue(readValue());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [key]);
 
   return [storedValue, setValue];
 }

@@ -326,6 +326,190 @@
       ]
     }
   },
+  "ConvertPair": {
+    "popularTitle": "Popular conversions",
+    "otherConversionsTitle": "Other conversions",
+    "linkLabel": "{from} to {to}",
+    "exampleTitle": "Example: {from} to {to}",
+    "exampleInput": "{format} input",
+    "exampleOutput": "{format} output",
+    "pairs": {
+      "json-to-yaml": {
+        "title": "JSON to YAML Converter",
+        "description": "Paste JSON and get clean, indented YAML for config files, Kubernetes manifests and CI pipelines.",
+        "metaTitle": "JSON to YAML Converter Online - Free & Private | JSONKit",
+        "metaDescription": "Convert JSON to YAML online in one step. Get readable, indented YAML for Kubernetes, Docker Compose and CI configs. Runs in your browser, nothing is uploaded.",
+        "seoContent": {
+          "heading": "Convert JSON to readable YAML",
+          "paragraph": "YAML is the format of choice for configuration: Kubernetes manifests, Docker Compose files, GitHub Actions workflows and Ansible playbooks are all written in it. When your data starts out as JSON, for example an API response or a generated config, this converter rewrites it as YAML with two-space indentation, block-style lists and no braces or quotes where they are not needed. Key order is preserved, and strings that YAML would otherwise read as another type, such as \"yes\" or \"1.0\", are quoted so the meaning does not change.",
+          "howTo": [
+            "Paste or type your JSON into the input editor.",
+            "The YAML appears in the output editor as you type; syntax errors in the JSON are shown under the input.",
+            "Copy the YAML into your config file, or press Swap to turn YAML back into JSON."
+          ],
+          "faq": [
+            {
+              "q": "Will the YAML mean exactly the same as my JSON?",
+              "a": "Yes. Every JSON value has a YAML equivalent, and values that could be misread, such as the strings \"yes\", \"no\" or \"1.0\", are wrapped in quotes so they stay strings."
+            },
+            {
+              "q": "Can I add comments to the generated YAML?",
+              "a": "JSON has no comments, so the output has none either. You can add # comments to the YAML after copying it; they are ignored if you convert the file back to JSON."
+            },
+            {
+              "q": "Is my data sent to a server?",
+              "a": "No. The conversion runs entirely in your browser, so secrets in config files never leave your machine."
+            }
+          ]
+        }
+      },
+      "yaml-to-json": {
+        "title": "YAML to JSON Converter",
+        "description": "Paste YAML and get formatted JSON, ready for APIs, JavaScript code or JSON Schema validation.",
+        "metaTitle": "YAML to JSON Converter Online - Free & Private | JSONKit",
+        "metaDescription": "Convert YAML to JSON online. Turn Kubernetes, Docker Compose or CI config files into formatted JSON with clear error messages. Runs in your browser.",
+        "seoContent": {
+          "heading": "Convert YAML config files to JSON",
+          "paragraph": "YAML is pleasant to write but many tools only accept JSON: REST APIs, JavaScript code, JSON Schema validators and jq all expect it. This converter parses your YAML and prints it as JSON indented with two spaces. Anchors and aliases are expanded into full copies, comments are dropped, and unquoted values are typed the way YAML defines them: numbers become numbers, true and false become booleans, ~ and null become null, and dates become ISO 8601 strings. If the YAML has an indentation or syntax error, the message points to the line and column.",
+          "howTo": [
+            "Paste your YAML, for example a docker-compose.yml or a GitHub Actions workflow.",
+            "Read the formatted JSON in the output editor, or fix the line reported in the error message.",
+            "Copy the JSON, or press Swap to convert it back to YAML."
+          ],
+          "faq": [
+            {
+              "q": "What happens to YAML anchors and aliases?",
+              "a": "They are resolved. Every alias (*name) is replaced with a full copy of the anchored value, because JSON has no way to reference another part of the document."
+            },
+            {
+              "q": "Why is my value yes still a string?",
+              "a": "The parser follows YAML 1.2, where only true and false are booleans. yes, no, on and off stay strings; write true or false if you need a boolean."
+            },
+            {
+              "q": "Can I convert a file with several documents separated by ---?",
+              "a": "Only one document is converted at a time. Paste each document separately, or merge them into a single YAML list first."
+            }
+          ]
+        }
+      },
+      "json-to-xml": {
+        "title": "JSON to XML Converter",
+        "description": "Turn JSON into indented XML for SOAP services, legacy integrations and XML-based config files.",
+        "metaTitle": "JSON to XML Converter Online - Free & Private | JSONKit",
+        "metaDescription": "Convert JSON to XML online. Objects become elements, arrays become repeated elements, and _attributes keys become XML attributes. Free and runs in your browser.",
+        "seoContent": {
+          "heading": "Convert JSON objects to XML elements",
+          "paragraph": "SOAP services, payment gateways, RSS feeds and many enterprise systems still speak XML. This converter maps JSON onto XML in a predictable way: each key becomes an element, an array becomes the same element repeated once per item, and nested objects become nested elements. To produce attributes or mixed text, use the special keys _attributes and _text, which is also the shape the XML to JSON converter produces, so data can make a round trip. The output is indented with two spaces.",
+          "howTo": [
+            "Wrap your data in a single top-level key, which becomes the XML root element, for example {\"order\": {...}}.",
+            "Paste the JSON; add an _attributes object wherever an element needs attributes.",
+            "Copy the XML from the output editor."
+          ],
+          "faq": [
+            {
+              "q": "Why does my XML have more than one root element?",
+              "a": "Every top-level key in the JSON becomes a top-level element. A well-formed XML document needs exactly one root, so wrap your data in a single key such as {\"root\": {...}}."
+            },
+            {
+              "q": "How do I create XML attributes?",
+              "a": "Add an _attributes object to the element, for example {\"book\": {\"_attributes\": {\"id\": \"bk101\"}, \"title\": \"Midnight Rain\"}} produces <book id=\"bk101\"><title>Midnight Rain</title></book>."
+            },
+            {
+              "q": "Is an XML declaration added?",
+              "a": "Not by default. Add a _declaration key, for example {\"_declaration\": {\"_attributes\": {\"version\": \"1.0\", \"encoding\": \"UTF-8\"}}}, at the top level to output <?xml version=\"1.0\" encoding=\"UTF-8\"?>."
+            }
+          ]
+        }
+      },
+      "xml-to-json": {
+        "title": "XML to JSON Converter",
+        "description": "Paste XML and get JSON that keeps elements, attributes and text, so you can work with it in JavaScript or APIs.",
+        "metaTitle": "XML to JSON Converter Online - Free & Private | JSONKit",
+        "metaDescription": "Convert XML to JSON online. Keeps attributes, text and repeated elements in a predictable structure. Great for SOAP responses and RSS feeds. Runs in your browser.",
+        "seoContent": {
+          "heading": "Convert XML documents to JSON",
+          "paragraph": "XML and JSON model data differently: XML has attributes, text nodes and repeated elements, while JSON only has objects, arrays and values. This converter uses a compact, lossless mapping. Each element becomes a key, attributes are collected under _attributes, text content is stored under _text, and an element that appears more than once becomes an array. The XML declaration is kept under _declaration. Because nothing is thrown away, you can edit the JSON and convert it back to XML with the JSON to XML converter.",
+          "howTo": [
+            "Paste the XML, for example a SOAP response, an RSS feed or a Maven pom.xml.",
+            "Read the JSON in the output editor; parsing errors show the line where the XML is malformed.",
+            "Copy the JSON, or press Swap to convert it back to XML."
+          ],
+          "faq": [
+            {
+              "q": "Why are numbers in my XML converted to strings?",
+              "a": "XML has no data types: everything inside an element is text. The converter keeps values as strings under _text so nothing is guessed incorrectly, for example a ZIP code with a leading zero."
+            },
+            {
+              "q": "Why is an element sometimes an object and sometimes an array?",
+              "a": "A single element becomes an object, and repeated sibling elements with the same name become an array. If your code must handle both, check with Array.isArray or normalize the value into an array."
+            },
+            {
+              "q": "What do _attributes and _text mean?",
+              "a": "_attributes holds the element's attributes as key-value pairs, and _text holds its text content. Using fixed names keeps attributes and child elements from colliding."
+            }
+          ]
+        }
+      },
+      "json-to-csv": {
+        "title": "JSON to CSV Converter",
+        "description": "Turn a JSON array of objects into a CSV table you can open in Excel, Google Sheets or import into a database.",
+        "metaTitle": "JSON to CSV Converter Online - Free & Private | JSONKit",
+        "metaDescription": "Convert JSON to CSV online. Each object becomes a row and each key a column, ready for Excel or Google Sheets. Free, no upload, runs in your browser.",
+        "seoContent": {
+          "heading": "Convert a JSON array to a CSV table",
+          "paragraph": "Spreadsheets and databases import CSV, while APIs return JSON. This converter takes an array of objects and writes one CSV row per object, with a header row built from all the keys it finds, so objects with missing fields simply get empty cells. Text values are quoted, and commas, quotes and line breaks inside values are escaped according to RFC 4180, so Excel and Google Sheets open the file correctly. A single object is converted as a one-row table.",
+          "howTo": [
+            "Paste a JSON array of objects, such as a list of users or orders from an API.",
+            "Check the CSV in the output editor: the first line holds the column names.",
+            "Copy the CSV and paste it into a .csv file or straight into a spreadsheet."
+          ],
+          "faq": [
+            {
+              "q": "How are nested objects and arrays handled?",
+              "a": "A nested object or array is written into a single cell as JSON text, for example {\"city\":\"Seoul\"}. To get separate columns, flatten the data first so each value has its own key."
+            },
+            {
+              "q": "What if my objects have different keys?",
+              "a": "The header includes every key that appears in any object, and rows that do not have a key get an empty cell in that column."
+            },
+            {
+              "q": "Will Excel open the CSV correctly?",
+              "a": "Yes. Values containing commas, quotes or line breaks are quoted and escaped, which is the format Excel and Google Sheets expect."
+            }
+          ]
+        }
+      },
+      "csv-to-json": {
+        "title": "CSV to JSON Converter",
+        "description": "Turn CSV with a header row into a JSON array of objects, ready for APIs, scripts and test fixtures.",
+        "metaTitle": "CSV to JSON Converter Online - Free & Private | JSONKit",
+        "metaDescription": "Convert CSV to JSON online. The header row becomes object keys and each line becomes an object. Handles quoted fields and auto-detects the delimiter. Runs in your browser.",
+        "seoContent": {
+          "heading": "Convert CSV rows to JSON objects",
+          "paragraph": "CSV exports from Excel, Google Sheets or a database are easy to produce but awkward to use in code. This converter reads the first line as column names and turns every following line into a JSON object with those keys, giving you an array you can send to an API or load in a script. Quoted fields with commas, quotes or line breaks are parsed correctly, empty lines are skipped, and the delimiter is detected automatically, so semicolon- and tab-separated files work too.",
+          "howTo": [
+            "Make sure the first line of your CSV contains the column names.",
+            "Paste the CSV; the JSON array appears in the output editor, and malformed rows are reported under the input.",
+            "Copy the JSON, or press Swap to convert it back to CSV."
+          ],
+          "faq": [
+            {
+              "q": "Why are numbers and booleans strings in the output?",
+              "a": "CSV has no data types, so every cell is kept as text. This avoids losing data such as leading zeros in IDs or phone numbers. Convert specific fields to numbers in your code where needed."
+            },
+            {
+              "q": "Does it work with semicolon- or tab-separated files?",
+              "a": "Yes. The delimiter is detected from the content, so files exported with semicolons, as Excel does in many European locales, or with tabs convert without extra settings."
+            },
+            {
+              "q": "What if my CSV has no header row?",
+              "a": "The first line is always used as the keys. Add a line with column names at the top before converting, otherwise the first data row becomes the keys."
+            }
+          ]
+        }
+      }
+    }
+  },
   "Type": {
     "title": "JSON to Code Converter",
     "description": "Generate type definitions and class structures for TypeScript, Go, Python, and more from your JSON data.",
