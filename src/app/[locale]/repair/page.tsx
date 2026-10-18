@@ -9,12 +9,13 @@ import { Copy, Trash2, Wrench, CheckCircle, AlertCircle } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
+import { REPAIR_SAMPLE } from '@/lib/json/samples';
 
 export default function RepairPage() {
   const t = useTranslations('Repair');
   const tCommon = useTranslations('Common');
 
-  const [input, setInput] = useLocalStorage<string>('jsonkit-repair-input', '');
+  const [input, setInput] = useLocalStorage<string>('jsonkit-repair-input', REPAIR_SAMPLE);
   const [output, setOutput] = useState('');
   const [wasRepaired, setWasRepaired] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);

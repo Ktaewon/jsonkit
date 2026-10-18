@@ -10,12 +10,13 @@ import { toast } from 'sonner';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
+import { BEAUTIFY_SAMPLE } from '@/lib/json/samples';
 
 export default function BeautifyPage() {
   const t = useTranslations('Beautify');
   const tCommon = useTranslations('Common');
 
-  const [input, setInput] = useLocalStorage<string>('jsonkit-beautify-input', '');
+  const [input, setInput] = useLocalStorage<string>('jsonkit-beautify-input', BEAUTIFY_SAMPLE);
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
 

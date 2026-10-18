@@ -9,13 +9,31 @@ import { Copy, Trash2, Search, Play } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
+import { QUERY_SAMPLE, QUERY_SAMPLE_PATH } from '@/lib/json/samples';
+
+const QUERY_INPUT_KEY = 'jsonkit-query-input';
+
+function hasStoredValue(key: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.localStorage.getItem(key) !== null;
+  } catch {
+    return false;
+  }
+}
 
 export default function QueryPage() {
   const t = useTranslations('Query');
   const tCommon = useTranslations('Common');
 
-  const [input, setInput] = useLocalStorage<string>('jsonkit-query-input', '');
-  const [queryPath, setQueryPath] = useLocalStorage<string>('jsonkit-query-path', '$');
+  // Only first-time visitors (no stored input) get the sample path; returning users
+  // who never edited the path keep the previous '$' default for their own data.
+  const [isFirstVisit] = useState(() => !hasStoredValue(QUERY_INPUT_KEY));
+  const [input, setInput] = useLocalStorage<string>(QUERY_INPUT_KEY, QUERY_SAMPLE);
+  const [queryPath, setQueryPath] = useLocalStorage<string>(
+    'jsonkit-query-path',
+    isFirstVisit ? QUERY_SAMPLE_PATH : '$'
+  );
   const [output, setOutput] = useState('');
   const [resultCount, setResultCount] = useState(0);
   const [error, setError] = useState<string | null>(null);

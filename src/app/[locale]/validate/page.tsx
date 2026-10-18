@@ -10,12 +10,13 @@ import { cn } from '@/lib/utils';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
+import { VALIDATE_SAMPLE } from '@/lib/json/samples';
 
 export default function ValidatePage() {
   const t = useTranslations('Validate');
   const tCommon = useTranslations('Common');
 
-  const [input, setInput] = useLocalStorage<string>('jsonkit-validate-input', '');
+  const [input, setInput] = useLocalStorage<string>('jsonkit-validate-input', VALIDATE_SAMPLE);
   const [result, setResult] = useState<{
     isValid: boolean | null;
     message?: string;
