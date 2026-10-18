@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { trackToolUse, type ToolEventParams } from '@/lib/analytics';
 
 const DEBOUNCE_MS = 1500;
-const SWITCH_TTL_MS = 5000;
+// Starts at click time, so it must cover a slow route fetch before the new instance mounts.
+const SWITCH_TTL_MS = 20000;
 
 // Tools that switch route on a user action (e.g. /convert/json-to-yaml -> /convert/yaml-to-json)
 // remount, so the new instance would otherwise treat its first state as "unchanged".
@@ -13,7 +14,7 @@ export function markToolSwitch(switchId: string, now = Date.now()): void {
   pendingSwitches.set(switchId, now);
 }
 
-/** Whether `switchId` was marked by a user action within the last few seconds. */
+/** Whether `switchId` was marked by a user action within the last `SWITCH_TTL_MS`. */
 export function isToolSwitch(switchId: string, now = Date.now()): boolean {
   const markedAt = pendingSwitches.get(switchId);
   return markedAt !== undefined && now - markedAt < SWITCH_TTL_MS;
@@ -33,12 +34,14 @@ export function clearToolSwitch(switchId: string): void {
  * user-initiated switch as a change, so the switched-to state is tracked once.
  * Returns `switchTo(nextSwitchId)`: call it right before such a navigation. It marks the
  * target and stops this (outgoing) instance from tracking, so the event fires only once.
+ * If the navigation never commits (this instance is still mounted after `SWITCH_TTL_MS`),
+ * tracking resumes on the next change.
  */
 export function useTrackToolUse(trigger: string, event: ToolEventParams | null, switchId?: string) {
   const [switchedIn] = useState(() => switchId !== undefined && isToolSwitch(switchId));
   const initialTrigger = useRef<string | null>(switchedIn ? null : trigger);
   const sent = useRef(new Set<string>());
-  const switchedOut = useRef(false);
+  const switchedOutAt = useRef<number | null>(null);
   const key = event ? JSON.stringify(event) : null;
 
   useEffect(() => {
@@ -46,7 +49,15 @@ export function useTrackToolUse(trigger: string, event: ToolEventParams | null, 
   }, [switchId]);
 
   useEffect(() => {
-    if (!key || switchedOut.current || trigger === initialTrigger.current || sent.current.has(key))
+    if (switchedOutAt.current !== null && Date.now() - switchedOutAt.current >= SWITCH_TTL_MS) {
+      switchedOutAt.current = null;
+    }
+    if (
+      !key ||
+      switchedOutAt.current !== null ||
+      trigger === initialTrigger.current ||
+      sent.current.has(key)
+    )
       return;
     const timer = setTimeout(() => {
       sent.current.add(key);
@@ -56,7 +67,8 @@ export function useTrackToolUse(trigger: string, event: ToolEventParams | null, 
   }, [trigger, key]);
 
   return (nextSwitchId: string) => {
-    switchedOut.current = true;
-    markToolSwitch(nextSwitchId);
+    const now = Date.now();
+    switchedOutAt.current = now;
+    markToolSwitch(nextSwitchId, now);
   };
 }

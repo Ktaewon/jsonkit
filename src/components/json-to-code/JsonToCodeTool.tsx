@@ -96,7 +96,8 @@ export function JsonToCodeTool({ initialLanguage, title, description }: JsonToCo
 
   const switchTracking = useTrackToolUse(
     `${language}|${typeName}|${input}`,
-    isGenerating
+    // Nothing is generated for empty input, so there is nothing to track.
+    isGenerating || !input.trim()
       ? null
       : {
           tool: 'json-to-code',

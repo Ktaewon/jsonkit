@@ -559,7 +559,7 @@
     "exampleOutput": "생성된 {language} 코드 ({typeName})",
     "languages": {
       "typescript": {
-        "title": "JSON to TypeScript 변환기",
+        "title": "JSON → TypeScript 변환기",
         "description": "JSON을 붙여넣으면 중첩된 모든 객체에 대한 TypeScript 인터페이스가 생성되어 프로젝트에 바로 넣을 수 있습니다.",
         "metaTitle": "JSON to TypeScript 변환기 - 인터페이스 온라인 생성 | JSONKit",
         "metaDescription": "JSON을 TypeScript 인터페이스로 온라인 변환하세요. API 응답을 붙여넣으면 중첩 객체와 배열까지 타입이 지정된 인터페이스가 생성되어 .ts 파일에 바로 복사할 수 있습니다.",
@@ -588,7 +588,7 @@
         }
       },
       "go": {
-        "title": "JSON to Go Struct 변환기",
+        "title": "JSON → Go Struct 변환기",
         "description": "JSON을 json 태그가 붙은 Go struct로 변환하고, encoding/json용 Unmarshal·Marshal 헬퍼도 함께 생성합니다.",
         "metaTitle": "JSON to Go Struct 변환기 - json 태그 포함 struct 생성 | JSONKit",
         "metaDescription": "JSON을 Go struct로 온라인 변환하세요. json 태그가 붙은 exported 필드, 중첩 struct 타입, encoding/json 헬퍼가 생성되어 패키지에 바로 붙여넣을 수 있습니다.",
@@ -617,7 +617,7 @@
         }
       },
       "python": {
-        "title": "JSON to Python 클래스 변환기",
+        "title": "JSON → Python 클래스 변환기",
         "description": "JSON에서 타입이 지정된 Python 클래스를 생성하고, 파싱과 직렬화를 위한 from_dict·to_dict 메서드도 함께 제공합니다.",
         "metaTitle": "JSON to Python 클래스 변환기 - 타입 힌트 클래스 온라인 생성 | JSONKit",
         "metaDescription": "JSON을 타입 힌트가 있는 Python 클래스로 변환하세요. 객체마다 클래스 하나와 from_dict·to_dict 헬퍼가 생성되며, 표준 라이브러리만 사용합니다.",
@@ -646,7 +646,7 @@
         }
       },
       "csharp": {
-        "title": "JSON to C# 클래스 변환기",
+        "title": "JSON → C# 클래스 변환기",
         "description": "JSON에서 속성과 JsonProperty 어트리뷰트를 갖춘 C# 클래스를 생성합니다. Newtonsoft.Json에서 바로 사용할 수 있습니다.",
         "metaTitle": "JSON to C# 클래스 변환기 - POCO 클래스 온라인 생성 | JSONKit",
         "metaDescription": "JSON을 C# 클래스로 온라인 변환하세요. JsonProperty 어트리뷰트가 붙은 PascalCase 속성, 중첩 클래스, Newtonsoft.Json용 FromJson/ToJson 헬퍼가 생성됩니다.",
@@ -675,7 +675,7 @@
         }
       },
       "rust": {
-        "title": "JSON to Rust Struct 변환기",
+        "title": "JSON → Rust Struct 변환기",
         "description": "JSON 샘플에서 serde의 Serialize와 Deserialize를 derive하는 Rust struct를 생성합니다.",
         "metaTitle": "JSON to Rust Struct 변환기 - serde struct 온라인 생성 | JSONKit",
         "metaDescription": "JSON을 serde derive가 적용된 Rust struct로 변환하세요. 중첩 객체와 배열까지 타입이 지정된 필드가 생성되어 serde_json::from_str에 바로 사용할 수 있습니다.",
@@ -704,7 +704,7 @@
         }
       },
       "swift": {
-        "title": "JSON to Swift Codable 변환기",
+        "title": "JSON → Swift Codable 변환기",
         "description": "JSON에서 Codable을 채택한 Swift struct를 생성하고, 디코딩을 위한 편의 이니셜라이저도 함께 제공합니다.",
         "metaTitle": "JSON to Swift 변환기 - Codable struct 온라인 생성 | JSONKit",
         "metaDescription": "JSON을 Swift Codable struct로 온라인 변환하세요. 불변 struct, 중첩 타입, CodingKeys, 그리고 Data·String·URL에서 디코딩하는 편의 이니셜라이저가 생성됩니다.",
@@ -733,7 +733,7 @@
         }
       },
       "java": {
-        "title": "JSON to Java 클래스 변환기",
+        "title": "JSON → Java 클래스 변환기",
         "description": "JSON에서 getter와 setter를 갖춘 Java 클래스를 생성하고, Jackson 기반 Converter도 함께 제공합니다.",
         "metaTitle": "JSON to Java 클래스 변환기 - Jackson POJO 생성 | JSONKit",
         "metaDescription": "JSON을 Java 클래스로 온라인 변환하세요. getter, setter, Jackson 어노테이션을 갖춘 POJO와 JSON을 읽고 쓰는 Converter 클래스가 생성됩니다.",
@@ -762,7 +762,7 @@
         }
       },
       "cpp": {
-        "title": "JSON to C++ 변환기",
+        "title": "JSON → C++ 변환기",
         "description": "JSON 샘플에서 nlohmann/json 직렬화 함수를 갖춘 C++ 클래스를 생성합니다.",
         "metaTitle": "JSON to C++ 변환기 - nlohmann/json용 클래스 생성 | JSONKit",
         "metaDescription": "JSON을 C++ 클래스로 온라인 변환하세요. getter와 setter를 갖춘 클래스와 nlohmann/json 라이브러리용 from_json/to_json 함수가 생성됩니다.",
@@ -791,7 +791,7 @@
         }
       },
       "kotlin": {
-        "title": "JSON to Kotlin Data Class 변환기",
+        "title": "JSON → Kotlin Data Class 변환기",
         "description": "JSON에서 Kotlin data class를 생성하고, toJson·fromJson 헬퍼도 함께 제공합니다.",
         "metaTitle": "JSON to Kotlin 변환기 - data class 온라인 생성 | JSONKit",
         "metaDescription": "JSON을 Kotlin data class로 온라인 변환하세요. 불변 val 속성, 중첩 클래스, List 타입, fromJson/toJson 헬퍼가 생성되어 Android와 JVM 프로젝트에서 사용할 수 있습니다.",

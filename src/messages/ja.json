@@ -110,6 +110,8 @@
     "copyFailed": "コピーに失敗しました",
     "dismissError": "エラーを閉じる",
     "clear": "クリア",
+    "inlineView": "インライン表示",
+    "splitView": "並列表示",
     "download": "ダウンロード",
     "input": "入力",
     "output": "出力",
@@ -557,7 +559,7 @@
     "exampleOutput": "生成された{language}（{typeName}）",
     "languages": {
       "typescript": {
-        "title": "JSON to TypeScript 変換ツール",
+        "title": "JSON → TypeScript 変換ツール",
         "description": "JSONを貼り付けるだけで、ネストしたすべてのオブジェクトに対応するTypeScriptのinterfaceを生成し、そのままプロジェクトで使えます。",
         "metaTitle": "JSON to TypeScript 変換ツール - interface（型定義）をオンライン生成 | JSONKit",
         "metaDescription": "JSONをTypeScriptのinterfaceにオンラインで変換。APIレスポンスを貼り付けるだけで、ネストしたオブジェクトや配列の型定義を生成し、そのまま.tsファイルにコピーできます。",
@@ -586,7 +588,7 @@
         }
       },
       "go": {
-        "title": "JSON to Go struct 変換ツール",
+        "title": "JSON → Go struct 変換ツール",
         "description": "JSONをjsonタグ付きのGoのstructに変換し、encoding/json用のUnmarshal・Marshalヘルパーも生成します。",
         "metaTitle": "JSON to Go 変換ツール - jsonタグ付きstructをオンライン生成 | JSONKit",
         "metaDescription": "JSONをGoのstructにオンラインで変換。jsonタグ付きのエクスポートフィールド、ネストしたstruct型、encoding/jsonのヘルパーを生成し、そのままパッケージに貼り付けられます。",
@@ -615,7 +617,7 @@
         }
       },
       "python": {
-        "title": "JSON to Python クラス変換ツール",
+        "title": "JSON → Python クラス変換ツール",
         "description": "JSONから型付きのPythonクラスを生成します。パースとシリアライズ用のfrom_dict・to_dictメソッド付きです。",
         "metaTitle": "JSON to Python 変換ツール - 型ヒント付きクラスをオンライン生成 | JSONKit",
         "metaDescription": "JSONを型ヒント付きのPythonクラスに変換。オブジェクトごとのクラスとfrom_dict・to_dictヘルパーを、標準ライブラリだけで生成します。",
@@ -644,7 +646,7 @@
         }
       },
       "csharp": {
-        "title": "JSON to C# クラス変換ツール",
+        "title": "JSON → C# クラス変換ツール",
         "description": "JSONから、プロパティとJsonProperty属性を備えたC#クラスを生成します。Newtonsoft.Jsonですぐに使えます。",
         "metaTitle": "JSON to C# 変換ツール - POCOクラスをオンライン生成 | JSONKit",
         "metaDescription": "JSONをC#クラスにオンラインで変換。JsonProperty属性付きのPascalCaseプロパティ、ネストしたクラス、Newtonsoft.Json用のFromJson/ToJsonヘルパーを生成します。",
@@ -673,7 +675,7 @@
         }
       },
       "rust": {
-        "title": "JSON to Rust struct 変換ツール",
+        "title": "JSON → Rust struct 変換ツール",
         "description": "JSONサンプルから、serdeのSerializeとDeserializeをderiveしたRustのstructを生成します。",
         "metaTitle": "JSON to Rust 変換ツール - serde対応structをオンライン生成 | JSONKit",
         "metaDescription": "JSONをserdeのderive付きRust structに変換。ネストしたオブジェクトや配列に対応した型付きフィールドを生成し、serde_json::from_strですぐに使えます。",
@@ -702,7 +704,7 @@
         }
       },
       "swift": {
-        "title": "JSON to Swift Codable 変換ツール",
+        "title": "JSON → Swift Codable 変換ツール",
         "description": "JSONから、Codableに準拠したSwiftのstructを生成します。デコード用のイニシャライザも付いています。",
         "metaTitle": "JSON to Swift 変換ツール - Codable structをオンライン生成 | JSONKit",
         "metaDescription": "JSONをSwiftのCodable structにオンラインで変換。イミュータブルなstruct、ネストした型、CodingKeys、Data・String・URLからデコードできるイニシャライザを生成します。",
@@ -731,7 +733,7 @@
         }
       },
       "java": {
-        "title": "JSON to Java クラス変換ツール",
+        "title": "JSON → Java クラス変換ツール",
         "description": "JSONからgetter・setter付きのJavaクラスを生成し、JacksonベースのConverterも作成します。",
         "metaTitle": "JSON to Java 変換ツール - Jackson対応POJOをオンライン生成 | JSONKit",
         "metaDescription": "JSONをJavaクラスにオンラインで変換。getter・setter・Jacksonアノテーション付きのPOJOと、JSONの読み書きを行うConverterクラスを生成します。",
@@ -760,7 +762,7 @@
         }
       },
       "cpp": {
-        "title": "JSON to C++ 変換ツール",
+        "title": "JSON → C++ 変換ツール",
         "description": "JSONサンプルから、nlohmann/jsonのシリアライズ関数を備えたC++クラスを生成します。",
         "metaTitle": "JSON to C++ 変換ツール - nlohmann/json対応クラスを生成 | JSONKit",
         "metaDescription": "JSONをC++クラスにオンラインで変換。getter・setter付きのクラスと、nlohmann/jsonライブラリ用のfrom_json/to_json関数を生成します。",
@@ -789,7 +791,7 @@
         }
       },
       "kotlin": {
-        "title": "JSON to Kotlin data class 変換ツール",
+        "title": "JSON → Kotlin data class 変換ツール",
         "description": "JSONからKotlinのdata classを生成します。toJson・fromJsonヘルパー付きです。",
         "metaTitle": "JSON to Kotlin 変換ツール - data classをオンライン生成 | JSONKit",
         "metaDescription": "JSONをKotlinのdata classにオンラインで変換。イミュータブルなvalプロパティ、ネストしたクラス、List型、fromJson/toJsonヘルパーを、AndroidやJVMプロジェクト向けに生成します。",
