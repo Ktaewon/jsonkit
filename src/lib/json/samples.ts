@@ -1,5 +1,3 @@
-import { getExampleData, getExampleSchema } from './schema';
-
 // Starter inputs shown to first-time visitors so each tool demonstrates itself
 // instead of opening on an empty editor. Stored input (localStorage) takes precedence.
 
@@ -55,5 +53,23 @@ export const QUERY_SAMPLE = JSON.stringify(
 
 export const QUERY_SAMPLE_PATH = '$.store.book[*].author';
 
-export const SCHEMA_SAMPLE_DATA = getExampleData();
-export const SCHEMA_SAMPLE_SCHEMA = getExampleSchema();
+// Kept dependency-free (no Ajv import) so pages that only need sample strings stay light.
+export const SCHEMA_SAMPLE_SCHEMA = JSON.stringify(
+  {
+    type: 'object',
+    properties: {
+      name: { type: 'string', minLength: 1 },
+      age: { type: 'integer', minimum: 0 },
+      email: { type: 'string', format: 'email' },
+    },
+    required: ['name', 'email'],
+  },
+  null,
+  2
+);
+
+export const SCHEMA_SAMPLE_DATA = JSON.stringify(
+  { name: 'John Doe', age: 30, email: 'john@example.com' },
+  null,
+  2
+);

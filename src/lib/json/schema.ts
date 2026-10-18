@@ -1,5 +1,6 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
+import { SCHEMA_SAMPLE_DATA, SCHEMA_SAMPLE_SCHEMA } from './samples';
 
 export interface SchemaError {
   path: string;
@@ -70,32 +71,12 @@ export function validateJsonSchema(data: string, schema: string): SchemaValidati
  * Get example schema for demonstration
  */
 export function getExampleSchema(): string {
-  return JSON.stringify(
-    {
-      type: 'object',
-      properties: {
-        name: { type: 'string', minLength: 1 },
-        age: { type: 'integer', minimum: 0 },
-        email: { type: 'string', format: 'email' },
-      },
-      required: ['name', 'email'],
-    },
-    null,
-    2
-  );
+  return SCHEMA_SAMPLE_SCHEMA;
 }
 
 /**
  * Get example data for demonstration
  */
 export function getExampleData(): string {
-  return JSON.stringify(
-    {
-      name: 'John Doe',
-      age: 30,
-      email: 'john@example.com',
-    },
-    null,
-    2
-  );
+  return SCHEMA_SAMPLE_DATA;
 }
