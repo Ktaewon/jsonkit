@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { BASE_URL } from '@/lib/constants';
 import { getAllPosts } from '@/lib/blog/posts';
 import { SUPPORTED_LANGUAGES } from '@/lib/json/code-generator';
+import { CONVERSION_PAIRS } from '@/lib/json/converter';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/viewer',
     '/compare',
     '/convert',
+    ...CONVERSION_PAIRS.map(({ value }) => `/convert/${value}`),
     '/query',
     '/escape',
     '/repair',

@@ -7,6 +7,11 @@ import {
   jsonToCsv,
   csvToJson,
   convert,
+  CONVERSION_PAIRS,
+  CONVERSION_EXAMPLES,
+  getConversionPair,
+  parseConversionPair,
+  isConversionPair,
 } from '../converter';
 
 describe('JSON to YAML', () => {
@@ -148,5 +153,28 @@ describe('convert 함수', () => {
   it('CSV를 JSON으로 변환해야 함', () => {
     const result = convert('name,value\na,1', 'csv', 'format-to-json');
     expect(result.success).toBe(true);
+  });
+});
+
+describe('Conversion pairs', () => {
+  it('format과 direction으로 pair slug를 만들고 다시 파싱해야 함', () => {
+    for (const { value, format, direction } of CONVERSION_PAIRS) {
+      expect(getConversionPair(format, direction)).toBe(value);
+      expect(parseConversionPair(value)).toEqual({ format, direction });
+    }
+  });
+
+  it('지원하지 않는 pair를 거부해야 함', () => {
+    expect(isConversionPair('json-to-yaml')).toBe(true);
+    expect(isConversionPair('foo')).toBe(false);
+    expect(isConversionPair('yaml-to-xml')).toBe(false);
+  });
+
+  it('모든 예제 입력이 변환에 성공해야 함', () => {
+    for (const { value, format, direction } of CONVERSION_PAIRS) {
+      const result = convert(CONVERSION_EXAMPLES[value], format, direction);
+      expect(result.success, value).toBe(true);
+      expect(result.result.length, value).toBeGreaterThan(0);
+    }
   });
 });
