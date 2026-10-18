@@ -366,6 +366,277 @@
       ]
     }
   },
+  "JsonToCodeLanguage": {
+    "popularTitle": "인기 변환",
+    "otherConversionsTitle": "다른 언어로 JSON 변환",
+    "linkLabel": "JSON to {language}",
+    "exampleTitle": "예시: JSON to {language}",
+    "exampleInput": "입력 JSON",
+    "exampleOutput": "생성된 {language} 코드 ({typeName})",
+    "languages": {
+      "typescript": {
+        "title": "JSON to TypeScript 변환기",
+        "description": "JSON을 붙여넣으면 중첩된 모든 객체에 대한 TypeScript 인터페이스가 생성되어 프로젝트에 바로 넣을 수 있습니다.",
+        "metaTitle": "JSON to TypeScript 변환기 - 인터페이스 온라인 생성 | JSONKit",
+        "metaDescription": "JSON을 TypeScript 인터페이스로 온라인 변환하세요. API 응답을 붙여넣으면 중첩 객체와 배열까지 타입이 지정된 인터페이스가 생성되어 .ts 파일에 바로 복사할 수 있습니다.",
+        "seoContent": {
+          "heading": "JSON에서 TypeScript 인터페이스 생성",
+          "paragraph": "API 응답 타입을 손으로 작성하면 시간이 오래 걸리고 실수하기 쉽습니다. 이 변환기는 JSON 샘플을 읽어 객체 형태마다 export된 interface를 하나씩 만들어 줍니다. 중첩 객체는 별도의 이름을 가진 interface가 되고, 배열은 string[]처럼 타입이 지정된 배열이 되며, 숫자·문자열·불리언은 각각 number, string, boolean으로 매핑됩니다. 출력에는 런타임 코드 없이 타입 선언만 들어 있으므로 번들 크기가 전혀 늘어나지 않습니다.",
+          "howTo": [
+            "연동하려는 API의 실제 응답을 붙여넣습니다. 예를 들어 브라우저 개발자 도구의 네트워크 탭에서 복사할 수 있습니다.",
+            "타입 이름을 루트 객체가 나타내는 이름으로 지정합니다. 예: User, ApiResponse.",
+            "생성된 interface를 types.ts 파일에 복사하고 fetch 결과에 타입을 지정합니다. 예: const user: User = await res.json()."
+          ],
+          "faq": [
+            {
+              "q": "interface와 type alias 중 무엇을 생성하나요?",
+              "a": "export된 interface를 생성합니다. API 데이터의 타입을 지정하는 용도라면 객체 type alias와 동일하게 동작하며, 복사한 뒤 자유롭게 이름을 바꾸거나 type으로 변환해도 됩니다."
+            },
+            {
+              "q": "선택적 속성(field?: string)은 어떻게 만드나요?",
+              "a": "생성기는 샘플에 나타난 정보만 알 수 있습니다. 여러 객체를 배열에 넣고 그중 일부에서 해당 필드를 빼 두면 그 속성이 선택적으로 생성됩니다. 샘플에서 항상 null인 필드는 null 타입이 되므로, 실제 타입을 알고 있다면 실제 값을 넣어 주세요."
+            },
+            {
+              "q": "생성된 interface가 런타임에 데이터를 검증하나요?",
+              "a": "아니요. TypeScript 타입은 컴파일 시점에 사라지므로 잘못된 형식의 응답이 와도 에러가 발생하지 않습니다. 런타임 검증이 필요하다면 JSON Schema 도구로 스키마를 생성해 검증하거나 검증 라이브러리를 사용하세요."
+            }
+          ]
+        }
+      },
+      "go": {
+        "title": "JSON to Go Struct 변환기",
+        "description": "JSON을 json 태그가 붙은 Go struct로 변환하고, encoding/json용 Unmarshal·Marshal 헬퍼도 함께 생성합니다.",
+        "metaTitle": "JSON to Go Struct 변환기 - json 태그 포함 struct 생성 | JSONKit",
+        "metaDescription": "JSON을 Go struct로 온라인 변환하세요. json 태그가 붙은 exported 필드, 중첩 struct 타입, encoding/json 헬퍼가 생성되어 패키지에 바로 붙여넣을 수 있습니다.",
+        "seoContent": {
+          "heading": "JSON에서 json 태그가 붙은 Go struct 생성",
+          "paragraph": "Go에서 JSON 객체를 디코딩하려면 객체마다 struct가 필요하고, 키가 Go 필드 이름과 다르면 모든 필드에 json 태그를 달아야 합니다. 이 변환기가 그 struct를 대신 작성해 줍니다. allowed_origins 같은 snake_case 키는 AllowedOrigins 같은 exported 필드와 그에 맞는 json 태그로 바뀌고, 중첩 객체는 별도의 struct 타입이 되며, 정수는 int64, 소수는 float64가 됩니다. 표준 encoding/json 패키지 기반의 Unmarshal 함수와 Marshal 메서드도 추가되므로 서드파티 의존성이 없습니다.",
+          "howTo": [
+            "설정 파일이나 API 응답 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 struct 이름을 입력합니다. 예: ServerConfig.",
+            "코드를 .go 파일에 복사하고 package main을 사용하는 패키지 이름으로 바꾼 뒤, json.Unmarshal 또는 생성된 Unmarshal 함수로 디코딩합니다."
+          ],
+          "faq": [
+            {
+              "q": "숫자가 int가 아니라 int64로 생성되는 이유는 무엇인가요?",
+              "a": "JSON은 정수 크기에 제한이 없기 때문에 어떤 플랫폼에서든 안전한 int64를 사용합니다. 값의 범위를 알고 있다면 복사한 뒤 필드를 int로 바꿔도 됩니다."
+            },
+            {
+              "q": "json 태그에 omitempty를 추가하려면 어떻게 하나요?",
+              "a": "생성기는 샘플의 키와 일치하는 기본 태그만 작성합니다. Marshal 시 값이 비어 있으면 생략해야 하는 필드에 ,omitempty를 직접 추가하세요. 디코딩은 어느 쪽이든 똑같이 동작합니다."
+            },
+            {
+              "q": "null이거나 누락될 수 있는 필드는 어떻게 처리되나요?",
+              "a": "샘플에서 필드가 null이거나 배열 항목 중 일부에 없으면 *string 같은 포인터 타입으로 생성되므로, 값이 없는 경우와 빈 값을 구분할 수 있습니다."
+            }
+          ]
+        }
+      },
+      "python": {
+        "title": "JSON to Python 클래스 변환기",
+        "description": "JSON에서 타입이 지정된 Python 클래스를 생성하고, 파싱과 직렬화를 위한 from_dict·to_dict 메서드도 함께 제공합니다.",
+        "metaTitle": "JSON to Python 클래스 변환기 - 타입 힌트 클래스 온라인 생성 | JSONKit",
+        "metaDescription": "JSON을 타입 힌트가 있는 Python 클래스로 변환하세요. 객체마다 클래스 하나와 from_dict·to_dict 헬퍼가 생성되며, 표준 라이브러리만 사용합니다.",
+        "seoContent": {
+          "heading": "JSON에서 타입이 지정된 Python 클래스 생성",
+          "paragraph": "json.loads는 중첩된 dict를 반환하기 때문에 키 오타는 런타임에야 드러나고 에디터 자동완성도 쓸 수 없습니다. 이 변환기는 JSON의 객체마다 클래스를 만들어 줍니다. 각 클래스에는 타입 어노테이션이 붙은 속성(str, int, float, bool, List[...]), 파싱하면서 각 값의 타입을 확인하는 from_dict 정적 메서드, JSON으로 내보내기 위해 객체를 다시 dict로 바꾸는 to_dict 메서드가 포함됩니다. 표준 라이브러리의 typing 모듈만 사용합니다.",
+          "howTo": [
+            "웹훅 페이로드나 API 응답 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 클래스 이름을 지정합니다. 예: Order.",
+            "코드를 모듈로 저장하고 Order.from_dict(json.loads(text))로 데이터를 파싱합니다. 다시 전송할 때는 json.dumps 전에 to_dict()를 호출하세요."
+          ],
+          "faq": [
+            {
+              "q": "dataclass인가요, Pydantic 모델인가요?",
+              "a": "둘 다 아닙니다. 타입 힌트와 명시적인 from_dict/to_dict 메서드를 가진 일반 클래스이므로 서드파티 패키지가 필요 없습니다. 원한다면 @dataclass를 붙이거나, 프로젝트에서 이미 Pydantic을 쓰고 있다면 필드를 Pydantic 모델로 옮겨도 됩니다."
+            },
+            {
+              "q": "데이터가 타입과 맞지 않으면 어떻게 되나요?",
+              "a": "생성된 헬퍼 함수는 assert isinstance로 검사하므로, 값의 타입이 예상과 다르면 from_dict에서 AssertionError가 발생합니다. 단, Python을 -O 옵션으로 실행하면 assert가 건너뛰어진다는 점에 유의하세요."
+            },
+            {
+              "q": "어떤 Python 버전이 필요한가요?",
+              "a": "typing 모듈의 어노테이션을 사용하며 Python 3.7 이상에서 동작합니다."
+            }
+          ]
+        }
+      },
+      "csharp": {
+        "title": "JSON to C# 클래스 변환기",
+        "description": "JSON에서 속성과 JsonProperty 어트리뷰트를 갖춘 C# 클래스를 생성합니다. Newtonsoft.Json에서 바로 사용할 수 있습니다.",
+        "metaTitle": "JSON to C# 클래스 변환기 - POCO 클래스 온라인 생성 | JSONKit",
+        "metaDescription": "JSON을 C# 클래스로 온라인 변환하세요. JsonProperty 어트리뷰트가 붙은 PascalCase 속성, 중첩 클래스, Newtonsoft.Json용 FromJson/ToJson 헬퍼가 생성됩니다.",
+        "seoContent": {
+          "heading": "JSON에서 C# 클래스 생성",
+          "paragraph": ".NET에서 JSON을 역직렬화하려면 먼저 페이로드와 속성이 일치하는 모델 클래스가 필요합니다. 이 변환기가 그 클래스를 대신 작성해 줍니다. camelCase 키는 원래 키를 담은 [JsonProperty] 어트리뷰트가 붙은 PascalCase 속성이 되고, 중첩 객체는 각각의 partial 클래스가 되며, 배열은 타입이 지정된 배열, 정수는 long, 소수는 double이 됩니다. 또한 Newtonsoft.Json(Json.NET)용 컨버터 설정이 포함된 정적 FromJson 메서드와 ToJson 확장 메서드도 추가됩니다.",
+          "howTo": [
+            "서비스에서 호출하는 API의 응답 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 클래스 이름을 입력합니다. 예: Product.",
+            "Newtonsoft.Json NuGet 패키지를 설치하고 파일을 프로젝트에 추가한 뒤, QuickType 네임스페이스를 원하는 이름으로 바꾸고 Product.FromJson(json)을 호출합니다."
+          ],
+          "faq": [
+            {
+              "q": "System.Text.Json에서도 사용할 수 있나요?",
+              "a": "어트리뷰트와 헬퍼는 Newtonsoft.Json을 대상으로 합니다. System.Text.Json을 쓰려면 속성은 그대로 두고 [JsonProperty]를 System.Text.Json.Serialization의 [JsonPropertyName]으로 바꾼 뒤 JsonSerializer.Deserialize<Product>(json)로 역직렬화하세요."
+            },
+            {
+              "q": "숫자가 long과 double로 생성되는 이유는 무엇인가요?",
+              "a": "JSON 숫자에는 고정된 크기가 없으므로 long과 double을 사용해 예기치 않은 오버플로를 방지합니다. 도메인에 맞게 복사 후 int나 decimal로 바꿔도 됩니다. 예를 들어 금액에는 decimal을 사용하세요."
+            },
+            {
+              "q": "클래스가 partial로 선언되는 이유는 무엇인가요?",
+              "a": "partial 클래스를 사용하면 생성된 속성과 FromJson 헬퍼를 별도의 선언으로 나눌 수 있고, 생성된 파일을 수정하지 않고도 다른 파일에서 직접 멤버를 추가할 수 있습니다."
+            }
+          ]
+        }
+      },
+      "rust": {
+        "title": "JSON to Rust Struct 변환기",
+        "description": "JSON 샘플에서 serde의 Serialize와 Deserialize를 derive하는 Rust struct를 생성합니다.",
+        "metaTitle": "JSON to Rust Struct 변환기 - serde struct 온라인 생성 | JSONKit",
+        "metaDescription": "JSON을 serde derive가 적용된 Rust struct로 변환하세요. 중첩 객체와 배열까지 타입이 지정된 필드가 생성되어 serde_json::from_str에 바로 사용할 수 있습니다.",
+        "seoContent": {
+          "heading": "JSON에서 serde struct 생성",
+          "paragraph": "Rust에서 JSON을 읽는 일반적인 방법은 serde와 serde_json으로 struct에 역직렬화하는 것입니다. 이 변환기는 샘플을 바탕으로 그 struct를 작성해 줍니다. 각 객체는 #[derive(Serialize, Deserialize)]가 붙은 struct가 되고, 중첩 객체는 별도의 struct가 되며, 배열은 Vec<T>, 정수는 i64, 소수는 f64, 문자열은 String이 됩니다. 필드 이름은 snake_case로 유지되며, JSON 키가 유효한 snake_case 식별자가 아니면 #[serde(rename = \"...\")] 어트리뷰트가 추가됩니다.",
+          "howTo": [
+            "이벤트 페이로드나 설정 파일 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 struct 이름을 입력합니다. 예: Event.",
+            "Cargo.toml에 serde(derive feature 포함)와 serde_json을 추가하고, struct를 모듈에 붙여넣은 뒤 serde_json::from_str::<Event>(&text)로 파싱합니다."
+          ],
+          "faq": [
+            {
+              "q": "필드가 private인 이유는 무엇인가요?",
+              "a": "생성기는 필드에 pub을 붙이지 않습니다. 모듈 안에서 serde를 사용하기에는 이것으로 충분합니다. 다른 모듈에서 읽어야 하는 필드에는 pub을 추가하세요."
+            },
+            {
+              "q": "선택적 필드는 어떻게 표현되나요?",
+              "a": "샘플 항목 중 일부에서 필드가 null이거나 누락되어 있으면 Option<T>로 생성되므로 serde가 두 경우를 모두 받아들입니다. 항상 존재하는 필드는 일반 타입으로 생성되며, 이런 필드가 없으면 역직렬화 에러가 발생합니다."
+            },
+            {
+              "q": "어떤 crate가 필요한가요?",
+              "a": "features = [\"derive\"]를 지정한 serde와 serde_json을 추가하세요. 출력 상단의 주석에는 예전 방식인 extern crate 구문도 나와 있지만, 현재 Rust 에디션에서는 필요하지 않습니다."
+            }
+          ]
+        }
+      },
+      "swift": {
+        "title": "JSON to Swift Codable 변환기",
+        "description": "JSON에서 Codable을 채택한 Swift struct를 생성하고, 디코딩을 위한 편의 이니셜라이저도 함께 제공합니다.",
+        "metaTitle": "JSON to Swift 변환기 - Codable struct 온라인 생성 | JSONKit",
+        "metaDescription": "JSON을 Swift Codable struct로 온라인 변환하세요. 불변 struct, 중첩 타입, CodingKeys, 그리고 Data·String·URL에서 디코딩하는 편의 이니셜라이저가 생성됩니다.",
+        "seoContent": {
+          "heading": "JSON에서 Swift Codable struct 생성",
+          "paragraph": "Codable은 Swift에서 JSON을 디코딩하는 표준 방식이지만, 큰 페이로드에 맞춰 모델 struct를 직접 작성하는 일은 번거롭습니다. 이 변환기는 객체마다 Codable을 채택한 struct를 생성하며, 속성은 Int, Double, String, Bool, 중첩 struct, 배열 타입의 let으로 선언됩니다. JSON 키가 Swift 속성 이름과 다르면 CodingKeys enum이 추가되고, Data·JSON String·URL에서 디코딩하는 이니셜라이저, 일부 값을 바꾼 복사본을 만드는 with(...) 메서드, 다시 인코딩하는 jsonData()/jsonString()을 담은 extension도 함께 생성됩니다.",
+          "howTo": [
+            "iOS나 macOS 앱이 받는 응답 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 타입 이름을 입력합니다. 예: Article.",
+            "파일을 Xcode 프로젝트에 추가하고 try Article(jsonString) 또는 JSONDecoder().decode(Article.self, from: data)로 디코딩합니다."
+          ],
+          "faq": [
+            {
+              "q": "SwiftUI나 URLSession과 함께 사용할 수 있나요?",
+              "a": "네. 생성된 struct는 일반적인 Codable 값 타입이므로 URLSession이 반환한 Data를 디코딩한 뒤 다른 모델처럼 SwiftUI 뷰에 전달하면 됩니다."
+            },
+            {
+              "q": "snake_case 키는 어떻게 처리되나요?",
+              "a": "속성은 Swift 스타일의 camelCase 이름을 갖고(is_featured는 isFeatured가 됨), CodingKeys enum이 각 속성을 원래 JSON 키에 매핑하므로 keyDecodingStrategy를 따로 설정할 필요가 없습니다."
+            },
+            {
+              "q": "편의 extension을 삭제해도 되나요?",
+              "a": "네. Codable에 필요한 것은 struct 선언과 CodingKeys뿐입니다. extension과 newJSONDecoder/newJSONEncoder 헬퍼는 편의를 위한 선택 사항이므로 삭제해도 됩니다."
+            }
+          ]
+        }
+      },
+      "java": {
+        "title": "JSON to Java 클래스 변환기",
+        "description": "JSON에서 getter와 setter를 갖춘 Java 클래스를 생성하고, Jackson 기반 Converter도 함께 제공합니다.",
+        "metaTitle": "JSON to Java 클래스 변환기 - Jackson POJO 생성 | JSONKit",
+        "metaDescription": "JSON을 Java 클래스로 온라인 변환하세요. getter, setter, Jackson 어노테이션을 갖춘 POJO와 JSON을 읽고 쓰는 Converter 클래스가 생성됩니다.",
+        "seoContent": {
+          "heading": "JSON에서 Java POJO 생성",
+          "paragraph": "Java에서 JSON을 매핑하려면 보통 객체마다 private 필드, getter, setter, 어노테이션을 갖춘 POJO를 작성해야 합니다. 이 변환기는 샘플에서 이를 생성해 줍니다. 각 객체는 접근자에 Jackson @JsonProperty 어노테이션이 붙은 클래스가 되고, 중첩 객체는 별도의 클래스가 되며, 배열은 타입이 지정된 배열, 정수는 long이 됩니다. fromJsonString과 toJsonString 메서드를 가진 Converter 클래스가 날짜·시간 파싱 헬퍼를 포함한 Jackson ObjectMapper 설정을 감싸 줍니다.",
+          "howTo": [
+            "Spring이나 Android 앱이 사용하는 REST 응답 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 클래스 이름을 입력합니다. 예: Customer.",
+            "Maven 또는 Gradle 빌드에 jackson-databind를 추가하고, 각 클래스를 패키지 안의 개별 .java 파일로 옮긴 뒤 Converter.fromJsonString(json)을 호출합니다."
+          ],
+          "faq": [
+            {
+              "q": "출력이 왜 이렇게 긴가요?",
+              "a": "Java는 필드, getter, setter를 명시적으로 작성해야 하고, 생성된 Converter에는 java.time API용 날짜·시간 헬퍼가 포함되어 있기 때문입니다. 모델만 필요하다면 데이터 클래스만 복사하고 기존 ObjectMapper를 사용하세요."
+            },
+            {
+              "q": "Java record나 Lombok을 대신 사용할 수 있나요?",
+              "a": "생성기는 호환성을 최대한 확보하기 위해 전통적인 클래스를 작성합니다. 복사한 뒤 record(Java 16 이상)로 바꾸거나 Lombok의 @Data를 붙여도 되며, Jackson은 두 방식 모두 지원합니다."
+            },
+            {
+              "q": "Spring Boot에서 사용할 수 있나요?",
+              "a": "네. Spring Boot는 기본적으로 Jackson을 사용하므로, 어노테이션이 붙은 클래스를 Converter 클래스 없이 @RequestBody나 응답 타입으로 바로 사용할 수 있습니다."
+            }
+          ]
+        }
+      },
+      "cpp": {
+        "title": "JSON to C++ 변환기",
+        "description": "JSON 샘플에서 nlohmann/json 직렬화 함수를 갖춘 C++ 클래스를 생성합니다.",
+        "metaTitle": "JSON to C++ 변환기 - nlohmann/json용 클래스 생성 | JSONKit",
+        "metaDescription": "JSON을 C++ 클래스로 온라인 변환하세요. getter와 setter를 갖춘 클래스와 nlohmann/json 라이브러리용 from_json/to_json 함수가 생성됩니다.",
+        "seoContent": {
+          "heading": "JSON에서 nlohmann/json용 C++ 클래스 생성",
+          "paragraph": "C++에는 기본 JSON 지원이 없으며, 널리 쓰이는 nlohmann/json 라이브러리로 타입을 자동 변환하려면 타입마다 from_json과 to_json 함수가 필요합니다. 이 변환기는 객체마다 private 멤버, getter, setter를 갖춘 클래스와 그에 맞는 from_json/to_json 함수를 선언한 헤더를 작성해 주므로, json.get<SensorReading>()이나 객체를 다시 json에 대입하는 코드가 그대로 동작합니다. 정수는 int64_t, 소수는 double, 문자열은 std::string이 됩니다.",
+          "howTo": [
+            "디바이스 메시지나 설정 파일 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 클래스 이름을 입력합니다. 예: SensorReading.",
+            "출력을 헤더 파일로 저장하고 nlohmann/json의 json.hpp를 include 경로에 추가한 뒤, nlohmann::json::parse(text).get<quicktype::SensorReading>()으로 파싱합니다."
+          ],
+          "faq": [
+            {
+              "q": "생성된 코드에 어떤 라이브러리가 필요한가요?",
+              "a": "단일 헤더 라이브러리인 nlohmann/json(json.hpp)이 필요합니다. 헤더는 선택적 필드에 사용되는 boost/optional.hpp도 include하는데, JSON에 선택적 필드가 없다면 이 include는 제거해도 됩니다."
+            },
+            {
+              "q": "어떤 C++ 표준이 필요한가요?",
+              "a": "nlohmann/json은 C++11 이상이 필요합니다. 위의 라이브러리를 제외하면 생성된 헤더는 표준 라이브러리 타입만 사용합니다."
+            },
+            {
+              "q": "quicktype 네임스페이스를 바꿀 수 있나요?",
+              "a": "네. namespace quicktype을 원하는 이름으로 바꾸세요. from_json과 to_json이 클래스와 같은 네임스페이스에 있는 한 인자 의존 탐색(ADL)으로 찾아집니다."
+            }
+          ]
+        }
+      },
+      "kotlin": {
+        "title": "JSON to Kotlin Data Class 변환기",
+        "description": "JSON에서 Kotlin data class를 생성하고, toJson·fromJson 헬퍼도 함께 제공합니다.",
+        "metaTitle": "JSON to Kotlin 변환기 - data class 온라인 생성 | JSONKit",
+        "metaDescription": "JSON을 Kotlin data class로 온라인 변환하세요. 불변 val 속성, 중첩 클래스, List 타입, fromJson/toJson 헬퍼가 생성되어 Android와 JVM 프로젝트에서 사용할 수 있습니다.",
+        "seoContent": {
+          "heading": "JSON에서 Kotlin data class 생성",
+          "paragraph": "Kotlin data class는 Android와 JVM에서 JSON을 다룰 때 가장 자연스러운 모델 타입입니다. 이 변환기는 객체마다 불변 val 속성을 가진 data class를 하나씩 생성합니다. 정수는 Long, 소수는 Double, 배열은 List<T>, 중첩 객체는 별도의 data class가 됩니다. 생성된 코드는 Klaxon 라이브러리를 사용하며 toJson 메서드와 companion fromJson 함수를 추가하므로, 한 번의 호출로 JSON 문자열을 타입이 지정된 객체로 바꿀 수 있습니다.",
+          "howTo": [
+            "Android 앱이 받는 응답 같은 JSON 샘플을 붙여넣습니다.",
+            "루트 클래스 이름을 입력합니다. 예: Movie.",
+            "Klaxon 의존성을 추가하고 클래스를 패키지 안의 .kt 파일에 붙여넣은 뒤 Movie.fromJson(jsonString)을 호출합니다."
+          ],
+          "faq": [
+            {
+              "q": "kotlinx.serialization, Moshi, Gson과 함께 사용할 수 있나요?",
+              "a": "네. data class 선언은 순수 Kotlin 코드입니다. Klaxon 헬퍼를 제거하고 각 클래스에 사용하는 라이브러리의 어노테이션(예: kotlinx.serialization의 @Serializable)을 추가하세요."
+            },
+            {
+              "q": "nullable 필드는 어떻게 생성되나요?",
+              "a": "샘플 일부에서 null이거나 누락된 필드는 String? 같은 nullable 타입이 되므로, Kotlin의 null 안전성 덕분에 해당 경우를 반드시 처리하게 됩니다."
+            },
+            {
+              "q": "Int 대신 Long을 쓰는 이유는 무엇인가요?",
+              "a": "JSON 정수에는 크기 제한이 없으므로 Long으로 오버플로를 방지합니다. 연도나 개수처럼 값이 작다는 것을 알고 있다면 속성을 Int로 바꿔도 됩니다."
+            }
+          ]
+        }
+      }
+    }
+  },
   "Query": {
     "title": "JSONPath Query",
     "description": "JSONPath 표현식을 사용하여 JSON에서 데이터를 추출합니다. 강력한 경로 문법으로 중첩된 객체와 배열을 쿼리할 수 있습니다.",

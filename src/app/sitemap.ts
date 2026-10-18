@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { BASE_URL } from '@/lib/constants';
 import { getAllPosts } from '@/lib/blog/posts';
+import { SUPPORTED_LANGUAGES } from '@/lib/json/code-generator';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -16,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/schema',
     '/graph',
     '/json-to-code',
+    ...SUPPORTED_LANGUAGES.map(({ value }) => `/json-to-code/${value}`),
     '/privacy',
     '/about',
     '/contact',
