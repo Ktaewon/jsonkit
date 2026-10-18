@@ -621,6 +621,7 @@
         "title": "Cookie 和第三方服务",
         "content": "我们使用以下可能设置 Cookie 的第三方服务：",
         "googleAdsense": "Google AdSense：用于显示广告。Google 可能会使用 Cookie 根据您的浏览历史个性化广告。",
+        "googleAnalytics": "Google Analytics：用于了解哪些工具和功能被使用，以便决定改进方向。Google Analytics 会使用 Cookie，并记录访问的页面以及匿名的使用事件，例如工具名称、执行的操作（如格式化或转换）、所选格式或语言，以及大致的输入大小范围。您输入的 JSON 或其他文本绝不会发送给 Google Analytics。您可以安装 Google Analytics 停用浏览器插件或屏蔽 Cookie 来拒绝收集。",
         "vercelAnalytics": "Vercel Analytics：用于了解访问者如何使用我们的网站。Vercel Analytics 不使用 Cookie，也不收集个人数据。"
       },
       "thirdParty": {

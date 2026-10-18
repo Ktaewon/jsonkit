@@ -7,6 +7,8 @@ import { JsonTreeView } from '@/components/editor/TreeView';
 import { Button } from '@/components/ui/button';
 import { Network, Trash2, ArrowRight } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useTrackToolUse } from '@/hooks/use-track-tool-use';
+import { getSizeBucket } from '@/lib/analytics';
 
 const DEFAULT_JSON =
   '{\n  "demo": "Try pasting some JSON here!",\n  "features": ["Tree View", "Copy Path", "Expand/Collapse"]\n}';
@@ -30,6 +32,13 @@ export default function ViewerPage() {
       return { parsedData: null, error: 'Invalid JSON' }; // Hardcoded or translated? "Invalid JSON" can be t('Beautify.invalidJson') or similar
     }
   }, [input]);
+
+  useTrackToolUse(input, {
+    tool: 'viewer',
+    action: 'view',
+    result: error ? 'error' : 'success',
+    size_bucket: getSizeBucket(input),
+  });
 
   const handleClear = () => setInput('');
 

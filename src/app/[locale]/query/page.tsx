@@ -8,6 +8,7 @@ import { queryJson, getExampleQueries } from '@/lib/json/query';
 import { Copy, Trash2, Search, Play } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 
 export default function QueryPage() {
   const t = useTranslations('Query');
@@ -29,6 +30,12 @@ export default function QueryPage() {
       return;
     }
     const { success, result, count, error } = queryJson(input, queryPath);
+    trackToolUse({
+      tool: 'query',
+      action: 'execute',
+      result: success ? 'success' : 'error',
+      size_bucket: getSizeBucket(input),
+    });
     if (success) {
       setOutput(result);
       setResultCount(count);
@@ -56,6 +63,7 @@ export default function QueryPage() {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
+      trackToolUse({ tool: 'query', action: 'copy' });
     } catch {
       // Clipboard API failed, ignore silently
     }

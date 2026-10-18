@@ -21,6 +21,8 @@ import { Network, RotateCw, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useTrackToolUse } from '@/hooks/use-track-tool-use';
+import { getSizeBucket } from '@/lib/analytics';
 import { getLayoutedElements, processJsonToGraph } from '@/lib/json/graph-layout';
 
 const Label = ({ children, className }: { children: React.ReactNode; className?: string }) => (
@@ -78,6 +80,14 @@ export default function GraphPage() {
 
     parseAndLayout();
   }, [input, direction, setNodes, setEdges]);
+
+  useTrackToolUse(`${direction}|${input}`, {
+    tool: 'graph',
+    action: 'render',
+    result: error ? 'error' : 'success',
+    mode: direction,
+    size_bucket: getSizeBucket(input),
+  });
 
   // Handle layout direction change
   const toggleDirection = () => {

@@ -8,6 +8,7 @@ import { repairJson } from '@/lib/json/repair';
 import { Copy, Trash2, Wrench, CheckCircle, AlertCircle } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 
 export default function RepairPage() {
   const t = useTranslations('Repair');
@@ -20,6 +21,12 @@ export default function RepairPage() {
 
   const handleRepair = () => {
     const { success, result, wasRepaired: repaired, error } = repairJson(input);
+    trackToolUse({
+      tool: 'repair',
+      action: 'repair',
+      result: success ? 'success' : 'error',
+      size_bucket: getSizeBucket(input),
+    });
     if (success) {
       setOutput(result);
       setWasRepaired(repaired);
@@ -42,6 +49,7 @@ export default function RepairPage() {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
+      trackToolUse({ tool: 'repair', action: 'copy' });
     } catch {
       // Clipboard API failed, ignore silently
     }

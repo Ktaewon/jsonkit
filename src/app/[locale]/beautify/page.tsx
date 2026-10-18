@@ -9,6 +9,7 @@ import { Copy, Trash2, FileJson } from 'lucide-react';
 import { toast } from 'sonner';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 
 export default function BeautifyPage() {
   const t = useTranslations('Beautify');
@@ -20,6 +21,12 @@ export default function BeautifyPage() {
 
   const handleFormat = () => {
     const { success, result, error } = formatJson(input);
+    trackToolUse({
+      tool: 'beautify',
+      action: 'format',
+      result: success ? 'success' : 'error',
+      size_bucket: getSizeBucket(input),
+    });
     if (success) {
       setOutput(result);
       setError(null);
@@ -30,6 +37,12 @@ export default function BeautifyPage() {
 
   const handleMinify = () => {
     const { success, result, error } = minifyJson(input);
+    trackToolUse({
+      tool: 'beautify',
+      action: 'minify',
+      result: success ? 'success' : 'error',
+      size_bucket: getSizeBucket(input),
+    });
     if (success) {
       setOutput(result);
       setError(null);
@@ -48,6 +61,7 @@ export default function BeautifyPage() {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
+      trackToolUse({ tool: 'beautify', action: 'copy' });
       toast.success(tCommon('copied'));
     } catch {
       toast.error(tCommon('copyFailed'));

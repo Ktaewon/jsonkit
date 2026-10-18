@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useTrackToolUse } from '@/hooks/use-track-tool-use';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 
 // Simple Label component
 const Label = ({ children, className }: { children: React.ReactNode; className?: string }) => (
@@ -51,10 +53,27 @@ export default function ConverterPage() {
     }
   }, [input, format, direction]);
 
+  const fromFormat = direction === 'json-to-format' ? 'json' : format;
+  const toFormat = direction === 'json-to-format' ? format : 'json';
+  useTrackToolUse(`${direction}|${format}|${input}`, {
+    tool: 'convert',
+    action: 'convert',
+    result: error ? 'error' : 'success',
+    from_format: fromFormat,
+    to_format: toFormat,
+    size_bucket: getSizeBucket(input),
+  });
+
   const handleCopy = async () => {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
+      trackToolUse({
+        tool: 'convert',
+        action: 'copy',
+        from_format: fromFormat,
+        to_format: toFormat,
+      });
       toast.success(tCommon('copied'));
     } catch {
       toast.error(tCommon('copyFailed'));
