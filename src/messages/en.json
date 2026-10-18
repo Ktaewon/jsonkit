@@ -96,7 +96,7 @@
       "fastReactiveTitle": "Fast & Reactive",
       "fastReactiveDesc": "Instant results as you type. No waiting for server roundtrips.",
       "privacyFirstTitle": "Privacy First",
-      "privacyFirstDesc": "All processing happens in your browser. Your data never leaves your device."
+      "privacyFirstDesc": "Almost every tool runs entirely in your browser. The only exception, JSON to Code, sends your sample to our server just to generate code and never logs or stores it."
     }
   },
   "Common": {
@@ -607,13 +607,13 @@
   "Privacy": {
     "title": "Privacy Policy",
     "metaTitle": "Privacy Policy | JSONKit",
-    "metaDescription": "JSONKit privacy policy. Learn how we handle your data - all JSON processing happens in your browser with no server transmission.",
+    "metaDescription": "JSONKit privacy policy. Learn how we handle your data: almost every tool runs in your browser, and JSON to Code sends your sample to our server only to generate code, without logging or storing it.",
     "lastUpdated": "Last Updated",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-10-18",
     "sections": {
       "dataCollection": {
         "title": "Data Collection",
-        "content": "JSONKit does not collect, store, or transmit any of your JSON data. All JSON processing happens entirely in your browser. Your data never leaves your device."
+        "content": "JSONKit does not collect or store your JSON data. Almost every tool runs entirely in your browser: the JSON you paste is parsed, formatted, validated, converted and compared on your own device and is never sent anywhere. The one exception is JSON to Code, which sends your JSON sample to our server to generate type definitions and returns the result immediately; the input is not logged or stored."
       },
       "localStorage": {
         "title": "Local Storage",

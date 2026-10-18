@@ -56,7 +56,7 @@
       "fastReactiveTitle": "빠른 반응 속도",
       "fastReactiveDesc": "입력과 동시에 즉시 결과를 확인하세요. 서버 응답을 기다릴 필요가 없습니다.",
       "privacyFirstTitle": "프라이버시 우선",
-      "privacyFirstDesc": "모든 처리가 브라우저에서 이루어집니다. 데이터가 기기를 떠나지 않습니다."
+      "privacyFirstDesc": "거의 모든 도구가 브라우저 안에서만 동작합니다. 유일한 예외인 JSON to Code는 코드 생성을 위해서만 샘플을 서버로 보내며, 이를 기록하거나 저장하지 않습니다."
     }
   },
   "Common": {
@@ -607,13 +607,13 @@
   "Privacy": {
     "title": "개인정보 처리방침",
     "metaTitle": "개인정보 처리방침 | JSONKit",
-    "metaDescription": "JSONKit 개인정보 처리방침. 모든 JSON 처리는 브라우저에서 이루어지며 서버로 데이터가 전송되지 않습니다.",
+    "metaDescription": "JSONKit 개인정보 처리방침. 거의 모든 도구는 브라우저에서 동작하며, JSON to Code만 코드 생성을 위해 샘플을 서버로 보내고 이를 기록하거나 저장하지 않습니다.",
     "lastUpdated": "최종 업데이트",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-10-18",
     "sections": {
       "dataCollection": {
         "title": "데이터 수집",
-        "content": "JSONKit은 귀하의 JSON 데이터를 수집, 저장 또는 전송하지 않습니다. 모든 JSON 처리는 전적으로 브라우저에서 이루어집니다. 귀하의 데이터는 절대 기기를 떠나지 않습니다."
+        "content": "JSONKit은 귀하의 JSON 데이터를 수집하거나 저장하지 않습니다. JSONKit의 거의 모든 도구는 브라우저 안에서만 동작합니다. 붙여넣은 JSON은 사용자의 기기에서 파싱·포맷·검증·변환·비교되며 외부로 전송되지 않습니다. 유일한 예외는 JSON to Code로, 타입 정의를 생성하기 위해 JSON 샘플을 서버로 보내고 결과를 즉시 돌려줍니다. 이때 입력값은 기록되거나 저장되지 않습니다."
       },
       "localStorage": {
         "title": "로컬 스토리지",

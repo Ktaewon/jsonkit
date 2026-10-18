@@ -96,7 +96,7 @@
       "fastReactiveTitle": "快速响应",
       "fastReactiveDesc": "输入即得结果。无需等待服务器响应。",
       "privacyFirstTitle": "隐私优先",
-      "privacyFirstDesc": "所有处理都在浏览器中进行。您的数据永不离开您的设备。"
+      "privacyFirstDesc": "几乎所有工具都完全在浏览器中运行。唯一的例外 JSON to Code 仅为生成代码而将示例发送到我们的服务器，且不会记录或保存。"
     }
   },
   "Common": {
@@ -605,13 +605,13 @@
   "Privacy": {
     "title": "隐私政策",
     "metaTitle": "隐私政策 | JSONKit",
-    "metaDescription": "JSONKit 隐私政策。所有 JSON 处理在浏览器中完成，不向服务器传输数据。",
+    "metaDescription": "JSONKit 隐私政策。几乎所有工具都在浏览器中运行，只有 JSON to Code 会将示例发送到我们的服务器以生成代码，且不会记录或保存。",
     "lastUpdated": "最后更新",
-    "lastUpdatedDate": "2025-03-14",
+    "lastUpdatedDate": "2026-10-18",
     "sections": {
       "dataCollection": {
         "title": "数据收集",
-        "content": "JSONKit 不会收集、存储或传输您的任何 JSON 数据。所有 JSON 处理完全在您的浏览器中进行。您的数据永远不会离开您的设备。"
+        "content": "JSONKit 不会收集或存储您的 JSON 数据。JSONKit 上几乎所有工具都完全在浏览器中运行：您粘贴的 JSON 在您自己的设备上完成解析、格式化、校验、转换和对比，不会发送到任何地方。唯一的例外是 JSON to Code，它会把 JSON 示例发送到我们的服务器以生成类型定义，并立即返回结果；输入内容不会被记录或保存。"
       },
       "localStorage": {
         "title": "本地存储",
