@@ -9,6 +9,7 @@ import { FileCheck, Trash2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 
 export default function ValidatePage() {
   const t = useTranslations('Validate');
@@ -23,6 +24,12 @@ export default function ValidatePage() {
 
   const handleValidate = () => {
     const { isValid, error } = validateJson(input);
+    trackToolUse({
+      tool: 'validate',
+      action: 'validate',
+      result: isValid ? 'success' : 'error',
+      size_bucket: getSizeBucket(input),
+    });
     if (isValid) {
       setResult({ isValid: true, message: t('valid') });
     } else {

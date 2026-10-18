@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useTrackToolUse } from '@/hooks/use-track-tool-use';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 import { generateCode } from '@/app/actions/generate-code';
 import { SUPPORTED_LANGUAGES } from '@/lib/json/code-generator';
 import type { SupportedLanguage } from '@/lib/json/code-generator';
@@ -81,10 +83,24 @@ export default function JsonToCodePage() {
     };
   }, [input, language, typeName]);
 
+  useTrackToolUse(
+    `${language}|${typeName}|${input}`,
+    isGenerating
+      ? null
+      : {
+          tool: 'json-to-code',
+          action: 'generate',
+          result: error ? 'error' : 'success',
+          language,
+          size_bucket: getSizeBucket(input),
+        }
+  );
+
   const handleCopy = async () => {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
+      trackToolUse({ tool: 'json-to-code', action: 'copy', language });
       toast.success(tCommon('copied'));
     } catch {
       toast.error(tCommon('copyFailed'));

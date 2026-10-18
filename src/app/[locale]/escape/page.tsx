@@ -8,6 +8,7 @@ import { escapeJson, unescapeJson } from '@/lib/json/escape';
 import { Copy, Trash2, FileJson } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 
 export default function EscapePage() {
   const t = useTranslations('Escape');
@@ -19,6 +20,12 @@ export default function EscapePage() {
 
   const handleEscape = () => {
     const { success, result, error } = escapeJson(input);
+    trackToolUse({
+      tool: 'escape',
+      action: 'escape',
+      result: success ? 'success' : 'error',
+      size_bucket: getSizeBucket(input),
+    });
     if (success) {
       setOutput(result);
       setError(null);
@@ -29,6 +36,12 @@ export default function EscapePage() {
 
   const handleUnescape = () => {
     const { success, result, error } = unescapeJson(input);
+    trackToolUse({
+      tool: 'escape',
+      action: 'unescape',
+      result: success ? 'success' : 'error',
+      size_bucket: getSizeBucket(input),
+    });
     if (success) {
       setOutput(result);
       setError(null);
@@ -46,6 +59,7 @@ export default function EscapePage() {
   const handleCopy = () => {
     if (!output) return;
     navigator.clipboard.writeText(output);
+    trackToolUse({ tool: 'escape', action: 'copy' });
   };
 
   return (

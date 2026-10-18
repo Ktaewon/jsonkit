@@ -5,6 +5,8 @@ import { DynamicJsonDiffEditor as JsonDiffEditor } from '@/components/editor/Dyn
 import { Button } from '@/components/ui/button';
 import { GitCompare, Trash2, Columns, Rows } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useTrackToolUse } from '@/hooks/use-track-tool-use';
+import { getSizeBucket } from '@/lib/analytics';
 import { useState, useEffect } from 'react';
 
 import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
@@ -39,6 +41,13 @@ export default function ComparePage() {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  useTrackToolUse(`${original}|${modified}`, {
+    tool: 'compare',
+    action: 'diff',
+    mode: isMobile ? 'mobile' : viewMode,
+    size_bucket: getSizeBucket(original.length >= modified.length ? original : modified),
+  });
 
   const handleClear = () => {
     setOriginal('');

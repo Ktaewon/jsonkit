@@ -623,6 +623,7 @@
         "title": "Cookies and Third-Party Services",
         "content": "We use the following third-party services that may set cookies:",
         "googleAdsense": "Google AdSense: Used to display advertisements. Google may use cookies to personalize ads based on your browsing history.",
+        "googleAnalytics": "Google Analytics: Used to understand which tools and features are used so we can decide what to improve. Google Analytics uses cookies and records pages visited plus anonymous usage events such as the tool name, the action (e.g. format or convert), the selected format or language, and a rough input size range. The JSON or other text you enter is never sent to Google Analytics. You can opt out with the Google Analytics Opt-out Browser Add-on or by blocking cookies.",
         "vercelAnalytics": "Vercel Analytics: Used to understand how visitors use our site. Vercel Analytics does not use cookies and collects no personal data."
       },
       "thirdParty": {

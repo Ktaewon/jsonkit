@@ -621,6 +621,7 @@
         "title": "Cookieとサードパーティサービス",
         "content": "以下のサードパーティサービスを使用しており、Cookieを設定する場合があります：",
         "googleAdsense": "Google AdSense：広告の表示に使用されます。Googleは、お客様の閲覧履歴に基づいて広告をパーソナライズするためにCookieを使用する場合があります。",
+        "googleAnalytics": "Google Analytics：どのツールや機能が使われているかを把握し、改善の方向性を決めるために使用されます。Google AnalyticsはCookieを使用し、閲覧したページに加えて、ツール名、実行した操作（整形や変換など）、選択した形式や言語、おおよその入力サイズの範囲といった匿名の利用イベントを記録します。入力したJSONやその他のテキストがGoogle Analyticsに送信されることはありません。Google Analyticsオプトアウトアドオンの導入やCookieのブロックにより、収集を拒否できます。",
         "vercelAnalytics": "Vercel Analytics：訪問者がサイトをどのように使用しているかを理解するために使用されます。Vercel AnalyticsはCookieを使用せず、個人データを収集しません。"
       },
       "thirdParty": {
