@@ -6,10 +6,14 @@ import {
   REPAIR_SAMPLE,
   QUERY_SAMPLE,
   QUERY_SAMPLE_PATH,
+  SCHEMA_SAMPLE_DATA,
+  SCHEMA_SAMPLE_SCHEMA,
 } from '../samples';
 import { repairJson } from '../repair';
 import { queryJson } from '../query';
-import { escapeJson } from '../escape';
+import { escapeJson, unescapeJson } from '../escape';
+import { validateJson } from '../validate';
+import { validateJsonSchema } from '../schema';
 
 describe('tool samples', () => {
   it('beautify sample is valid, minified JSON', () => {
@@ -17,15 +21,22 @@ describe('tool samples', () => {
     expect(BEAUTIFY_SAMPLE).not.toContain('\n');
   });
 
-  it('validate and query samples are valid JSON', () => {
-    expect(() => JSON.parse(VALIDATE_SAMPLE)).not.toThrow();
+  it('validate sample passes the validator and query sample is valid JSON', () => {
+    expect(validateJson(VALIDATE_SAMPLE).isValid).toBe(true);
     expect(() => JSON.parse(QUERY_SAMPLE)).not.toThrow();
   });
 
-  it('escape sample contains characters that need escaping', () => {
-    const result = escapeJson(ESCAPE_SAMPLE);
-    expect(result.success).toBe(true);
-    expect(result.result).toContain('\\"');
+  it('schema sample data is valid against the sample schema', () => {
+    expect(validateJsonSchema(SCHEMA_SAMPLE_DATA, SCHEMA_SAMPLE_SCHEMA).isValid).toBe(true);
+  });
+
+  it('escape sample needs escaping and round-trips through unescape', () => {
+    const escaped = escapeJson(ESCAPE_SAMPLE);
+    expect(escaped.success).toBe(true);
+    expect(escaped.result).not.toBe(ESCAPE_SAMPLE);
+    const unescaped = unescapeJson(escaped.result);
+    expect(unescaped.success).toBe(true);
+    expect(JSON.parse(unescaped.result)).toEqual(JSON.parse(ESCAPE_SAMPLE));
   });
 
   it('repair sample is broken but repairable', () => {

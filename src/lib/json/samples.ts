@@ -1,3 +1,5 @@
+import { getExampleData, getExampleSchema } from './schema';
+
 // Starter inputs shown to first-time visitors so each tool demonstrates itself
 // instead of opening on an empty editor. Stored input (localStorage) takes precedence.
 
@@ -6,7 +8,7 @@ const SAMPLE_OBJECT = {
   name: 'JSONKit',
   active: true,
   tags: ['json', 'developer-tools', 'open-source'],
-  owner: { login: 'ktaewon', type: 'User' },
+  owner: { login: 'octocat', type: 'User' },
   stats: { stars: 128, forks: 12, rating: 4.8 },
   updatedAt: '2026-10-18T09:30:00Z',
 };
@@ -52,3 +54,6 @@ export const QUERY_SAMPLE = JSON.stringify(
 );
 
 export const QUERY_SAMPLE_PATH = '$.store.book[*].author';
+
+export const SCHEMA_SAMPLE_DATA = getExampleData();
+export const SCHEMA_SAMPLE_SCHEMA = getExampleSchema();

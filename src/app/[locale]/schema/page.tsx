@@ -9,13 +9,17 @@ import { Trash2, Shield, CheckCircle, XCircle, FileText } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
+import { SCHEMA_SAMPLE_DATA, SCHEMA_SAMPLE_SCHEMA } from '@/lib/json/samples';
 
 export default function SchemaPage() {
   const t = useTranslations('Schema');
   const tCommon = useTranslations('Common');
 
-  const [data, setData] = useLocalStorage<string>('jsonkit-schema-data', getExampleData());
-  const [schema, setSchema] = useLocalStorage<string>('jsonkit-schema-schema', getExampleSchema());
+  const [data, setData] = useLocalStorage<string>('jsonkit-schema-data', SCHEMA_SAMPLE_DATA);
+  const [schema, setSchema] = useLocalStorage<string>(
+    'jsonkit-schema-schema',
+    SCHEMA_SAMPLE_SCHEMA
+  );
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [errors, setErrors] = useState<Array<{ path: string; message: string; keyword: string }>>(
     []
