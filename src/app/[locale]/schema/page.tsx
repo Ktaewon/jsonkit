@@ -14,8 +14,8 @@ export default function SchemaPage() {
   const t = useTranslations('Schema');
   const tCommon = useTranslations('Common');
 
-  const [data, setData] = useLocalStorage<string>('jsonkit-schema-data', '');
-  const [schema, setSchema] = useLocalStorage<string>('jsonkit-schema-schema', '');
+  const [data, setData] = useLocalStorage<string>('jsonkit-schema-data', getExampleData());
+  const [schema, setSchema] = useLocalStorage<string>('jsonkit-schema-schema', getExampleSchema());
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [errors, setErrors] = useState<Array<{ path: string; message: string; keyword: string }>>(
     []

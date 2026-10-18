@@ -9,12 +9,13 @@ import { Copy, Trash2, FileJson } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
+import { ESCAPE_SAMPLE } from '@/lib/json/samples';
 
 export default function EscapePage() {
   const t = useTranslations('Escape');
   const tCommon = useTranslations('Common');
 
-  const [input, setInput] = useLocalStorage<string>('jsonkit-escape-input', '');
+  const [input, setInput] = useLocalStorage<string>('jsonkit-escape-input', ESCAPE_SAMPLE);
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
 

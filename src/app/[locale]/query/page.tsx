@@ -9,13 +9,17 @@ import { Copy, Trash2, Search, Play } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
+import { QUERY_SAMPLE, QUERY_SAMPLE_PATH } from '@/lib/json/samples';
 
 export default function QueryPage() {
   const t = useTranslations('Query');
   const tCommon = useTranslations('Common');
 
-  const [input, setInput] = useLocalStorage<string>('jsonkit-query-input', '');
-  const [queryPath, setQueryPath] = useLocalStorage<string>('jsonkit-query-path', '$');
+  const [input, setInput] = useLocalStorage<string>('jsonkit-query-input', QUERY_SAMPLE);
+  const [queryPath, setQueryPath] = useLocalStorage<string>(
+    'jsonkit-query-path',
+    QUERY_SAMPLE_PATH
+  );
   const [output, setOutput] = useState('');
   const [resultCount, setResultCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
