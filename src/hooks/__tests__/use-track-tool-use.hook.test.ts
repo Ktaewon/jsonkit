@@ -2,7 +2,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { act, renderHook } from '@testing-library/react';
 import type { ToolEventParams } from '@/lib/analytics';
-import { isToolSwitch, useTrackToolUse } from '../use-track-tool-use';
+import { clearToolSwitch, isToolSwitch, useTrackToolUse } from '../use-track-tool-use';
 
 vi.mock('@/lib/analytics', () => ({ trackToolUse: vi.fn() }));
 const { trackToolUse } = vi.mocked(await import('@/lib/analytics'));
@@ -39,6 +39,9 @@ describe('useTrackToolUse', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     trackToolUse.mockClear();
+    // Markers live in a module-level map, so don't let one test's leftovers leak into the next.
+    clearToolSwitch('convert:json-to-yaml');
+    clearToolSwitch('convert:json-to-xml');
   });
 
   afterEach(() => {
