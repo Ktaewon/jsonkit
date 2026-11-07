@@ -1,6 +1,14 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 import createMDX from '@next/mdx';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import type { NextConfig } from 'next';
+
+// Version of the self-hosted Monaco build in public/monaco (see scripts/copy-monaco.mjs).
+// Read here instead of importing package.json in client code, so the JSON isn't bundled.
+const monacoVersion: string = JSON.parse(
+  readFileSync(join(process.cwd(), 'node_modules', 'monaco-editor', 'package.json'), 'utf8')
+).version;
 
 const withNextIntl = createNextIntlPlugin();
 const withMDX = createMDX();
@@ -34,6 +42,9 @@ const securityHeaders: Array<{ key: string; value: string }> = [
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  env: {
+    NEXT_PUBLIC_MONACO_VERSION: monacoVersion,
+  },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
     remotePatterns: [
@@ -49,6 +60,11 @@ const nextConfig: NextConfig = {
       {
         source: '/:path*',
         headers: securityHeaders,
+      },
+      {
+        // Self-hosted Monaco build; the version is in the path, so it never changes in place
+        source: '/monaco/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ];
   },

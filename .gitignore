@@ -43,3 +43,6 @@ next-env.d.ts
 
 # omc (oh-my-claudecode) generated files
 .omc/
+
+# monaco editor copied from node_modules by scripts/copy-monaco.mjs
+/public/monaco/
