@@ -50,6 +50,11 @@ const nextConfig: NextConfig = {
         source: '/:path*',
         headers: securityHeaders,
       },
+      {
+        // Self-hosted Monaco build; the version is in the path, so it never changes in place
+        source: '/monaco/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
     ];
   },
 };

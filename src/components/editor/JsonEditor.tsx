@@ -4,6 +4,9 @@ import React, { useRef } from 'react';
 import Editor, { OnMount, EditorProps } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { Loader2 } from 'lucide-react';
+import { configureMonacoLoader } from '@/lib/monaco-loader';
+
+configureMonacoLoader();
 
 interface JsonEditorProps extends EditorProps {
   value: string;

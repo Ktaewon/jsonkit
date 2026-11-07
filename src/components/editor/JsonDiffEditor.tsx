@@ -5,6 +5,9 @@ import { DiffEditor, DiffEditorProps } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { Loader2 } from 'lucide-react';
 import type { editor } from 'monaco-editor';
+import { configureMonacoLoader } from '@/lib/monaco-loader';
+
+configureMonacoLoader();
 
 type DiffEditorInstance = editor.IStandaloneDiffEditor;
 type EditorOptions = editor.IDiffEditorOptions;
