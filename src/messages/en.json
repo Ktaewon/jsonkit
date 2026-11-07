@@ -1053,6 +1053,15 @@
       }
     }
   },
+
+  "Donation": {
+    "buttonLabel": "Support JSONKit",
+    "nudgeTitle": "Finding JSONKit useful? ☕",
+    "nudgeMessage": "A coffee helps keep JSONKit free and lets us keep building new tools.",
+    "nudgeCta": "Buy a coffee",
+    "dismiss": "Close",
+    "opensInNewTab": "opens in a new tab"
+  },
   "Footer": {
     "blog": "Blog",
     "privacyPolicy": "Privacy Policy",

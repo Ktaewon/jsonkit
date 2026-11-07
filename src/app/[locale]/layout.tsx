@@ -19,6 +19,7 @@ import { getWebsiteSchema, getOrganizationSchema } from '@/lib/seo/structured-da
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { FloatingContactButton } from '@/components/common/FloatingContactButton';
+import { FloatingDonationButton } from '@/components/common/FloatingDonationButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -88,6 +89,7 @@ export default async function RootLayout({
               <MobileNav />
               <Header />
               <main className="flex-1">{children}</main>
+              <FloatingDonationButton />
               <FloatingContactButton />
               <Footer />
             </div>

@@ -2,6 +2,7 @@
 
 import { Link } from '@/i18n/navigation';
 import { getDonationUrl } from '@/lib/donation';
+import { donationLinkHandlers } from '@/lib/donation-click';
 import { Coffee } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useId } from 'react';
@@ -45,6 +46,7 @@ export function Footer() {
               rel="noopener noreferrer"
               title={t('supportDescription')}
               aria-describedby={supportDescriptionId}
+              {...donationLinkHandlers('footer')}
               className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
             >
               <Coffee className="h-3.5 w-3.5" aria-hidden="true" />

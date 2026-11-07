@@ -1053,6 +1053,15 @@
       }
     }
   },
+
+  "Donation": {
+    "buttonLabel": "Поддержать JSONKit",
+    "nudgeTitle": "JSONKit оказался полезен? ☕",
+    "nudgeMessage": "Чашка кофе помогает JSONKit оставаться бесплатным и развиваться дальше.",
+    "nudgeCta": "Угостить кофе",
+    "dismiss": "Закрыть",
+    "opensInNewTab": "откроется в новой вкладке"
+  },
   "Footer": {
     "blog": "Блог",
     "privacyPolicy": "Политика конфиденциальности",

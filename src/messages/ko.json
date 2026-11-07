@@ -1053,6 +1053,15 @@
       }
     }
   },
+
+  "Donation": {
+    "buttonLabel": "JSONKit 후원하기",
+    "nudgeTitle": "JSONKit이 도움이 되셨나요? ☕",
+    "nudgeMessage": "커피 한 잔으로 응원해주시면 JSONKit을 무료로 유지하고 더 좋은 도구를 계속 만들 수 있어요.",
+    "nudgeCta": "커피 한 잔 사주기",
+    "dismiss": "닫기",
+    "opensInNewTab": "새 탭에서 열림"
+  },
   "Footer": {
     "blog": "블로그",
     "privacyPolicy": "개인정보 처리방침",
