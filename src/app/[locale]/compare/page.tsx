@@ -66,8 +66,8 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
-      <div className="flex items-center justify-between">
+    <div className="container flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-3.5rem)] md:min-h-0 py-6 gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <GitCompare className="h-6 w-6" /> {t('title')}
         </h1>

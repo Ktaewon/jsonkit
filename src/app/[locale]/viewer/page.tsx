@@ -43,8 +43,8 @@ export default function ViewerPage() {
   const handleClear = () => setInput('');
 
   return (
-    <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
-      <div className="flex items-center justify-between">
+    <div className="container flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-3.5rem)] md:min-h-0 py-6 gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <Network className="h-6 w-6" /> {t('title')}
         </h1>
@@ -53,7 +53,7 @@ export default function ViewerPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
         <div className="flex flex-col gap-2 min-h-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-sm font-medium text-muted-foreground">{t('inputTitle')}</h2>
             <Button variant="outline" onClick={handleClear}>
               <Trash2 className="h-4 w-4 mr-2" /> {tCommon('clear')}
@@ -70,7 +70,7 @@ export default function ViewerPage() {
         </div>
 
         <div className="flex flex-col gap-2 min-h-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-sm font-medium text-muted-foreground">{t('treeTitle')}</h2>
           </div>
           <div className="flex-1 min-h-0 border rounded-md overflow-auto p-4 bg-background">

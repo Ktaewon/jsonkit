@@ -25,7 +25,7 @@ export default function Home() {
   const t = useTranslations('Landing');
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-3.5rem)]">
+    <div className="flex flex-col min-h-[calc(100dvh-3.5rem)]">
       {/* Hero Section */}
       <section className="flex-1 flex flex-col items-center justify-center space-y-10 py-24 text-center md:py-32 lg:py-40">
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">

@@ -48,8 +48,8 @@ export default function ValidatePage() {
   };
 
   return (
-    <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
-      <div className="flex items-center justify-between">
+    <div className="container flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-3.5rem)] md:min-h-0 py-6 gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <FileCheck className="h-6 w-6" /> {t('title')}
         </h1>
@@ -57,7 +57,7 @@ export default function ValidatePage() {
       <p className="text-muted-foreground">{t('description')}</p>
 
       <div className="flex flex-col gap-2 flex-1 min-h-0">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex gap-2">
             <Button onClick={handleValidate}>{t('validateBtn')}</Button>
             <Button variant="outline" onClick={handleClear}>

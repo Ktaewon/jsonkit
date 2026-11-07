@@ -128,8 +128,8 @@ export function JsonToCodeTool({ initialLanguage, title, description }: JsonToCo
   };
 
   return (
-    <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
-      <div className="flex items-center justify-between">
+    <div className="container flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-3.5rem)] md:min-h-0 py-6 gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <Code className="h-6 w-6" /> {title}
         </h1>
@@ -175,7 +175,7 @@ export function JsonToCodeTool({ initialLanguage, title, description }: JsonToCo
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
         {/* Input */}
         <div className="flex flex-col gap-2 min-h-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <Label>{tCommon('input')} (JSON)</Label>
             <Button variant="outline" size="sm" onClick={() => setInput('')}>
               <Trash2 className="h-4 w-4 mr-2" /> {tCommon('clear')}
@@ -189,7 +189,7 @@ export function JsonToCodeTool({ initialLanguage, title, description }: JsonToCo
 
         {/* Output */}
         <div className="flex flex-col gap-2 min-h-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <Label>
               {tCommon('output')} ({language})
             </Label>

@@ -19,6 +19,7 @@
     "graph": "Graph"
   },
   "Graph": {
+    "truncated": "JSONが大きいため、最初の{count}ノードのみ表示しています。",
     "title": "JSON Graph Visualizer",
     "description": "複雑なJSONデータをインタラクティブなノードグラフとして可視化します。オブジェクトや配列の階層構造を一目で把握し、横/縦レイアウトを切り替えてデータの関係を探索できます。",
     "metaTitle": "JSONグラフ可視化 オンライン - インタラクティブノードグラフ | JSONKit",
@@ -100,6 +101,10 @@
     }
   },
   "Common": {
+    "errorPageTitle": "問題が発生しました",
+    "errorPageMessage": "ページで予期しないエラーが発生しました。入力内容はこのブラウザに保存されているので、安心して再試行してください。",
+    "retry": "再試行",
+    "goHome": "ホームへ",
     "fontSize": "文字サイズ",
     "fontSizeDecrease": "文字を小さく",
     "fontSizeIncrease": "文字を大きく",
