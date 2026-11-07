@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import type { Node, Edge } from '@xyflow/react';
@@ -52,11 +52,18 @@ export default function GraphPage() {
   const [truncated, setTruncated] = useState(false);
   const [direction, setDirection] = useState<'LR' | 'TB'>('LR');
   const [error, setError] = useState<string | null>(null);
+  // Input of the graph on screen; null until the first layout, which also runs right away
+  const laidOutInputRef = useRef<string | null>(null);
 
   // Parse and lay out once typing pauses; a newer input cancels an older layout, so a slow
   // layout can't overwrite a newer graph.
   useEffect(() => {
     let cancelled = false;
+    // Only typing is debounced; flipping the direction re-lays out right away
+    const delay =
+      laidOutInputRef.current === null || input === laidOutInputRef.current
+        ? 0
+        : LAYOUT_DEBOUNCE_MS;
     const timer = setTimeout(async () => {
       if (!input.trim()) {
         setNodes([]);
@@ -75,11 +82,12 @@ export default function GraphPage() {
         setEdges(layouted.edges);
         setTruncated(graph.truncated);
         setError(null);
+        laidOutInputRef.current = input;
       } catch (err) {
         if (cancelled) return;
         setError((err as Error).message || 'Invalid JSON');
       }
-    }, LAYOUT_DEBOUNCE_MS);
+    }, delay);
 
     return () => {
       cancelled = true;

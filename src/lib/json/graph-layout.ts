@@ -13,7 +13,13 @@ let elkPromise: Promise<ElkInstance> | null = null;
 
 /** ELK is ~400 KB, so it is only downloaded when the first graph is laid out. */
 function getElk(): Promise<ElkInstance> {
-  elkPromise ??= import('elkjs/lib/elk.bundled').then(({ default: ELK }) => new ELK());
+  elkPromise ??= import('elkjs/lib/elk.bundled')
+    .then(({ default: ELK }) => new ELK())
+    .catch((error: unknown) => {
+      // Don't cache a failed download (offline, or a stale chunk after a deploy)
+      elkPromise = null;
+      throw error;
+    });
   return elkPromise;
 }
 
@@ -161,8 +167,10 @@ export async function getLayoutedElements(
     })),
   };
 
+  // A failed ELK download is rethrown so the page can show an error instead of a pile of
+  // nodes at (0, 0)
+  const elk = await getElk();
   try {
-    const elk = await getElk();
     const layoutedGraph = await elk.layout(graph);
     const positions = new Map((layoutedGraph.children ?? []).map((n) => [n.id, n]));
 
