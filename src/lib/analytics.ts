@@ -4,6 +4,8 @@
 // Only tool/action names, formats, languages and coarse size buckets are allowed, which
 // the types below enforce.
 
+import { recordToolUseForNudge } from './donation-nudge';
+
 export type ToolName =
   | 'beautify'
   | 'validate'
@@ -49,8 +51,12 @@ export type ToolEventParams = {
   mode?: string;
 };
 
+export type DonationSource = 'footer' | 'floating' | 'nudge';
+
 type AnalyticsEvents = {
   tool_use: ToolEventParams;
+  donation_click: { source: DonationSource };
+  donation_nudge: { action: 'shown' | 'dismissed' };
 };
 
 type Gtag = (command: 'event', name: string, params?: Record<string, unknown>) => void;
@@ -82,6 +88,8 @@ export function trackEvent<K extends keyof AnalyticsEvents>(
 }
 
 export function trackToolUse(params: ToolEventParams): void {
+  // Counted locally even when GA is off or blocked; only the count is kept, in this browser.
+  if (params.result !== 'error') recordToolUseForNudge();
   trackEvent('tool_use', params);
 }
 

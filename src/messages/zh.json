@@ -1053,6 +1053,15 @@
       }
     }
   },
+
+  "Donation": {
+    "buttonLabel": "赞助 JSONKit",
+    "nudgeTitle": "觉得 JSONKit 好用吗？☕",
+    "nudgeMessage": "请我们喝杯咖啡，帮助 JSONKit 保持免费，并持续开发更多好用的工具。",
+    "nudgeCta": "请喝杯咖啡",
+    "dismiss": "关闭",
+    "opensInNewTab": "在新标签页中打开"
+  },
   "Footer": {
     "blog": "博客",
     "privacyPolicy": "隐私政策",
