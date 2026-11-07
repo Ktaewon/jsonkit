@@ -1,6 +1,6 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import { AArrowDown, AArrowUp } from 'lucide-react';
 import type { IDisposable, editor } from 'monaco-editor';
@@ -70,10 +70,26 @@ export function addFontSizeShortcuts(
   });
 }
 
-const buttonClass =
+/** Shared look of the small button groups overlaid on editors. */
+export const toolbarGroupClass =
+  'flex items-center overflow-hidden rounded-md border bg-background/90 text-muted-foreground shadow-sm backdrop-blur-sm';
+
+export const toolbarButtonClass =
   'flex h-7 items-center justify-center transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring aria-disabled:cursor-default aria-disabled:opacity-40 aria-disabled:hover:bg-transparent aria-disabled:hover:text-muted-foreground';
 
-/** Small A− / size / A+ control overlaid on the editor's bottom-right corner. */
+/**
+ * Bottom-right overlay holding the editor's small controls. Faded until hovered or
+ * focused so it doesn't distract while typing.
+ */
+export function EditorToolbar({ children }: { children: ReactNode }) {
+  return (
+    <div className="absolute bottom-3 right-5 z-10 flex items-center gap-1.5 opacity-70 transition-opacity hover:opacity-100 focus-within:opacity-100">
+      {children}
+    </div>
+  );
+}
+
+/** Small A− / size / A+ control, shown in the editor toolbar. */
 export function EditorFontSizeControl({ className }: { className?: string }) {
   const t = useTranslations('Common');
   const size = useEditorFontSize();
@@ -81,15 +97,7 @@ export function EditorFontSizeControl({ className }: { className?: string }) {
   const atMax = size >= MAX_EDITOR_FONT_SIZE;
 
   return (
-    <div
-      role="group"
-      aria-label={t('fontSize')}
-      className={cn(
-        'absolute bottom-3 right-5 z-10 flex items-center overflow-hidden rounded-md border bg-background/90 text-muted-foreground shadow-sm backdrop-blur-sm',
-        'opacity-70 transition-opacity hover:opacity-100 focus-within:opacity-100',
-        className
-      )}
-    >
+    <div role="group" aria-label={t('fontSize')} className={cn(toolbarGroupClass, className)}>
       {/* aria-disabled instead of disabled, so focus isn't lost when a limit is reached */}
       <button
         type="button"
@@ -97,7 +105,7 @@ export function EditorFontSizeControl({ className }: { className?: string }) {
         aria-disabled={atMin}
         aria-label={t('fontSizeDecrease')}
         title={t('fontSizeDecrease')}
-        className={cn(buttonClass, 'w-7')}
+        className={cn(toolbarButtonClass, 'w-7')}
       >
         <AArrowDown className="h-4 w-4" aria-hidden="true" />
       </button>
@@ -106,7 +114,7 @@ export function EditorFontSizeControl({ className }: { className?: string }) {
         onClick={resetEditorFontSize}
         aria-label={t('fontSizeReset', { size })}
         title={t('fontSizeReset', { size })}
-        className={cn(buttonClass, 'min-w-[2rem] border-x px-1 text-xs tabular-nums')}
+        className={cn(toolbarButtonClass, 'min-w-[2rem] border-x px-1 text-xs tabular-nums')}
       >
         <span aria-live="polite">{size}</span>
       </button>
@@ -116,7 +124,7 @@ export function EditorFontSizeControl({ className }: { className?: string }) {
         aria-disabled={atMax}
         aria-label={t('fontSizeIncrease')}
         title={t('fontSizeIncrease')}
-        className={cn(buttonClass, 'w-7')}
+        className={cn(toolbarButtonClass, 'w-7')}
       >
         <AArrowUp className="h-4 w-4" aria-hidden="true" />
       </button>

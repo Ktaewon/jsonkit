@@ -101,6 +101,12 @@
     }
   },
   "Common": {
+    "dropFileHint": "Drop a file to open it",
+    "fileReadFailed": "Couldn't read the file.",
+    "fileTooLarge": "This file is too large (max {size} MB).",
+    "fileActions": "File",
+    "downloadFile": "Download",
+    "openFile": "Open file",
     "errorPageTitle": "Something went wrong",
     "errorPageMessage": "This page hit an unexpected error. Your input is saved in this browser, so you can try again safely.",
     "retry": "Try again",
@@ -132,6 +138,13 @@
     "seoFaqTitle": "Frequently asked questions"
   },
   "Beautify": {
+    "textToUnicode": "Text → Unicode",
+    "unicodeToText": "Unicode → Text",
+    "minifyEscape": "Minify & escape",
+    "sortKeys": "Sort keys",
+    "indentSpaces": "{count} spaces",
+    "indentTab": "Tab",
+    "indent": "Indent",
     "title": "JSON Beautifier & Minifier",
     "description": "Format and pretty-print your JSON data to make it easier to read, or minify it to reduce file size without changing the data.",
     "metaTitle": "JSON Beautifier & Minifier Online - Format JSON | JSONKit",

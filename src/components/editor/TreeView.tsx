@@ -40,9 +40,15 @@ export function JsonTreeView({ data, level = 0, path = '$' }: JsonTreeViewProps)
 
   const handleCopyPath = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(path);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    navigator.clipboard
+      .writeText(path)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {
+        // Clipboard blocked: leave the icon as is rather than claiming success
+      });
   };
 
   if (!isObject) {

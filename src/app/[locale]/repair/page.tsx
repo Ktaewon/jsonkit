@@ -8,12 +8,14 @@ import { repairJson } from '@/lib/json/repair';
 import { Copy, Trash2, Wrench, CheckCircle, AlertCircle } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 import { REPAIR_SAMPLE } from '@/lib/json/samples';
 
 export default function RepairPage() {
   const t = useTranslations('Repair');
   const tCommon = useTranslations('Common');
+  const copy = useCopyToClipboard();
 
   const [input, setInput] = useLocalStorage<string>('jsonkit-repair-input', REPAIR_SAMPLE);
   const [output, setOutput] = useState('');
@@ -48,12 +50,7 @@ export default function RepairPage() {
 
   const handleCopy = async () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      trackToolUse({ tool: 'repair', action: 'copy' });
-    } catch {
-      // Clipboard API failed, ignore silently
-    }
+    if (await copy(output)) trackToolUse({ tool: 'repair', action: 'copy' });
   };
 
   return (

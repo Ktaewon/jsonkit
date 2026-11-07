@@ -60,6 +60,12 @@
     }
   },
   "Common": {
+    "dropFileHint": "파일을 놓으면 열려요",
+    "fileReadFailed": "파일을 읽지 못했어요.",
+    "fileTooLarge": "파일이 너무 커요 (최대 {size}MB).",
+    "fileActions": "파일",
+    "downloadFile": "다운로드",
+    "openFile": "파일 열기",
     "errorPageTitle": "문제가 발생했어요",
     "errorPageMessage": "페이지에서 예상치 못한 오류가 발생했어요. 입력한 내용은 이 브라우저에 저장돼 있으니 안심하고 다시 시도해 주세요.",
     "retry": "다시 시도",
@@ -92,7 +98,7 @@
   },
   "Graph": {
     "truncated": "JSON이 커서 처음 {count}개 노드만 표시해요.",
-    "title": "JSON Graph Visualizer",
+    "title": "JSON 그래프 시각화",
     "description": "복잡한 JSON 데이터를 인터랙티브 노드 그래프로 시각화합니다. 객체와 배열의 계층 구조를 한눈에 파악하고, 가로/세로 레이아웃을 전환하며 데이터 관계를 탐색할 수 있습니다.",
     "metaTitle": "JSON 그래프 시각화 온라인 - 인터랙티브 노드 그래프 | JSONKit",
     "metaDescription": "무료 온라인 JSON 그래프 시각화 도구. JSON 데이터를 인터랙티브 노드 그래프로 시각화하고 자동 계층 레이아웃을 지원합니다. 가로/세로 뷰를 전환하세요.",
@@ -132,7 +138,14 @@
     }
   },
   "Beautify": {
-    "title": "JSON Beautifier & Minifier",
+    "textToUnicode": "문자 → 유니코드",
+    "unicodeToText": "유니코드 → 문자",
+    "minifyEscape": "압축 후 이스케이프",
+    "sortKeys": "키 정렬",
+    "indentSpaces": "{count}칸",
+    "indentTab": "탭",
+    "indent": "들여쓰기",
+    "title": "JSON 정리 & 압축",
     "description": "JSON 데이터를 포맷팅(Pretty Print)하여 가독성을 높이거나, 공백을 제거(Minify)하여 파일 용량을 줄일 수 있습니다.",
     "metaTitle": "JSON 포맷터 & 압축기 온라인 - JSON 정리 | JSONKit",
     "metaDescription": "무료 온라인 JSON 포맷터 및 압축기. 적절한 들여쓰기로 JSON을 보기 좋게 정리하거나 압축하여 용량을 줄이세요. 서버 전송 없이 빠른 클라이언트 처리.",
@@ -176,7 +189,7 @@
     }
   },
   "Validate": {
-    "title": "JSON Validator",
+    "title": "JSON 검증기",
     "description": "JSON 데이터의 문법 오류를 검사하고 수정하세요. 정확한 라인 번호와 오류 메시지를 제공하여 문제를 쉽게 찾을 수 있습니다.",
     "metaTitle": "JSON 검증기 온라인 - 문법 검사 도구 | JSONKit",
     "metaDescription": "무료 온라인 JSON 검증기 및 문법 검사 도구. 정확한 줄 번호와 상세한 오류 메시지로 JSON 오류를 즉시 감지합니다.",
@@ -216,7 +229,7 @@
     }
   },
   "Viewer": {
-    "title": "JSON Tree Viewer",
+    "title": "JSON 트리 뷰어",
     "description": "복잡한 JSON 데이터를 계층적인 트리 구조로 시각화합니다. 노드를 펼치거나 접어서 데이터를 쉽게 탐색할 수 있습니다.",
     "metaTitle": "JSON 트리 뷰어 온라인 - 인터랙티브 JSON 탐색기 | JSONKit",
     "metaDescription": "무료 온라인 JSON 트리 뷰어. JSON을 인터랙티브한 접기/펼치기 트리 구조로 시각화하고 JSONPath 복사를 지원합니다.",
@@ -256,7 +269,7 @@
     }
   },
   "Compare": {
-    "title": "JSON Diff & Compare",
+    "title": "JSON 비교",
     "description": "두 개의 JSON 데이터를 나란히 비교하여 차이점을 확인하세요. 추가, 삭제, 변경된 부분이 색상으로 강조 표시됩니다.",
     "metaTitle": "JSON 비교 도구 - 나란히 비교 & 차이점 확인 | JSONKit",
     "metaDescription": "무료 온라인 JSON 비교 도구. 두 JSON 객체를 나란히 비교하여 추가, 삭제, 변경된 값을 시각적으로 강조 표시합니다.",
@@ -295,7 +308,7 @@
     }
   },
   "Convert": {
-    "title": "JSON Converter",
+    "title": "JSON 변환기",
     "description": "JSON 데이터를 YAML, XML, CSV 등 다른 형식으로 변환하거나, 반대로 다른 형식을 JSON으로 변환할 수 있습니다.",
     "metaTitle": "JSON 변환기 - JSON ↔ YAML, XML, CSV 변환 | JSONKit",
     "metaDescription": "무료 온라인 JSON 변환기. JSON을 YAML, XML, CSV로 변환하거나 반대로 변환하세요. 즉시 미리보기와 양방향 변환을 지원합니다.",
@@ -831,7 +844,7 @@
     }
   },
   "Query": {
-    "title": "JSONPath Query",
+    "title": "JSONPath 쿼리",
     "description": "JSONPath 표현식을 사용하여 JSON에서 데이터를 추출합니다. 강력한 경로 문법으로 중첩된 객체와 배열을 쿼리할 수 있습니다.",
     "metaTitle": "JSONPath 쿼리 도구 - JSON 데이터 추출 | JSONKit",
     "metaDescription": "무료 온라인 JSONPath 쿼리 도구. 강력한 JSONPath 표현식으로 JSON에서 데이터를 추출하세요. 중첩된 객체와 배열을 즉시 쿼리합니다.",
@@ -876,7 +889,7 @@
     }
   },
   "Escape": {
-    "title": "JSON Escape & Unescape",
+    "title": "JSON 이스케이프 & 언이스케이프",
     "description": "JSON 문자열을 이스케이프하여 다른 JSON이나 코드에 포함시키거나, 이스케이프된 JSON 문자열을 원래 형식으로 되돌립니다.",
     "metaTitle": "JSON 이스케이프 & 언이스케이프 온라인 | JSONKit",
     "metaDescription": "무료 온라인 JSON 이스케이프/언이스케이프 도구. JSON 문자열을 코드에 포함시키기 위해 이스케이프하거나 원래 형식으로 되돌립니다.",
@@ -916,7 +929,7 @@
     }
   },
   "Repair": {
-    "title": "JSON Repair",
+    "title": "JSON 복구",
     "description": "잘못된 JSON을 자동으로 수정합니다. 후행 쉼표, 누락된 따옴표, 작은따옴표, 주석 등 일반적인 문제를 수정합니다.",
     "metaTitle": "JSON 수리 도구 - 잘못된 JSON 자동 수정 | JSONKit",
     "metaDescription": "무료 온라인 JSON 수리 도구. 후행 쉼표, 누락된 따옴표, 작은따옴표, 주석, 따옴표 없는 키 등을 자동으로 수정합니다.",
@@ -964,7 +977,7 @@
     }
   },
   "Schema": {
-    "title": "JSON Schema Validator",
+    "title": "JSON 스키마 검증기",
     "description": "JSON Schema에 대해 JSON 데이터를 검증합니다. 상세한 오류 보고와 함께 데이터가 정의된 구조를 준수하는지 확인하세요.",
     "metaTitle": "JSON 스키마 검증기 온라인 | JSONKit",
     "metaDescription": "무료 온라인 JSON 스키마 검증기. JSON Schema 정의에 대해 JSON 데이터를 검증하고 상세한 오류 보고를 제공합니다.",

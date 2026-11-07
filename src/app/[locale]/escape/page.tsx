@@ -8,12 +8,14 @@ import { escapeJson, unescapeJson } from '@/lib/json/escape';
 import { Copy, Trash2, FileJson } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 import { ESCAPE_SAMPLE } from '@/lib/json/samples';
 
 export default function EscapePage() {
   const t = useTranslations('Escape');
   const tCommon = useTranslations('Common');
+  const copy = useCopyToClipboard();
 
   const [input, setInput] = useLocalStorage<string>('jsonkit-escape-input', ESCAPE_SAMPLE);
   const [output, setOutput] = useState('');
@@ -57,10 +59,9 @@ export default function EscapePage() {
     setError(null);
   };
 
-  const handleCopy = () => {
+  const handleCopy = async () => {
     if (!output) return;
-    navigator.clipboard.writeText(output);
-    trackToolUse({ tool: 'escape', action: 'copy' });
+    if (await copy(output)) trackToolUse({ tool: 'escape', action: 'copy' });
   };
 
   return (

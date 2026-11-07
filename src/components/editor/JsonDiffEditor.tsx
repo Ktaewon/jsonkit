@@ -8,6 +8,7 @@ import type { editor } from 'monaco-editor';
 import { configureMonacoLoader } from '@/lib/monaco-loader';
 import {
   EditorFontSizeControl,
+  EditorToolbar,
   FONT_SIZE_CONTROL_CLEARANCE,
   addFontSizeShortcuts,
   useEditorFontSize,
@@ -132,7 +133,9 @@ export function JsonDiffEditor({
         options={options}
         {...props}
       />
-      <EditorFontSizeControl />
+      <EditorToolbar>
+        <EditorFontSizeControl />
+      </EditorToolbar>
     </div>
   );
 }
