@@ -68,24 +68,27 @@ export function FloatingDonationButton() {
         // Hidden on small screens, where a bubble would cover the tool itself.
         <div
           role="status"
-          className="fixed bottom-[5.25rem] left-[4.5rem] z-[54] hidden w-64 rounded-xl border bg-background p-4 pr-8 shadow-xl sm:block motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left-2"
+          // Same card styling as the contact modal (FloatingContactButton), placed beside the buttons.
+          className="fixed bottom-[5.5rem] left-[5.5rem] z-[54] hidden w-72 rounded-lg border bg-background p-4 shadow-xl sm:block motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left-2"
         >
-          <button
-            type="button"
-            onClick={dismiss}
-            aria-label={t('dismiss')}
-            className="absolute right-2 top-2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          >
-            <X className="h-3.5 w-3.5" />
-          </button>
-          <p className="text-sm font-medium">{t('nudgeTitle')}</p>
-          <p className="mt-1 text-sm text-muted-foreground">{t('nudgeMessage')}</p>
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <h3 className="font-semibold">{t('nudgeTitle')}</h3>
+            <button
+              type="button"
+              onClick={dismiss}
+              aria-label={t('dismiss')}
+              className="shrink-0 rounded-full p-1 transition-colors hover:bg-muted"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <p className="mb-4 text-sm text-muted-foreground">{t('nudgeMessage')}</p>
           <a
             href={donationUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onDonationClick('nudge')}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-md bg-amber-400 px-3 py-1.5 text-sm font-medium text-amber-950 transition-colors hover:bg-amber-300"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <Coffee className="h-4 w-4" aria-hidden="true" />
             {t('nudgeCta')}
@@ -101,7 +104,8 @@ export function FloatingDonationButton() {
         onClick={() => onDonationClick('floating')}
         aria-label={`${t('buttonLabel')} (${t('opensInNewTab')})`}
         title={t('buttonLabel')}
-        className="fixed bottom-20 left-7 z-[55] flex h-10 w-10 items-center justify-center rounded-full border bg-background text-amber-500 shadow-lg transition-transform hover:scale-105"
+        // Same size and colors as the contact button, stacked 16px above it.
+        className="fixed bottom-[5.5rem] left-6 z-[55] flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105"
       >
         <Coffee className="h-5 w-5" aria-hidden="true" />
       </a>
