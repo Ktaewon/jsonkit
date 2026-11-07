@@ -3,9 +3,9 @@
 // slow or blocked in mainland China and would leave the editor stuck on its spinner.
 
 import { loader } from '@monaco-editor/react';
-import { version as monacoVersion } from 'monaco-editor/package.json';
 
-export const MONACO_VS_PATH = `/monaco/${monacoVersion}/vs`;
+// Set in next.config.ts from node_modules/monaco-editor/package.json.
+export const MONACO_VS_PATH = `/monaco/${process.env.NEXT_PUBLIC_MONACO_VERSION}/vs`;
 
 let configured = false;
 
