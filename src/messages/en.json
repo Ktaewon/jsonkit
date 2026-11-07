@@ -1057,7 +1057,9 @@
     "blog": "Blog",
     "privacyPolicy": "Privacy Policy",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "support": "Support JSONKit",
+    "supportDescription": "Help keep JSONKit free"
   },
   "Privacy": {
     "title": "Privacy Policy",

@@ -1057,7 +1057,9 @@
     "blog": "Блог",
     "privacyPolicy": "Политика конфиденциальности",
     "about": "О проекте",
-    "contact": "Контакты"
+    "contact": "Контакты",
+    "support": "Поддержать JSONKit",
+    "supportDescription": "Помогите JSONKit оставаться бесплатным"
   },
   "Privacy": {
     "title": "Политика конфиденциальности",
