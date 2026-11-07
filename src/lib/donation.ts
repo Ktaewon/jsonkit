@@ -4,13 +4,17 @@
 // to their own page (or show nothing). Donation page URLs are public by nature, so they
 // are safe as NEXT_PUBLIC_ values; never put payment credentials or API keys here.
 
-/** Returns the URL only if it is a valid https URL, otherwise an empty string. */
+/**
+ * Returns the URL only if it is a valid https URL without embedded credentials,
+ * otherwise an empty string.
+ */
 export function sanitizeDonationUrl(value: string | null | undefined): string {
   const trimmed = value?.trim() ?? '';
   if (!trimmed) return '';
   try {
     const url = new URL(trimmed);
-    return url.protocol === 'https:' ? url.toString() : '';
+    const isSafe = url.protocol === 'https:' && !url.username && !url.password;
+    return isSafe ? url.toString() : '';
   } catch {
     return '';
   }

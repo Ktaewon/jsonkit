@@ -1059,7 +1059,8 @@
     "about": "About",
     "contact": "Contact",
     "support": "Support JSONKit",
-    "supportDescription": "Help keep JSONKit free"
+    "supportDescription": "Help keep JSONKit free",
+    "opensInNewTab": "opens in a new tab"
   },
   "Privacy": {
     "title": "Privacy Policy",

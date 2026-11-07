@@ -4,10 +4,12 @@ import { Link } from '@/i18n/navigation';
 import { getDonationUrl } from '@/lib/donation';
 import { Coffee } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useId } from 'react';
 
 export function Footer() {
   const t = useTranslations('Footer');
   const donationUrl = getDonationUrl(useLocale());
+  const supportDescriptionId = useId();
 
   return (
     <footer className="border-t py-6 md:py-0">
@@ -42,10 +44,15 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               title={t('supportDescription')}
+              aria-describedby={supportDescriptionId}
               className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
             >
               <Coffee className="h-3.5 w-3.5" aria-hidden="true" />
               {t('support')}
+              <span className="sr-only"> ({t('opensInNewTab')})</span>
+              <span id={supportDescriptionId} className="sr-only">
+                {t('supportDescription')}
+              </span>
             </a>
           )}
           <Link

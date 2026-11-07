@@ -1059,7 +1059,8 @@
     "about": "소개",
     "contact": "문의",
     "support": "JSONKit 후원하기",
-    "supportDescription": "JSONKit을 무료로 유지할 수 있게 도와주세요"
+    "supportDescription": "JSONKit을 무료로 유지할 수 있게 도와주세요",
+    "opensInNewTab": "새 탭에서 열림"
   },
   "Privacy": {
     "title": "개인정보 처리방침",

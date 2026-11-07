@@ -18,6 +18,11 @@ describe('sanitizeDonationUrl', () => {
     expect(sanitizeDonationUrl('http://example.com')).toBe('');
     expect(sanitizeDonationUrl('javascript:alert(1)')).toBe('');
   });
+
+  it('URL에 계정 정보가 포함되어 있으면 거부해야 함', () => {
+    expect(sanitizeDonationUrl('https://user:pass@buymeacoffee.com/jsonkit')).toBe('');
+    expect(sanitizeDonationUrl('https://user@buymeacoffee.com/jsonkit')).toBe('');
+  });
 });
 
 describe('resolveDonationUrl', () => {
