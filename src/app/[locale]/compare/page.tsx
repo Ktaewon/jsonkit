@@ -66,8 +66,8 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
-      <div className="flex items-center justify-between">
+    <div className="container flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-3.5rem)] md:min-h-0 py-6 gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <GitCompare className="h-6 w-6" /> {t('title')}
         </h1>
@@ -129,7 +129,8 @@ export default function ComparePage() {
             </TabsTrigger>
           </TabsList>
 
-          <div className="flex-1 min-h-0 relative">
+          {/* The page grows with its content on mobile, so the editors need a fixed height */}
+          <div className="h-[65dvh] min-h-[320px] relative">
             <TabsContent value="original" activeValue={activeTab} className="h-full mt-0">
               <JsonEditor value={original} onChange={(value) => setOriginal(value || '')} />
             </TabsContent>

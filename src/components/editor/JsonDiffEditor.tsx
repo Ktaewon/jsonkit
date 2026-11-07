@@ -31,12 +31,37 @@ export function JsonDiffEditor({
   modified,
   readOnly = false,
   options: userOptions,
+  onOriginalChange,
+  onModifiedChange,
   ...props
 }: JsonDiffEditorProps) {
   const { resolvedTheme } = useTheme();
   const fontSize = useEditorFontSize();
 
   const diffEditorRef = React.useRef<DiffEditorInstance | null>(null);
+
+  // The editor owns its text while the user types. Values from props are only written into
+  // it when they differ from what it already holds (e.g. Clear, or another tab on mobile),
+  // because @monaco-editor/react resets the original side on every prop change, which
+  // would jump the cursor to the start on each keystroke.
+  const [initialOriginal] = React.useState(original);
+  const [initialModified] = React.useState(modified);
+  const latest = React.useRef({ original, modified, onOriginalChange, onModifiedChange });
+  React.useEffect(() => {
+    latest.current = { original, modified, onOriginalChange, onModifiedChange };
+  });
+
+  const syncValues = (editor: DiffEditorInstance) => {
+    const model = editor.getModel();
+    if (!model) return;
+    const { original: nextOriginal, modified: nextModified } = latest.current;
+    if (model.original.getValue() !== nextOriginal) model.original.setValue(nextOriginal);
+    if (model.modified.getValue() !== nextModified) model.modified.setValue(nextModified);
+  };
+
+  React.useEffect(() => {
+    if (diffEditorRef.current) syncValues(diffEditorRef.current);
+  }, [original, modified]);
 
   // One set of options for creation, mount and later updates, so they can't drift apart.
   const options = React.useMemo<EditorOptions>(
@@ -72,6 +97,16 @@ export function JsonDiffEditor({
     diffEditorRef.current = editor;
     addFontSizeShortcuts(editor.getOriginalEditor(), monaco);
     addFontSizeShortcuts(editor.getModifiedEditor(), monaco);
+    // Values may have changed while Monaco was loading
+    syncValues(editor);
+    const originalEditor = editor.getOriginalEditor();
+    const modifiedEditor = editor.getModifiedEditor();
+    originalEditor.onDidChangeModelContent(() =>
+      latest.current.onOriginalChange?.(originalEditor.getValue())
+    );
+    modifiedEditor.onDidChangeModelContent(() =>
+      latest.current.onModifiedChange?.(modifiedEditor.getValue())
+    );
     updateEditorOptions(editor, optionsRef.current);
   };
 
@@ -85,8 +120,8 @@ export function JsonDiffEditor({
       <DiffEditor
         height="100%"
         language="json"
-        original={original}
-        modified={modified}
+        original={initialOriginal}
+        modified={initialModified}
         theme={resolvedTheme === 'dark' ? 'vs-dark' : 'light'}
         onMount={handleDiffEditorDidMount}
         loading={

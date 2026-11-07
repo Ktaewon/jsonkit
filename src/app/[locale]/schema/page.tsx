@@ -64,8 +64,8 @@ export default function SchemaPage() {
   };
 
   return (
-    <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
-      <div className="flex items-center justify-between">
+    <div className="container flex flex-col min-h-[calc(100dvh-3.5rem)] lg:h-[calc(100dvh-3.5rem)] lg:min-h-0 py-6 gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <Shield className="h-6 w-6" /> {t('title')}
         </h1>
@@ -100,7 +100,7 @@ export default function SchemaPage() {
 
         {/* Validation Result */}
         <div className="flex flex-col gap-2 min-h-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-sm font-medium text-muted-foreground">{t('result')}</h2>
             <Button onClick={handleValidate}>
               <Shield className="h-4 w-4 mr-2" />

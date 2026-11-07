@@ -19,6 +19,7 @@
     "graph": "Graph"
   },
   "Graph": {
+    "truncated": "JSON 较大，仅显示前 {count} 个节点。",
     "title": "JSON Graph Visualizer",
     "description": "将复杂的 JSON 数据可视化为交互式节点图。一目了然地查看对象和数组的层级结构，切换水平/垂直布局，直观地探索数据关系。",
     "metaTitle": "JSON 图表可视化 在线 - 交互式节点图 | JSONKit",
@@ -100,6 +101,10 @@
     }
   },
   "Common": {
+    "errorPageTitle": "出错了",
+    "errorPageMessage": "页面发生了意外错误。您输入的内容已保存在此浏览器中，可以放心重试。",
+    "retry": "重试",
+    "goHome": "返回首页",
     "fontSize": "字体大小",
     "fontSizeDecrease": "减小字体",
     "fontSizeIncrease": "增大字体",

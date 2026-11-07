@@ -19,6 +19,7 @@
     "graph": "Graph"
   },
   "Graph": {
+    "truncated": "Large JSON: only the first {count} nodes are shown.",
     "title": "JSON Graph Visualizer",
     "description": "Visualize your JSON data as an interactive node graph. Explore object and array hierarchies at a glance, switch between horizontal and vertical layouts, and understand data relationships intuitively.",
     "metaTitle": "JSON Graph Visualizer Online - Interactive Node Graph | JSONKit",
@@ -100,6 +101,10 @@
     }
   },
   "Common": {
+    "errorPageTitle": "Something went wrong",
+    "errorPageMessage": "This page hit an unexpected error. Your input is saved in this browser, so you can try again safely.",
+    "retry": "Try again",
+    "goHome": "Go to home",
     "fontSize": "Font size",
     "fontSizeDecrease": "Decrease font size",
     "fontSizeIncrease": "Increase font size",

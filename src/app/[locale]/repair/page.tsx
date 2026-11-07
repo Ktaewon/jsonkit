@@ -57,8 +57,8 @@ export default function RepairPage() {
   };
 
   return (
-    <div className="container flex flex-col h-[calc(100vh-3.5rem)] py-6 gap-4">
-      <div className="flex items-center justify-between">
+    <div className="container flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-3.5rem)] md:min-h-0 py-6 gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold flex items-center gap-2">
           <Wrench className="h-6 w-6" /> {t('title')}
         </h1>
@@ -67,7 +67,7 @@ export default function RepairPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0">
         <div className="flex flex-col gap-2 min-h-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-sm font-medium text-muted-foreground">{tCommon('input')}</h2>
             <div className="flex gap-2">
               <Button variant="outline" onClick={handleClear} title={tCommon('clear')}>
@@ -81,7 +81,7 @@ export default function RepairPage() {
         </div>
 
         <div className="flex flex-col gap-2 min-h-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
               {tCommon('output')}
               {wasRepaired === true && (
