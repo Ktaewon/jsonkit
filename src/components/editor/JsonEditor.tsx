@@ -5,6 +5,12 @@ import Editor, { OnMount, EditorProps } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { Loader2 } from 'lucide-react';
 import { configureMonacoLoader } from '@/lib/monaco-loader';
+import {
+  EditorFontSizeControl,
+  FONT_SIZE_CONTROL_CLEARANCE,
+  addFontSizeShortcuts,
+  useEditorFontSize,
+} from './EditorFontSize';
 
 configureMonacoLoader();
 
@@ -14,12 +20,20 @@ interface JsonEditorProps extends EditorProps {
   readOnly?: boolean;
 }
 
-export function JsonEditor({ value, onChange, readOnly = false, ...props }: JsonEditorProps) {
+export function JsonEditor({
+  value,
+  onChange,
+  readOnly = false,
+  options,
+  ...props
+}: JsonEditorProps) {
   const { resolvedTheme } = useTheme();
+  const fontSize = useEditorFontSize();
   const editorRef = useRef<Parameters<OnMount>[0] | null>(null);
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;
+    addFontSizeShortcuts(editor, monaco);
 
     // Auto-format on load if needed, or just set options
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
@@ -31,7 +45,7 @@ export function JsonEditor({ value, onChange, readOnly = false, ...props }: Json
   };
 
   return (
-    <div className="h-full w-full min-h-[300px] border rounded-md overflow-hidden bg-background">
+    <div className="relative h-full w-full min-h-[300px] border rounded-md overflow-hidden bg-background">
       <Editor
         height="100%"
         language={props.language ?? 'json'}
@@ -46,7 +60,6 @@ export function JsonEditor({ value, onChange, readOnly = false, ...props }: Json
         }
         options={{
           minimap: { enabled: false },
-          fontSize: 14,
           formatOnPaste: true,
           formatOnType: true,
           scrollBeyondLastLine: false,
@@ -55,10 +68,13 @@ export function JsonEditor({ value, onChange, readOnly = false, ...props }: Json
           lineDecorationsWidth: 0,
           lineNumbersMinChars: 3,
           folding: true,
-          ...props.options,
+          padding: { bottom: FONT_SIZE_CONTROL_CLEARANCE },
+          ...options,
+          fontSize,
         }}
         {...props}
       />
+      <EditorFontSizeControl />
     </div>
   );
 }

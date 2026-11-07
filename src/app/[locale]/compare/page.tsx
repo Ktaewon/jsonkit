@@ -7,10 +7,12 @@ import { GitCompare, Trash2, Columns, Rows } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useTrackToolUse } from '@/hooks/use-track-tool-use';
 import { getSizeBucket } from '@/lib/analytics';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const MOBILE_DIFF_OPTIONS = { renderSideBySide: false, wordWrap: 'on' as const };
 
 export default function ComparePage() {
   const t = useTranslations('Compare');
@@ -28,6 +30,11 @@ export default function ComparePage() {
 
   const [activeTab, setActiveTab] = useState('diff');
   const [viewMode, setViewMode] = useState<'split' | 'inline'>('split');
+  // Stable objects, so the diff editor only re-applies options when they actually change
+  const desktopDiffOptions = useMemo(
+    () => ({ renderSideBySide: viewMode === 'split', wordWrap: 'on' as const }),
+    [viewMode]
+  );
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -103,10 +110,7 @@ export default function ComparePage() {
               modified={modified}
               onOriginalChange={setOriginal}
               onModifiedChange={setModified}
-              options={{
-                renderSideBySide: viewMode === 'split',
-                wordWrap: 'on',
-              }}
+              options={desktopDiffOptions}
             />
           </div>
         </div>
@@ -137,10 +141,7 @@ export default function ComparePage() {
                 original={original}
                 modified={modified}
                 readOnly
-                options={{
-                  renderSideBySide: false,
-                  wordWrap: 'on',
-                }}
+                options={MOBILE_DIFF_OPTIONS}
               />
             </TabsContent>
           </div>

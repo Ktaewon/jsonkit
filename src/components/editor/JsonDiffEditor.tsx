@@ -1,11 +1,17 @@
 'use client';
 
 import React from 'react';
-import { DiffEditor, DiffEditorProps } from '@monaco-editor/react';
+import { DiffEditor, DiffEditorProps, DiffOnMount } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { Loader2 } from 'lucide-react';
 import type { editor } from 'monaco-editor';
 import { configureMonacoLoader } from '@/lib/monaco-loader';
+import {
+  EditorFontSizeControl,
+  FONT_SIZE_CONTROL_CLEARANCE,
+  addFontSizeShortcuts,
+  useEditorFontSize,
+} from './EditorFontSize';
 
 configureMonacoLoader();
 
@@ -24,64 +30,58 @@ export function JsonDiffEditor({
   original,
   modified,
   readOnly = false,
+  options: userOptions,
   ...props
 }: JsonDiffEditorProps) {
   const { resolvedTheme } = useTheme();
+  const fontSize = useEditorFontSize();
 
   const diffEditorRef = React.useRef<DiffEditorInstance | null>(null);
 
-  const handleDiffEditorDidMount = (editor: DiffEditorInstance) => {
-    diffEditorRef.current = editor;
-    const options: EditorOptions = {
+  // One set of options for creation, mount and later updates, so they can't drift apart.
+  const options = React.useMemo<EditorOptions>(
+    () => ({
       minimap: { enabled: false },
-      fontSize: 13,
       scrollBeyondLastLine: false,
       readOnly,
       originalEditable: !readOnly,
       renderSideBySide: true,
-      wordWrap: 'on' as const,
-      diffWordWrap: 'on' as const,
+      wordWrap: 'on',
+      diffWordWrap: 'on',
       glyphMargin: false,
       lineDecorationsWidth: 0,
       lineNumbersMinChars: 3,
-      folding: true,
-      ...props.options,
-    };
+      folding: false,
+      padding: { bottom: FONT_SIZE_CONTROL_CLEARANCE },
+      ...userOptions,
+      fontSize,
+    }),
+    [userOptions, readOnly, fontSize]
+  );
+  // @monaco-editor/react calls onMount with the handler from the first render, so it reads
+  // the latest options from this ref (e.g. if the size changed while Monaco was loading).
+  const optionsRef = React.useRef(options);
 
-    // Apply options directly on mount
-    updateEditorOptions(editor, options);
+  const updateEditorOptions = (editor: DiffEditorInstance, next: EditorOptions) => {
+    editor.updateOptions(next);
+    editor.getOriginalEditor().updateOptions(next);
+    editor.getModifiedEditor().updateOptions(next);
   };
 
-  const updateEditorOptions = (editor: DiffEditorInstance, options: EditorOptions) => {
-    if (!editor) return;
-    editor.updateOptions(options);
-    editor.getOriginalEditor().updateOptions(options);
-    editor.getModifiedEditor().updateOptions(options);
+  const handleDiffEditorDidMount: DiffOnMount = (editor, monaco) => {
+    diffEditorRef.current = editor;
+    addFontSizeShortcuts(editor.getOriginalEditor(), monaco);
+    addFontSizeShortcuts(editor.getModifiedEditor(), monaco);
+    updateEditorOptions(editor, optionsRef.current);
   };
 
   React.useEffect(() => {
-    if (diffEditorRef.current && props.options) {
-      const options: EditorOptions = {
-        minimap: { enabled: false },
-        fontSize: 13,
-        scrollBeyondLastLine: false,
-        readOnly,
-        originalEditable: !readOnly,
-        renderSideBySide: true,
-        wordWrap: 'on' as const,
-        diffWordWrap: 'on' as const,
-        glyphMargin: false,
-        lineDecorationsWidth: 0,
-        lineNumbersMinChars: 3,
-        folding: false,
-        ...props.options,
-      };
-      updateEditorOptions(diffEditorRef.current, options);
-    }
-  }, [props.options, readOnly]);
+    optionsRef.current = options;
+    if (diffEditorRef.current) updateEditorOptions(diffEditorRef.current, options);
+  }, [options]);
 
   return (
-    <div className="h-full w-full min-h-[400px] border rounded-md overflow-hidden bg-background">
+    <div className="relative h-full w-full min-h-[400px] border rounded-md overflow-hidden bg-background">
       <DiffEditor
         height="100%"
         language="json"
@@ -94,23 +94,10 @@ export function JsonDiffEditor({
             <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
           </div>
         }
-        options={{
-          minimap: { enabled: false },
-          fontSize: 13,
-          scrollBeyondLastLine: false,
-          readOnly,
-          originalEditable: !readOnly,
-          renderSideBySide: true,
-          wordWrap: 'on',
-          diffWordWrap: 'on',
-          glyphMargin: false,
-          lineDecorationsWidth: 0,
-          lineNumbersMinChars: 4,
-          folding: false,
-          ...props.options,
-        }}
+        options={options}
         {...props}
       />
+      <EditorFontSizeControl />
     </div>
   );
 }
