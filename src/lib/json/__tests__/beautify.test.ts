@@ -105,6 +105,14 @@ describe('formatJson 옵션', () => {
   });
 });
 
+describe('sortKeysDeep via formatJson', () => {
+  it('__proto__ 키를 데이터로 유지해야 함', () => {
+    const out = formatJson('{"b":1,"__proto__":{"x":1},"a":2}', 2, { sortKeys: true });
+    expect(out.result).toContain('"__proto__": {');
+    expect(out.result.indexOf('"__proto__"')).toBeLessThan(out.result.indexOf('"a"'));
+  });
+});
+
 describe('minifyAndEscapeJson', () => {
   it('압축한 JSON을 이스케이프된 문자열로 감싸야 함', () => {
     expect(minifyAndEscapeJson('{ "a": "x" }').result).toBe('"{\\"a\\":\\"x\\"}"');
@@ -131,12 +139,18 @@ describe('getJsonErrorLocation', () => {
 
   it('실제 JSON.parse 오류에서 위치를 찾아야 함', () => {
     const input = '{\n  "a": 1,\n}';
+    expect.assertions(1);
     try {
       JSON.parse(input);
     } catch (e) {
       const loc = getJsonErrorLocation(input, (e as Error).message);
       expect(loc?.line).toBe(3);
     }
+  });
+
+  it('메시지에 인용된 입력 속 숫자를 위치로 오인하지 않아야 함', () => {
+    const msg = `Unexpected token 'x', "xposition 3 line 2 column 3" is not valid JSON`;
+    expect(getJsonErrorLocation('xposition 3 line 2 column 3', msg)).toBeNull();
   });
 
   it('위치 정보가 없으면 null이어야 함', () => {

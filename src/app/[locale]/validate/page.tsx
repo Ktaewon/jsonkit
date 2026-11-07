@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
 import type { EditorErrorMarker } from '@/components/editor/JsonEditor';
@@ -26,10 +26,15 @@ export default function ValidatePage() {
     input?: string;
   }>({ isValid: null });
 
-  const errorMarker: EditorErrorMarker | null =
-    result.isValid === false && result.line && result.input === input
-      ? { line: result.line, message: result.message ?? t('invalid') }
-      : null;
+  // Memoized so re-renders don't re-apply the marker and scroll back to it
+  const fallbackMessage = t('invalid');
+  const errorMarker = useMemo<EditorErrorMarker | null>(
+    () =>
+      result.isValid === false && result.line && result.input === input
+        ? { line: result.line, message: result.message ?? fallbackMessage }
+        : null,
+    [result, input, fallbackMessage]
+  );
 
   const handleValidate = () => {
     const { isValid, error } = validateJson(input);

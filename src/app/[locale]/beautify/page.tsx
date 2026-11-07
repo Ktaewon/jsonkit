@@ -18,6 +18,8 @@ import { textToUnicode, unicodeToText } from '@/lib/json/unicode';
 import { Copy, Trash2, FileJson } from 'lucide-react';
 import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useHydrated } from '@/hooks/use-hydrated';
+import { validateJson } from '@/lib/json/validate';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { getSizeBucket, trackToolUse, type ToolAction } from '@/lib/analytics';
 import { BEAUTIFY_SAMPLE } from '@/lib/json/samples';
@@ -28,8 +30,15 @@ export default function BeautifyPage() {
   const copy = useCopyToClipboard();
 
   const [input, setInput] = useLocalStorage<string>('jsonkit-beautify-input', BEAUTIFY_SAMPLE);
-  const [indent, setIndent] = useLocalStorage<IndentOption>('jsonkit-beautify-indent', 2);
-  const [sortKeys, setSortKeys] = useLocalStorage<boolean>('jsonkit-beautify-sort-keys', false);
+  const [storedIndent, setIndent] = useLocalStorage<IndentOption>('jsonkit-beautify-indent', 2);
+  const [storedSortKeys, setSortKeys] = useLocalStorage<boolean>(
+    'jsonkit-beautify-sort-keys',
+    false
+  );
+  // Use the server defaults until hydrated, so the controls match what's stored afterwards
+  const hydrated = useHydrated();
+  const indent: IndentOption = hydrated && INDENT_OPTIONS.includes(storedIndent) ? storedIndent : 2;
+  const sortKeys = hydrated && storedSortKeys === true;
   const [output, setOutput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [errorMarker, setErrorMarker] = useState<EditorErrorMarker | null>(null);
@@ -54,7 +63,13 @@ export default function BeautifyPage() {
     }
     const message = error || t('invalidJson');
     setError(message);
-    const location = error ? getJsonErrorLocation(input, error) : null;
+    // Engines often leave the position out of the message; jsonlint always has the line
+    const location =
+      (error ? getJsonErrorLocation(input, error) : null) ??
+      (() => {
+        const line = validateJson(input).error?.line;
+        return line ? { line } : null;
+      })();
     setErrorMarker(location ? { ...location, message } : null);
   };
 
@@ -62,7 +77,8 @@ export default function BeautifyPage() {
     showResult(formatJson(input, indent, { sortKeys }), 'format', sortKeys ? 'sorted' : undefined);
   const handleMinify = () =>
     showResult(minifyJson(input, { sortKeys }), 'minify', sortKeys ? 'sorted' : undefined);
-  const handleMinifyEscape = () => showResult(minifyAndEscapeJson(input), 'escape', 'minify');
+  const handleMinifyEscape = () =>
+    showResult(minifyAndEscapeJson(input, { sortKeys }), 'escape', 'minify');
   // Unicode conversion works on any text, not only valid JSON
   const handleUnicodeToText = () =>
     showResult({ success: true, result: unicodeToText(input) }, 'unescape', 'unicode');

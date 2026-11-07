@@ -117,9 +117,11 @@ export function JsonEditor({
   };
 
   const handleDrop = async (event: React.DragEvent) => {
-    if (!canOpen || !hasFiles(event)) return;
+    if (!hasFiles(event)) return;
+    // Also on read-only editors, where the browser would otherwise open the dropped file
     event.preventDefault();
     event.stopPropagation();
+    if (!canOpen) return;
     setDragging(false);
     const file = event.dataTransfer.files[0];
     if (!file) return;
