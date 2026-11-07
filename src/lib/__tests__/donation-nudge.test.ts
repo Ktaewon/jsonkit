@@ -77,6 +77,11 @@ describe('parseNudgeState', () => {
     expect(parseNudgeState('[1,2]').uses).toBe(0);
   });
 
+  it('미래 시각으로 저장된 닫은 시각은 현재 시각으로 보정해야 함', () => {
+    const raw = JSON.stringify({ uses: 1, days: [], dismissedAt: START + 365 * DAY });
+    expect(parseNudgeState(raw, START).dismissedAt).toBe(START);
+  });
+
   it('잘못된 필드는 무시해야 함', () => {
     expect(
       parseNudgeState(JSON.stringify({ uses: -4, days: ['a', 1, 'b'], dismissedAt: 'x' }))

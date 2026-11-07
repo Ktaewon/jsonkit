@@ -89,7 +89,9 @@ export function trackEvent<K extends keyof AnalyticsEvents>(
 
 export function trackToolUse(params: ToolEventParams): void {
   // Counted locally even when GA is off or blocked; only the count is kept, in this browser.
-  if (params.result !== 'error') recordToolUseForNudge();
+  // Copy clicks aren't counted so a few copy/format clicks can't fill the "returning user"
+  // threshold; validator results of 'error' (invalid input found) are real uses and count.
+  if (params.action !== 'copy') recordToolUseForNudge();
   trackEvent('tool_use', params);
 }
 

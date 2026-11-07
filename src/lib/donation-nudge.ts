@@ -1,6 +1,6 @@
 // Decides when to show the "consider supporting JSONKit" bubble.
 //
-// Only returning users see it: a number of successful tool uses spread over several
+// Only returning users see it: a number of tool uses (copy clicks excluded) spread over several
 // distinct days. Everything is stored in this browser's localStorage and never sent
 // anywhere. Dismissing hides it for a while; clicking the donation link hides it for good.
 
@@ -13,7 +13,7 @@ export const NUDGE_MIN_DAYS = 3;
 export const NUDGE_DISMISS_MS = 30 * 24 * 60 * 60 * 1000;
 
 export type NudgeState = {
-  /** Successful tool uses counted so far */
+  /** Tool uses counted so far (copy clicks excluded) */
   uses: number;
   /** Distinct local days (YYYY-MM-DD) with a tool use, capped at NUDGE_MIN_DAYS */
   days: string[];
@@ -50,8 +50,12 @@ export function shouldShowNudge(state: NudgeState, now: number): boolean {
   return state.uses >= NUDGE_MIN_USES && state.days.length >= NUDGE_MIN_DAYS;
 }
 
-/** Parses stored JSON, falling back to an empty state for anything malformed. */
-export function parseNudgeState(raw: string | null): NudgeState {
+/**
+ * Parses stored JSON, falling back to an empty state for anything malformed.
+ * A `dismissedAt` in the future (clock changed) is clamped to `now`, so it can't hide
+ * the bubble for longer than NUDGE_DISMISS_MS.
+ */
+export function parseNudgeState(raw: string | null, now = Date.now()): NudgeState {
   if (!raw) return EMPTY_NUDGE_STATE;
   try {
     const value: unknown = JSON.parse(raw);
@@ -62,7 +66,7 @@ export function parseNudgeState(raw: string | null): NudgeState {
       days: Array.isArray(days)
         ? days.filter((d): d is string => typeof d === 'string').slice(0, NUDGE_MIN_DAYS)
         : [],
-      dismissedAt: typeof dismissedAt === 'number' ? dismissedAt : undefined,
+      dismissedAt: typeof dismissedAt === 'number' ? Math.min(dismissedAt, now) : undefined,
       clickedAt: typeof clickedAt === 'number' ? clickedAt : undefined,
     };
   } catch {

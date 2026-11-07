@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, afterEach } from 'vitest';
-import { getSizeBucket, trackEvent } from '../analytics';
+import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
+import { getSizeBucket, trackEvent, trackToolUse } from '../analytics';
 
 describe('getSizeBucket', () => {
   it('입력 길이를 대략적인 구간으로만 변환해야 함', () => {
@@ -45,5 +45,38 @@ describe('trackEvent', () => {
       },
     });
     expect(() => trackEvent('tool_use', { tool: 'query', action: 'execute' })).not.toThrow();
+  });
+});
+
+describe('trackToolUse', () => {
+  let store: Map<string, string>;
+
+  beforeEach(() => {
+    store = new Map();
+    vi.stubGlobal('window', {
+      localStorage: {
+        getItem: (key: string) => store.get(key) ?? null,
+        setItem: (key: string, value: string) => store.set(key, value),
+      },
+      dispatchEvent: () => true,
+    });
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  const storedUses = () =>
+    JSON.parse(store.get('jsonkit:donation-nudge') ?? '{"uses":0}').uses as number;
+
+  it('복사 클릭은 후원 안내용 사용 횟수에 포함하지 않아야 함', () => {
+    trackToolUse({ tool: 'beautify', action: 'copy' });
+    expect(storedUses()).toBe(0);
+  });
+
+  it('검증 오류를 포함한 주요 동작은 사용 횟수에 포함해야 함', () => {
+    trackToolUse({ tool: 'beautify', action: 'format', result: 'success' });
+    trackToolUse({ tool: 'validate', action: 'validate', result: 'error' });
+    expect(storedUses()).toBe(2);
   });
 });

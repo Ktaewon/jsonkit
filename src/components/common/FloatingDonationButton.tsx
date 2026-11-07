@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { Coffee, X } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { trackEvent, type DonationSource } from '@/lib/analytics';
+import { trackEvent } from '@/lib/analytics';
+import { donationLinkHandlers } from '@/lib/donation-click';
 import { getDonationUrl } from '@/lib/donation';
 import {
   TOOL_USED_EVENT,
-  markDonationClicked,
   markNudgeDismissed,
   readNudgeState,
   shouldShowNudge,
@@ -15,6 +15,8 @@ import {
 
 /** Wait a moment after a tool use so the bubble never interrupts the result appearing. */
 const NUDGE_DELAY_MS = 2500;
+/** Tailwind's `sm` breakpoint; the bubble is only used at this width and up. */
+const WIDE_SCREEN_QUERY = '(min-width: 640px)';
 
 /**
  * Small coffee button stacked above the contact button. Returning users (see
@@ -26,6 +28,8 @@ export function FloatingDonationButton() {
   const donationUrl = getDonationUrl(useLocale());
   const [showNudge, setShowNudge] = useState(false);
   const shownThisVisit = useRef(false);
+  const titleId = useId();
+  const messageId = useId();
 
   useEffect(() => {
     if (!donationUrl) return;
@@ -33,6 +37,9 @@ export function FloatingDonationButton() {
 
     const onToolUsed = () => {
       if (shownThisVisit.current || timer) return;
+      // Small screens get the button only: a bubble would cover the tool, and an unseen
+      // bubble must not be counted as shown.
+      if (!window.matchMedia(WIDE_SCREEN_QUERY).matches) return;
       if (!shouldShowNudge(readNudgeState(), Date.now())) return;
       timer = setTimeout(() => {
         shownThisVisit.current = true;
@@ -48,31 +55,41 @@ export function FloatingDonationButton() {
     };
   }, [donationUrl]);
 
-  if (!donationUrl) return null;
-
-  const onDonationClick = (source: DonationSource) => {
-    markDonationClicked();
-    setShowNudge(false);
-    trackEvent('donation_click', { source });
-  };
-
-  const dismiss = () => {
+  const dismiss = useCallback(() => {
     markNudgeDismissed();
     setShowNudge(false);
     trackEvent('donation_nudge', { action: 'dismissed' });
-  };
+  }, []);
+
+  // Esc closes the bubble, like other dismissible popovers.
+  useEffect(() => {
+    if (!showNudge) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') dismiss();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [showNudge, dismiss]);
+
+  if (!donationUrl) return null;
+
+  const hideNudge = () => setShowNudge(false);
 
   return (
     <>
       {showNudge && (
-        // Hidden on small screens, where a bubble would cover the tool itself.
+        // Non-modal dialog: it never takes focus away from the tool the user is working in.
         <div
-          role="status"
+          role="dialog"
+          aria-labelledby={titleId}
+          aria-describedby={messageId}
           // Same card styling as the contact modal (FloatingContactButton), placed beside the buttons.
           className="fixed bottom-[5.5rem] left-[5.5rem] z-[54] hidden w-72 rounded-lg border bg-background p-4 shadow-xl sm:block motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left-2"
         >
           <div className="mb-3 flex items-center justify-between gap-2">
-            <h3 className="font-semibold">{t('nudgeTitle')}</h3>
+            <h3 id={titleId} className="font-semibold">
+              {t('nudgeTitle')}
+            </h3>
             <button
               type="button"
               onClick={dismiss}
@@ -82,12 +99,14 @@ export function FloatingDonationButton() {
               <X className="h-4 w-4" />
             </button>
           </div>
-          <p className="mb-4 text-sm text-muted-foreground">{t('nudgeMessage')}</p>
+          <p id={messageId} className="mb-4 text-sm text-muted-foreground">
+            {t('nudgeMessage')}
+          </p>
           <a
             href={donationUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => onDonationClick('nudge')}
+            {...donationLinkHandlers('nudge', hideNudge)}
             className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <Coffee className="h-4 w-4" aria-hidden="true" />
@@ -101,7 +120,7 @@ export function FloatingDonationButton() {
         href={donationUrl}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => onDonationClick('floating')}
+        {...donationLinkHandlers('floating', hideNudge)}
         aria-label={`${t('buttonLabel')} (${t('opensInNewTab')})`}
         title={t('buttonLabel')}
         // Same size and colors as the contact button, stacked 16px above it.
