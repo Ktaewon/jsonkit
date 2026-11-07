@@ -100,6 +100,10 @@
     }
   },
   "Common": {
+    "fontSize": "文字サイズ",
+    "fontSizeDecrease": "文字を小さく",
+    "fontSizeIncrease": "文字を大きく",
+    "fontSizeReset": "文字サイズをリセット (現在 {size}px)",
     "theme": "テーマ",
     "light": "ライト",
     "dark": "ダーク",

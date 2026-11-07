@@ -60,6 +60,10 @@
     }
   },
   "Common": {
+    "fontSize": "글자 크기",
+    "fontSizeDecrease": "글자 작게",
+    "fontSizeIncrease": "글자 크게",
+    "fontSizeReset": "글자 크기 초기화 (현재 {size}px)",
     "theme": "테마",
     "light": "라이트",
     "dark": "다크",

@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { DiffEditor, DiffEditorProps } from '@monaco-editor/react';
+import { DiffEditor, DiffEditorProps, DiffOnMount } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { Loader2 } from 'lucide-react';
 import type { editor } from 'monaco-editor';
 import { configureMonacoLoader } from '@/lib/monaco-loader';
+import { EditorFontSizeControl, addFontSizeShortcuts, useEditorFontSize } from './EditorFontSize';
 
 configureMonacoLoader();
 
@@ -24,17 +25,20 @@ export function JsonDiffEditor({
   original,
   modified,
   readOnly = false,
+  options: userOptions,
   ...props
 }: JsonDiffEditorProps) {
   const { resolvedTheme } = useTheme();
+  const fontSize = useEditorFontSize();
 
   const diffEditorRef = React.useRef<DiffEditorInstance | null>(null);
 
-  const handleDiffEditorDidMount = (editor: DiffEditorInstance) => {
+  const handleDiffEditorDidMount: DiffOnMount = (editor, monaco) => {
     diffEditorRef.current = editor;
+    addFontSizeShortcuts(editor.getOriginalEditor(), monaco);
+    addFontSizeShortcuts(editor.getModifiedEditor(), monaco);
     const options: EditorOptions = {
       minimap: { enabled: false },
-      fontSize: 13,
       scrollBeyondLastLine: false,
       readOnly,
       originalEditable: !readOnly,
@@ -45,7 +49,8 @@ export function JsonDiffEditor({
       lineDecorationsWidth: 0,
       lineNumbersMinChars: 3,
       folding: true,
-      ...props.options,
+      ...userOptions,
+      fontSize,
     };
 
     // Apply options directly on mount
@@ -60,10 +65,9 @@ export function JsonDiffEditor({
   };
 
   React.useEffect(() => {
-    if (diffEditorRef.current && props.options) {
+    if (diffEditorRef.current) {
       const options: EditorOptions = {
         minimap: { enabled: false },
-        fontSize: 13,
         scrollBeyondLastLine: false,
         readOnly,
         originalEditable: !readOnly,
@@ -74,14 +78,15 @@ export function JsonDiffEditor({
         lineDecorationsWidth: 0,
         lineNumbersMinChars: 3,
         folding: false,
-        ...props.options,
+        ...userOptions,
+        fontSize,
       };
       updateEditorOptions(diffEditorRef.current, options);
     }
-  }, [props.options, readOnly]);
+  }, [userOptions, readOnly, fontSize]);
 
   return (
-    <div className="h-full w-full min-h-[400px] border rounded-md overflow-hidden bg-background">
+    <div className="relative h-full w-full min-h-[400px] border rounded-md overflow-hidden bg-background">
       <DiffEditor
         height="100%"
         language="json"
@@ -96,7 +101,6 @@ export function JsonDiffEditor({
         }
         options={{
           minimap: { enabled: false },
-          fontSize: 13,
           scrollBeyondLastLine: false,
           readOnly,
           originalEditable: !readOnly,
@@ -107,10 +111,12 @@ export function JsonDiffEditor({
           lineDecorationsWidth: 0,
           lineNumbersMinChars: 4,
           folding: false,
-          ...props.options,
+          ...userOptions,
+          fontSize,
         }}
         {...props}
       />
+      <EditorFontSizeControl />
     </div>
   );
 }

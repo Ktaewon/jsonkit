@@ -100,6 +100,10 @@
     }
   },
   "Common": {
+    "fontSize": "字体大小",
+    "fontSizeDecrease": "减小字体",
+    "fontSizeIncrease": "增大字体",
+    "fontSizeReset": "重置字体大小 (当前 {size}px)",
     "theme": "主题",
     "light": "亮色",
     "dark": "暗色",

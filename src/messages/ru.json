@@ -60,6 +60,10 @@
     }
   },
   "Common": {
+    "fontSize": "Размер шрифта",
+    "fontSizeDecrease": "Уменьшить шрифт",
+    "fontSizeIncrease": "Увеличить шрифт",
+    "fontSizeReset": "Сбросить размер шрифта (сейчас {size}px)",
     "theme": "Тема",
     "light": "Светлая",
     "dark": "Темная",
