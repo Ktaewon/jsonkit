@@ -5,7 +5,12 @@ import Editor, { OnMount, EditorProps } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
 import { Loader2 } from 'lucide-react';
 import { configureMonacoLoader } from '@/lib/monaco-loader';
-import { EditorFontSizeControl, addFontSizeShortcuts, useEditorFontSize } from './EditorFontSize';
+import {
+  EditorFontSizeControl,
+  FONT_SIZE_CONTROL_CLEARANCE,
+  addFontSizeShortcuts,
+  useEditorFontSize,
+} from './EditorFontSize';
 
 configureMonacoLoader();
 
@@ -63,6 +68,7 @@ export function JsonEditor({
           lineDecorationsWidth: 0,
           lineNumbersMinChars: 3,
           folding: true,
+          padding: { bottom: FONT_SIZE_CONTROL_CLEARANCE },
           ...options,
           fontSize,
         }}

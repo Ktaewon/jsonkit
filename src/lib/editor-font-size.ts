@@ -22,7 +22,7 @@ export function parseFontSize(raw: string | null | undefined): number {
   return clampFontSize(Number(raw));
 }
 
-export function readEditorFontSize(): number {
+function readStoredFontSize(): number {
   if (typeof window === 'undefined') return DEFAULT_EDITOR_FONT_SIZE;
   try {
     return parseFontSize(window.localStorage.getItem(EDITOR_FONT_SIZE_KEY));
@@ -31,44 +31,53 @@ export function readEditorFontSize(): number {
   }
 }
 
-export function writeEditorFontSize(size: number): void {
+// In-memory copy, so renders don't hit localStorage and a change still applies for this
+// page view when storage is blocked. Refreshed from storage when another tab changes it.
+let current: number | null = null;
+
+export function getEditorFontSize(): number {
+  if (current === null) current = readStoredFontSize();
+  return current;
+}
+
+export function setEditorFontSize(size: number): void {
   if (typeof window === 'undefined') return;
   const next = clampFontSize(size);
+  if (next === getEditorFontSize()) return;
+  current = next;
   try {
     if (next === DEFAULT_EDITOR_FONT_SIZE) {
       window.localStorage.removeItem(EDITOR_FONT_SIZE_KEY);
     } else {
       window.localStorage.setItem(EDITOR_FONT_SIZE_KEY, String(next));
     }
-    memoryFallback = null;
   } catch {
-    // Storage blocked (private mode, disabled site data): the change still applies below
+    // Storage blocked (private mode, disabled site data, quota): the change still applies
     // for this page view, it just isn't remembered.
-    memoryFallback = next;
   }
   window.dispatchEvent(new Event(EDITOR_FONT_SIZE_EVENT));
 }
 
-// Used only when localStorage throws, so the buttons still work within the page.
-let memoryFallback: number | null = null;
-
-/** Current size, preferring the in-memory value when storage is unavailable. */
-export function getEditorFontSize(): number {
-  return memoryFallback ?? readEditorFontSize();
+/** Changes the size by `delta`; returns false when already at the limit (nothing changed). */
+export function changeEditorFontSize(delta: number): boolean {
+  const before = getEditorFontSize();
+  setEditorFontSize(before + delta);
+  return getEditorFontSize() !== before;
 }
 
-export function changeEditorFontSize(delta: number): void {
-  writeEditorFontSize(getEditorFontSize() + delta);
-}
-
-export function resetEditorFontSize(): void {
-  writeEditorFontSize(DEFAULT_EDITOR_FONT_SIZE);
+/** Resets to the default; returns false when it already was the default. */
+export function resetEditorFontSize(): boolean {
+  const before = getEditorFontSize();
+  setEditorFontSize(DEFAULT_EDITOR_FONT_SIZE);
+  return before !== DEFAULT_EDITOR_FONT_SIZE;
 }
 
 /** Subscribes to font size changes from this page and from other tabs. */
 export function subscribeEditorFontSize(onChange: () => void): () => void {
   const onStorage = (event: StorageEvent) => {
-    if (event.key === null || event.key === EDITOR_FONT_SIZE_KEY) onChange();
+    if (event.key !== null && event.key !== EDITOR_FONT_SIZE_KEY) return;
+    current = readStoredFontSize();
+    onChange();
   };
   window.addEventListener(EDITOR_FONT_SIZE_EVENT, onChange);
   window.addEventListener('storage', onStorage);

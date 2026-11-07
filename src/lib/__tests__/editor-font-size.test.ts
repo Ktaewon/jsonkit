@@ -9,6 +9,7 @@ import {
   getEditorFontSize,
   parseFontSize,
   resetEditorFontSize,
+  subscribeEditorFontSize,
 } from '../editor-font-size';
 
 describe('clampFontSize', () => {
@@ -47,10 +48,12 @@ describe('parseFontSize', () => {
 describe('글자 크기 변경', () => {
   let store: Map<string, string>;
   let events: string[];
+  let listeners: Map<string, (event: Event) => void>;
 
   function stubWindow(storageThrows = false) {
     store = new Map();
     events = [];
+    listeners = new Map();
     const fail = () => {
       throw new Error('blocked');
     };
@@ -61,13 +64,18 @@ describe('글자 크기 변경', () => {
         removeItem: storageThrows ? fail : (key: string) => store.delete(key),
       },
       dispatchEvent: (event: Event) => events.push(event.type),
+      addEventListener: (type: string, fn: (event: Event) => void) => listeners.set(type, fn),
+      removeEventListener: (type: string) => listeners.delete(type),
     });
   }
 
-  beforeEach(() => stubWindow());
+  beforeEach(() => {
+    stubWindow();
+    resetEditorFontSize();
+    events = [];
+  });
 
   afterEach(() => {
-    resetEditorFontSize();
     vi.unstubAllGlobals();
   });
 
@@ -81,10 +89,26 @@ describe('글자 크기 변경', () => {
     expect(getEditorFontSize()).toBe(DEFAULT_EDITOR_FONT_SIZE + 1);
   });
 
-  it('최대값을 넘겨 키울 수 없어야 함', () => {
-    changeEditorFontSize(100);
-    changeEditorFontSize(1);
+  it('최대값에서는 더 키우지 않고 바뀌지 않았다고 알려야 함', () => {
+    expect(changeEditorFontSize(100)).toBe(true);
+    expect(changeEditorFontSize(1)).toBe(false);
     expect(getEditorFontSize()).toBe(MAX_EDITOR_FONT_SIZE);
+  });
+
+  it('이미 기본값이면 초기화해도 바뀌지 않았다고 알려야 함', () => {
+    expect(resetEditorFontSize()).toBe(false);
+    expect(events).toHaveLength(0);
+  });
+
+  it('다른 탭에서 바꾼 값을 반영해야 함', () => {
+    const onChange = vi.fn();
+    const unsubscribe = subscribeEditorFontSize(onChange);
+    store.set(EDITOR_FONT_SIZE_KEY, '20');
+    listeners.get('storage')!({ key: EDITOR_FONT_SIZE_KEY } as StorageEvent);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(getEditorFontSize()).toBe(20);
+    unsubscribe();
+    expect(listeners.size).toBe(0);
   });
 
   it('기본값으로 되돌리면 저장값을 지워야 함', () => {
