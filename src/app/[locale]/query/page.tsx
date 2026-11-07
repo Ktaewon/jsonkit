@@ -8,6 +8,7 @@ import { queryJson, getExampleQueries } from '@/lib/json/query';
 import { Copy, Trash2, Search, Play } from 'lucide-react';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
 import { QUERY_SAMPLE, QUERY_SAMPLE_PATH } from '@/lib/json/samples';
 
@@ -25,6 +26,7 @@ function hasStoredValue(key: string): boolean {
 export default function QueryPage() {
   const t = useTranslations('Query');
   const tCommon = useTranslations('Common');
+  const copy = useCopyToClipboard();
 
   // Only first-time visitors (no stored input) get the sample path; returning users
   // who never edited the path keep the previous '$' default for their own data.
@@ -79,12 +81,7 @@ export default function QueryPage() {
 
   const handleCopy = async () => {
     if (!output) return;
-    try {
-      await navigator.clipboard.writeText(output);
-      trackToolUse({ tool: 'query', action: 'copy' });
-    } catch {
-      // Clipboard API failed, ignore silently
-    }
+    if (await copy(output)) trackToolUse({ tool: 'query', action: 'copy' });
   };
 
   return (

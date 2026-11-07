@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ChevronRight, ChevronDown, Copy, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 
 interface JsonTreeViewProps {
   data: unknown;
@@ -32,6 +33,13 @@ const ValueDisplay = ({ value, type }: { value: unknown; type: string }) => {
 export function JsonTreeView({ data, level = 0, path = '$' }: JsonTreeViewProps) {
   const [isExpanded, setIsExpanded] = useState<boolean>(level < 2); // Default expand first 2 levels
   const [copied, setCopied] = useState(false);
+  const copy = useCopyToClipboard();
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [copied]);
 
   const type = getType(data);
   const isObject = type === 'object' || type === 'array';
@@ -40,9 +48,7 @@ export function JsonTreeView({ data, level = 0, path = '$' }: JsonTreeViewProps)
 
   const handleCopyPath = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(path);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    void copy(path).then((ok) => ok && setCopied(true));
   };
 
   if (!isObject) {

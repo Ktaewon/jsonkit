@@ -20,7 +20,7 @@
   },
   "Graph": {
     "truncated": "JSONが大きいため、最初の{count}ノードのみ表示しています。",
-    "title": "JSON Graph Visualizer",
+    "title": "JSONグラフ可視化",
     "description": "複雑なJSONデータをインタラクティブなノードグラフとして可視化します。オブジェクトや配列の階層構造を一目で把握し、横/縦レイアウトを切り替えてデータの関係を探索できます。",
     "metaTitle": "JSONグラフ可視化 オンライン - インタラクティブノードグラフ | JSONKit",
     "metaDescription": "無料オンラインJSONグラフ可視化ツール。JSONデータをインタラクティブなノードグラフとして可視化し、自動階層レイアウトをサポート。横/縦ビューを切り替え可能。",
@@ -101,6 +101,12 @@
     }
   },
   "Common": {
+    "dropFileHint": "ファイルをドロップして開く",
+    "fileReadFailed": "ファイルを読み込めませんでした。",
+    "fileTooLarge": "ファイルが大きすぎます（最大 {size} MB）。",
+    "fileActions": "ファイル",
+    "downloadFile": "ダウンロード",
+    "openFile": "ファイルを開く",
     "errorPageTitle": "問題が発生しました",
     "errorPageMessage": "ページで予期しないエラーが発生しました。入力内容はこのブラウザに保存されているので、安心して再試行してください。",
     "retry": "再試行",
@@ -132,7 +138,14 @@
     "seoFaqTitle": "よくある質問"
   },
   "Beautify": {
-    "title": "JSON Beautifier & Minifier",
+    "textToUnicode": "文字 → Unicode",
+    "unicodeToText": "Unicode → 文字",
+    "minifyEscape": "圧縮してエスケープ",
+    "sortKeys": "キーをソート",
+    "indentSpaces": "スペース{count}個",
+    "indentTab": "タブ",
+    "indent": "インデント",
+    "title": "JSON整形・圧縮",
     "description": "JSONデータを整形（プリティプリント）して読みやすくしたり、データを変更せずにファイルサイズを縮小（ミニファイ）したりできます。",
     "metaTitle": "JSON整形 & 圧縮ツール オンライン - JSONフォーマッター | JSONKit",
     "metaDescription": "無料オンラインJSON整形・圧縮ツール。適切なインデントでJSONを整形したり、スペースを削除して圧縮します。サーバー送信不要の高速クライアント処理。",
@@ -176,7 +189,7 @@
     }
   },
   "Validate": {
-    "title": "JSON Validator",
+    "title": "JSONバリデーター",
     "description": "JSON文字列が標準に準拠しているか検証します。正確な行番号とエラーメッセージで構文エラーを素早く見つけられます。",
     "metaTitle": "JSONバリデーター オンライン - 構文チェッカー | JSONKit",
     "metaDescription": "無料オンラインJSONバリデーター。正確な行番号と詳細なエラーメッセージでJSONの構文エラーを即座に検出します。",
@@ -216,7 +229,7 @@
     }
   },
   "Viewer": {
-    "title": "JSON Tree Viewer",
+    "title": "JSONツリービューア",
     "description": "JSONデータをインタラクティブなツリーとして可視化します。複雑なネスト構造を簡単に展開、折りたたみ、探索できます。",
     "metaTitle": "JSONツリービューア オンライン - インタラクティブJSON閲覧 | JSONKit",
     "metaDescription": "無料オンラインJSONツリービューア。JSONをインタラクティブな折りたたみツリー構造で可視化し、JSONPathコピーをサポートします。",
@@ -256,7 +269,7 @@
     }
   },
   "Compare": {
-    "title": "JSON Diff & Compare",
+    "title": "JSON差分比較",
     "description": "2つのJSONオブジェクトを並べて比較し、違いを確認します。追加、削除、変更された値が視覚的にハイライトされます。",
     "metaTitle": "JSON差分 & 比較ツール - 並列比較 | JSONKit",
     "metaDescription": "無料オンラインJSON差分・比較ツール。2つのJSONオブジェクトを並べて比較し、追加・削除・変更された値を視覚的にハイライトします。",
@@ -295,7 +308,7 @@
     }
   },
   "Convert": {
-    "title": "JSON Converter",
+    "title": "JSONコンバーター",
     "description": "JSONデータをYAML、XML、CSVなどの一般的な形式に変換したり、逆に変換してJSONに戻すことができます。",
     "metaTitle": "JSONコンバーター - JSON ↔ YAML, XML, CSV変換 | JSONKit",
     "metaDescription": "無料オンラインJSONコンバーター。JSONをYAML、XML、CSVに変換、またはその逆も可能。即座にプレビューできる双方向変換。",
@@ -831,7 +844,7 @@
     }
   },
   "Query": {
-    "title": "JSONPath Query",
+    "title": "JSONPathクエリ",
     "description": "JSONPath式を使用してJSONからデータを抽出します。強力なパス構文でネストされたオブジェクトと配列をクエリできます。",
     "metaTitle": "JSONPathクエリツール - JSONからデータ抽出 | JSONKit",
     "metaDescription": "無料オンラインJSONPathクエリツール。強力なJSONPath式を使用してJSONからデータを抽出。ネストされたオブジェクトと配列を即座にクエリ。",
@@ -876,7 +889,7 @@
     }
   },
   "Escape": {
-    "title": "JSON Escape & Unescape",
+    "title": "JSONエスケープ・アンエスケープ",
     "description": "JSON文字列をエスケープして他のJSONやコードに埋め込んだり、エスケープされたJSON文字列を元の形式に戻します。",
     "metaTitle": "JSONエスケープ & アンエスケープ オンライン | JSONKit",
     "metaDescription": "無料オンラインJSONエスケープ・アンエスケープツール。JSON文字列をコードに埋め込むためにエスケープしたり、元の形式に戻します。",
@@ -916,7 +929,7 @@
     }
   },
   "Repair": {
-    "title": "JSON Repair",
+    "title": "JSON修復",
     "description": "不正なJSONを自動的に修正します。末尾のカンマ、クォートの欠落、シングルクォート、コメントなどの一般的な問題を修正します。",
     "metaTitle": "JSON修復ツール - 不正なJSONを自動修正 | JSONKit",
     "metaDescription": "無料オンラインJSON修復ツール。末尾のカンマ、クォートの欠落、シングルクォート、コメント、クォートなしキーなどを自動修正します。",
@@ -964,7 +977,7 @@
     }
   },
   "Schema": {
-    "title": "JSON Schema Validator",
+    "title": "JSONスキーマ検証",
     "description": "JSON SchemaでJSONデータを検証します。詳細なエラーレポートで、データが定義された構造に準拠しているか確認できます。",
     "metaTitle": "JSONスキーマバリデーター オンライン | JSONKit",
     "metaDescription": "無料オンラインJSONスキーマバリデーター。JSON Schema定義に対してJSONデータを検証し、詳細なエラーレポートを提供します。",

@@ -17,7 +17,8 @@ export function ErrorBanner({ message, details, onDismiss, className }: ErrorBan
   return (
     <div
       className={cn(
-        'absolute bottom-4 left-4 right-4 bg-destructive text-destructive-foreground p-3 rounded-md text-sm shadow-lg animate-in fade-in slide-in-from-bottom-2',
+        // Above the editor toolbar (bottom-right), which would otherwise cover the details
+        'absolute bottom-14 left-4 right-4 z-30 bg-destructive text-destructive-foreground p-3 rounded-md text-sm shadow-lg animate-in fade-in slide-in-from-bottom-2',
         className
       )}
       role="alert"

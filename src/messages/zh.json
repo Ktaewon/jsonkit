@@ -1,29 +1,29 @@
 {
   "Metadata": {
     "title": "JSONKit - 多合一 JSON 工具",
-    "description": "免费的在线 JSON 美化、验证、查看、比较和转换工具。",
-    "metaTitle": "JSONKit - 免费在线 JSON 工具 | 美化、验证、比较、转换",
-    "metaDescription": "多合一 JSON 工具箱：美化、压缩、验证、树形查看、差异比较、YAML/XML/CSV 转换、JSONPath 查询、转义、修复、Schema 验证。免费、快速、安全 - 全部在浏览器中处理。"
+    "description": "免费的在线 JSON 美化、校验、查看、比较和转换工具。",
+    "metaTitle": "JSONKit - 免费 JSON 在线工具 | 格式化、校验、解析、对比、转换",
+    "metaDescription": "多合一 JSON 在线工具：格式化、压缩、校验、树形解析、差异对比、YAML/XML/CSV 转换、JSONPath 查询、转义、修复、Schema 校验。免费、快速、安全，全部在浏览器中处理。"
   },
   "Navigation": {
-    "beautify": "Beautify",
-    "validate": "Validate",
-    "viewer": "Viewer",
-    "compare": "Compare",
+    "beautify": "格式化",
+    "validate": "校验",
+    "viewer": "解析",
+    "compare": "对比",
     "convert": "转换",
     "query": "查询",
-    "escape": "Escape",
-    "repair": "Repair",
+    "escape": "转义",
+    "repair": "修复",
     "schema": "Schema",
-    "type": "Code",
-    "graph": "Graph"
+    "type": "生成代码",
+    "graph": "可视化"
   },
   "Graph": {
     "truncated": "JSON 较大，仅显示前 {count} 个节点。",
-    "title": "JSON Graph Visualizer",
+    "title": "JSON 在线可视化（节点关系图）",
     "description": "将复杂的 JSON 数据可视化为交互式节点图。一目了然地查看对象和数组的层级结构，切换水平/垂直布局，直观地探索数据关系。",
-    "metaTitle": "JSON 图表可视化 在线 - 交互式节点图 | JSONKit",
-    "metaDescription": "免费在线 JSON 图表可视化工具。将 JSON 数据可视化为交互式节点图，支持自动层级布局。可切换水平/垂直视图。",
+    "metaTitle": "JSON在线可视化 - 节点关系图 | JSONKit",
+    "metaDescription": "免费 JSON 在线可视化工具。将 JSON 数据显示为交互式节点关系图，自动分层布局，可切换水平/垂直方向。",
     "visualization": "图表可视化",
     "layoutLR": "布局：水平",
     "layoutTB": "布局：垂直",
@@ -61,12 +61,12 @@
   },
   "Landing": {
     "heroTitle": "您的全能 JSON 工具箱",
-    "heroSubtitle": "直接在浏览器中美化、验证、可视化、比较和转换 JSON 数据。快速、安全且免费。",
+    "heroSubtitle": "直接在浏览器中美化、校验、可视化、比较和转换 JSON 数据。快速、安全且免费。",
     "getStarted": "开始使用",
     "features": {
       "beautifyTitle": "美化 & 压缩",
       "beautifyDesc": "将您的 JSON 格式化为易读格式或压缩以节省空间。",
-      "validateTitle": "验证器",
+      "validateTitle": "校验器",
       "validateDesc": "通过精确的错误报告检查 JSON 语法错误。",
       "viewerTitle": "树形查看器",
       "viewerDesc": "使用交互式树形视图探索复杂的 JSON 结构。",
@@ -80,8 +80,8 @@
       "escapeDesc": "转义 JSON 字符串以嵌入或将其还原。",
       "repairTitle": "JSON 修复",
       "repairDesc": "自动修复常见问题的格式错误 JSON。",
-      "schemaTitle": "Schema 验证器",
-      "schemaDesc": "根据 JSON Schema 定义验证 JSON 数据。",
+      "schemaTitle": "Schema 校验器",
+      "schemaDesc": "根据 JSON Schema 定义校验 JSON 数据。",
       "graphTitle": "图形可视化",
       "graphDesc": "将 JSON 数据可视化为交互式图形图表。",
       "codeGenTitle": "JSON to Code",
@@ -101,6 +101,12 @@
     }
   },
   "Common": {
+    "dropFileHint": "拖放文件即可打开",
+    "fileReadFailed": "无法读取文件。",
+    "fileTooLarge": "文件过大（最大 {size} MB）。",
+    "fileActions": "文件",
+    "downloadFile": "下载",
+    "openFile": "打开文件",
     "errorPageTitle": "出错了",
     "errorPageMessage": "页面发生了意外错误。您输入的内容已保存在此浏览器中，可以放心重试。",
     "retry": "重试",
@@ -132,10 +138,17 @@
     "seoFaqTitle": "常见问题"
   },
   "Beautify": {
-    "title": "JSON Beautifier & Minifier",
+    "textToUnicode": "中文转 Unicode",
+    "unicodeToText": "Unicode 转中文",
+    "minifyEscape": "压缩转义",
+    "sortKeys": "按键排序",
+    "indentSpaces": "{count} 个空格",
+    "indentTab": "Tab",
+    "indent": "缩进",
+    "title": "JSON 在线格式化 / 压缩",
     "description": "格式化（美化）您的 JSON 数据使其更易于阅读，或将其压缩（Minify）以减小文件大小而不更改数据。",
-    "metaTitle": "JSON 美化 & 压缩工具 在线 - JSON 格式化 | JSONKit",
-    "metaDescription": "免费在线 JSON 美化和压缩工具。使用适当的缩进美化 JSON 或压缩以节省空间。无需上传数据的快速客户端处理。",
+    "metaTitle": "JSON在线格式化 - JSON压缩、转义、Unicode转中文 | JSONKit",
+    "metaDescription": "免费 JSON 在线格式化工具：一键格式化、压缩、压缩转义、按键排序、Unicode 转中文，支持 2/4 空格或 Tab 缩进。数据只在浏览器中处理，不会上传。",
     "format": "美化 (Beautify)",
     "minify": "压缩 (Minify)",
     "invalidJson": "无效的 JSON",
@@ -176,20 +189,20 @@
     }
   },
   "Validate": {
-    "title": "JSON Validator",
-    "description": "根据标准验证您的 JSON 字符串。通过精确的行号和错误消息快速查找语法错误。",
-    "metaTitle": "JSON 验证器 在线 - 语法检查工具 | JSONKit",
-    "metaDescription": "免费在线 JSON 验证器和语法检查工具。通过精确的行号和详细的错误消息即时检测 JSON 错误。",
-    "validateBtn": "验证 JSON",
+    "title": "JSON 在线校验",
+    "description": "根据标准校验您的 JSON 字符串。通过精确的行号和错误消息快速查找语法错误。",
+    "metaTitle": "JSON在线校验 - 语法检查、错误定位 | JSONKit",
+    "metaDescription": "免费 JSON 在线校验工具。即时检查 JSON 语法，精确定位出错行并给出详细错误信息。",
+    "validateBtn": "校验 JSON",
     "valid": "有效的 JSON",
     "invalid": "无效的 JSON",
     "errorFound": "发现错误：",
     "seoContent": {
-      "heading": "什么是 JSON 验证器？",
-      "paragraph": "JSON 验证器根据官方 JSON 规范（RFC 8259）检查数据的语法错误。JSONKit 的验证器提供精确的行号和描述性错误消息，帮助您快速定位和修复缺失逗号、未闭合括号或无效转义序列等问题。",
+      "heading": "什么是 JSON 校验器？",
+      "paragraph": "JSON 校验器根据官方 JSON 规范（RFC 8259）检查数据的语法错误。JSONKit 的校验器提供精确的行号和描述性错误消息，帮助您快速定位和修复缺失逗号、未闭合括号或无效转义序列等问题。",
       "howTo": [
         "将需要检查的 JSON 粘贴到编辑器中。",
-        "点击“验证 JSON”。",
+        "点击“校验 JSON”。",
         "如果 JSON 合法,会显示确认信息;如果不合法,错误信息会给出出错的行号和原因,例如意外的字符(unexpected token)或缺少逗号。",
         "修复提示的问题后再次校验,直到文档通过为止。"
       ],
@@ -216,10 +229,10 @@
     }
   },
   "Viewer": {
-    "title": "JSON Tree Viewer",
+    "title": "JSON 在线解析（树形视图）",
     "description": "将您的 JSON 数据可视化为交互式树。轻松展开、折叠和探索复杂的嵌套结构。",
-    "metaTitle": "JSON 树形查看器 在线 - 交互式 JSON 浏览 | JSONKit",
-    "metaDescription": "免费在线 JSON 树形查看器。将 JSON 可视化为交互式可折叠树结构，支持 JSONPath 复制。",
+    "metaTitle": "JSON在线解析 - 树形视图查看器 | JSONKit",
+    "metaDescription": "免费 JSON 在线解析工具。将 JSON 显示为可折叠的树形结构，一键复制 JSONPath 路径。",
     "inputTitle": "JSON 输入",
     "treeTitle": "树形视图",
     "enterValid": "输入有效的 JSON 以查看树",
@@ -256,10 +269,10 @@
     }
   },
   "Compare": {
-    "title": "JSON Diff & Compare",
+    "title": "JSON 在线对比",
     "description": "并排比较两个 JSON 对象以查看差异。视觉高亮显示使您很容易发现添加、删除或修改的值。",
-    "metaTitle": "JSON 差异 & 比较工具 - 并排对比 | JSONKit",
-    "metaDescription": "免费在线 JSON 差异和比较工具。并排比较两个 JSON 对象，视觉高亮显示添加、删除和修改的值。",
+    "metaTitle": "JSON在线对比 - 差异比较工具 | JSONKit",
+    "metaDescription": "免费 JSON 在线对比工具。并排对比两个 JSON，高亮显示新增、删除和修改的内容。",
     "clearAll": "全部清除",
     "instruction": "直接在左侧（原始）和右侧（修改）面板中进行编辑以进行比较。",
     "seoContent": {
@@ -295,7 +308,7 @@
     }
   },
   "Convert": {
-    "title": "JSON Converter",
+    "title": "JSON 在线转换",
     "description": "将 JSON 数据转换为其他流行格式，如 YAML、XML 和 CSV。您也可以将这些格式转回 JSON。",
     "metaTitle": "JSON 转换器 - JSON ↔ YAML, XML, CSV 转换 | JSONKit",
     "metaDescription": "免费在线 JSON 转换器。将 JSON 转换为 YAML、XML、CSV 或反向转换。即时预览的双向转换，无需上传服务器。",
@@ -831,7 +844,7 @@
     }
   },
   "Query": {
-    "title": "JSONPath Query",
+    "title": "JSONPath 在线查询",
     "description": "使用 JSONPath 表达式从 JSON 中提取数据。使用强大的路径语法查询嵌套对象和数组。",
     "metaTitle": "JSONPath 查询工具 - 从 JSON 中提取数据 | JSONKit",
     "metaDescription": "免费在线 JSONPath 查询工具。使用强大的 JSONPath 表达式从 JSON 中提取数据。即时查询嵌套对象和数组。",
@@ -876,7 +889,7 @@
     }
   },
   "Escape": {
-    "title": "JSON Escape & Unescape",
+    "title": "JSON 在线转义 / 去转义",
     "description": "将 JSON 字符串转义以嵌入其他 JSON 或代码中，或将已转义的 JSON 字符串还原为原始格式。",
     "metaTitle": "JSON 转义 & 反转义 在线 | JSONKit",
     "metaDescription": "免费在线 JSON 转义和反转义工具。将 JSON 字符串转义以嵌入代码中，或还原为原始格式。快速浏览器端处理。",
@@ -916,7 +929,7 @@
     }
   },
   "Repair": {
-    "title": "JSON Repair",
+    "title": "JSON 在线修复",
     "description": "自动修复格式错误的 JSON。修复常见问题，如尾随逗号、缺失引号、单引号和注释。",
     "metaTitle": "JSON 修复工具 - 自动修复错误 JSON | JSONKit",
     "metaDescription": "免费在线 JSON 修复工具。自动修复尾随逗号、缺失引号、单引号、注释和未加引号的键等常见问题。",
@@ -964,27 +977,27 @@
     }
   },
   "Schema": {
-    "title": "JSON Schema Validator",
-    "description": "根据 JSON Schema 验证 JSON 数据。通过详细的错误报告确保您的数据符合定义的结构。",
-    "metaTitle": "JSON Schema 验证器 在线 | JSONKit",
-    "metaDescription": "免费在线 JSON Schema 验证器。根据 JSON Schema 定义验证 JSON 数据，提供详细的错误报告。",
+    "title": "JSON Schema 在线校验",
+    "description": "根据 JSON Schema 校验 JSON 数据。通过详细的错误报告确保您的数据符合定义的结构。",
+    "metaTitle": "JSON Schema 校验器 在线 | JSONKit",
+    "metaDescription": "免费在线 JSON Schema 校验器。根据 JSON Schema 定义校验 JSON 数据，提供详细的错误报告。",
     "jsonData": "JSON 数据",
     "jsonSchema": "JSON Schema",
-    "result": "验证结果",
-    "validate": "验证",
+    "result": "校验结果",
+    "validate": "校验",
     "loadExample": "加载示例",
     "valid": "有效 - JSON 符合 Schema",
     "invalid": "无效",
     "errors": "个错误",
-    "enterDataAndSchema": "输入 JSON 数据和 Schema，然后点击验证",
-    "validationFailed": "验证失败",
+    "enterDataAndSchema": "输入 JSON 数据和 Schema，然后点击校验",
+    "validationFailed": "校验失败",
     "seoContent": {
-      "heading": "什么是 JSON Schema 验证？",
-      "paragraph": "JSON Schema 是一种用于定义 JSON 数据的结构、内容和语义的词汇表。JSON Schema 验证器检查您的数据是否符合给定的模式定义。JSONKit 使用 Ajv 库进行快速、符合规范的验证，并提供指向确切违规位置的详细错误消息。",
+      "heading": "什么是 JSON Schema 校验？",
+      "paragraph": "JSON Schema 是一种用于定义 JSON 数据的结构、内容和语义的词汇表。JSON Schema 校验器检查您的数据是否符合给定的模式定义。JSONKit 使用 Ajv 库进行快速、符合规范的校验，并提供指向确切违规位置的详细错误消息。",
       "howTo": [
         "将 JSON 数据粘贴到数据编辑器中,或点击“加载示例”从示例数据开始。",
         "将描述预期结构的 JSON Schema 粘贴到 Schema 编辑器中。",
-        "点击“验证”。",
+        "点击“校验”。",
         "查看错误列表。每条错误都会显示数据中出问题的位置,以及未通过的 Schema 规则。"
       ],
       "features": [

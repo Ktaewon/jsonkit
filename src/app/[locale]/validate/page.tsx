@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { DynamicJsonEditor as JsonEditor } from '@/components/editor/DynamicJsonEditor';
+import type { EditorErrorMarker } from '@/components/editor/JsonEditor';
 import { Button } from '@/components/ui/button';
 import { validateJson } from '@/lib/json/validate';
 import { FileCheck, Trash2, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -21,7 +22,19 @@ export default function ValidatePage() {
     isValid: boolean | null;
     message?: string;
     line?: number;
+    /** The input that was validated, so the marker disappears once it's edited */
+    input?: string;
   }>({ isValid: null });
+
+  // Memoized so re-renders don't re-apply the marker and scroll back to it
+  const fallbackMessage = t('invalid');
+  const errorMarker = useMemo<EditorErrorMarker | null>(
+    () =>
+      result.isValid === false && result.line && result.input === input
+        ? { line: result.line, message: result.message ?? fallbackMessage }
+        : null,
+    [result, input, fallbackMessage]
+  );
 
   const handleValidate = () => {
     const { isValid, error } = validateJson(input);
@@ -38,6 +51,7 @@ export default function ValidatePage() {
         isValid: false,
         message: error?.message,
         line: error?.line,
+        input,
       });
     }
   };
@@ -88,7 +102,7 @@ export default function ValidatePage() {
 
         {/* Below md the page grows with its content, so the editor needs a fixed height */}
         <div className="h-[65dvh] min-h-[320px] md:h-auto md:flex-1 md:min-h-0 border rounded-md overflow-hidden relative">
-          <JsonEditor value={input} onChange={(v) => setInput(v || '')} />
+          <JsonEditor value={input} onChange={(v) => setInput(v || '')} errorMarker={errorMarker} />
 
           {result.isValid === false && (
             <ErrorBanner

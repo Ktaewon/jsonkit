@@ -194,6 +194,7 @@ export function ConverterTool({
               value={input}
               onChange={(v) => setInput(v || '')}
               language={inputLanguage}
+              fileName={isJsonInput ? 'jsonkit.json' : `jsonkit.${format}`}
             />
             {error && <ErrorBanner message={tCommon('error')} details={error} />}
           </div>
@@ -209,7 +210,12 @@ export function ConverterTool({
             </Button>
           </div>
           <div className="flex-1 min-h-0 border rounded-md overflow-hidden relative bg-muted/30">
-            <JsonEditor value={output} readOnly language={outputLanguage} />
+            <JsonEditor
+              value={output}
+              readOnly
+              language={outputLanguage}
+              fileName={isJsonInput ? `jsonkit.${format}` : 'jsonkit.json'}
+            />
           </div>
         </div>
       </div>
