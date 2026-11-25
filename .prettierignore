@@ -7,3 +7,7 @@ dist
 build
 *.min.js
 package-lock.json
+.open-next
+.wrangler
+cloudflare-env.d.ts
+public/monaco

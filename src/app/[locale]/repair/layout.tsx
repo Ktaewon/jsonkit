@@ -1,5 +1,5 @@
 import { generatePageMetadata } from '@/lib/seo/metadata';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { JsonLd } from '@/components/common/JsonLd';
 import { getWebApplicationSchema } from '@/lib/seo/structured-data';
 import { PageSeoContent } from '@/components/common/PageSeoContent';
@@ -18,6 +18,7 @@ export default async function RepairLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'Repair' });
   return (
     <>

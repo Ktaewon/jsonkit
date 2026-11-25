@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { generatePageMetadata } from '@/lib/seo/metadata';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { JsonLd } from '@/components/common/JsonLd';
 import { BASE_URL } from '@/lib/constants';
 
@@ -25,6 +25,7 @@ export default async function BlogLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'Blog' });
 
   const blogSchema = {

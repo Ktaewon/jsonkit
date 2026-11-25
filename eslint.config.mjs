@@ -14,6 +14,10 @@ const eslintConfig = defineConfig([
     'next-env.d.ts',
     // Monaco build copied by scripts/copy-monaco.mjs
     'public/monaco/**',
+    // Cloudflare / OpenNext build output
+    '.open-next/**',
+    '.wrangler/**',
+    'cloudflare-env.d.ts',
   ]),
 ]);
 
