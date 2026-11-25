@@ -1,18 +1,22 @@
 import { getTranslations } from 'next-intl/server';
-import { generateCode } from '@/app/actions/generate-code';
 import { LANGUAGE_EXAMPLES, getLanguageLabel } from '@/lib/json/code-generator';
 import type { SupportedLanguage } from '@/lib/json/code-generator';
+import generatedExamples from '@/lib/json/language-examples.generated.json';
 
 interface LanguageExampleProps {
   language: SupportedLanguage;
   locale: string;
 }
 
-/** Static example rendered at build time: sample JSON and the code quicktype generates from it. */
+/**
+ * Static example: sample JSON and the code quicktype generates from it. The output is
+ * precomputed (see __tests__/language-examples.test.ts) so quicktype stays out of the
+ * server bundle.
+ */
 export async function LanguageExample({ language, locale }: LanguageExampleProps) {
   const t = await getTranslations({ locale, namespace: 'JsonToCodeLanguage' });
   const { json, typeName } = LANGUAGE_EXAMPLES[language];
-  const output = await generateCode(json, { language, typeName });
+  const output = (generatedExamples as Record<SupportedLanguage, string>)[language];
   const label = getLanguageLabel(language);
 
   return (
