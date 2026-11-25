@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Dev server**: `npm run dev` (Next.js on localhost:3000)
 - **Build**: `npm run build`
+- **Cloudflare**: `npm run preview` (build + run in local workerd), `npm run deploy`; see DEPLOY_CLOUDFLARE.md
 - **Lint**: `npm run lint` (ESLint 9 flat config)
 - **Format**: `npm run format` (Prettier), `npm run format:check`
 - **Type check**: `npx tsc --noEmit`
@@ -16,13 +17,14 @@ CI runs lint, format:check, typecheck, test, then build (build depends on lint+t
 
 ## Architecture
 
-**JSONKit** is a Next.js 16 App Router application — an all-in-one client-side JSON utility toolkit deployed on Vercel.
+**JSONKit** is a Next.js 16 App Router application — an all-in-one client-side JSON utility toolkit deployed on Cloudflare Workers (free plan) via `@opennextjs/cloudflare`.
 
 ### Routing & i18n
 
 - All pages live under `src/app/[locale]/` — the `[locale]` dynamic segment is handled by **next-intl**.
 - Supported locales: `en`, `ko`, `ja`, `zh`, `ru` (configured in `src/i18n/routing.ts`).
-- `src/middleware.ts` handles locale detection/redirect via next-intl middleware.
+- `src/proxy.ts` (Next 16 `proxy` convention, formerly middleware) handles locale detection/redirect via next-intl.
+- Every page is statically generated: server pages/layouts call `setRequestLocale(locale)` and dynamic segments define `generateStaticParams` with `dynamicParams = false`. Keep it that way: a dynamic route costs Worker CPU on every request (10 ms limit on the free plan).
 - Translation files are `src/messages/<locale>.json` (loaded in `src/i18n/request.ts`); use `useTranslations()` client-side and `getTranslations()` server-side. Any new UI string or SEO key must be added to all five locale files.
 - Navigation links should use `Link` from `@/i18n/navigation`, not `next/link` directly.
 
@@ -41,7 +43,8 @@ Pure logic lives in `src/lib/json/` — one file per tool (beautify, validate, c
 
 - **Monaco Editor** (`@monaco-editor/react`) — JSON editing. Editor components are in `src/components/editor/` with dynamic imports (`DynamicJsonEditor`, `DynamicJsonDiffEditor`).
 - **@xyflow/react + elkjs** — graph visualization with ELK automatic layout (`src/lib/json/graph-layout.ts`).
-- **quicktype-core** — JSON-to-code generation, invoked via a server action (`src/app/actions/generate-code.ts`).
+- **quicktype-core** — JSON-to-code generation in the browser (`src/lib/json/quicktype.ts`, lazily imported by `JsonToCodeTool`). There is no server action. The `/json-to-code/<language>` example output is precomputed in `src/lib/json/language-examples.generated.json` (regenerate: `UPDATE_LANGUAGE_EXAMPLES=1 npx vitest run language-examples`).
+- quicktype-core and elkjs are browser-only: `next.config.ts` aliases them to a stub outside the browser build so they stay out of the 3 MiB Worker bundle. Don't import them from server code.
 - **ajv + ajv-formats** — JSON Schema validation.
 - **jsonpath-plus** — JSONPath query execution.
 - **jsonrepair** — malformed JSON repair.
@@ -72,6 +75,7 @@ Blog posts are MDX files in `src/content/blog/<locale>/<slug>.mdx`. Post metadat
 
 ### Deployment
 
-- `output: 'standalone'` in next.config.ts for Docker/Vercel deployment.
-- Dockerfile included for containerized builds.
-- Vercel Analytics and Speed Insights are integrated in the root layout.
+- Cloudflare Workers via `@opennextjs/cloudflare`: `wrangler.jsonc`, `open-next.config.ts` (static-assets incremental cache, no ISR). Full guide, env vars and free-plan limits: DEPLOY_CLOUDFLARE.md.
+- `NEXT_PUBLIC_*` values are inlined at build time (pages are prerendered); changing them requires a rebuild + deploy.
+- `images.unoptimized: true` (Workers has no Next image optimizer). `public/_headers` sets cache headers for static assets on Cloudflare.
+- `output: 'standalone'` + Dockerfile still work for containerized builds.

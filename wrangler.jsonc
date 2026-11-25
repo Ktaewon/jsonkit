@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jsonkit",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-20",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "enabled": true,
+  },
+  // NEXT_PUBLIC_* values are inlined into the bundle at build time, so they are NOT read
+  // from here or from `wrangler secret`. Set them in the shell / .env.production.local
+  // before `npm run deploy`. See DEPLOY_CLOUDFLARE.md.
+}
