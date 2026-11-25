@@ -11,7 +11,6 @@ import { ErrorBanner } from '@/components/common/ErrorBanner';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useTrackToolUse } from '@/hooks/use-track-tool-use';
 import { getSizeBucket, trackToolUse } from '@/lib/analytics';
-import { generateCode } from '@/app/actions/generate-code';
 import { useRouter } from '@/i18n/navigation';
 import { SUPPORTED_LANGUAGES } from '@/lib/json/code-generator';
 import type { SupportedLanguage } from '@/lib/json/code-generator';
@@ -67,6 +66,8 @@ export function JsonToCodeTool({ initialLanguage, title, description }: JsonToCo
       setError(null);
 
       try {
+        // quicktype is large, so it is loaded on first use instead of with the page.
+        const { generateCode } = await import('@/lib/json/quicktype');
         const code = await generateCode(input, { language, typeName });
         if (isActive) {
           setOutput(code);

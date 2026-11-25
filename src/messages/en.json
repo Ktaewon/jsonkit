@@ -97,7 +97,7 @@
       "fastReactiveTitle": "Fast & Reactive",
       "fastReactiveDesc": "Instant results as you type. No waiting for server roundtrips.",
       "privacyFirstTitle": "Privacy First",
-      "privacyFirstDesc": "Almost every tool runs entirely in your browser. The only exception, JSON to Code, sends your sample to our server just to generate code and never logs or stores it."
+      "privacyFirstDesc": "Every tool runs entirely in your browser. Your JSON is processed on your own device and is never sent to a server."
     }
   },
   "Common": {
@@ -563,7 +563,7 @@
         },
         {
           "q": "Is my JSON sent to a server?",
-          "a": "Yes, this is the one JSONKit tool that uses a server: the sample is sent to generate the code and the result is returned immediately. The input is not logged or stored. Avoid pasting secrets; a sample with dummy values works just as well."
+          "a": "No. Code is generated entirely in your browser with quicktype, so your JSON never leaves your device. The generator is downloaded the first time you use the tool."
         },
         {
           "q": "Should I use generated TypeScript interfaces for runtime validation?",
@@ -1075,7 +1075,6 @@
       }
     }
   },
-
   "Donation": {
     "buttonLabel": "Support JSONKit",
     "nudgeTitle": "Finding JSONKit useful? ☕",
@@ -1096,13 +1095,13 @@
   "Privacy": {
     "title": "Privacy Policy",
     "metaTitle": "Privacy Policy | JSONKit",
-    "metaDescription": "JSONKit privacy policy. Learn how we handle your data: almost every tool runs in your browser, and JSON to Code sends your sample to our server only to generate code, without logging or storing it.",
+    "metaDescription": "JSONKit privacy policy. Learn how we handle your data: every tool runs in your browser, and the JSON you enter is never sent to our servers.",
     "lastUpdated": "Last Updated",
-    "lastUpdatedDate": "2026-10-18",
+    "lastUpdatedDate": "2026-11-25",
     "sections": {
       "dataCollection": {
         "title": "Data Collection",
-        "content": "JSONKit does not collect or store your JSON data. Almost every tool runs entirely in your browser: the JSON you paste is parsed, formatted, validated, converted and compared on your own device and is never sent anywhere. The one exception is JSON to Code, which sends your JSON sample to our server to generate type definitions and returns the result immediately; the input is not logged or stored."
+        "content": "JSONKit does not collect or store your JSON data. Every tool runs entirely in your browser: the JSON you paste is parsed, formatted, validated, converted, compared and turned into code on your own device and is never sent anywhere."
       },
       "localStorage": {
         "title": "Local Storage",
@@ -1112,8 +1111,7 @@
         "title": "Cookies and Third-Party Services",
         "content": "We use the following third-party services that may set cookies:",
         "googleAdsense": "Google AdSense: Used to display advertisements. Google may use cookies to personalize ads based on your browsing history.",
-        "googleAnalytics": "Google Analytics: Used to understand which tools and features are used so we can decide what to improve. Google Analytics uses cookies and records pages visited plus anonymous usage events such as the tool name, the action (e.g. format or convert), the selected format or language, and a rough input size range. The JSON or other text you enter is never sent to Google Analytics. You can opt out with the Google Analytics Opt-out Browser Add-on or by blocking cookies.",
-        "vercelAnalytics": "Vercel Analytics: Used to understand how visitors use our site. Vercel Analytics does not use cookies and collects no personal data."
+        "googleAnalytics": "Google Analytics: Used to understand which tools and features are used so we can decide what to improve. Google Analytics uses cookies and records pages visited plus anonymous usage events such as the tool name, the action (e.g. format or convert), the selected format or language, and a rough input size range. The JSON or other text you enter is never sent to Google Analytics. You can opt out with the Google Analytics Opt-out Browser Add-on or by blocking cookies."
       },
       "thirdParty": {
         "title": "Third-Party Links",
@@ -1138,7 +1136,7 @@
       },
       "privacy": {
         "title": "How your data is handled",
-        "content": "Almost every tool on JSONKit runs entirely in your browser: the JSON you paste is parsed, formatted, validated and compared on your own device and is never sent anywhere. The one exception is JSON to Code, which sends your JSON sample to our server to generate type definitions and returns the result immediately; the input is not logged or stored. See the Privacy Policy for details about cookies and analytics."
+        "content": "Every tool on JSONKit runs entirely in your browser: the JSON you paste is parsed, formatted, validated, compared and turned into code on your own device and is never sent anywhere. See the Privacy Policy for details about cookies and analytics."
       },
       "maintainer": {
         "title": "Who builds it",

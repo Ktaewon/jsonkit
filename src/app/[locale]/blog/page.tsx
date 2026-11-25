@@ -1,11 +1,13 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAllPosts } from '@/lib/blog/posts';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { BookOpen, ArrowRight } from 'lucide-react';
 
-export default function BlogPage() {
-  const t = useTranslations('Blog');
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: 'Blog' });
   const posts = getAllPosts();
 
   return (

@@ -41,8 +41,10 @@ export function useLocalStorage<T>(
     }
   };
 
-  // Re-read on mount and whenever the key changes.
+  // Re-read on mount and whenever the key changes. Pages are prerendered with initialValue,
+  // so localStorage can only be applied after hydration; this syncs from an external store.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setStoredValue(readValue());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);

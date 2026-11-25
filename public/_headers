@@ -1,0 +1,16 @@
+# Cloudflare Workers Static Assets headers (https://developers.cloudflare.com/workers/static-assets/headers/).
+# Static files are served before the Worker runs, so the headers() in next.config.ts do not
+# apply to them on Cloudflare. Other hosts (Docker / next start) ignore this file.
+
+# Content-hashed Next.js build output
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted Monaco build; the version is in the path (see scripts/copy-monaco.mjs)
+/monaco/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  X-Content-Type-Options: nosniff
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Referrer-Policy: origin-when-cross-origin

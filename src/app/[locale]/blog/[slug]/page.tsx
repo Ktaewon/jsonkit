@@ -1,11 +1,20 @@
-import { getPostBySlug } from '@/lib/blog/posts';
+import { getAllPosts, getPostBySlug } from '@/lib/blog/posts';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { BlogPostContent } from './content';
 import { TableOfContents } from '@/components/blog/TableOfContents';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+// Every post is prerendered per locale at build time; unknown slugs are a static 404.
+export const dynamicParams = false;
+
+export function generateStaticParams({ params: { locale } }: { params: { locale: string } }) {
+  return getAllPosts()
+    .filter((post) => post.locales.includes(locale))
+    .map((post) => ({ slug: post.slug }));
+}
 
 export default async function BlogPostPage({
   params,
@@ -13,6 +22,7 @@ export default async function BlogPostPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = getPostBySlug(slug);
   if (!post || !post.locales.includes(locale)) notFound();
 

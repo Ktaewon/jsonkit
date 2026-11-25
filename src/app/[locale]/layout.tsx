@@ -7,7 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import GoogleAdsense from '@/components/common/GoogleAdsense';
 import GoogleAnalytics from '@/components/common/GoogleAnalytics';
@@ -16,12 +16,14 @@ import { Toaster } from 'sonner';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/common/JsonLd';
 import { getWebsiteSchema, getOrganizationSchema } from '@/lib/seo/structured-data';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { FloatingContactButton } from '@/components/common/FloatingContactButton';
 import { FloatingDonationButton } from '@/components/common/FloatingDonationButton';
 
 const inter = Inter({ subsets: ['latin'] });
+
+// Only the configured locales exist; anything else (e.g. /foo) is a static 404
+// instead of a server render.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -67,7 +69,9 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-  const messages = await getMessages();
+  // Lets next-intl render this tree statically instead of reading request headers
+  setRequestLocale(locale);
+  const messages = await getMessages({ locale });
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   return (
@@ -96,8 +100,6 @@ export default async function RootLayout({
             <Toaster position="bottom-right" richColors closeButton />
           </ThemeProvider>
         </NextIntlClientProvider>
-        <Analytics />
-        <SpeedInsights />
         <GoogleAnalytics measurementId={getGaMeasurementId()} />
       </body>
     </html>

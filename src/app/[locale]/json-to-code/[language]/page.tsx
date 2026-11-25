@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { generatePageMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/common/JsonLd';
 import { getWebApplicationSchema } from '@/lib/seo/structured-data';
@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: { params: Params }) {
 
 export default async function JsonToCodeLanguagePage({ params }: { params: Params }) {
   const { locale, language } = await params;
+  setRequestLocale(locale);
   if (!isSupportedLanguage(language)) notFound();
 
   const namespace = `JsonToCodeLanguage.languages.${language}`;

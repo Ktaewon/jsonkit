@@ -45,7 +45,7 @@
 - **스타일링**: [Tailwind CSS](https://tailwindcss.com/) & [Shadcn UI](https://ui.shadcn.com/)
 - **상태 관리**: [Zustand](https://docs.pmnd.rs/zustand)
 - **에디터**: [Monaco Editor](https://microsoft.github.io/monaco-editor/)
-- **배포**: [Vercel](https://vercel.com)
+- **배포**: [@opennextjs/cloudflare](https://opennext.js.org/cloudflare)로 [Cloudflare Workers](https://workers.cloudflare.com)에 배포 ([DEPLOY_CLOUDFLARE.md](DEPLOY_CLOUDFLARE.md) 참고), Docker 이미지도 지원
 
 ## 시작하기
 

@@ -10,6 +10,8 @@ const monacoVersion: string = JSON.parse(
   readFileSync(join(process.cwd(), 'node_modules', 'monaco-editor', 'package.json'), 'utf8')
 ).version;
 
+const BROWSER_ONLY_STUB = './src/lib/browser-only-stub.ts';
+
 const withNextIntl = createNextIntlPlugin();
 const withMDX = createMDX();
 
@@ -40,13 +42,36 @@ const securityHeaders: Array<{ key: string; value: string }> = [
   },
 ];
 
+// Gives `next dev` the Cloudflare bindings from wrangler.jsonc via getCloudflareContext().
+// The app uses no bindings yet, so this only runs in dev, never during `next build`.
+if (process.env.NODE_ENV === 'development') {
+  void import('@opennextjs/cloudflare').then((m) => m.initOpenNextCloudflareForDev());
+}
+
 const nextConfig: NextConfig = {
+  // Used by the Dockerfile. @opennextjs/cloudflare also builds on the standalone output
+  // (it forces NEXT_PRIVATE_STANDALONE itself), so this works for both targets.
   output: 'standalone',
   env: {
     NEXT_PUBLIC_MONACO_VERSION: monacoVersion,
   },
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  turbopack: {
+    // quicktype-core and elkjs are only ever loaded lazily from client effects, but their
+    // `import()` still gets compiled into the SSR bundle, which adds ~3 MiB to the
+    // Cloudflare Worker. Resolve them to a stub everywhere except the browser build.
+    resolveAlias: {
+      'quicktype-core': { browser: 'quicktype-core', default: BROWSER_ONLY_STUB },
+      'elkjs/lib/elk.bundled': { browser: 'elkjs/lib/elk.bundled', default: BROWSER_ONLY_STUB },
+      // quicktype-core imports `node:fs` in code paths the browser never runs.
+      'node:fs': { browser: './src/lib/empty-module.ts' },
+    },
+  },
   images: {
+    // Cloudflare Workers has no built-in Next.js image optimizer, so images are served as-is
+    // (blog images are already on the Vercel Blob CDN). Kept the same for Docker so both
+    // targets render identical HTML.
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

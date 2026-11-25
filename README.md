@@ -45,7 +45,7 @@
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) & [Shadcn UI](https://ui.shadcn.com/)
 - **State Management**: [Zustand](https://docs.pmnd.rs/zustand)
 - **Editor**: [Monaco Editor](https://microsoft.github.io/monaco-editor/)
-- **Deployment**: [Vercel](https://vercel.com)
+- **Deployment**: [Cloudflare Workers](https://workers.cloudflare.com) via [@opennextjs/cloudflare](https://opennext.js.org/cloudflare) (see [DEPLOY_CLOUDFLARE.md](DEPLOY_CLOUDFLARE.md)); Docker image also supported
 
 ## 🏃 Getting Started
 

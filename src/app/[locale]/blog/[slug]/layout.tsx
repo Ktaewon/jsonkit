@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BASE_URL } from '@/lib/constants';
 import { JsonLd } from '@/components/common/JsonLd';
 import { getPostBySlug } from '@/lib/blog/posts';
@@ -62,6 +62,7 @@ export default async function BlogPostLayout({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
