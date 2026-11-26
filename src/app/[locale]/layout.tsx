@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
+import { pickClientMessages } from '@/i18n/client-messages';
 import GoogleAdsense from '@/components/common/GoogleAdsense';
 import GoogleAnalytics from '@/components/common/GoogleAnalytics';
 import { getGaMeasurementId } from '@/lib/analytics';
@@ -71,7 +72,8 @@ export default async function RootLayout({
   }
   // Lets next-intl render this tree statically instead of reading request headers
   setRequestLocale(locale);
-  const messages = await getMessages({ locale });
+  // Only what client components use; see pickClientMessages
+  const messages = pickClientMessages(await getMessages({ locale }));
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   return (
