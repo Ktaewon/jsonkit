@@ -6,6 +6,8 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+    // next-intl's ESM imports 'next/server' without an extension; let Vite resolve it
+    server: { deps: { inline: ['next-intl'] } },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
