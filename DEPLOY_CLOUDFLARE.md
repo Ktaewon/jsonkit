@@ -11,7 +11,7 @@ JSONKit은 [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare)(1.20.x
 | Worker 설정             | `wrangler.jsonc` (이름 `jsonkit`, `nodejs_compat`, `global_fetch_strictly_public`)                                                             |
 | 페이지 렌더링           | 모든 페이지를 빌드 시 **정적 생성(SSG)**. 요청 시 SSR 없음                                                                                     |
 | 캐시                    | `static-assets-incremental-cache`: 미리 렌더링한 HTML/RSC를 Workers Static Assets(`ASSETS` 바인딩)에서 읽기 전용으로 제공. **R2/KV/D1 불필요** |
-| 요청마다 실행되는 코드  | next-intl `proxy.ts`(로케일 리다이렉트) + 캐시 조회                                                                                            |
+| Worker 진입점           | `cloudflare/worker.mjs`: 미리 렌더링된 페이지·로케일 리다이렉트·404를 직접 응답하고 나머지만 OpenNext로 넘김 (아래 "Worker 진입점")            |
 | 이미지                  | `images.unoptimized: true`. 블로그 이미지는 Vercel Blob URL을 그대로 사용                                                                      |
 | JSON → Code (quicktype) | **브라우저에서 실행**(필요할 때 동적 import). 서버 액션 없음                                                                                   |
 | 정적 파일 헤더          | `public/_headers` (`/_next/static/*`, `/monaco/*`는 1년 immutable 캐시)                                                                        |
@@ -21,20 +21,21 @@ JSONKit은 [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare)(1.20.x
 ```bash
 npm ci
 npx wrangler login          # 최초 1회, 브라우저에서 Cloudflare 계정 인증
-npm run deploy              # opennextjs-cloudflare build && opennextjs-cloudflare deploy
+npm run deploy              # npm run build:cf && opennextjs-cloudflare deploy
 ```
 
+- `npm run build:cf` = `opennextjs-cloudflare build && node scripts/build-edge-manifest.mjs`. **두 번째 단계를 빼먹으면 `cloudflare/worker.mjs`가 import하는 `.open-next/jsonkit/edge-manifest.json`이 없어서 wrangler 번들링이 실패합니다**(조용히 잘못 배포되지 않음).
 - `opennextjs-cloudflare build`는 내부적으로 `npm run build`(= `copy-monaco` + `next build`)를 실행합니다. Monaco 복사 단계도 자동으로 포함됩니다.
 - 배포가 끝나면 `https://jsonkit.<계정-서브도메인>.workers.dev` 주소가 출력됩니다. 계정 서브도메인은 대시보드 **Workers & Pages → 계정 설정(Subdomain)** 에서 확인하거나 변경할 수 있습니다.
 - 그 밖의 스크립트:
   - `npm run preview`: 빌드한 뒤 로컬 workerd(`wrangler dev`)에서 실제 Workers 런타임으로 실행합니다. 기본 주소는 `http://localhost:8787`이고, 포트는 `npm run preview -- --port 8788`처럼 바꿀 수 있습니다.
   - `npm run upload`: 새 **버전만 업로드**하고 트래픽은 넘기지 않습니다(Gradual deployments용). 블로그 이미지 업로드(`node scripts/upload-blog-images.mjs`)와는 다른 명령입니다.
   - `npm run cf-typegen`: `wrangler.jsonc`의 바인딩으로 `cloudflare-env.d.ts`를 다시 생성합니다. 바인딩을 바꿨다면 실행하세요.
-- 업로드 없이 번들 크기만 확인하려면: `npx opennextjs-cloudflare build && npx wrangler deploy --dry-run`을 실행하고 `Total Upload: … / gzip: …` 줄을 보세요.
+- 업로드 없이 번들 크기만 확인하려면: `npm run build:cf && npx wrangler deploy --dry-run`을 실행하고 `Total Upload: … / gzip: …` 줄을 보세요.
 
 ### Git 연동(Workers Builds)을 쓰는 경우
 
-대시보드에서 저장소를 연결할 때 Build command는 `npx opennextjs-cloudflare build`, Deploy command는 `npx opennextjs-cloudflare deploy`로 설정합니다.
+대시보드에서 저장소를 연결할 때 Build command는 **`npm run build:cf`**, Deploy command는 `npx opennextjs-cloudflare deploy`로 설정합니다. (이전 설정 `npx opennextjs-cloudflare build`를 쓰고 있다면 바꿔야 합니다.)
 아래 `NEXT_PUBLIC_*` 값은 **Build variables**에 넣어야 합니다(런타임 변수에 넣으면 적용되지 않습니다).
 
 ## 환경 변수
@@ -98,13 +99,13 @@ NEXT_PUBLIC_GOOGLE_ADSENSE_ID=
 
 ## 무료 플랜 한도와 현재 상태
 
-| 한도 (Workers Free) | 값                                | JSONKit 현재 상태                                                                 |
-| ------------------- | --------------------------------- | --------------------------------------------------------------------------------- |
-| 요청당 CPU 시간     | **10 ms**                         | 페이지는 정적 캐시에서 제공. quicktype는 브라우저에서 실행                        |
-| Worker 크기         | **3 MiB (gzip)**                  | `wrangler deploy --dry-run` 기준 **9,943.59 KiB / gzip 1,972.75 KiB**             |
-| 요청 수             | **100,000 / 일** (UTC 0시 초기화) | 정적 파일(`/_next/static`, `/monaco` 등)은 Worker를 거치지 않으므로 집계되지 않음 |
-| Static Assets       | 파일 20,000개, 파일당 25 MiB      | 약 400개, 최대 파일 6.8 MiB (Monaco `ts.worker`)                                  |
-| 메모리              | 128 MB / isolate                  | —                                                                                 |
+| 한도 (Workers Free) | 값                                | JSONKit 현재 상태                                                                                  |
+| ------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------- |
+| 요청당 CPU 시간     | **10 ms**                         | 페이지는 정적 캐시에서 제공. quicktype는 브라우저에서 실행                                         |
+| Worker 크기         | **3 MiB (gzip)**                  | `wrangler deploy --dry-run` 기준 **10,201.34 KiB / gzip 2,028.89 KiB**                             |
+| 요청 수             | **100,000 / 일** (UTC 0시 초기화) | 정적 파일(`/_next/static`, `/monaco` 등)은 Worker를 거치지 않으므로 집계되지 않음                  |
+| Static Assets       | 파일 20,000개, 파일당 25 MiB      | 약 1,300개(`/cdn-cgi/_jk` 본문 약 880개 + 캐시 216개 포함), 최대 파일 6.8 MiB (Monaco `ts.worker`) |
+| 메모리              | 128 MB / isolate                  | —                                                                                                  |
 
 하루 10만 요청을 넘으면 Worker 요청은 에러(1027)를 반환하므로, 트래픽이 늘면 Workers Paid($5/월)를 검토하세요.
 페이지 HTML 요청과 next-intl 리다이렉트는 Worker 요청으로 집계됩니다.
@@ -132,12 +133,18 @@ NEXT_PUBLIC_GOOGLE_ADSENSE_ID=
 - `next.config.ts`의 `turbopack.resolveAlias`가 `quicktype-core`와 `elkjs`를 브라우저 빌드가 아닌 곳에서는 스텁(`src/lib/browser-only-stub.ts`)으로 바꿉니다. 둘 다 클라이언트 effect에서만 lazy-load하는데도 SSR 번들에 들어가 Worker를 약 3 MiB 키우기 때문입니다.
   또한 브라우저 빌드에서는 `node:fs`를 빈 모듈로 바꿉니다. quicktype-core의 `NodeIO`가 `node:fs`를 import하지만, 우리가 쓰는 경로에서는 실행되지 않습니다.
 
-## 남은 CPU 리스크
+## Worker 진입점과 CPU
 
-1. **캐시 미스 시 Next 서버 로딩**: 정적 캐시에 없는 요청(존재하지 않는 경로의 404 등)은 Next 서버를 로드해서 렌더링합니다. cold isolate에서 처음 처리하면 10 ms를 넘을 수 있습니다(로컬 preview 첫 404: 177 ms wall). 정상 페이지, RSC 내비게이션, prefetch(segment 포함)는 모두 캐시 HIT임을 확인했습니다.
-2. **캐시 엔트리 크기**: 페이지마다 캐시 엔트리(HTML + RSC + segment)가 최대 약 730 KB입니다. 레이아웃이 해당 로케일의 **번역 메시지 전체**를 클라이언트로 넘기기 때문입니다. 캐시 HIT마다 이를 `JSON.parse`하는 비용이 로컬 기준 1.4–2 ms CPU입니다. 줄이려면 `NextIntlClientProvider`에 필요한 네임스페이스만 넘기면 됩니다.
-3. **proxy(next-intl 미들웨어)**: Worker로 들어오는 모든 페이지 요청에서 실행됩니다. 로케일 협상과 쿠키 파싱 정도라 가볍습니다.
-4. 무료 플랜은 CPU 한도를 넘은 요청을 에러(1102)로 끝냅니다. 배포 후 대시보드 **Workers → jsonkit → Metrics/Observability**(`observability.enabled: true`)에서 CPU time 분포를 확인하세요.
+측정·결정 과정은 PR(perf/workers-cpu) 설명을 참고하세요. 요약:
+
+- **`cloudflare/worker.mjs`** (wrangler `main`)가 OpenNext worker 앞에서 요청을 받습니다. 로직은 `src/lib/edge/`에 있습니다.
+  - `GET`/`HEAD`이고 빌드 시 알 수 있는 응답이면 직접 응답합니다: 로케일 리다이렉트(307), 미리 렌더링된 HTML·RSC·prefetch segment·`robots.txt`/`sitemap.xml`, 그리고 **알 수 없는 경로는 미리 렌더링된 404 페이지**.
+  - 본문은 `scripts/build-edge-manifest.mjs`가 `.open-next/cache`(OpenNext가 쓰던 바로 그 캐시 엔트리)에서 뽑아 `/cdn-cgi/_jk/<buildId>/`에 정적 파일로 둡니다. 응답 헤더·ETag는 OpenNext cache interception이 만들던 것과 같습니다. 캐시 엔트리를 `JSON.parse`하거나 md5를 계산하지 않고 ASSETS 응답을 그대로 스트리밍합니다.
+  - 로케일 처리(`src/lib/edge/locale-routing.ts`)는 next-intl 미들웨어를 그대로 옮긴 것입니다(같은 `negotiator` + `@formatjs/intl-localematcher`, `NEXT_LOCALE` 쿠키 동기화, `Link` hreflang 헤더). 테스트가 두 구현을 같은 요청 조합으로 돌려 결과가 같은지 확인합니다. `src/i18n/routing.ts`에 지원하지 않는 옵션(domains, pathnames, localePrefix 변경 등)을 넣으면 Worker가 시작 시 에러를 냅니다.
+  - 그 밖의 요청(POST 등, `/_next/*`, preview 쿠키, server action, 알 수 없는 segment, Next가 308로 정규화하는 URL(끝 슬래시, `//`), 퍼센트 인코딩이 섞인 미지 경로)은 기존처럼 OpenNext → `proxy.ts` → Next로 갑니다. Docker/`next start`/`next dev`는 이 진입점을 쓰지 않으므로 기존 `proxy.ts`(next-intl) 동작 그대로입니다.
+- **번역 메시지**: `NextIntlClientProvider`에는 클라이언트 컴포넌트가 쓰는 네임스페이스만 넘깁니다(`src/i18n/client-messages.ts`; `Metadata`, `Blog`, `ConvertPair`, `JsonToCodeLanguage`, 각 네임스페이스의 `seoContent` 제외). 페이지당 캐시 엔트리가 평균 473 KB → 210 KB로 줄었습니다. 클라이언트 컴포넌트에서 이 네임스페이스/키를 쓰려면 목록에서 빼야 하며, 테스트가 이를 검사합니다.
+- **빌드 가드**: `build-edge-manifest.mjs`는 요청 시 렌더링되는 페이지(SSG가 아닌 라우트, `dynamicParams` 미설정 동적 라우트, `revalidate`)나 next.config의 rewrites/redirects가 생기면 빌드를 실패시킵니다. Worker가 그런 경로를 404로 응답하게 되기 때문입니다. 그런 기능이 필요해지면 `src/lib/edge/edge-handler.ts`를 함께 고쳐야 합니다.
+- 무료 플랜은 CPU 한도를 넘은 요청을 에러(1102)로 끝냅니다. 배포 후 대시보드 **Workers → jsonkit → Metrics/Observability**(`observability.enabled: true`)에서 CPU time 분포를 확인하세요.
 
 ## 기타 참고
 

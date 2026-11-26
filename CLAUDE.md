@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Dev server**: `npm run dev` (Next.js on localhost:3000)
 - **Build**: `npm run build`
-- **Cloudflare**: `npm run preview` (build + run in local workerd), `npm run deploy`; see DEPLOY_CLOUDFLARE.md
+- **Cloudflare**: `npm run build:cf` (opennext build + `scripts/build-edge-manifest.mjs`), `npm run preview` (build:cf + run in local workerd), `npm run deploy`; see DEPLOY_CLOUDFLARE.md
 - **Lint**: `npm run lint` (ESLint 9 flat config)
 - **Format**: `npm run format` (Prettier), `npm run format:check`
 - **Type check**: `npx tsc --noEmit`
@@ -76,6 +76,8 @@ Blog posts are MDX files in `src/content/blog/<locale>/<slug>.mdx`. Post metadat
 ### Deployment
 
 - Cloudflare Workers via `@opennextjs/cloudflare`: `wrangler.jsonc`, `open-next.config.ts` (static-assets incremental cache, no ISR). Full guide, env vars and free-plan limits: DEPLOY_CLOUDFLARE.md.
+- The Worker entry is `cloudflare/worker.mjs` (logic in `src/lib/edge/`): it serves prerendered pages, locale redirects (a port of next-intl's middleware, tested for parity against it) and the prerendered 404 straight from build output, and only hands other requests to OpenNext. Consequences: every route must stay SSG (the build fails otherwise), next.config rewrites/redirects are not supported on Cloudflare without updating `edge-handler.ts`, and `src/proxy.ts` only runs on Cloudflare for requests the entry passes through.
+- `NextIntlClientProvider` gets only client-needed messages (`src/i18n/client-messages.ts`); add a namespace there before reading it from a client component.
 - `NEXT_PUBLIC_*` values are inlined at build time (pages are prerendered); changing them requires a rebuild + deploy.
 - `images.unoptimized: true` (Workers has no Next image optimizer). `public/_headers` sets cache headers for static assets on Cloudflare.
 - `output: 'standalone'` + Dockerfile still work for containerized builds.
